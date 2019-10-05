@@ -1,303 +1,434 @@
-<if condition="!empty($CONFIG[other][wap_index_addr])">
- <include file="index:lbs_addr" />
-<else/>
- <include file="public:header" />
-</if>
-<script src="/static/default/wap/other/roll.js"></script>
-<script src="__TMPL__statics/js/jquery.flexslider-min.js" type="text/javascript" charset="utf-8"></script>
-<script src="__TMPL__statics/js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
-<style>
-.top-fixed .top-search{margin: 0 0 0 27%;}
-.top-fixed .top-search { width:48%}
-.top-fixed .top-search input {border-radius: 0px;}
-</style>
-<header class="top-fixed bg-yellow bg-inverse">
-			<div class="top-local">
-				<a href="<{:U('city/index')}>" class="top-addr">
-					<{:bao_msubstr($city_name,0,4,false)}><i class="icon-angle-down"></i></a>
-			</div>
-			<div class="top-search">
-				<form method="post" action="<{:U('all/index')}>">
-					<input name="keyword" placeholder="<{$CONFIG[other][wap_search_title]}>" />
-					<button type="submit" class="icon-search"></button>
-				</form>
-			</div>
-			<div class="top-signed">
-				<a id="search-btn" href="<{:u('wap/sign/signed')}>"><i class="icon-star-half-o"></i> 签到</a>
-			</div>
-		</header>
-		
-		<div id="focus" class="focus">
-			<div class="hd"><ul></ul></div>
-			<!--下面的limit="0,2"是幻灯的个数，2代表2张图，以此类推，site_id=57是你广告位的ID-->
-			<div class="bd">
-				<ul>
-					<calldata mdl="Ad" where=" closed=0 AND site_id=57 AND city_id IN ({$city_ids}) and bg_date ELT '{$today}' AND end_date EGT '{$today}' " limit="0,3" cache="7200" order="orderby asc">
-						<li>
-							<a href="<{:U('app/ad/click',array('ad_id'=>$item['ad_id'],'aready'=>2))}>"><img src="<{:config_img($item['photo'])}>" /></a>
-						</li>
-					</calldata>
-				</ul>
-			</div>
-		</div>
-		<script type="text/javascript">
-			TouchSlide({
-				slideCell: "#focus",
-				titCell: ".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
-				mainCell: ".bd ul",
-				effect: "left",
-				autoPlay: true, //自动播放
-				autoPage: true, //自动分页
-				switchLoad: "_src", //切换加载，真实图片路径为"_src", 
-			});
-		</script>
+<!-- saved from url=(0052)https://wxcs.gdzyz.cn/citiesService.do?cityid=440000 -->
+<html style="font-size: 28.0667px;">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="__TMPL__statics/js/hm.js"></script>
+    <script type="text/javascript" src="__TMPL__statics/js/goto_email.js"></script>
+    <link href="__TMPL__statics/css/stylecity.css" rel="stylesheet" type="text/css">
+    <link href="__TMPL__statics/css/style.css" rel="stylesheet" type="text/css">
+    <link href="__TMPL__statics/css/css.css" rel="stylesheet" type="text/css">
+    <link href="__TMPL__statics/css/cityserverStyle.css" rel="stylesheet" type="text/css">
+    <link href="__TMPL__statics/css/cityCommonstyle.css" rel="stylesheet" type="text/css">
+    <link href="__TMPL__statics/css/weixinzyzStyle.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="__TMPL__statics/css/style-tmt.css">
 
-		<section class="invote index_house">
-			<a href="<{:U('community/index')}>"><img src="/static/default/wap/image/house.png">我的社区服务</a>
-		</section>
-        <div id="index" class="page-center-box">
-       
 
-        <if condition="$CONFIG[other][wap_navigation] eq 1">
-        <script>
-          $(document).ready(function () {
-             $('.navigation_index_cate').flexslider({
-                directionNav: true,
-                pauseOnAction: false,
-             });
-          });
-        </script>
-        <div class="banner_navigation">
-                <div class="navigation_index_cate"> 
-                    <ul class="slides">
-                        <volist name='nav' id='item'>
-                            <if condition="$i%8 eq 1">
-                                <li class="list">
-                                    <ul class="cate">
-                                        <li>
-                                            <a href="<{:config_navigation_url($item['url'],2)}>?nav_id=<{$item['nav_id']}>"><img src="<{:config_img($item['photo'])}>">
-                                                <p><{$item.nav_name}></p></a>
-                                        </li>
-                                        <elseif condition="$i%8 eq 0"/>        
+    <script>
 
-                                        <li>
-                                            <a href="<{:config_navigation_url($item['url'],2)}>?nav_id=<{$item['nav_id']}>"><img src="<{:config_img($item['photo'])}>">
-                                                <p><{$item.nav_name}></p></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <else/>
-                                <li>
-                                    <a href="<{:config_navigation_url($item['url'],2)}>?nav_id=<{$item['nav_id']}>"><img src="<{:config_img($item['photo'])}>">
-                                        <p><{$item.nav_name}></p></a>
-                                </li>
-                            </if>
-                        </volist>
-                    </ul>  
+        var sys_servername = 'wxcs.gdzyz.cn';
+        var path = '';//网站对应的context目录
+        var path4api = '';//ajax前端接口对应的前缀（预留）,目前暂时和本地相同
+        var uploadPath = 'https://gdftp.oss-cn-shenzhen.aliyuncs.com';//阿里云路径
+
+        var onepassportPersonalCenterUrl = 'https://www.izyz.org.cn/account/bindAccount.html';
+        var onepassportLoginUrl = 'https://www.izyz.org.cn/account/login.html?appId=0101&finishurl=https://www.gdzyz.cn/index';
+
+        var loginFlag = 'null';
+
+        //是否微信
+        function isWeiXin() {
+            var ua = window.navigator.userAgent.toLowerCase();
+            if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        //随机图片
+        function changeImg(img, url, id) {
+            var idx = id % 24 + 1;
+            img.src = window.location.protocol + "//gdftp.oss-cn-shenzhen.aliyuncs.com/defaultPic/defaultPic_" + idx + ".jpg";
+            img.onerror = null;
+        }
+    </script>
+
+
+    <meta property="qc:admins" content="10755314674163757">
+
+    <title>
+        广东志愿服务
+    </title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+    <link href="__TMPL__statics/css/vip.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="__TMPL__statics/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="__TMPL__statics/js/TouchSlide.1.1.source.js"></script>
+    <script type="text/javascript" src="__TMPL__statics/js/crossdomain.js"></script>
+    <script src="__TMPL__statics/js/onepassport_login.js"></script>
+    <script type="text/javascript">
+        // 当屏幕改变和屏幕旋转的时候可重新计算根字号
+        !function (n) {
+            var e = n.document, t = e.documentElement, i = 750, d = i / 50,
+                o = "orientationchange" in n ? "orientationchange" : "resize", a = function () {
+                    var n = t.clientWidth || 320;
+                    n > 750 && (n = 750), t.style.fontSize = n / d + "px"
+                };
+            e.addEventListener && (n.addEventListener(o, a, !1), e.addEventListener("DOMContentLoaded", a, !1))
+        }(window);
+    </script>
+
+    <style>
+        #modal {
+            width: 86.66%;
+            border-radius: 6px;
+            background: #fff;
+            padding: 25px 0;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+
+        .modal-title {
+            line-height: 1;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .modal-con {
+            padding: 30px 0 10px 0;
+        }
+
+        .modal-con p {
+            line-height: 1;
+            text-align: center;
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .modal-btn {
+            height: 35px;
+            text-align: center;
+        }
+
+        .modal-btn a {
+            width: 90px;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            border-radius: 3px;
+            color: #fff;
+            font-size: 15px;
+            text-decoration: none;
+            margin: 0 18px;
+            display: inline-block;
+        }
+
+        .modal-btn a:hover {
+            color: #fff;
+        }
+
+        .modal-btn .sure {
+            background-color: #ccc;
+        }
+
+        .modal-btn .go {
+            background-color: #da4453;
+        }
+
+        #screen {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            filter: alpha(opacity=50);
+            background: #000;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 999;
+        }
+    </style>
+
+
+</head>
+
+<body class="bgcolor">
+<!-- 浮窗 app下载通告 -->
+<div class="app_download"
+     style="height: 60px;width:100%;background-color:#999;color:#fff;overflow: hidden;transition:height 2s;display:none;">
+    <div class="fl" style="width:50px;height:50px;margin:5px 10px;
+	background-image:url(&#39;https://lifeng-1252821217.cos.ap-guangzhou.myqcloud.com/kfwj/APP360512.png&#39;);
+	background-size: 50px 50px;"></div>
+    <div class="fl" style="font-size: 18px;line-height:60px;margin-left:10px;">i志愿APP全新版本上线</div>
+    <div class="fr" style="width:70px;height:40px;line-height:40px;background-color: #da4453;
+	margin:10px;border: 1px solid #da4453;border-radius: 10px;text-align: center;">
+        <a href="http://a.app.qq.com/o/simple.jsp?pkgname=org.izyz" target="_blank"
+           style="color: #fff;display:block;widht:100%;height:100%;">下载APP</a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(window).scroll(function () {
+        if ($(window).scrollTop() < 15) {
+            $('.app_download').css("height", "60px");
+        } else {
+            $('.app_download').css("height", "0");
+        }
+    });
+</script>
+<!-- 浮窗 app下载通告end -->
+
+<!--Banner开始-->
+<div class="banner01" id="ban">
+    <div class="hd" style="display: none;">
+        <ul>
+        </ul>
+    </div>
+
+    <div class="bd">
+        <div class="tempWrap" style="overflow:hidden; position:relative;">
+            <ul style="width: 4631px; position: relative; overflow: hidden; padding: 0px; margin: 0px; transition-duration: 500ms; transform: translate(-2526px, 0px) translateZ(0px);">
+                <li style="display: table-cell; vertical-align: top; width: 421px;"><a
+                        href="" target="_blank">
+                    <img src="__TMPL__statics/img/index/zyz_01.png"
+                         width="100%" alt="">
+                </a>
+                </li>
+                <li style="display: table-cell; vertical-align: top; width: 421px;">
+                    <a href="" target="_blank">
+                        <img src="__TMPL__statics/img/index/zyz_01.png" width="100%" alt="">
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="index_address">
+
+            <a href="https://wxcs.gdzyz.cn/selectSubstation"><span id="cityname">广东</span></a>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+    var howManyPic = 0;
+
+    howManyPic = $('.bd ul').children('li').length;
+
+    if (howManyPic > 1) {
+        TouchSlide({
+            slideCell: "#ban",        // 这里一定要是id
+            titCell: ".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+            mainCell: ".bd ul",
+            effect: "leftLoop",
+            autoPlay: true,//自动播放
+            autoPage: true //自动分页
+
+        });
+    } else {
+        TouchSlide({
+            slideCell: "#ban",        // 这里一定要是id
+            titCell: ".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+            mainCell: ".bd ul",
+            effect: "left",
+            autoPlay: true,//自动播放
+            autoPage: true //自动分页
+        });
+    }
+
+</script>
+<!--Banner结束-->
+
+<!--内容开始-->
+<div class="tableli clearfix tableli02">
+
+    <ul>
+        <li>
+            <a class="chukong" id="zuozhiyuan"
+               href="https://wxcs.gdzyz.cn/mission/mission/list.do?districtName=%E5%B9%BF%E4%B8%9C">
+                <div class="img01">
+                    <img src="__TMPL__statics/img/index/zyz_05.png">
                 </div>
+                <em class="tmt-fz_m">做志愿</em></a>
+        </li>
+        <li class="li02"><a class="chukong" id="zhaozuzhi"
+                            href="https://wxcs.gdzyz.cn/district/searchOrg/searchOrgSbumit.do?districtName=%E5%B9%BF%E4%B8%9C">
+            <div class="img02">
+                <img src="__TMPL__statics/img/index/zyz_07.png">
             </div>
-        <else/>
-			<script>
-				$(document).ready(function() {
-					$('.flexslider_cate').flexslider({
-						directionNav: true,
-						pauseOnAction: false,
-					});
-				});
-			</script>
-			<div class="banner mb10">
-				<div class="flexslider_cate">
-					<ul class="slides">
-						<volist name='nav' id='item'>
-							<if condition="$i%8 eq 1">
-								<li class="list">
-									<ul class="cate">
-										<li>
-											<a href="<{:config_navigation_url($item['url'],2)}>?nav_id=<{$item['nav_id']}>">
-												<div class="icon <{$item.ioc}> <{$item.colour}>"></div>
-												<p>
-													<{$item.nav_name}>
-												</p>
-											</a>
-										</li>
-										<elseif condition="$i%8 eq 0" />
-										<li>
-											<a href="<{:config_navigation_url($item['url'],2)}>?nav_id=<{$item['nav_id']}>">
-												<div class="icon <{$item.ioc}> <{$item.colour}>"></div>
-												<p>
-													<{$item.nav_name}>
-												</p>
-											</a>
-										</li>
-									</ul>
-								</li>
-								<else/>
-								<li>
-									<a href="<{:config_navigation_url($item['url'],2)}>?nav_id=<{$item['nav_id']}>">
-										<div class="icon <{$item.ioc}> <{$item.colour}>"></div>
-										<p>
-											<{$item.nav_name}>
-										</p>
-									</a>
-								</li>
-							</if>
-						</volist>
-					</ul>
-				</div>
-                </if>
-			</div>
-  
-         
-         <!--下一段开始-->   
-          
-            <div class="goods_title">
-            <span class="left">最新商品</span></div>
-            <div class="goods_limit_buy mb10">
-            	<div class="locatLabel_switch swiper-container5">
-                    <div class="swiper-wrapper">
-						<calldata mdl="Goods" where="audit =1 AND closed=0 AND city_id = $city_id AND end_date EGT '{$today}'" order="orderby asc,sold_num desc" limit="0,10" cache="600">                        
-                        <div class="box swiper-slide">
-                            <a href="<{:U('mall/detail',array('goods_id'=>$item['goods_id']))}>"><img src="<{:config_img($item['photo'])}>" width="" height="">
-                            <p class="txt_center overflow_clear"><{:bao_msubstr($item['title'],0,4,false)}></p>
-                            <p class="txt_center fontcl1">&yen;<{$item['price']/100}></p></a> 
-                        </div>
-                         </calldata>
-                    </div>
+            <em class="tmt-fz_m">找组织</em>
+        </a>
+        </li>
+        <li><a class="chukong" href="https://wxcs.gdzyz.cn/article/article/infoList.action">
+            <div class="img03">
+                <img src="__TMPL__statics/img/index/zyz_09.png">
+            </div>
+            <em class="tmt-fz_m">新鲜事</em>
+        </a>
+        </li>
+        <li class="">
+            <a class="chukong" id="qzty"
+               href="https://wxcs.gdzyz.cn/mission/mission/list.do?type=qzty&amp;districtName=%E5%B9%BF%E4%B8%9C">
+                <div class="img05">
+                    <img src="__TMPL__statics/img/index/zyz_14.png">
                 </div>
-                
-		         <script>
-                    var swiper = new Swiper('.swiper-container5', {
-                        pagination: '.swiper-pagination5',
-                        slidesPerView: 3,
-                        paginationClickable: true,
-                        spaceBetween: 10,
-						autoplay: 3000,
-                        freeMode: true
-                    });
-                </script>
-            </div>
-            <!--首页限时抢购结束-->
-			<div class="index-ads">
-				<div class="line border-bottom border-top">
-					<div class="x5 ad-1">
-						<calldata mdl="Ad" where=" closed=0 AND site_id=62 AND  city_id IN ({$city_ids}) and bg_date ELT '{$today}' AND end_date EGT '{$today}' " limit="0,1" cache="600" order="orderby asc">
-							<a href="<{:U('app/ad/click',array('ad_id'=>$item['ad_id'],'aready'=>2))}>"><img src="<{:config_img($item['photo'])}>"></a>
-						</calldata>
-					</div>
-					<div class="x7 border-left">
-						<div class="line">
-							<div class="x12 border-bottom ad-2">
-								<calldata mdl="Ad" where=" closed=0 AND site_id=63 AND  city_id IN ({$city_ids}) and bg_date ELT '{$today}' AND end_date EGT '{$today}' " limit="0,1" cache="600" order="orderby asc">
-									<a href="<{:U('app/ad/click',array('ad_id'=>$item['ad_id'],'aready'=>2))}>"><img src="<{:config_img($item['photo'])}>"></a>
-								</calldata>
-							</div>
-							<div class="x6 border-right ad-3">
-								<calldata mdl="Ad" where=" closed=0 AND site_id=64 AND  city_id IN ({$city_ids}) and bg_date ELT '{$today}' AND end_date EGT '{$today}' " limit="0,1" cache="600" order="orderby asc">
-									<a href="<{:U('app/ad/click',array('ad_id'=>$item['ad_id'],'aready'=>2))}>"><img src="<{:config_img($item['photo'])}>"></a>
-								</calldata>
-							</div>
-							<div class="x6 ad-3">
-								<calldata mdl="Ad" where=" closed=0 AND site_id=65 AND  city_id IN ({$city_ids}) and bg_date ELT '{$today}' AND end_date EGT '{$today}' " limit="0,1" cache="600" order="orderby asc">
-									<a href="<{:U('app/ad/click',array('ad_id'=>$item['ad_id'],'aready'=>2))}>"><img src="<{:config_img($item['photo'])}>"></a>
-								</calldata>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="blank-10 bg" style="border-bottom: thin solid #eee;">
-			</div>
-			<div class="tab index-tab" data-toggle="click">
-				<div class="tab-head">
-					<ul class="tab-nav line">
-                        <li class="x4 active"><a href="#tab-active">今日资讯</a></li>
-						<li class="x4"><a href="#tab-shop">附近组织/团体</a></li>
-						<li class="x4"><a href="#tab-coupon">附近小区</a></li>
-					</ul>
-				</div>
-				<div class="tab-body">
-                  <div class="tab-panel active" id="tab-active">
-						<ul class="index-tuan">
-							<volist name="news" id="item" key="index">
-								<div class="container1" onclick="location='<{:U('news/detail',array('article_id'=>
-						$item['article_id']))}>'">
-									<img class="x2" src="<{:config_img($item['photo'])}>">
-									<div class="des x8">
-										<h5><{:bao_msubstr($item['title'],0,14,false)}></h5>
-										<p class="info"><span>作者：<{$item.source}></span></p>
-									</div>
-									<div class="des x2">
-										<div class="intro2">
-											<{$item.views}>
-										</div>
-									</div>
-								</div>
-							</volist>
-						</ul>
-						<div class="more">
-							<a href="<{:U('news/index')}>">查看更多资讯</a>
-						</div>
-					</div>
-                    
-                    
-					<div class="tab-panel" id="tab-shop">
-						<ul class="line index-tuan">
-							<volist name="shoplist" id="item" key="index">
-								<div class="container1" onclick="location='<{:U('shop/detail',array('shop_id'=>$item['shop_id']))}>'">
-									<img class="x2" src="<{:config_img($item['photo'])}>">
-									<div class="des x10">
-				<php>$business = D('Business') -> where('business_id ='.$item['business_id']) -> find(); $business_name = $business['business_name'];</php>
-										<h5><{:bao_msubstr($item['shop_name'],0,10,false)}>
-                                        	<a style="color:#999; margin-left:10px;"><{$business_name}>商圈 &nbsp;<{$item.d}></a>
-                                        </h5>
-										<p class="intro">地址：<{:bao_msubstr($item[ 'addr'],0,12,false)}></p>
-									</div>
-								</div>
-							</volist>
-						</ul>
-						<div class="more">
-							<a href="<{:U('shop/index')}>">查看更多组织/团体</a>
-						</div>
-					</div>
-					<div class="tab-panel" id="tab-coupon">
-						<ul class="index-tuan">
-							<volist name="community" id="item" key="index">
-								<div class="container1" onclick="location='<{:U('community/detail',array('community_id'=>
-						$item['community_id']))}>'">
-									<img class="x2" src="<{:config_img($item['pic'])}>">
-									<div class="des x8">
-										<h5><{:bao_msubstr($item['name'],0,10,false)}></h5>
-										<p class="intro">地址：<{:bao_msubstr($item[ 'addr'],0,12,false)}></p>
-									</div>
-									<div class="des x2">
-										<div class="intro2" style="width: auto; padding:0 3px;"><{$item.d}></div>
-									</div>
-								</div>
-							</volist>
-						</ul>
-						<div class="more">
-							<a href="<{:U('community/index')}>">查看更多小区</a>
-						</div>
-					</div>
-					
-				</div>
-			</div>
-			<div class="blank-10"></div>
+                <em class="tmt-fz_m">亲子体验</em>
+            </a>
+        </li>
+        <li class="li02">
+            <a class="chukong" href="https://wxcs.gdzyz.cn/view/welfare/welfare.jsp">
+                <div class="img04">
+                    <img src="__TMPL__statics/img/index/zyz_zhiyuanka.png">
+                </div>
+                <em class="tmt-fz_m">志愿者证</em>
+            </a>
+        </li>
+        <li class="">
+            <a class="chukong" href="https://wxcs.gdzyz.cn/view/mission/brandActivities.jsp">
+                <div class="img05">
+                    <img src="__TMPL__statics/img/index/zyz_pinpai.png">
+                </div>
+                <em class="tmt-fz_m">活动推荐</em>
+            </a>
+        </li>
 
-			
+        <li class="" style="padding-bottom: 10px;">
 
-			<div class="blank-10 bg"></div>
-			<div class="index-title">
-				<h4>猜您喜欢</h4>
-				<em><a href="<{:U('tuan/index')}>">更多抢购 <i class="icon-angle-right"></i></a></em>
-			</div>
-			<div class="line index-tuan">
-				<ul id="index-tuan">
-					<script>
-						$(document).ready(function() {
-							loaddata('<{:U("tuan/push",array("t"=>$nowtime,"p"=>"0000"))}>', $("#index-tuan"), true);
-						});
-					</script>
-				</ul>
-			</div>
-<include file="public:footer" />
+
+            <a class="chukong" href="https://wxcs.gdzyz.cn/common/weixinInvoke/isWeixinInvoke?type=4">
+
+                <div class="img06">
+                    <img src="__TMPL__statics/img/index/zyz_18.png">
+                </div>
+                <em class="tmt-fz_m">我的</em>
+            </a>
+        </li>
+        <li class="li02" style="padding-bottom: 10px;">
+            <a class="chukong" href="https://wxcs.gdzyz.cn/register/selectRegister.do">
+                <div class="img04">
+                    <img src="__TMPL__statics/img/index/zyz_16.png">
+                </div>
+                <em class="tmt-fz_m">注册</em>
+            </a>
+        </li>
+        <li class="ffli09" style="padding-bottom: 10px;">
+            <a class="chukong" href="https://wxcs.gdzyz.cn/help.jsp">
+                <div class="img04">
+                    <img src="__TMPL__statics/img/index/zyz_bangzhu.png">
+                </div>
+                <em class="tmt-fz_m">帮助</em>
+            </a>
+        </li>
+    </ul>
+
+</div>
+<!--内容结束-->
+
+
+<!--客服图标-->
+<img id="customer_service" src="__TMPL__statics/img/index/customer-service.png"
+     style="position: fixed;right:0.4rem ;bottom: 3.2rem;width: 1.6rem;height: 1.6rem;"
+     onclick="document.getElementById(&#39;customer_service_box&#39;).style.display =&#39;block&#39;">
+<!--悬浮回到顶部图标-->
+
+<!--咨询客服弹窗-->
+<div id="customer_service_box" class="customer_service_box"
+     style="display: none;position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index: 99999;">
+    <div class="cover"
+         style="position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: #000;opacity: 0.6;"></div>
+    <div class="content_box"
+         style="position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;width: 11.2rem;height: 6rem;">
+        <div class="title_box"
+             style="position: relative;height: 1.8rem;line-height: 1.8rem;text-align: center;font-size: 0.68rem;color: #fff;background: #da4453;">
+            咨询客服
+            <i onclick="document.getElementById(&#39;customer_service_box&#39;).style.display =&#39;none&#39;"
+               style="position: absolute;top: 0;right: 0;width: 1.04rem;height: 1.04rem;background: url(/public/img/common/customer-close.png) no-repeat center;background-size: 0.4rem auto;"></i>
+        </div>
+        <div class="content" style="padding: 0 0.8rem;background: #fff;">
+            <div style="padding-left: 1.2rem;height: 2rem;line-height: 2rem;font-size: 0.6rem;color: #333;border-bottom: 1px solid #e2e2e2;background: url(/public/img/common/customer-phone.png) no-repeat left center;background-size: auto 0.76rem;">
+                客服电话<span style="margin-left: 20px;color: #999;">12355</span></div>
+            <div style="padding-left: 1.2rem;height: 2rem;line-height: 2rem;font-size: 0.6rem;color: #333;background: url(/public/img/common/customer-email.png) no-repeat left center;background-size: auto 0.56rem;">
+                客服邮箱<span style="margin-left: 20px;color: #999;">kf@izyz.org</span></div>
+        </div>
+    </div>
+</div>
+
+<!--  通知弹窗 -->
+<div id="modalOld" style="display:none;">
+    <div class="modal-titleOld">关于调整志愿服务时长记录规则的通知</div>
+    <div class="modal-conOld">
+        <p>内附详细说明、操作指引</p>
+        <p>此通知非常重要，请务必详细阅读</p>
+    </div>
+    <div class="modal-btnOld">
+        <a href="javascript:;" class="sureOld" id="sureOld">我知道了</a>
+        <a href="https://wxcs.gdzyz.cn/article/article/articleDetail.action?pageNo=999993434170" class="goOld">前往查看</a>
+    </div>
+</div>
+
+<!-- 注册功能维护 通知弹窗 -->
+<div id="modal" style="display: none;">
+    <div class="modal-title">温馨提示</div>
+    <div class="modal-con">
+        <p>近日系统更新维护，可能会影响</p>
+        <p>注册等部分功能使用，敬请谅解。</p>
+    </div>
+    <div class="modal-btn">
+        <a href="javascript:closeModal();" onclick="" class="sure" id="sure">我知道了</a>
+        <!-- <a href="https://wxcs.gdzyz.cn/article/article/articleDetail.action?pageNo=999993434170" class="go">前往查看</a> -->
+    </div>
+</div>
+
+<div id="screen" style="display: none;"></div>
+
+<!-- <script type="text/javascript">
+    var sureClick=document.getElementById("sure");
+    sureClick.onclick=function(){
+        document.getElementById("modal").style.display='none';
+        document.getElementById("screen").style.display='none';
+    }
+</script> -->
+
+
+<!--底部开始-->
+<div class="footer footerIndex" style="background-color: #f4f4f4;padding-top:0;bottom:0;padding-bottom: 10px;">
+    <ul class="tmt-fz_s tmt-fc_weak">
+        <!--  			<li><a href="http://www.izyz.org?applytype=true" style="color:#aeaeae;">PC端</a></li> -->
+
+        <li class="li01" style="line-height: 25px;height: 25px;">
+            <span><img alt="" src="__TMPL__statics/img/index/zyz_23.png">共青团广东省委员会</span>
+            <span><img alt="" src="__TMPL__statics/img/index/weimingban.png">广东省文明办</span>
+            <em><img alt="" src="__TMPL__statics/img/index/民正厅.png">广东省民政厅</em>
+        </li>
+        <li class="li01" style="line-height: 25px;height: 25px;">
+            <em><img alt="" src="__TMPL__statics/img/index/zyz_26.png">广东省志愿者联合会</em>
+        </li>
+
+        <li onclick="goEmail(&#39;kf@izyz.org&#39;);" style="line-height: 25px;height: 25px;text-align:center;">
+            技术支持：广东汇青信息科技有限公司 <br> 客服邮箱：kf@izyz.org
+        </li>
+        <li style="line-height: 25px;height: 25px;text-align:center;margin-top:25px;">客服电话：12355</li>
+    </ul>
+
+</div>
+<!--底部结束-->
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?d4b8370695964a98fca6aa6968c623be";//百度流量统计
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<section class="popup-box" id="vip_jump" style="display: none;">
+    <div class="popup-con">
+        <img src="./广东志愿服务_files/izy-authorize.jpg" alt="i志愿授权" class="popup-con-bg">
+        <a href="javascript:void(0);" onclick="vip_close();" class="btn cancel"></a>
+        <a href="javascript:void(0);" onclick="vips_jump();" class="btn confirm"></a>
+        <input type="hidden" id="vip_jump_val" value="">
+    </div>
+</section>
+
+
+</body>
+</html>
