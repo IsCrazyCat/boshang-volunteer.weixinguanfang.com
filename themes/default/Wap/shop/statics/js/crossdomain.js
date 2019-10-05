@@ -1,0 +1,1 @@
+(function(){var accesstoken="28af6cf4-6d25-493e-97d1-d26c3ada8c0d";window.onload=function(){if(window.__hqweb_accessTokenInit&&typeof(window.__hqweb_accessTokenInit)=="function"){window.__hqweb_accessTokenInit(accesstoken);}else{document.cookie="__accessToken="+accesstoken+";path=/";}};})();

@@ -1,0 +1,34 @@
+*{padding: 0;margin:0;box-sizing: border-box;}
+body{ min-width:318px;color:#000;font-size: 14px;font-family: 'Hiragino Sans, Microsoft Yahei';background-color: #f4f4f4;}
+a,input,button,textarea{text-decoration: none;outline:none;}
+textarea{resize: none;}
+ul{list-style: none;}
+h1,h2,h3,h4,h5,h6{font-weight: normal;}
+select{
+	appearance:none;
+-moz-appearance:none; /* Firefox */
+-webkit-appearance:none; /* Safari 和 Chrome */
+}
+i{font-style: normal;}
+
+.pad10{padding:10px;}
+.padR10{padding-right:10px;}
+.padTB10{padding-top:10px;padding-bottom: 10px; }
+.margTop{margin-top: 10px;}
+.margTop2{margin-top: 12px;}
+.margB{margin-bottom: 3rem;}
+.clear{clear:both;}
+a{color:#000;}
+.colorRed{color:#c30000;}
+.Color999{color:#999;}
+.color666{color:#666;}
+.color333{color:#333;}
+.Btnbgred{background-color: #da4453;}
+.BtnbgOrange{background-color: #ff8814;}
+.Bgwhite{background-color: #fff;}
+.colorwhite{color:white;}
+.fl{float: left;}
+.fr{float: right;}
+
+.clearfix:after { content:"."; display:block; height:0; visibility:hidden; clear:both; }
+.clearfix { zoom:1; }

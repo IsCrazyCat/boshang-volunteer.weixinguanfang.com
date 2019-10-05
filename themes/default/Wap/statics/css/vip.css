@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+*{padding:0;margin:0;list-style:none;border:0 none;}
+html,body{height:100%;}
+.popup-box{width:100%;height:100%;position:fixed;left:0;top:0;z-index:999;background-color:rgba(36, 34, 34, 0.2);}
+.popup-box .popup-con{position: absolute;width:12rem;left:50%;top:50%;transform:translate(-50%,-50%);background-color: #fbf7f7;}
+.popup-box .popup-con-bg{width:100%;}
+.popup-box .popup-con .btn{position: absolute;width:3.9rem;height:0.92rem;top:3.38rem;}
+.popup-box .popup-con .cancel{left:1.84rem;}
+.popup-box .popup-con .confirm{right:1.76rem;}
