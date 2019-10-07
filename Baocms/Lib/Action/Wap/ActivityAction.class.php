@@ -1,7 +1,5 @@
 <?php
 
-
-
 class ActivityAction extends CommonAction {
 	
 	 public function _initialize() {
@@ -13,25 +11,57 @@ class ActivityAction extends CommonAction {
 	
 
     public function index() {
-        $linkArr = array();
-        $keyword = $this->_param('keyword', 'htmlspecialchars');
-        $this->assign('keyword', $keyword);
-        $linkArr['keyword'] = $keyword;
-        
-        $cat = (int) $this->_param('cat');
-        $this->assign('cat', $cat);
-        $linkArr['cat'] = $cat;
-        
-        $bg_time = (int) $this->_param('bg_time');
-        $this->assign('bg_time', $bg_time);
-        $linkArr['bg_time'] = $bg_time;  
-        
-        $this->assign('nextpage', LinkTo('activity/loaddata',$linkArr,array('t' => NOW_TIME, 'p' => '0000')));
+        $citys = D('City')->fetchAll();
         $cates = D('Activitycate')->fetchAll();
         $this->assign('cates', $cates);
-        $this->assign('linkArr',$linkArr);
+//        foreach ($cates as $key=>$val) {
+//            $areas = Db::name('area')->where('city_id',$val['city_id']);
+//            foreach ($areas as $ak=>$av){
+//                $shops = Db::name('shop')->where('area_id',$av['area_id']);
+//                $areas[$ak]['shops'] = $shops;
+//            }
+//            $cates[$key]['areas'] = $areas;
+//        }
+        $this->assign('citys', $citys);
         $this->display(); // 输出模板
     }
+
+    /**
+     * 加载更多活动信息
+     */
+    public function moreActivity(){
+        $Activity = D('Activity');
+        import('ORG.Util.Page');
+        $map = array('closed' => 0);
+
+        //活动发起团队或组织
+        if ($shop_id = (int) $this->_param('shop_id')) {
+            $map['shop_id'] = $shop_id;
+            $shop = D('Shop')->find($shop_id);
+            $result['shop_name'] =  $shop['shop_name'];
+            $result['shop_id'] =  $shop_id;
+        }
+        if ($cate_id = (int) $this->_param('cate_id')) {
+            $map['cate_id'] = $cate_id;
+            $result['cate_id'] =  $cate_id;
+        }
+        $count = $Activity->where($map)->count();
+        $Page = new Page($count, 10);
+        $list = $Activity->where($map)->order(array('activity_id' => 'desc'))->limit($Page->firstRow . ',' . $Page->listRows)->select();
+        $shop_ids = array();
+        foreach ($list as $key => $val) {
+            $shop_ids[$val['shop_id']] = $val['shop_id'];
+        }
+        $shops =  D('Shop')->itemsByIds($shop_ids);
+        foreach ($list as $key => $val) {
+            $shop_name = $shops[$val['shop_id']]['shop_name'];
+            $list[$key]['shop_name'] = $shop_name;
+        }
+        $result['list'] =  $list;
+
+        exit(json_encode($result)) ;
+    }
+
 
     public function loaddata() {
         $huodong = D('Activity');
