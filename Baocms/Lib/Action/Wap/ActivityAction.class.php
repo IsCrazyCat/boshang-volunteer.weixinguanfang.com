@@ -11,18 +11,35 @@ class ActivityAction extends CommonAction {
 	
 
     public function index() {
+        //地区 东昌府区
         $citys = D('City')->fetchAll();
+        $shops = array();
+        $areas = array();
+        foreach ($citys as $key=>$val) {
+            //区域 例：东昌府区下的开发区
+            $cur_areas = D('area')->where(array('city_id'=>$val['city_id']))->select();
+            foreach ($cur_areas as $ak=>$av){
+                //组织或团队 例：东昌府区开发区下的残疾人社团
+                $cur_shops = D('shop')->where(array('area_id'=>$av['area_id']))->select();
+                if(!empty($cur_shops)){
+                    $shops = array_merge($shops,$cur_shops);
+                }
+                $cur_areas[$ak]['shops'] = $cur_shops;
+
+            }
+            if(!empty($cur_areas)){
+                $areas = array_merge($areas,$cur_areas);
+            }
+
+            $citys[$key]['areas'] = $cur_areas;
+        }
+
+        //活动类型
         $cates = D('Activitycate')->fetchAll();
-        $this->assign('cates', $cates);
-//        foreach ($cates as $key=>$val) {
-//            $areas = Db::name('area')->where('city_id',$val['city_id']);
-//            foreach ($areas as $ak=>$av){
-//                $shops = Db::name('shop')->where('area_id',$av['area_id']);
-//                $areas[$ak]['shops'] = $shops;
-//            }
-//            $cates[$key]['areas'] = $areas;
-//        }
         $this->assign('citys', $citys);
+        $this->assign('areas', $areas);
+        $this->assign('shops', $shops);
+        $this->assign('cates', $cates);
         $this->display(); // 输出模板
     }
 
@@ -35,19 +52,34 @@ class ActivityAction extends CommonAction {
         $map = array('closed' => 0);
 
         //活动发起团队或组织
-        if ($shop_id = (int) $this->_param('shop_id')) {
-            $map['shop_id'] = $shop_id;
-            $shop = D('Shop')->find($shop_id);
-            $result['shop_name'] =  $shop['shop_name'];
-            $result['shop_id'] =  $shop_id;
+        if ($shop_id =  $this->_param('shop_id')) {
+            $shopInfo = explode("=",$shop_id);
+            $map[$shopInfo[0]] = $shopInfo[1];
+//            $shop = D('Shop')->find($shop_id);
+//            $result['shop_name'] =  $shop['shop_name'];
+//            $result['shop_id'] =  $shop_id;
         }
+        //活动类型
         if ($cate_id = (int) $this->_param('cate_id')) {
             $map['cate_id'] = $cate_id;
             $result['cate_id'] =  $cate_id;
         }
+        //排序
+        $order_str = array('activity_id' => 'desc');
+        if($order = $this->_param('order')){
+            if($order == 1){
+                $order_str = array('bg_date' => 'ASC');
+            }else if($order ==2){
+                $order_str =  array('sign_num' => 'DESC');
+            }
+        }
+        if($search_key = $this->_param('search_key')){
+            $map['title'] = array('LIKE', '%' . $search_key . '%');
+        }
         $count = $Activity->where($map)->count();
         $Page = new Page($count, 10);
-        $list = $Activity->where($map)->order(array('activity_id' => 'desc'))->limit($Page->firstRow . ',' . $Page->listRows)->select();
+        $list = $Activity->where($map)->order($order_str)->limit($Page->firstRow . ',' . $Page->listRows)->select();
+        //获取所属组织ID，然后获取组织名称
         $shop_ids = array();
         foreach ($list as $key => $val) {
             $shop_ids[$val['shop_id']] = $val['shop_id'];
@@ -60,81 +92,6 @@ class ActivityAction extends CommonAction {
         $result['list'] =  $list;
 
         exit(json_encode($result)) ;
-    }
-
-
-    public function loaddata() {
-        $huodong = D('Activity');
-        import('ORG.Util.Page'); // 导入分页类
-        $map = array('audit' => 1,'city_id'=>$this->city_id, 'closed' => 0, 'end_date' => array('EGT', TODAY));
-        if ($keyword = $this->_param('keyword', 'htmlspecialchars')) {
-            $map['title'] = array('LIKE', '%' . $keyword . '%');
-        }
-        $cat = (int) $this->_param('cat');
-        if ($cat) {
-            $map['cate_id'] = $cat;
-        }
-        $bg_time = (int) $this->_param('bg_time');
-        switch ($bg_time) {
-            case 1:
-                $map['bg_date'] = array('EQ', TODAY);
-                $linkArr['bg_time'] = $bg_time;
-                break;
-            case 2:
-                $yestoday = NOW_TIME - 86400;
-                $yestoday = date('Y-m-d',$yestoday);
-                $map['bg_date'] = array('EQ', $yestoday);
-                $linkArr['bg_time'] = $bg_time;
-                break;
-            case 3:
-                $wk = NOW_TIME - 7*86400;
-                $wk = date('Y-m-d',$wk);
-                $map['bg_date'] = array('ELT',$wk);
-                $linkArr['bg_time'] = $bg_time;
-                break;
-            case 4:
-                $mk = NOW_TIME - 30*86400;
-                $mk = date('Y-m-d',$mk);
-                $map['bg_date'] = array('ELT',$mk);
-                $linkArr['bg_time'] = $bg_time;
-                break;
-            case 5:
-                $mk = NOW_TIME - 30*86400;
-                $mk = date('Y-m-d',$mk);
-                $map['bg_date'] = array('GT', $mk);
-                $linkArr['bg_time'] = $bg_time;
-                break;
-        }
-        $map['city_id']= $this->city_id;
-        $count = $huodong->where($map)->count(); // 查询满足要求的总记录数 
-        $Page = new Page($count, 10); // 实例化分页类 传入总记录数和每页显示的记录数
-        $show = $Page->show(); // 分页显示输出
-
-        $var = C('VAR_PAGE') ? C('VAR_PAGE') : 'p';
-        $p = $_GET[$var];
-        if ($Page->totalPages < $p) {
-            die('0');
-        }
-        $list = $huodong->where($map)->order('orderby desc')->limit($Page->firstRow . ',' . $Page->listRows)->select(); 
-        foreach ($list as $k => $val) {
-            $sign = D('Activitysign')->where(array('user_id' => $this->uid, 'activity_id' => $val['activity_id']))->find();
-            if (!empty($sign)) {
-                $list[$k]['sign'] = 1;
-            } else {
-                $list[$k]['sign'] = 0;
-            }
-            if ($val['shop_id']) {
-                $shop_ids[$val['shop_id']] = $val['shop_id'];
-            }
-        }
-        if ($shop_ids) {
-            $this->assign('shops', D('Shop')->itemsByIds($shop_ids));
-        }
-        $cates = D('Activitycate')->fetchAll();
-        $this->assign('cates', $cates);
-        $this->assign('list', $list); // 赋值数据集
-        $this->assign('page', $show); // 赋值分页输出
-        $this->display(); // 输出模板
     }
 
     public function detail() {
@@ -163,9 +120,9 @@ class ActivityAction extends CommonAction {
         $shop_id = $detail['shop_id'];
         $shop = D('Shop')->find($shop_id);
         $cates = D('Activitycate')->fetchAll();
-		
+
 		$detail['thumb'] = unserialize($detail['thumb']);
-		
+
         $this->assign('cates', $cates);
         $this->assign('shop', $shop);
         $this->display();

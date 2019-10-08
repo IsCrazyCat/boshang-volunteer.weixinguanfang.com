@@ -49,42 +49,42 @@
             if (regionName && regionName != 'undefined' && regionId && regionId != 'undefined') {
 
                 $(".Regional").html(regionName);
-                $(".Regional").attr("val", regionId);
-                $(".Regional").attr("val", $("#gradew li").eq(regionId).html());
+                $(".Regional").attr("value", regionId);
+                $(".Regional").attr("value", $("#gradew li").eq(regionId).html());
             }
 
             if (missionTypeId && missionTypeId != 'undefined' && missionTypeName && missionTypeName != 'undefined') {
 
-                $(".Brand").attr("val", missionTypeId);
-                $(".Brand").attr("val", $(this).attr("value") == 0 ? "" : $(this).attr("value"));
+                $(".Brand").attr("value", missionTypeId);
+                $(".Brand").attr("value", $(this).attr("value") == 0 ? "" : $(this).attr("value"));
                 $(".Brand").html(missionTypeName);
             }
 
             if (orderParam && orderParam != 'undefined' && orderStr && orderStr != 'undefined') {
 
-                $(".Sort").attr("val", orderParam);
-                $(".Sort").attr("val", $(this).attr("value"));
+                $(".Sort").attr("value", orderParam);
+                $(".Sort").attr("value", $(this).attr("value"));
                 $(".Sort").html(orderStr);
             }
 
             if (keyWordParam && keyWordParam != 'undefined') {
 
                 $("#searchText").val(keyWordParam);
-                $(".searchBox03").attr("val", $("#searchText").val());
+                $(".searchBox03").attr("value", $("#searchText").val());
                 //$(".searchBox03").html('');
             }
 
-            var Regional = $(".Regional").attr("val");
-            var Brand = $(".Brand").attr("val");
-            var Sort = $(".Sort").attr("val");
-            var searchBox03 = $(".searchBox03").attr("val");
+            var Regional = $(".Regional").attr("value");
+            var Brand = $(".Brand").attr("value");
+            var Sort = $(".Sort").attr("value");
+            var searchBox03 = $(".searchBox03").attr("value");
 
             var pageNo = 1;
             var loadURL = "";
             var html = "	<li style='clear:both; overflow:hidden;position:relative;'>";
             html = html + "		<a href=''>";
             html = html + "			<p id='abc' class='XmlbListZhuantai XmlbListZhuantaiBgRed' style='position:absolute; top:10px;right:10px;'>aaa</p>";
-            html = html + "			<img src='' onerror=changeImg(this,'test') class='XmlbListImg'/>";
+            html = html + "			<img src='' class='XmlbListImg'/>";
             html = html + "			<div class='listTitle'></div>";
             html = html + "			<div class='listOrg'></div>";
             html = html + "			<div class='listTime'>发布时间：</div>";
@@ -93,122 +93,93 @@
             html = html + "	</li>";
             html = html + "	<div class='clear'></div>";
 
-            loadJosn(pageNo);
-
-
-
+            loadJosn(pageNo,'','','','');
 
             $("#gradew li:first").unbind("click");
 
             $("#gradew li").click(function () {
                 if ("不限" == $(this).html()) {
-                    var tempRegionlist = new Array();
+                    $("#cotent").html("");
                     pageNo = 1;
                     hiddenlayer();
-                    $(".Regional").attr("val", "");
+                    $(".Regional").attr("value", "");
                     $(".Regional").html("区域");
-                    searchJson($(".Regional").attr("val"), $(".Brand").attr("val"), $(".Sort").attr("val"), $(".searchBox03").attr("val"), pageNo);
+                    loadJosn(pageNo,"", $(".Brand").attr("value"), $(".Sort").attr("value"), $(".searchBox03").attr("value"));
                 } else {
                     var tempIndex = $(this).index();
-                    var tempVal = $(this).attr("val");
-                    $.ajax({
-                        url: "/region/region/getRegionsListJson.do",
-                        data: {regionId: tempVal},
-                        dataType: "json",
-                        async: false,
-                        success: function (data) {
-                            $("#gradet li").not(":first").remove();
-                            $.each(data.data, function (i) {
-                                $("#gradet").append("<li value='" + data.data[i].id + "' onclick='gradet(this)'>" + data.data[i].name + "</li>");
-                            });
+                    var tempVal = $(this).attr("value");
 
-                            $("#gradet li:first").unbind("click");
+                    $("#gradet li").not(":first").hide();
+                    $("#gradet li").each(function () {
+                        if($(this).attr('name')==('cityId'+tempVal)){
+                            $(this).show();
+                        }
+                    });
+                    $("#gradet li:first").unbind("click");
+                    $("#gradet li").click(function () {
+                        if ("不限" == $(this).html()) {
+                            $("#cotent").html("");
+                            pageNo = 1;
+                            $(".Regional").attr("value", $("#gradew li").eq(tempIndex).html());
+                            loadJosn( pageNo,"city_id="+tempVal, $(".Brand").attr("value"), $(".Sort").attr("value"), $(".searchBox03").attr("value"));
+                            $(".Regional").html($("#gradew li").eq(tempIndex).html().substring(0, 2) + "...");
+                            $('.grade-e').css('left', '100%');
+                            hiddenlayer();
+                            return false;
+                        }else {
+                            var tempIndex2 = $(this).index();
+                            var tempVal2 = $(this).attr("value");
 
-                            $("#gradet li").click(function () {
-                                /* hiddenlayer(); */
-                                var tempRegion = "";
+                            if ($("#gradee li").length == 1) {
+                                $(".Regional").attr("value", $("#gradet li").eq(tempIndex2).html());
+                                pageNo = 1;
+                                loadJosn(pageNo,"area_id="+tempVal2, $(".Brand").attr("value"), $(".Sort").attr("value"), $(".searchBox03").attr("value"));
+                                $(".Regional").html($("#gradet li").eq(tempIndex2).html().substring(0, 2) + "...");
+                                hiddenlayer();
+                                return false;
+                            }else{
+                                $("#gradee li").not(":first").hide();
+                                $("#gradee li").each(function () {
+                                    if($(this).attr('name')==('areaId'+tempVal2)){
+                                        $(this).show();
+                                    }
+                                });
+                            }
+                            $("#gradee li:first").unbind("click");
+
+                            $("#gradee li").click(function () {
                                 if ("不限" == $(this).html()) {
-                                    $.each($(this).siblings(), function (i) {
-                                        tempRegion = tempRegion + "," + $(this).attr("value");
-                                    });
-                                    tempRegion = tempVal + tempRegion;
+                                    $("#cotent").html("");
                                     pageNo = 1;
-
-                                    $(".Regional").attr("val", $("#gradew li").eq(tempIndex).html());
-                                    searchJson($(".Regional").attr("val"), $(".Brand").attr("val"), $(".Sort").attr("val"), $(".searchBox03").attr("val"), pageNo);
-                                    $(".Regional").html($("#gradew li").eq(tempIndex).html().substring(0, 2) + "...");
+                                    $(".Regional").attr("value", $("#gradet li").eq(tempIndex2).html());
+                                    loadJosn(pageNo,"area_id="+tempVal2, $(".Brand").attr("value"), $(".Sort").attr("value"), $(".searchBox03").attr("value"));
+                                    $(".Regional").html($("#gradet li").eq(tempIndex2).html().substring(0, 2) + "...");
                                     $('.grade-e').css('left', '100%');
                                     hiddenlayer();
                                     return false;
                                 } else {
-                                    var tempIndex2 = $(this).index();
-                                    var tempVal2 = $(this).attr("value");
-                                    $.ajax({
-                                        url: "/region/region/getRegionsListJson.do",
-                                        data: {regionId: tempVal2},
-                                        dataType: "json",
-                                        async: false,
-                                        success: function (data) {
-                                            $("#gradee li").not(":first").remove();
-                                            if (data.data.length == 0) {
-                                                $(".Regional").attr("val", $("#gradet li").eq(tempIndex2).html());
-                                                pageNo = 1;
-                                                searchJson($(".Regional").attr("val"), $(".Brand").attr("val"), $(".Sort").attr("val"), $(".searchBox03").attr("val"), pageNo);
-                                                $(".Regional").html($("#gradet li").eq(tempIndex2).html().substring(0, 2) + "...");
-                                                hiddenlayer();
-                                                return false;
-                                            }
-                                            $.each(data.data, function (i) {
-                                                $("#gradee").append("<li value='" + data.data[i].id + "' onclick='grades(this)'>" + data.data[i].name + "</li>");
-                                            });
-
-                                            $("#gradee li:first").unbind("click");
-
-                                            $("#gradee li").click(function () {
-                                                var tempRegion2 = "";
-                                                if ("不限" == $(this).html()) {
-                                                    $.each($(this).siblings(), function (i) {
-                                                        tempRegion2 = tempRegion2 + "," + $(this).attr("value");
-                                                    });
-                                                    tempRegion2 = tempVal2 + tempRegion2;
-                                                    pageNo = 1;
-
-                                                    $(".Regional").attr("val", $("#gradet li").eq(tempIndex2).html());
-                                                    searchJson($(".Regional").attr("val"), $(".Brand").attr("val"), $(".Sort").attr("val"), $(".searchBox03").attr("val"), pageNo);
-                                                    $(".Regional").html($("#gradet li").eq(tempIndex2).html().substring(0, 2) + "...");
-                                                    $('.grade-e').css('left', '100%');
-                                                    hiddenlayer();
-                                                    return false;
-                                                } else {
-                                                    $(".Regional").attr("val", $(this).html());
-                                                    //$('.grade-e').css("left","66%");
-                                                    pageNo = 1;
-
-                                                    searchJson($(".Regional").attr("val"), $(".Brand").attr("val"), $(".Sort").attr("val"), $(".searchBox03").attr("val"), pageNo);
-                                                    $(".Regional").html($(this).html().substring(0, 2) + "...");
-                                                    hiddenlayer();
-                                                    return false;
-                                                }
-                                            });
-                                            $('.grade-e').css("left", "66%");
-                                        }
-                                    });
+                                    $("#cotent").html("");
+                                    $(".Regional").attr("value", $(this).html());
+                                    $('.grade-e').css("left","66%");
+                                    pageNo = 1;
+                                    loadJosn(pageNo,$(".Regional").attr("value"), $(".Brand").attr("value"), $(".Sort").attr("value"), $(".searchBox03").attr("value"));
+                                    $(".Regional").html($(this).html().substring(0, 2) + "...");
+                                    hiddenlayer();
+                                    return false;
                                 }
                             });
-                        },
-                        error: function () {
+                            $('.grade-e').css("left", "66%");
                         }
                     });
                 }
             });
 
-
-
             $("#Categorys li").click(function () {
+                $("#cotent").html("");
                 hiddenlayer();
                 pageNo = 1;
-                $(".Brand").attr("val", $(this).attr("value") == 0 ? "" : $(this).attr("value"));
-                searchJson($(".Regional").attr("val"), $(".Brand").attr("val"), $(".Sort").attr("val"), $(".searchBox03").attr("val"), pageNo);
+                $(".Brand").attr("value", $(this).attr("value") == 0 ? "" : $(this).attr("value"));
+                loadJosn(pageNo,$(".Regional").attr("value"), $(".Brand").attr("value"), $(".Sort").attr("value"), $(".searchBox03").attr("value"));
                 if ($(this).index() == 0) {
                     $(".Brand").html("类型");
                     return false;
@@ -216,11 +187,13 @@
                 $(".Brand").html($(this).html().substring(0, 2) + "...");
             });
 
+            var orderFlag = 1;
             $("#Sort-Sort li").click(function () {
+                $("#cotent").html("");
                 hiddenlayer();
                 pageNo = 1;
-                $(".Sort").attr("val", $(this).attr("value"));
-                searchJson($(".Regional").attr("val"), $(".Brand").attr("val"), $(".Sort").attr("val"), $(".searchBox03").attr("val"), pageNo);
+                $(".Sort").attr("value", $(this).attr("value"));
+                loadJosn(pageNo,$(".Regional").attr("value"), $(".Brand").attr("value"), $(".Sort").attr("value"), $(".searchBox03").attr("value"));
                 if ($(this).index() == 0) {
                     $(".Sort").html("排序");
                     return false;
@@ -240,89 +213,92 @@
             //点击加载更多
             $("#loadMore").click(function () {
                 if ($("#loadMore").html() == "加载更多...") {
-                    if ($(".Regional").attr("val") != "" || $(".Brand").attr("val") != "" || $(".Sort").attr("val") != "" || $(".searchBox03").attr("val") != "") {
-                        searchJson($(".Regional").attr("val"), $(".Brand").attr("val"), $(".Sort").attr("val"), $(".searchBox03").attr("val"), ++pageNo);
-                        return false;
-                    }
-                    loadJosn(++pageNo);
+                    loadJosn(++pageNo,$(".Regional").attr("value"), $(".Brand").attr("value"), $(".Sort").attr("value"), $(".searchBox03").attr("value"));
+                    return false;
                 }
             });
 
 
             $("#search_btn").click(function () {
+                $("#cotent").html("");
                 hiddenlayer();
                 pageNo = 1;
-                $(".searchBox03").attr("val", $("#searchText").val());
-                searchJson($(".Regional").attr("val"), $(".Brand").attr("val"), $(".Sort").attr("val"), $(".searchBox03").attr("val"), pageNo);
+                $(".searchBox03").attr("value", $("#searchText").val());
+                loadJosn(pageNo,$(".Regional").attr("value"), $(".Brand").attr("value"), $(".Sort").attr("value"), $(".searchBox03").attr("value"));
             });
 
-
-            var districtId = "";
-
             //初始页面加载	分页json
-            function loadJosn(pageNo) {
-
+            function loadJosn(pageNo,shop_id,cate_id,order,search_key) {
                 $("#background").show();
                 $("#progressBar").show();
                 $.ajax({
-                    url: "<{:U('activity/moreActivity')}>",
+                    // url: "<{:U('activity/moreActivity',array('p'=>"+pageNo+"))}>",
+                    url:"/wap/activity/moreActivity/p/"+pageNo,
                     data: {
-                        "p": pageNo
+                        "shop_id":shop_id,
+                        "cate_id":cate_id,
+                        "order":order,
+                        "search_key":search_key
                     },
                     dataType: "json",
                     type: 'post',
                     success: function (data) {
-                        if (data.list.length == 0 && pageNo == 1) {
+                        if (data.list==null && pageNo == 1) {
                             $("#loadMore").html("暂无此类活动");
-                        } else if (data.list.length > 0 && data.list.length < 10 && pageNo >= 1) {
-                            $("#loadMore").html("");
-                        } else {
-                            $("#loadMore").html("加载更多...");
+                        } else{
+                            if (data.list.length > 0 && data.list.length < 10 && pageNo >= 1) {
+                                $("#loadMore").html("");
+                            } else {
+                                $("#loadMore").html("加载更多...");
+                            }
+                            $.each(data.list, function (i) {
+                                //tmpURL是跳转页面路径
+                                // var tmpURL = "<{:U('activity/index'),array('activity_id'=>"+data.list[i].activity_id+")}>";
+                                var tmpURL = "/wap/activity/detail/activity_id/"+data.list[i].activity_id;
+                                // var tmpURL = loadURL + data.list[i].missionId + "&venue=" + regionName + "&missionType=" + missionTypeId + "&order=" + orderParam + "&keyWord=" + keyWordParam + "&currentPage=" + pageNo + "&districtId=" + districtId + "&pageType=missionList";
+                                //活动缩略图路径
+                                var imgSrc = data.list[i].photo;
+
+                                //这里是组织名称
+                                var tempdistrictName = data.list[i].shop_name.substring(0, 12);
+                                if (tempdistrictName.length >= 12) {
+                                    tempdistrictName = tempdistrictName.substring(0, 12) + "...";
+                                }
+
+                                var is_end = data.list[i].sign_end;
+                                var current_time = new Date();
+                                var sign_end = new Date(is_end.replace("-", "/").replace("-", "/"));
+                                if (sign_end>=current_time) {
+                                    $("#cotent").append(
+                                        $(html).find(".listTitle").html(data.list[i].title).end()
+                                            .find(".listOrg").html("[" + tempdistrictName + "]").end()
+                                            .find(".listTime").html("发布时间：" + data.list[i].bg_date).end()
+                                            .find("#abc").html("报名").end()
+                                            .find("#XmlbListZhuantai").append(data.list[i].sign_num).end()
+                                            .find(".XmlbListImg").attr({
+                                            "src": imgSrc
+                                        }).end()
+                                            .find("a").attr("href", tmpURL).end().prop("outerHTML")
+                                    );
+                                } else {
+                                    $("#cotent").append(
+                                        $(html).find(".listTitle").html(data.list[i].title).end()
+                                            .find(".listOrg").html("[" + tempdistrictName + "]").end()
+                                            .find(".listTime").html("发布时间：" + data.list[i].bg_date).end()
+                                            .find("#abc").html("结束").end()
+                                            .find("#XmlbListZhuantai").append(data.list[i].sign_num).end()
+                                            .find(".XmlbListImg").attr({
+                                            "src": imgSrc
+                                        }).end()
+                                            .find("a").attr("href", tmpURL).end().prop("outerHTML")
+                                    );
+                                }
+
+                            });
                         }
 
 
-                        $.each(data.list, function (i) {
-                            //tmpURL是跳转页面路径
-                            var tmpURL = "";
-                            // var tmpURL = loadURL + data.list[i].missionId + "&venue=" + regionName + "&missionType=" + missionTypeId + "&order=" + orderParam + "&keyWord=" + keyWordParam + "&currentPage=" + pageNo + "&districtId=" + districtId + "&pageType=missionList";
-                            var imgSrc = data.list[i].photo;
 
-                            //这里是组织名称
-                            var tempdistrictName = data.list[i].shop_name.substring(0, 12);
-                            if (tempdistrictName.length >= 12) {
-                                tempdistrictName = tempdistrictName.substring(0, 12) + "...";
-                            }
-
-                            var is_end = data.list[i].sign_end;
-                            var current_time = new Date();
-                            var sign_end = new Date(is_end.replace("-", "/").replace("-", "/"));
-                            if (sign_end>=current_time) {
-                                $("#cotent").append(
-                                    $(html).find(".listTitle").html(data.list[i].title).end()
-                                        .find(".listOrg").html("[" + tempdistrictName + "]").end()
-                                        .find(".listTime").html("发布时间：" + data.list[i].bg_date).end()
-                                        .find("#abc").html("报名").end()
-                                        .find("#XmlbListZhuantai").append(data.list[i].sign_num).end()
-                                        .find(".XmlbListImg").attr({
-                                        "src": imgSrc
-                                    }).end()
-                                        .find("a").attr("href", tmpURL).end().prop("outerHTML")
-                                );
-                            } else {
-                                $("#cotent").append(
-                                    $(html).find(".listTitle").html(data.list[i].title).end()
-                                        .find(".listOrg").html("[" + tempdistrictName + "]").end()
-                                        .find(".listTime").html("发布时间：" + data.list[i].bg_date).end()
-                                        .find("#abc").html("结束").end()
-                                        .find("#XmlbListZhuantai").append(data.list[i].sign_num).end()
-                                        .find(".XmlbListImg").attr({
-                                        "src": imgSrc
-                                    }).end()
-                                        .find("a").attr("href", tmpURL).end().prop("outerHTML")
-                                );
-                            }
-
-                        });
                         $("#background").hide();
                         $("#progressBar").hide();
                     },
@@ -338,98 +314,6 @@
                     }
                 });
             }
-
-            function searchJson(venue, missionType, order, keyWord, pageNo) {
-                $("#background").show();
-                $("#progressBar").show();
-                var pathname = window.location.pathname;//返回当前 URL的路径部分-"/cczyz_weixin/mission/mission/missionDetails.action"
-                var searchParamsUrl = "?venue=" + venue + "&missionType=" + missionType + "&order=" + order + "&keyWord=" + keyWord + "&currentPage=" + pageNo + "&pageType=missionList";
-                if ('') {
-
-                    searchParamsUrl += "&districtId=";
-                }
-
-                var url = pathname + searchParamsUrl;
-                //(window.)history.pushState(null, null, url);//pushState和replaceState是一个HTML5的新接口，可以做到改变网址却不需要刷新页面
-
-                window.history.pushState(null, null, url);
-
-                $.ajax({
-                    url: "/api/wx/mission/searchMissionJson.action",
-                    data: {
-                        venue: venue,
-                        missionType: missionType,
-                        order: order,
-                        keyWord: keyWord,
-                        currentPage: pageNo,
-                        districtId: districtId
-                    },
-                    dataType: "json",
-                    type: 'GET',
-                    success: function (data) {
-
-                        if (pageNo == 1) {
-                            $("#cotent").empty();
-                        }
-                        if (data.data.length == 0 && pageNo == 1) {
-                            $("#loadMore").html("暂无此类活动");
-                        } else if (data.data.length > 0 && data.data.length < 10 && pageNo >= 1) {
-                            $("#loadMore").html("");
-                        } else {
-                            $("#loadMore").html("加载更多...");
-                        }
-
-                        $.each(data.data, function (i) {
-                            var tmpURL = loadURL + data.data[i].missionId + "&venue=" + venue + "&missionType=" + missionType + "&order=" + order + "&keyWord=" + keyWord + "&currentPage=" + pageNo + "&districtId=" + districtId + "&pageType=missionList";
-                            var imgSrc = "https://gdftp.oss-cn-shenzhen.aliyuncs.com" + data.data[i].mission_image;
-                            var image = data.data[i].mission_image;
-                            if (imgSrc == "") {
-                                imgSrc = "http://www.gdzyz.cn/error.png";
-                            }
-
-                            var tempdistrictName = data.data[i].districtName.substring(0, 12);
-                            if (tempdistrictName.length >= 12) {
-                                tempdistrictName = tempdistrictName.substring(0, 12) + "...";
-                            }
-
-                            var isApply = data.data[i].isApply;
-                            if (isApply == 1) {
-                                $("#cotent").append(
-                                    $(html).find(".listTitle").html(data.data[i].subject).end()
-                                        .find(".listOrg").html("[" + tempdistrictName + "]").end()
-                                        .find(".listTime").html("发布时间：" + data.data[i].cDatetime).end()
-                                        .find("#abc").html("报名").end()
-                                        .find("#XmlbListZhuantai").append(data.data[i].browseCount).end()
-                                        .find(".XmlbListImg").attr({
-                                        "src": imgSrc,
-                                        "onerror": "changeImg(this,'" + image + "'," + data.data[i].missionId + ")"
-                                    }).end()
-                                        .find("a").attr("href", tmpURL).end().prop("outerHTML")
-                                );
-                            } else {
-                                $("#cotent").append(
-                                    $(html).find(".listTitle").html(data.data[i].subject).end()
-                                        .find(".listOrg").html("[" + tempdistrictName + "]").end()
-                                        .find(".listTime").html("发布时间：" + data.data[i].cDatetime).end()
-                                        .find("#abc").html("结束").end()
-                                        .find("#XmlbListZhuantai").append(data.data[i].browseCount).end()
-                                        .find(".XmlbListImg").attr({
-                                        "src": imgSrc,
-                                        "onerror": "changeImg(this,'" + image + "'," + data.data[i].missionId + ")"
-                                    }).end()
-                                        .find("a").attr("href", tmpURL).end().prop("outerHTML")
-                                );
-                            }
-                        });
-                        $("#background").hide();
-                        $("#progressBar").hide();
-                    },
-                    error: function () {
-
-                    }
-                });
-            }
-
             function hiddenlayer() {
                 $.each($("#searchObj>div"), function (i) {
                     if ($(this).hasClass('grade-w-roll')) {
@@ -440,30 +324,16 @@
         });
     </script>
 
-    <script type="text/javascript">
-        function changeImg(img, url, id) {
-            var idx = id % 24 + 1;
-            img.src = window.location.protocol + "//gdftp.oss-cn-shenzhen.aliyuncs.com/defaultPic/defaultPic_" + idx + ".jpg";
-            img.onerror = null;
-        }
-
-        function GetRandomNum(Min, Max) {
-            var Range = Max - Min;
-            var Rand = Math.random();
-            return (Min + Math.round(Rand * Range));
-        }
-    </script>
-
 </head>
 
 <body class="bodybg">
 <!-- screening -->
 <div class="screening" style="top: 0px;">
     <ul>
-        <li style="font-size: 14px; border-left: none;" ca="" class="Regional" val="">地域</li>
-        <li style="font-size: 14px;" ca="" class="Brand" val="">类型</li>
-        <li style="font-size: 14px;" ca="" class="Sort" val="">排序</li>
-        <li style="font-size: 14px;" ca="" class="searchBox03" val="">搜索</li>
+        <li style="font-size: 14px; border-left: none;" ca="" class="Regional" value="">地域</li>
+        <li style="font-size: 14px;" ca="" class="Brand" value="">类型</li>
+        <li style="font-size: 14px;" ca="" class="Sort" value="">排序</li>
+        <li style="font-size: 14px;" ca="" class="searchBox03" value="">搜索</li>
     </ul>
 </div>
 <!-- End screening -->
@@ -474,14 +344,20 @@
         <ul class="grade-w" id="gradew">
             <li value="" onclick="grade1(this)">不限</li>
             <foreach name="citys" item="v">
-                <li val="<{$v.city_id}>" onclick="grade1(this)"><{$v.name}></li>
+                <li value="<{$v.city_id}>" onclick="grade1(this)"><{$v.name}></li>
             </foreach>
         </ul>
         <ul class="grade-t" id="gradet">
             <li value="" onclick="gradet(this);">不限</li>
+            <foreach name="areas" item="v">
+                <li value="<{$v.area_id}>" name = "cityId<{$v.city_id}>"onclick="gradet(this);"><{$v.area_name}></li>
+            </foreach>
         </ul>
         <ul class="grade-e" id="gradee">
             <li value="" onclick="grades(this);">不限</li>
+            <foreach name="shops" item="v">
+                <li value="<{$v.shop_id}>" name = "areaId<{$v.area_id}>" onclick="grades(this);"><{$v.shop_name}></li>
+            </foreach>
         </ul>
     </div>
     <!-- End grade -->
@@ -529,28 +405,6 @@
 		</span>
 
     <ul class="XmlbListContainer" id="cotent">
-        <li style="clear:both; overflow:hidden;position:relative;"><a
-                href="">
-            <p id="abc" class="XmlbListZhuantai XmlbListZhuantaiBgRed" style="position:absolute; top:10px;right:10px;">
-                结束</p>            <img src="__TMPL__statics/img/index/defaultPic_3.jpg"
-                                       class="XmlbListImg">
-            <div class="listTitle"> 2019 年河源市禁毒志愿者业务培训班</div>
-            <div class="listOrg">[河源市禁毒志愿者服务队]</div>
-            <div class="listTime">发布时间：2019-10-07</div>
-            <p class="XmlbListZhuantai" id="XmlbListZhuantai"
-               style="position: absolute; top: 60px; right: 9px; color: black;width:auto"><img
-                    src="__TMPL__statics/img/index/scan-count.png" alt="logo">&nbsp;</p></a></li>
-        <li style="clear:both; overflow:hidden;position:relative;"><a
-                href="">
-            <p id="abc" class="XmlbListZhuantai XmlbListZhuantaiBgRed" style="position:absolute; top:10px;right:10px;">
-                报名</p>            <img src="__TMPL__statics/img/index/defaultPic_2.jpg"
-                                       class="XmlbListImg">
-            <div class="listTitle">家访志愿活动</div>
-            <div class="listOrg">[兴宁市善小助学协会]</div>
-            <div class="listTime">发布时间：2019-10-07</div>
-            <p class="XmlbListZhuantai" id="XmlbListZhuantai"
-               style="position: absolute; top: 60px; right: 9px; color: black;width:auto"><img
-                    src="__TMPL__statics/img/index/scan-count.png" alt="logo">&nbsp;</p></a></li>
     </ul>
 
     <div id="background" class="background" style="display: none;"></div>
