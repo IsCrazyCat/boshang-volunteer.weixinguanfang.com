@@ -16,7 +16,7 @@ if (ini_get('magic_quotes_gpc')) {
 
 define('BASE_PATH' ,getcwd().'/..');
 define('GROUP_NAME','Weixin');
-define('APP_DEBUG',true);//调试模式
+define('APP_DEBUG',false);//调试模式
 define('APP_NAME', 'Baocms');//定义项目名称
 define('NOW_TIME',time());//定义项目路径
 define('APP_PATH', BASE_PATH.'/Baocms/');

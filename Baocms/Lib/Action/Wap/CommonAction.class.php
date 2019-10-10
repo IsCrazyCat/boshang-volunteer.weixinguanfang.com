@@ -41,8 +41,9 @@ class CommonAction extends Action
                 }
             }
             if (empty($city)) {
-                $this->city_id = $this->_CONFIG['site']['city_id'];
-                $city = $this->citys[$this->_CONFIG['site']['city_id']];
+                //没明白这个操作啥意思啥逻辑
+//                $this->city_id = $this->_CONFIG['site']['city_id'];
+//                $city = $this->citys[$this->_CONFIG['site']['city_id']];
             }
         } else {
             $city = $this->citys[$this->city_id];

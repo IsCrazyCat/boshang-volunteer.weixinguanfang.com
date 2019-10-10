@@ -1,10 +1,13 @@
 <?php
-class IndexAction extends CommonAction{
-    public function index(){
+
+class IndexAction extends CommonAction
+{
+    public function index()
+    {
         $Tuancode = D('Tuancode');
-        import('ORG.Util.Page'); 
+        import('ORG.Util.Page');
         $map = array('user_id' => $this->uid, 'closed' => 0);
-        $status = (int) $this->_param('status');
+        $status = (int)$this->_param('status');
         switch ($status) {
             case 1:
                 break;
@@ -28,8 +31,10 @@ class IndexAction extends CommonAction{
         $this->assign('page', $show);
         $this->display();
     }
-    public function coderefund($code_id){
-        $code_id = (int) $code_id;
+
+    public function coderefund($code_id)
+    {
+        $code_id = (int)$code_id;
         if ($detail = D('Tuancode')->find($code_id)) {
             if ($detail['user_id'] != $this->uid) {
                 $this->baoError('非法操作');
@@ -38,17 +43,19 @@ class IndexAction extends CommonAction{
                 $this->baoError('该抢购券不能申请退款');
             }
             if (!empty($detail)) {
-				D('Tuanorder')->save(array('order_id' => $detail['order_id'], 'status' => 3));
-				D('Tuancode')->save(array('code_id' => $code_id, 'status' => 1));
-				D('Weixintmpl')->weixin_user_refund_shop($code_id,4);//抢购劵申请退款，传订单ID跟类型
+                D('Tuanorder')->save(array('order_id' => $detail['order_id'], 'status' => 3));
+                D('Tuancode')->save(array('code_id' => $code_id, 'status' => 1));
+                D('Weixintmpl')->weixin_user_refund_shop($code_id, 4);//抢购劵申请退款，传订单ID跟类型
                 $this->baoSuccess('申请成功！等待网站客服处理！', U('index/index'));
             }
         }
         $this->baoError('操作失败');
     }
-    public function delete($code_id = 0){
+
+    public function delete($code_id = 0)
+    {
         //根据抢购券id删除
-        if (is_numeric($code_id) && ($code_id = (int) $code_id)) {
+        if (is_numeric($code_id) && ($code_id = (int)$code_id)) {
             $obj = D('Tuancode');
             if (!($detial = $obj->find($code_id))) {
                 $this->baoError('该抢购券不存在');
@@ -65,7 +72,7 @@ class IndexAction extends CommonAction{
                 }
             }
             $obj->save(array('code_id' => $code_id, 'closed' => 1));
-			D('Weixintmpl')->weixin_delete_order_shop($code_id,4);//抢购劵取消订单，传订单ID跟类型
+            D('Weixintmpl')->weixin_delete_order_shop($code_id, 4);//抢购劵取消订单，传订单ID跟类型
             $this->baoSuccess('删除成功！', U('index/index'));
         } else {
             $this->baoError('请选择要删除的抢购券');

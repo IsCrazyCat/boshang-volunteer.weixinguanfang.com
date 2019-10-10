@@ -1,0 +1,144 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+    <div class="top-back">
+        <a class="top-addr" href="<{:u('user/member/index')}>"><i class="icon-angle-left"></i></a>
+    </div>
+    <div class="top-title">
+        我的活动
+    </div>
+    <div class="top-share">
+        <a href="<{:u('wap/activity/index')}>" class="top-addr icon-plus">活动列表</a>
+    </div>
+</header>
+
+<style>
+    .top-fixed .top-share a {
+        width: 70px !important;
+    }
+
+    ul {
+        padding-left: 0px;
+    }
+
+    .list-media-x p {
+        margin-top: .01rem;
+        line-height: 20px;
+        font-size: 12px;
+    }
+
+    .tuan-card .card-l p {
+        text-align: left;
+    }
+
+    .list-media-x li {
+        border-bottom: thin solid #eee;
+    }
+
+    .tuan-card {
+        height: 130px;
+        padding: 10px
+    }
+
+    .tuan-card .card-r {
+        margin: 10px 0;
+        width: 100%;
+        border-left: thin dashed #eee;
+        height: 100px;
+        text-align: center;
+        padding: 10px 0
+    }
+
+    .tuan-card .card-r img {
+        width: 60px;
+        height: 60px
+    }
+
+    .tuan-card .card-l {
+        margin: 20px 0
+    }
+
+    .tuan-card .card-l p {
+        font-size: 12px;
+        color: #999;
+        margin: 0;
+    }
+
+    .container .paging span {
+        display: inline-block;
+        border: 1px solid #dbdbdb;
+        font-size: 12px;
+        line-height: 30px;
+        height: 30px;
+        padding: 0 18px;
+        color: #666;
+        text-align: center;
+        cursor: pointer
+    }
+
+    .container .paging a {
+        display: inline-block;
+        border: 1px solid #dbdbdb;
+        font-size: 12px;
+        line-height: 30px;
+        height: 30px;
+        padding: 0 18px;
+        color: #666;
+        text-align: center;
+        cursor: pointer
+    }
+
+</style>
+
+
+<div class="list-media-x" id="list-media">
+    <ul>
+        <foreach name="list" item="var">
+            <li class="line tuan-card">
+                <div class="x8">
+                    <div class="card-l">
+                        <p>名称：<{$var['activity']['title']}></p>
+                        <p>活动时间：<{$var.activity.bg_date}> ~ <{$var.activity.end_date}></em></p>
+                        <p>参加状态：
+                            <if condition="$var.activityLogs.status eq '0'">
+                                未开始
+                            <elseif condition="$var.activityLogs.status eq '1'"/>
+                                参加中
+                            <elseif condition="$var.activityLogs.status eq '2'"/>
+                                服务结束
+                            <else/>
+                                未开始
+                            </if>
+                        </p>
+                        <p>服务时长：
+                            <if condition="$var.activityLogs.start_date eq null">
+                                0
+                            <elseif condition="$var.activityLogs.end_date eq null || $var.activityLogs.end_date eq ''"/>
+                                <php>echo(round((strtotime(date("Y-m-d H:i:s")-strtotime($var['activityLogs']['start_date']))%86400/3600),2));</php>
+                            <else/>
+                                <php>echo(round((strtotime($var['activityLogs']['end_date']-strtotime($var['activityLogs']['start_date']))%86400/3600),2));</php>
+                            </if>
+                            小时
+                        </p>
+                    </div>
+                </div>
+                <div class="x4">
+                    <div class="card-r">
+                        <a href="<{:u('distributors/coupon/weixin',array('download_id'=>$var['download_id']))}>">
+                            <img src="/static/default/pc/image/wx.png"/>
+                            <p>点击查看二维码</p>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </foreach>
+        <div class="blank-10 bg"></div>
+    </ul>
+</div>
+
+
+<div class="blank-20"></div>
+<div class="container login-open">
+    <h5 style="text-align:center"><{$page}><!--分页代码不要忘记加--> </h5>
+</div>
+
+<include file='public:footer'/>

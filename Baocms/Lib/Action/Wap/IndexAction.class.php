@@ -2,8 +2,16 @@
 
 
 class IndexAction extends CommonAction {
+    public function index() {
+        //获取wap首页广告
+        $ads = D('ad')->where(array('closed'=>0,'site_id'=>57))->select();
 
-      public function index() {
+        $this->assign('ads',$ads);
+
+        return $this->display();
+    }
+
+      public function index1() {
 
         $this->assign('lifecate', D('Lifecate')->fetchAll());
         $this->assign('channel', D('Lifecate')->getChannelMeans());
@@ -64,6 +72,11 @@ class IndexAction extends CommonAction {
 		$this->assign('nav',$nav = D('Navigation') ->where($maps)->order(array('orderby' => 'asc'))->select());
 		$this->display();
 	}
-	
+
+	//没实现的功能暂时先跳转到这里
+	public function closed(){
+        $this->error('此功能已关闭');
+        die;
+    }
 	
 }

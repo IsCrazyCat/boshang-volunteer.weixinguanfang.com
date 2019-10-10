@@ -427,4 +427,19 @@ class MemberAction extends CommonAction{
         $this->assign('counts', $counts);
         $this->display();
     }
+    public function myQRCode(){
+        if (empty($this->uid)) {
+            $this->error('您还没有登录！', U('passport/login'));
+        }
+        $user_id = $this->uid;
+        $user = D('users')->where(array('user_id'=>$user_id))->find();
+        //这里是生成的二维码中的URL，即扫描二维码跳转的链接和参数
+        $url = U('/user/member/index');
+        //这个token只是作为二维码生成后的存放路径的一个依据 并无实际意义
+        $token = 'userRegister_' . $this->uid;
+        $file = baoQrCode($token, $url);
+        $this->assign('user', $user);
+        $this->assign('file', $file);
+        $this->display();
+    }
 }

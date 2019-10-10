@@ -35,9 +35,10 @@ class NewsAction extends CommonAction {
 		$this->display(); // 输出模板
     }
 	 public function load() {
+	    $a = $this->_admin;
 		$Article = D('Article');
         import('ORG.Util.Page'); // 导入分页类 
-        $map = array('city_id' => $this->city_id,'closed' => 0,'audit' => 1);
+        $map = array('closed' => 0,'audit' => 1);
 		
 		$cat = (int) $this->_param('cat');
         $cates = D('Articlecate')->fetchAll();

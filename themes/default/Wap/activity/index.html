@@ -162,7 +162,7 @@
                                     $(".Regional").attr("value", $(this).html());
                                     $('.grade-e').css("left","66%");
                                     pageNo = 1;
-                                    loadJosn(pageNo,$(".Regional").attr("value"), $(".Brand").attr("value"), $(".Sort").attr("value"), $(".searchBox03").attr("value"));
+                                    loadJosn(pageNo,"business_id=".tempVal2, $(".Brand").attr("value"), $(".Sort").attr("value"), $(".searchBox03").attr("value"));
                                     $(".Regional").html($(this).html().substring(0, 2) + "...");
                                     hiddenlayer();
                                     return false;
@@ -228,14 +228,14 @@
             });
 
             //初始页面加载	分页json
-            function loadJosn(pageNo,shop_id,cate_id,order,search_key) {
+            function loadJosn(pageNo,area_id,cate_id,order,search_key) {
                 $("#background").show();
                 $("#progressBar").show();
                 $.ajax({
                     // url: "<{:U('activity/moreActivity',array('p'=>"+pageNo+"))}>",
                     url:"/wap/activity/moreActivity/p/"+pageNo,
                     data: {
-                        "shop_id":shop_id,
+                        "area_id":area_id,
                         "cate_id":cate_id,
                         "order":order,
                         "search_key":search_key
@@ -355,8 +355,8 @@
         </ul>
         <ul class="grade-e" id="gradee">
             <li value="" onclick="grades(this);">不限</li>
-            <foreach name="shops" item="v">
-                <li value="<{$v.shop_id}>" name = "areaId<{$v.area_id}>" onclick="grades(this);"><{$v.shop_name}></li>
+            <foreach name="businesses" item="v">
+                <li value="<{$v.business_id}>" name = "areaId<{$v.area_id}>" onclick="grades(this);"><{$v.business_name}></li>
             </foreach>
         </ul>
     </div>

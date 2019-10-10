@@ -12,17 +12,17 @@
     </a>
   
   </if>
+
+     <a class="foot-item" href="<{:U('user/member/myQRCode')}>">
+    <span class="icon icon-plus"></span><span class="foot-label">二维码</span></a>
+
+     <a class="foot-item" href="<{:U('wap/activity/activityList')}>">
+    <span class="icon icon-money"></span><span class="foot-label">我的活动</span></a>
     
-    <a class="foot-item  <if condition="$act eq 'fabu'">active</if> " href="<{:LinkTo('member/fabu')}>">			
-    <span class="icon icon-plus"></span><span class="foot-label">发布</span></a>
+    <a class="foot-item" href="<{:u('distributors/index/index')}>">
+    <span class="icon icon-volume-up"></span><span class="foot-label">我的组织</span></a>
     
-     <a class="foot-item  <if condition="($ctl eq 'breaks')">active</if>" href="<{:u('breaks/index')}>">			
-    <span class="icon icon-money"></span><span class="foot-label">买单</span></a>
-    
-    <a class="foot-item  <if condition="($ctl eq 'message') ||($act eq 'xiaoxizhongxin')">active</if>" href="<{:u('message/index')}>">			
-    <span class="icon icon-volume-up"></span><span class="foot-label">消息</span></a>
-    
-    <a class="foot-item  <if condition="$ctl eq 'information'">active</if>" href="<{:u('information/index')}>">			
+    <a class="foot-item" href="<{:u('information/index')}>" >
     <span class="icon icon-gear"></span><span class="foot-label">设置</span></a>
     
    

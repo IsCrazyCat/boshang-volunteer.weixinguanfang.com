@@ -9,19 +9,16 @@
     <span class="icon icon-home"></span>
     <span class="foot-label">首页</span>
     </a>
-    
-    <a class="foot-item <eq name="ctl" value="pintuan">active</eq>" href="<{:U('pintuan/index')}>">			
-    <span class="icon icon-paw"></span><span class="foot-label">拼团</span></a>
-        
-    <a class="foot-item <eq name="ctl" value="appoint">active</eq>" href="<{:U('appoint/index')}>">			
-    <span class="icon icon-umbrella"></span><span class="foot-label">家政</span></a>
+
+    <a class="foot-item <eq name="ctl" value="appoint">active</eq>" href="<{:U('activity/index')}>">
+    <span class="icon icon-umbrella"></span><span class="foot-label">活动</span></a>
 
     <if condition="$is_weixin"></a>
-       <a class="foot-item <eq name="ctl" value="biz">active</eq>" href="<{:U('near/index')}>">			
-       <span class="icon icon-map-marker"></span><span class="foot-label">附近</span></a>
+       <a class="foot-item <eq name="ctl" value="biz">active</eq>" href="<{:U('wap/news/index')}>">
+       <span class="icon icon-map-marker"></span><span class="foot-label">新鲜事</span></a>
     <else/>
-       <a class="foot-item <eq name="ctl" value="thread">active</eq>" href="<{:U('thread/index')}>">			
-       <span class="icon icon-commenting"></span><span class="foot-label">贴吧</span></a>
+       <a class="foot-item <eq name="ctl" value="thread">active</eq>" href="<{:U('wap/index/closed')}>">
+       <span class="icon icon-commenting"></span><span class="foot-label">找组织</span></a>
     </if>
         
     <a class="foot-item <eq name="ctl" value="user">active</eq>" href="<{:U('user/member/index')}>">			

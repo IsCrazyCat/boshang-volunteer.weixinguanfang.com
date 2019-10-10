@@ -549,4 +549,5 @@ class PassportAction extends CommonAction{
         header('Content-type:image/jpg');
         echo $fileres;
     }
+
 }

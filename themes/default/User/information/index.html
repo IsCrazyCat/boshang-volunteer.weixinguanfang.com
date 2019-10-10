@@ -26,36 +26,36 @@
 				<i class="icon-angle-right"></i>
 			</a>
 		</li>
-		<li>
-			<a href="<{:U('info/nickname')}>">
-				用户昵称<em><{$res.nickname}> ID：<{$res.user_id}></em>
-			</a>
-		</li>
-		<li>
-			<a href="<{:u('addrs/index')}>">
-				外卖收货地址<em><{$addr_count}>个</em>
-			</a>
-		</li>
-        <li>
-			<a href="<{:u('wap/address/addlist')}>">
-				商城收货地址 <i class="icon-angle-right"></i>
-			</a>
-		</li>
+<!--		<li>-->
+<!--			<a href="<{:U('info/nickname')}>">-->
+<!--				用户昵称<em><{$res.nickname}> ID：<{$res.user_id}></em>-->
+<!--			</a>-->
+<!--		</li>-->
+<!--		<li>-->
+<!--			<a href="<{:u('addrs/index')}>">-->
+<!--				外卖收货地址<em><{$addr_count}>个</em>-->
+<!--			</a>-->
+<!--		</li>-->
+<!--        <li>-->
+<!--			<a href="<{:u('wap/address/addlist')}>">-->
+<!--				商城收货地址 <i class="icon-angle-right"></i>-->
+<!--			</a>-->
+<!--		</li>-->
 	</ul>
 </div>
-<div class="blank-10 bg"></div>
-<div class="panel-list">
-	<ul>
-		<li><a href="<{:U('money/index')}>">余额充值<i class="icon-angle-right"></i></a></li>
-		<li><a href="<{:U('logs/moneylogs')}>">日志列表<i class="icon-angle-right"></i></a></li>
-        <if condition="!empty($CONFIG[integral][integral_exchange])">
-        	<li><a href="<{:U('money/exchange')}>">积分兑换余额<i class="icon-angle-right"></i></a></li>
-        </if>
-        <if condition="!empty($CONFIG[cash][is_transfer])">
-        	<li><a href="<{:U('money/transfer')}>">给好友转账<i class="icon-angle-right"></i></a></li>
-        </if>
-	</ul>
-</div>
+<!--<div class="blank-10 bg"></div>-->
+<!--<div class="panel-list">-->
+<!--	<ul>-->
+<!--		<li><a href="<{:U('money/index')}>">余额充值<i class="icon-angle-right"></i></a></li>-->
+<!--		<li><a href="<{:U('logs/moneylogs')}>">日志列表<i class="icon-angle-right"></i></a></li>-->
+<!--        <if condition="!empty($CONFIG[integral][integral_exchange])">-->
+<!--        	<li><a href="<{:U('money/exchange')}>">积分兑换余额<i class="icon-angle-right"></i></a></li>-->
+<!--        </if>-->
+<!--        <if condition="!empty($CONFIG[cash][is_transfer])">-->
+<!--        	<li><a href="<{:U('money/transfer')}>">给好友转账<i class="icon-angle-right"></i></a></li>-->
+<!--        </if>-->
+<!--	</ul>-->
+<!--</div>-->
 <div class="blank-10 bg"></div>
 <div class="panel-list border-top">
 	<ul>
