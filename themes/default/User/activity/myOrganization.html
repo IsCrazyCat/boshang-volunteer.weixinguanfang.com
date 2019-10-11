@@ -1,0 +1,196 @@
+<include file='public:header'/>
+
+<header class="top-fixed bg-yellow bg-inverse">
+    <div class="top-back">
+        <a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+    </div>
+    <div class="top-title">
+        我的组织
+    </div>
+    <div class="top-share">
+        <a href="javascript:void(0);" id="cate-btn"></a>
+    </div>
+</header>
+
+<style>
+
+    /*个人资料页*/
+    .home_card {
+        width: 100%;
+        min-width: 320px;
+        background: #ec6c53;
+        background-size: cover;
+        color: #fff;
+        font-size: 16px;
+        clear: both;
+        position: relative;
+        padding-top: 1rem;
+    }
+
+    .home_card .home_card_portrait {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .home_card .home_card_portrait_link {
+        display: block;
+        overflow: hidden;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: #fff;
+        border: 3px solid #fff;
+    }
+
+    .home_card .home_card_portrait_pic {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+    }
+
+    .home_card .home_card_info {
+        display: block;
+        margin-left: 96px;
+    }
+
+    .home_card .home_card_uname {
+        height: 20px;
+        line-height: 20px;
+        width: 100px;
+    }
+
+    .home_card .home_card_uname_link {
+        color: #fff;
+        max-width: 105px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 20px;
+    }
+
+    /*首页新列表*/
+    @keyframes wave-animation-1 {
+        0% {
+            background-position: 0 top
+        }
+        100% {
+            background-position: 600px top
+        }
+    }
+
+    @keyframes wave-animation-2 {
+        0% {
+            background-position: 0 top
+        }
+        100% {
+            background-position: 600px top
+        }
+    }
+
+    .home-new-list_level {
+        margin-left: 2px;
+        background: #ffd00b;
+        height: 18px;
+        padding: 1px 5px;
+        margin: 1px 2px 0px;
+        display: inline-block;
+        line-height: 18px;
+        text-align: center;
+        vertical-align: text-top;
+        border-radius: 3px;
+        font-size: 12px;
+        font-weight: bold;
+        color: #FFF;
+    }
+
+    .home-new-theme a {
+        width: 33.3%;
+    }
+
+    .home-new-theme p {
+        border-right: 1px solid #eee;
+    }
+
+    .home-new-list-top {
+        margin: 20px;
+        height: 80px;
+        position: relative;
+    }
+
+    .home-new-list-table {
+        width: 33%;
+        display: table-cell;
+        text-align: center;
+        border-right: 1px solid rgba(255, 255, 255, .15)
+    }
+
+    .home-new-list-table2 {
+        display: table;
+        width: 100%;
+        padding-bottom: 10px;
+    }
+
+    .home-new-list-table3 li, .home-new-list-table4 li {
+        font-size: 12px;
+        border-bottom: 1px dashed #E7B0B0;
+        padding: 10px;
+    }
+
+    .home-new-list-number {
+        display: block;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 1.2;
+    }
+
+    .home-new-list-text {
+        color: #fff;
+        font-size: 14px;
+        font-weight: 100;
+    }
+
+</style>
+<foreach name="organizations" item="val">
+    <div class="blank-10 bg"></div>
+    <div class="j_home_card home_card">
+        <div class="home-new-list-top">
+            <div class="home_card_portrait">
+                <a class="j_home_card_portrait_link home_card_portrait_link" href="javascript:void(0)">
+                    <img src="<{$val['logo']}>" alt="<{$val['shop_name']}>" class="home_card_portrait_pic"></a>
+            </div>
+            <div class="home_card_info">
+                <span class="home_card_uname">
+                    <a class="home_card_uname_link" href="<{:U('activity/organization',array('organization_id'=>$val['shop_id']))}>"><{$val['shop_name']}></a>
+                    <!--                     <a class="home-new-list_level">组织名称:<{$val['shop_name']}></a>-->
+                </span>
+                <div>
+    <span class="home-small_text">
+        组织地址：<{$val['addr']}>
+    </span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="home-new-list-table2">
+            <div class="home-new-list-table">
+                <strong class="home-new-list-number"><{$val['sign_count']}> 人</strong><a
+                    class="home-new-list-text">志愿者</a>
+            </div>
+            <div class="home-new-list-table">
+                <strong class="home-new-list-number"><{$val['total_time']}> 小时</strong><a
+                    class="home-new-list-text">服务时长</a>
+            </div>
+            <div class="home-new-list-table">
+                <strong class="home-new-list-number"><{$val['activity_count']}> 个</strong><a
+                    class="home-new-list-text">服务活动</a>
+            </div>
+        </div>
+
+
+    </div>
+</foreach>
+
+<include file="public:footer"/>
+

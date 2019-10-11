@@ -1,0 +1,84 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+    <div class="top-back"></div>
+    <div class="top-title"><{$organization['shop_name']}></div>
+    <div class="top-signed">
+        <a href="<{:U('passport/logout')}>"><i class="icon-sign-out"></i></a>
+    </div>
+</header>
+<style>
+    .member-top{margin-top: 0px;}
+</style>
+<div class="member-top">
+    <div class="member-info">
+        <div class="user-avatar">
+            <img src="<{$organization['logo']}>">
+        </div>
+        <div class="user-name">
+            <span><{$organization['shop_name']}><sup><{$organization['tags']}></sup></span>
+        </div>
+    </div>
+    <div class="member-collect">
+        <span><a href=""><em><{$organization['sign_count']}>人</em><p>志愿者</p></a> </span>
+        <span><a href=""><em><{$organization['total_time']}>小时</em><p>服务时长</p></a> </span>
+        <span><a href=""><em><{$organization['activity_count']}>个</em><p>服务活动</p></a> </span>
+    </div>
+</div>
+
+
+
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+    <ul>
+
+        <li>
+            <a href="<{:U('wap/index/closed')}>">
+                <span class="icon-volume-up"></span>组织/团体通知
+                <font>
+                    <if condition="$msg_day gt 0">
+                        最新<{$msg_day}>条消息
+                    </if>
+                </font>
+                <i class="icon-angle-right"></i>
+            </a>
+        </li>
+        <li>
+            <a href="<{:U('activity/volunteer',array('organization_id'=>$organization['shop_id']))}>"><span class="icon-group"></span>志愿者
+                <i class="icon-angle-right"></i>
+            </a>
+        </li>
+
+        <li>
+            <a href="<{:U('wap/index/closed')}>"><span class="icon-github"></span>人才招聘
+                <font>
+                    <if condition="$counts['work'] gt 0">
+                        <{$counts['work']}>条招聘
+                    </if>
+                    <if condition="$counts['work_audit'] gt 0">
+                        ，<b><{$counts['work_audit']}></b>条待审核
+                    </if>
+                </font>
+                <i class="icon-angle-right"></i>
+            </a>
+        </li>
+
+        <li>
+            <a href="<{:U('distributors/news/index')}>">
+                <span class="icon-newspaper-o"></span>文章管理
+                <font>
+                    <if condition="$counts['news'] gt 0">
+                        <{$counts['news']}>篇文章
+                    </if>
+                    <if condition="$counts['news_autit'] gt 0">
+                        ，<b><{$counts['news_autit']}></b>篇待审核
+                    </if>
+                </font>
+                <i class="icon-angle-right"></i>
+            </a>
+        </li>
+
+        <li><a href="<{:U('user/activity/activityList',array('organization_id'=>$organization['shop_id']))}>"><span class="icon-btc"></span>服务活动<i class="icon-angle-right"></i></a></li>
+        <li><a href="<{:U('passport/logout')}>"><span class="icon-sign-out"></span>注销登录<i class="icon-angle-right"></i></a></li>
+    </ul>
+</div>
+<include  file='public:footer'/>

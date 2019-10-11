@@ -74,15 +74,15 @@
 
         <li>
             <a href="<{:U('user/activity/index')}>">
-                <span class="icon-gears"></span>服务记录
+                <span class="icon-gears"></span>我的服务
                 <i class="icon-angle-right"></i>
             </a>
         </li>
         <div class="blank-10 bg"></div>
         <if condition="$is_shop neq null">
             <li>
-                <a href="<{:u('distributors/index/index')}>">
-                    <span class="icon-home"></span>管理我的组织/团体（<{$is_shop_name}>）
+                <a href="<{:u('user/activity/myOrganization')}>">
+                    <span class="icon-home"></span>管理我的组织/团体
                     <i class="icon-angle-right"></i>
                 </a>
             </li>

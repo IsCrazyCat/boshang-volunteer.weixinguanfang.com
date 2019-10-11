@@ -247,38 +247,11 @@ class MemberAction extends CommonAction{
             header('Location: ' . U('Wap/passport/login'));
             die;
         }
-        //增加开始
-        $this->assign('order', D('Tuanorder')->where(array('user_id' => $this->uid))->count());
-        $this->assign('code', D('Tuancode')->where(array('user_id' => $this->uid, 'is_used' => 0, 'status' => 0,'closed'=>0))->count());
-        $this->assign('goods_order', D('Order')->where(array('user_id' => $this->uid))->count());
-        $this->assign('ele_order', D('Eleorder')->where(array('user_id' => $this->uid))->count());
-        $this->assign('coupon', D('Coupondownload')->where(array('user_id' => $this->uid, 'is_used' => 0))->count());
-        $this->assign('hd', D('Huodong')->where(array('user_id' => $this->uid, 'closed' => 0, 'audit' => 1))->count());
-        $this->assign('xiaoqu', D('Community')->where(array('user_id' => $this->uid, 'closed' => 0, 'audit' => 1))->count());
-        $this->assign('tieba', D('Post')->where(array('user_id' => $this->uid, 'closed' => 0, 'audit' => 1))->count());
-        $this->assign('lipin', D('Integralexchange')->where(array('user_id' => $this->uid, 'closed' => 0, 'audit' => 1))->count());
-        $this->assign('tongzhi', D('Msg')->where(array('user_id' => $this->uid))->count());
-        $this->assign('yuehui', D('Usermessage')->where(array('user_id' => $this->uid))->count());
-        //统计同城信息
-        $this->assign('life', D('Life')->where(array('user_id' => $this->uid, 'closed' => 0, 'audit' => 1))->count());
-        $this->assign('shop_yuyue', D('Shopyuyue')->where(array('user_id' => $this->uid, 'closed' => 0, 'used' => 0))->count());
-        //增加结束
         //检测是否有组织/团体
         $is_shop = D('Shop')->find(array('where' => array('user_id' => $this->uid)));
-        $is_shop_name = $is_shop['shop_name'];
-        $this->assign('is_shop_name', $is_shop_name);
         $this->assign('is_shop', $is_shop);
-        //统计今日新的约会数量
-        $counts = array();
-        $bg_time = strtotime(TODAY);
-        //今日时间，需要统计其他的下面写。
-        $counts['yuhui'] = (int) D('Huodong')->where(array('user_id' => $this->user_id, 'create_time' => array(array('ELT', NOW_TIME), array('EGT', $bg_time))))->count();
-        $counts['tieba'] = (int) D('Post')->where(array('user_id' => $this->user_id, 'create_time' => array(array('ELT', NOW_TIME), array('EGT', $bg_time))))->count();
-        $this->assign('counts', $counts);
+
         $this->assign('user_id', $this->uid);
-        $sf = D('ShopFavorites');
-        $rsf = $sf->where('user_id =' . $this->uid)->count();
-        $this->assign('rsf', $rsf);
         $this->display();
     }
     public function password(){

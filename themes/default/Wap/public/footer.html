@@ -5,29 +5,28 @@
 
 <if condition="$CONFIG[other][footer] eq 1">
     <footer class="foot-fixed">
-    <a class="foot-item <if condition="($ctl eq 'index') AND ($act neq 'more')">active</if>" href="<{:U('index/index')}>">		
+    <a class="foot-item" href="<{:U('index/index')}>">
     <span class="icon icon-home"></span>
     <span class="foot-label">首页</span>
     </a>
 
-    <a class="foot-item <eq name="ctl" value="appoint">active</eq>" href="<{:U('activity/index')}>">
+    <a class="foot-item" href="<{:U('activity/index')}>">
     <span class="icon icon-umbrella"></span><span class="foot-label">活动</span></a>
 
+    <a class="foot-item" href="<{:U('wap/news/index')}>">
+    <span class="icon icon-map-marker"></span><span class="foot-label">新鲜事</span></a>
     <if condition="$is_weixin"></a>
-       <a class="foot-item <eq name="ctl" value="biz">active</eq>" href="<{:U('wap/news/index')}>">
-       <span class="icon icon-map-marker"></span><span class="foot-label">新鲜事</span></a>
-    <else/>
-       <a class="foot-item <eq name="ctl" value="thread">active</eq>" href="<{:U('wap/index/closed')}>">
-       <span class="icon icon-commenting"></span><span class="foot-label">找组织</span></a>
-    </if>
-        
-    <a class="foot-item <eq name="ctl" value="user">active</eq>" href="<{:U('user/member/index')}>">			
+
+    <a class="foot-item" href="<{:U('wap/index/closed')}>">
+    <span class="icon icon-commenting"></span><span class="foot-label">找组织</span></a>
+
+    <a class="foot-item" href="<{:U('user/member/index')}>">
     <span class="icon icon-user"></span><span class="foot-label">我的</span></a>
-    
+
     </footer>
 </if>
 
 <iframe id="x-frame" name="x-frame" style="display:none;"></iframe>
-<include  file='public:footer_share'/> 
+<include  file='public:footer_share'/>
 </body>
 </html>

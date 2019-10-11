@@ -126,7 +126,7 @@
     <div class="detail-info">
         <h1>活动信息</h1>
         <p>活动时间：<{$detail.bg_date}> ~ <{$detail.end_date}></p>
-        <p>提供组织/团体：<a href="<{:U('shop/detail',array('shop_id'=>$shop['shop_id']))}>"><{$shop.shop_name}></a></p>
+        <p>提供组织/团体：<{$shop.shop_name}></p>
         <p>联系电话：
             <if condition="$shop.mobile eq ''">
                 <a href="tel:<{$shop.tel}>"> <{$shop.tel}> </a>
@@ -151,11 +151,11 @@
     <div class="detail-info2">
         <h1>活动详情</h1>
         <div class="blank-10"></div>
-        <div id="focus" class="global_focus">
+        <div id="" class="global_focus">
             <{$detail.details}>
         </div>
     </div>
-    <div class="blank-10 bg 00"></div>
+</div>
 
 
-    <include file='public:footer'/>
+<include file='public:footer'/>

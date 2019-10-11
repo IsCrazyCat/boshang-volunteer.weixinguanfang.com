@@ -1,0 +1,41 @@
+<include file='public:header'/>
+<header class="top-fixed bg-yellow bg-inverse">
+    <div class="top-back">
+        <a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+    </div>
+    <div class="top-title">
+        志愿者列表
+    </div>
+</header>
+
+<style>
+    .list-media-x { margin-top: 0.0rem;}
+    .list-media-x p {margin-top: .00rem !important; line-height:20px;font-size: 12px;}
+</style>
+
+<body>
+
+<div class="list-media-x" id="list-media">
+    <ul>
+        <div class="blank-10 bg"></div>
+        <foreach name="volunteers" item="var">
+            <li class="line ">
+                <dt><a class="x3">志愿者ID：<{$var['user_id']}></a><a class="x9 text-right">服务时长：<{$var['total_time']}>小时</a></dt>
+                <dd class="zhong">
+                    <div class="12">
+                        <p class="text-small">昵称：<{$var['nickname']}></p>
+                        <p class="text-small">电话：<{$var['mobile']}></p>
+                    </div>
+                </dd>
+            </li>
+            <div class="blank-10 bg"></div>
+        </foreach>
+    </ul>
+</div>
+
+<div class="blank-20"></div>
+<div class="container login-open">
+    <h5 style="text-align:center"><{$page}><!--分页代码不要忘记加--> </h5>
+</div>
+
+<include file="public:footer"/>

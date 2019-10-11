@@ -1,0 +1,185 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+    <div class="top-back"></div>
+    <div class="top-title">服务活动</div>
+    <div class="top-signed">
+        <a href="<{:U('passport/logout')}>"><i class="icon-sign-out"></i></a>
+    </div>
+</header>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+    <meta content="" name="MobileOptimized">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>活动列表</title>
+    <link href="/themes/default/Wap/statics/css/stylecity.css" rel="stylesheet" type="text/css">
+    <link href="/themes/default/Wap/statics/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/themes/default/Wap/statics/css/css.css" rel="stylesheet" type="text/css">
+    <link href="/themes/default/Wap/statics/css/cityserverStyle.css" rel="stylesheet" type="text/css">
+    <link href="/themes/default/Wap/statics/css/cityCommonstyle.css" rel="stylesheet" type="text/css">
+    <link href="/themes/default/Wap/statics/css/weixinzyzStyle.css" rel="stylesheet" type="text/css">
+    <link href="/themes/default/Wap/statics/css/style-tmt.css" rel="stylesheet" type="text/css">
+    <link href="/themes/default/Wap/statics/css/jquery.pager.css" rel="stylesheet" type="text/css">
+    <link type="text/css" rel="stylesheet" href="/themes/default/Wap/statics/css/xiala.css">
+
+    <script src="/themes/default/Wap/statics/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/themes/default/Wap/statics/js/goto_email.js"></script>
+    <script src="/themes/default/Wap/statics/js/jquery.pager.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/themes/default/Wap/statics/js/WdatePicker.js"></script>
+    <script src="/themes/default/Wap/statics/js/xiala.js" type="text/javascript"></script>
+
+    <style>
+        .grade-e {
+            position: absolute;
+            z-index: 3;
+            left: 100%;
+        }
+
+        .grade-e li {
+            background-color: #fff;
+        }
+    </style>
+
+    <script>
+        $(function () {
+            var pageNo = 1;
+            var html = "	<li style='clear:both; overflow:hidden;position:relative;'>";
+            html = html + "		<a href=''>";
+            html = html + "			<p id='abc' class='XmlbListZhuantai XmlbListZhuantaiBgRed' style='position:absolute; top:10px;right:10px;'>aaa</p>";
+            html = html + "			<img src='' class='XmlbListImg'/>";
+            html = html + "			<div class='listTitle'></div>";
+            html = html + "			<div class='listOrg'></div>";
+            html = html + "			<div class='listTime'>发布时间：</div>";
+            html = html + "			<p class='XmlbListZhuantai' id='XmlbListZhuantai' style='position: absolute; top: 60px; right: 9px; color: black;width:auto'><img src='/themes/default/Wap/statics/img/index/scan-count.png' alt='logo' />&nbsp;</p>";
+            html = html + "		</a>";
+            html = html + "	</li>";
+            html = html + "	<div class='clear'></div>";
+
+            loadJosn(pageNo);
+
+            //点击加载更多
+            $("#loadMore").click(function () {
+                if ($("#loadMore").html() == "加载更多...") {
+                    loadJosn(++pageNo);
+                    return false;
+                }
+            });
+            //初始页面加载	分页json
+            function loadJosn(pageNo) {
+                $("#background").show();
+                $("#progressBar").show();
+                $.ajax({
+                    url: "/wap/activity/moreActivity/p/" + pageNo,
+                    data: {
+                        "shop_id": $("#organization_id").val()
+                    },
+                    dataType: "json",
+                    type: 'post',
+                    success: function (data) {
+                        if (data.list == null && pageNo == 1) {
+                            $("#loadMore").html("暂无此类活动");
+                        } else {
+                            if (data.list.length > 0 && data.list.length < 10 && pageNo >= 1) {
+                                $("#loadMore").html("");
+                            } else {
+                                $("#loadMore").html("加载更多...");
+                            }
+                            $.each(data.list, function (i) {
+                                var tmpURL = "/wap/activity/detail/activity_id/" + data.list[i].activity_id;
+                                //活动缩略图路径
+                                var imgSrc = data.list[i].photo;
+
+                                //这里是组织名称
+                                var tempdistrictName = data.list[i].shop_name.substring(0, 12);
+                                if (tempdistrictName.length >= 12) {
+                                    tempdistrictName = tempdistrictName.substring(0, 12) + "...";
+                                }
+
+                                var is_end = data.list[i].sign_end;
+                                var current_time = new Date();
+                                var sign_end = new Date(is_end.replace("-", "/").replace("-", "/"));
+                                if (sign_end >= current_time) {
+                                    $("#cotent").append(
+                                        $(html).find(".listTitle").html(data.list[i].title).end()
+                                            .find(".listOrg").html("[" + tempdistrictName + "]").end()
+                                            .find(".listTime").html("发布时间：" + data.list[i].bg_date).end()
+                                            .find("#abc").html("报名").end()
+                                            .find("#XmlbListZhuantai").append(data.list[i].sign_num).end()
+                                            .find(".XmlbListImg").attr({
+                                            "src": imgSrc
+                                        }).end()
+                                            .find("a").attr("href", tmpURL).end().prop("outerHTML")
+                                    );
+                                } else {
+                                    $("#cotent").append(
+                                        $(html).find(".listTitle").html(data.list[i].title).end()
+                                            .find(".listOrg").html("[" + tempdistrictName + "]").end()
+                                            .find(".listTime").html("发布时间：" + data.list[i].bg_date).end()
+                                            .find("#abc").html("结束").end()
+                                            .find("#XmlbListZhuantai").append(data.list[i].sign_num).end()
+                                            .find(".XmlbListImg").attr({
+                                            "src": imgSrc
+                                        }).end()
+                                            .find("a").attr("href", tmpURL).end().prop("outerHTML")
+                                    );
+                                }
+
+                            });
+                        }
+
+                        $("#background").hide();
+                        $("#progressBar").hide();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        // /*弹出jqXHR对象的信息*/
+                        // alert(jqXHR.responseText);
+                        // alert(jqXHR.status);
+                        // alert(jqXHR.readyState);
+                        // alert(jqXHR.statusText);
+                        // /*弹出其他两个参数的信息*/
+                        // alert(textStatus);
+                        // alert(errorThrown);
+                    }
+                });
+            }
+
+            function hiddenlayer() {
+                $.each($("#searchObj>div"), function (i) {
+                    if ($(this).hasClass('grade-w-roll')) {
+                        $(this).removeClass('grade-w-roll');
+                    }
+                });
+            }
+        });
+    </script>
+
+</head>
+
+<input type="hidden" id="organization_id" value="<{$organization_id}>"/>
+<div class="mbottom10" style="margin-top: 50px;">
+		<span>
+		</span>
+    <ul class="XmlbListContainer" id="cotent">
+    </ul>
+
+    <div id="background" class="background" style="display: none;"></div>
+    <div id="progressBar" class="progressBar" style="display: none;">
+        <img style="width: 30px; height: 30px;" src="/themes/default/Wap/statics/img/index/loading.gif">
+    </div>
+    <div style="margin-bottom:30px;height: 50px; line-height: 50px; text-align: center; font-size: 14px;" id="loadMore">加载更多...</div>
+</div>
+
+
+<script type="text/javascript">
+    // 点击改变背景颜色
+    $('.XmlbListContainer>li').mousedown(function (event) {
+        $(this).css('background-color', '#f3f3f3');
+        $(this).siblings().css('background-color', '#fff');
+    });
+</script>
+
+</div>
+<include  file='public:footer'/>

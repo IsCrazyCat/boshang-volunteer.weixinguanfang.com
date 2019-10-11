@@ -67,6 +67,11 @@ class ActivityAction extends CommonAction
             $map['cate_id'] = $cate_id;
             $result['cate_id'] = $cate_id;
         }
+        //活动类型
+        if ($shop_id = (int)$this->_param('shop_id')) {
+            $map['shop_id'] = $shop_id;
+            $result['cate_id'] = $shop_id;
+        }
         //排序
         $order_str = array('activity_id' => 'desc');
         if ($order = $this->_param('order')) {
@@ -186,10 +191,8 @@ class ActivityAction extends CommonAction
 
     /**
      * 报名志愿活动生成带有user_id和活动Id的二维码
-     * @param $user_id
-     *
      */
-    public function signQRCode($user_id)
+    public function signQRCode()
     {
         $activity_id = $this->_get('activity_id');
         $user_id = $this->_get('user_id');
