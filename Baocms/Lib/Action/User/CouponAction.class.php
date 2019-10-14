@@ -114,7 +114,7 @@ class CouponAction extends CommonAction{
                 }else{
                     $this->fengmiMsg('操作失败');
                 }
-			}else{//如果会员没有手机号就直接去注册
+			}else{//如果志愿者没有手机号就直接去注册
 				if (FALSE !== D('Coupondownload')->register_account_give_coupon($download_id,$mobile)){
                     $this->fengmiMsg('恭喜您赠送成功', U('coupon/index'));
                 }else{

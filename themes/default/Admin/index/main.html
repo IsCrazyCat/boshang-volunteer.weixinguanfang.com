@@ -63,8 +63,8 @@ body{background:#F1F1F1;}
         </div>
             <div class="comiis_19forum_list">
             <h3><a href="##">1：上次登录地址：<{$ad.last_ip}></a></h3>
-            <!--<h3><a href="##">2：更新到<{$v}></a></h3>-->
-            <h3><a href="##">3：php版本：<{:phpversion()}></a></h3>
+<!--            <h3><a href="##">2：更新到<{$v}></a></h3>-->
+            <h3><a href="##">2：php版本：<{:phpversion()}></a></h3>
             </div>
     </div>
 </div>
@@ -75,13 +75,13 @@ body{background:#F1F1F1;}
     <div class="comiis_19forum_div">
         <div class="comiis_19forum_title">
             <span class="comiis_19forum_icon"></span>
-            <h2><a href="<{:U('user/index')}>">会员数据</a></h2>
-            <em>总：<{$counts.users}>个会员</em>
+            <h2><a href="<{:U('user/index')}>">志愿者数据</a></h2>
+            <em>总：<{$counts.users}>个志愿者</em>
         </div>
             <div class="comiis_19forum_list">
-            <h3><a href="<{:U('user/index')}>" class="dot">1：今日新增<a class="red"><{$counts.totay_user}></a>个会员</a></h3>
-            <h3><a href="<{:U('user/index')}>">2：已有<{$counts.user_moblie}>人验证手机号</a></h3>
-            <h3><a href="<{:U('user/index')}>">3：已有<{$counts.user_email}>人绑定邮箱</a></h3>
+            <h3><a href="<{:U('user/index')}>" class="dot">1：今日新增<a class="red"><{$counts.totay_user}></a>个志愿者</a></h3>
+<!--            <h3><a href="<{:U('user/index')}>">2：已有<{$counts.user_moblie}>人验证手机号</a></h3>-->
+<!--            <h3><a href="<{:U('user/index')}>">3：已有<{$counts.user_email}>人绑定邮箱</a></h3>-->
             <!--<h3><a href="<{:U('user/index')}>">4：qq注册<{$counts.user_qq}>人.</a></h3>-->
             <!--<h3><a href="<{:U('user/index')}>">5：微信登录<{$counts.user_weixin}>人.</a></h3>-->
             <!--<h3><a href="<{:U('user/index')}>">6：微博注册<{$counts.user_weibo}>人.</h3>-->
@@ -99,11 +99,11 @@ body{background:#F1F1F1;}
         <!--<div class="comiis_19forum_title">-->
             <!--<span class="comiis_19forum_icon"></span>-->
             <!--<h2><a href="#">资金统计</a></h2>-->
-            <!--<em>会员总资金<{:round($counts['money_and']/100,2)}>元</em>-->
+            <!--<em>志愿者总资金<{:round($counts['money_and']/100,2)}>元</em>-->
         <!--</div>-->
             <!--<div class="comiis_19forum_list">-->
-            <!--<h3><a href="<{:U('usermoneylogs/index')}>">1：会员总资金<{:round($counts['money_and']/100,2)}>元</a></h3>-->
-            <!--<h3><a href="<{:U('usermoneylogs/index')}>">2：会员总积分<{$counts['money_integral']}>分</a></h3>-->
+            <!--<h3><a href="<{:U('usermoneylogs/index')}>">1：志愿者总资金<{:round($counts['money_and']/100,2)}>元</a></h3>-->
+            <!--<h3><a href="<{:U('usermoneylogs/index')}>">2：志愿者总积分<{$counts['money_integral']}>分</a></h3>-->
             <!--<h3><a href="<{:U('usercash/index')}>">3：今日提现<a class="red"><{:round($counts['money_cash_day']/100,2)}></a>元，<a class="red"><{$counts['money_cash_audit']}></a>人待审</a></h3>-->
             <!--</div>-->
     <!--</div>-->
@@ -121,9 +121,9 @@ body{background:#F1F1F1;}
         </div>
             <div class="comiis_19forum_list">
             <h3><a href="##">1：今日<a class="red"><{$counts.totay_shop}></a>组织/团体申请入驻</a></h3>
-            <h3><a href="<{:U('shop/apply')}>">2：待审核<a class="red"><{$counts.totay_shop_audit}></a>个组织/团体</a></h3>
-            <h3><a href="<{:U('shop/recognition')}>">3：待认领<a class="red"><{$counts.shoprecognition}></a>个组织/团体</a></h3>
-            <h3><a href="<{:U('audit/index')}>">4：已有<{$counts.shop_audit}>组织/团体已认证</a></h3>
+<!--            <h3><a href="<{:U('shop/apply')}>">2：待审核<a class="red"><{$counts.totay_shop_audit}></a>个组织/团体</a></h3>-->
+<!--            <h3><a href="<{:U('shop/recognition')}>">2：待认领<a class="red"><{$counts.shoprecognition}></a>个组织/团体</a></h3>-->
+<!--            <h3><a href="<{:U('audit/index')}>">4：已有<{$counts.shop_audit}>组织/团体已认证</a></h3>-->
             <!--<h3><a href="<{:U('weidian/index')}>">5：有<{$counts.shop_weidian}>微店,待审核<a class="red"><{$counts.shop_weidian_audit}></a></a></h3>-->
 
             </div>

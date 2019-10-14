@@ -50,7 +50,7 @@ class PassportAction extends CommonAction
             }
             $this->baoError(D('Passport')->getError(), 3000, true);
         } else {
-            //判断是不是注册会员获取cookie开启
+            //判断是不是注册志愿者获取cookie开启
             $fuid = (int) cookie('fuid');
             if ($fuid) {
                 $profit_min_rank_id = (int) $this->_CONFIG['profit']['profit_min_rank_id'];
@@ -81,7 +81,7 @@ class PassportAction extends CommonAction
             }
             //结束
             if (!empty($this->uid)) {
-                $this->success('您已经是我们的会员，不需要重复注册！', U('members/index'));
+                $this->success('您已经是我们的志愿者，不需要重复注册！', U('members/index'));
             } else {
                 $this->display();
             }
@@ -167,7 +167,7 @@ class PassportAction extends CommonAction
             }
             $this->assign('backurl', $backurl);
             if (!empty($this->uid)) {
-                $this->success('您已经是我们的会员，不需要重复注册！', U('members/index'));
+                $this->success('您已经是我们的志愿者，不需要重复注册！', U('members/index'));
             } else {
                 echo session('verify', null);
                 $this->display();

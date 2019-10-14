@@ -5,7 +5,7 @@ class TiebaAction extends CommonAction{
         parent::_initialize();
         $tieba = (int) $this->_CONFIG['operation']['tieba'];
         if ($tieba == 0) {
-            $this->error('此功能已关闭');
+            $this->error('此功能暂未开通');
             die;
         }
         $Post = D('Post');

@@ -6,7 +6,7 @@ class ThreadAction extends CommonAction {
     public function _initialize() {
         parent::_initialize();
 		 if ($this->_CONFIG['operation']['thread'] == 0) {
-            $this->error('此功能已关闭');
+            $this->error('此功能暂未开通');
             die;
         }
 		$this->assign('cates',D('Threadcate')->fetchAll());

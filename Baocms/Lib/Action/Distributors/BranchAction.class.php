@@ -95,7 +95,7 @@ class BranchAction extends CommonAction {
         }
         $data['business_id'] = (int) $data['business_id'];
         if (empty($data['business_id'])) {
-            $this->fengmiMsg('请选择商圈');
+            $this->fengmiMsg('请选择街道');
         }
         $data['addr'] = htmlspecialchars($data['addr']);
         if (empty($data['addr'])) {
@@ -163,7 +163,7 @@ class BranchAction extends CommonAction {
         }
         $data['business_id'] = (int) $data['business_id'];
         if (empty($data['business_id'])) {
-            $this->fengmiMsg('请选择商圈');
+            $this->fengmiMsg('请选择街道');
         }
         $data['addr'] = htmlspecialchars($data['addr']);
         if (empty($data['addr'])) {

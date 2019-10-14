@@ -415,7 +415,7 @@
 
 				<input type="radio" name="data[recognition]" value="1" />已认领
 
-               <code>您现在是后台添加商户，肯定选择未认领，除非你直接安排给那个会员</code>
+               <code>您现在是后台添加商户，肯定选择未认领，除非你直接安排给那个志愿者</code>
 
              </td>
 

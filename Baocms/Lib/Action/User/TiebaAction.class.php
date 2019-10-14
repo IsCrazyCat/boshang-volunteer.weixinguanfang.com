@@ -6,7 +6,7 @@ class TiebaAction extends CommonAction{
         $this->assign('sharecate', $sharecate);
         $tieba = (int) $this->_CONFIG['operation']['tieba'];
         if ($tieba == 0) {
-            $this->error('此功能已关闭');
+            $this->error('此功能暂未开通');
             die;
         }
     }

@@ -60,7 +60,7 @@ class BusinessAction extends CommonAction
         $data = $this->checkFields($this->_post('data', false), $this->create_fields);
         $data['business_name'] = htmlspecialchars($data['business_name']);
         if (empty($data['business_name'])) {
-            $this->baoError('商圈名称不能为空');
+            $this->baoError('街道名称不能为空');
         }
         $data['area_id'] = $this->area_id;
         if (empty($data['area_id'])) {
@@ -74,7 +74,7 @@ class BusinessAction extends CommonAction
         if ($business_id = (int) $business_id) {
             $obj = D('Business');
             if (!($detail = $obj->find($business_id))) {
-                $this->baoError('请选择要编辑的商圈管理');
+                $this->baoError('请选择要编辑的街道管理');
             }
             if ($this->isPost()) {
                 $data = $this->editCheck();
@@ -89,7 +89,7 @@ class BusinessAction extends CommonAction
                 $this->display();
             }
         } else {
-            $this->baoError('请选择要编辑的商圈管理');
+            $this->baoError('请选择要编辑的街道管理');
         }
     }
     public function hots($business_id)
@@ -97,14 +97,14 @@ class BusinessAction extends CommonAction
         if ($business_id = (int) $business_id) {
             $obj = D('Business');
             if (!($detail = $obj->find($business_id))) {
-                $this->baoError('请选择商圈');
+                $this->baoError('请选择街道');
             }
             $detail['is_hot'] = $detail['is_hot'] == 0 ? 1 : 0;
             $obj->save(array('business_id' => $business_id, 'is_hot' => $detail['is_hot']));
             $obj->cleanCache();
             $this->baoSuccess('操作成功', U('business/index', array('area_id' => $this->area_id)));
         } else {
-            $this->baoError('请选择商圈');
+            $this->baoError('请选择街道');
         }
     }
     private function editCheck()
@@ -112,7 +112,7 @@ class BusinessAction extends CommonAction
         $data = $this->checkFields($this->_post('data', false), $this->edit_fields);
         $data['business_name'] = htmlspecialchars($data['business_name']);
         if (empty($data['business_name'])) {
-            $this->baoError('商圈名称不能为空');
+            $this->baoError('街道名称不能为空');
         }
         $data['area_id'] = $this->area_id;
         if (empty($data['area_id'])) {
@@ -138,7 +138,7 @@ class BusinessAction extends CommonAction
                 $obj->cleanCache();
                 $this->baoSuccess('删除成功！', U('business/index', array('area_id' => $this->area_id)));
             }
-            $this->baoError('请选择要删除的商圈管理');
+            $this->baoError('请选择要删除的街道管理');
         }
     }
     public function child($area_id = 0)

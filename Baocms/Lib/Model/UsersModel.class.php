@@ -292,14 +292,14 @@ class UsersModel extends CommonModel{
 		 return true;
     }
 	
-	//设置冻结会员资金入账
+	//设置冻结志愿者资金入账
 	public function set_frozen_money($user_id,$money,$intro){
 		   if(!$detail = D('Users')->find($user_id)){
               $this->error = '没有该用户';
 			  return false;
            }
 		   if($detail['money'] < $money){
-			   $this->error = '会员冻结金不得大于商户资金余额';
+			   $this->error = '志愿者冻结金不得大于商户资金余额';
 			   return false;
            }
 		   if($gold < $detail['money_gold']){
@@ -495,7 +495,7 @@ class UsersModel extends CommonModel{
 		return false;
     }
 	
-	//检测会员支付密码
+	//检测志愿者支付密码
 	public function check_pay_password($user_id){
 			$Users = D('Users')->find($user_id);
 			if(!empty($Users['pay_password'])){

@@ -6,7 +6,7 @@ class NewsAction extends CommonAction
         parent::_initialize();
         $news = (int) $this->_CONFIG['operation']['news'];
         if ($news == 0) {
-            $this->error('此功能已关闭');
+            $this->error('此功能暂未开通');
             die;
         }
         $cache = cache(array('type' => 'File', 'expire' => 600));

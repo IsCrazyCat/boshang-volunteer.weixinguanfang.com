@@ -3,7 +3,7 @@ class CloudAction extends CommonAction{
     public function _initialize(){
         parent::_initialize();
 		if ($this->_CONFIG['operation']['cloud'] == 0) {
-				$this->error('此功能已关闭');die;
+				$this->error('此功能暂未开通');die;
 		}
         $this->types = d('Cloudgoods')->getType();
         $this->assign('types', $this->types);

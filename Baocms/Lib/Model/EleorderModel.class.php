@@ -100,7 +100,7 @@ class EleorderModel extends CommonModel {
 			}else{
 				$fukuan = '已支付';
 			}
-            $member = D('Users')->find($order['user_id']);//会员信息
+            $member = D('Users')->find($order['user_id']);//志愿者信息
 			if(!empty($addr_id)){
 				$addr_id = $addr_id;	
 			}else{

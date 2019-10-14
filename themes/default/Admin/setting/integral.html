@@ -72,7 +72,7 @@
                         $config = D('Setting')->fetchAll();
                         $integral_buy = $config['integral']['buy'];
                     </php>
-                <tr><td class="rgTdBt profit" colspan = "2"> 下面是积分兑换控制开关，这里控制的的是会员中心兑换比例，<a style="color:#F00"> <if condition="$integral_buy eq 0">
+                <tr><td class="rgTdBt profit" colspan = "2"> 下面是积分兑换控制开关，这里控制的的是志愿者中心兑换比例，<a style="color:#F00"> <if condition="$integral_buy eq 0">
                     	当前积分使用比例100:1
                     <elseif condition="$integral_buy eq 10" />
                     	当前积分使用比例10:1
@@ -87,7 +87,7 @@
                  <td class="rgTdBt">
                  <label><input type="radio" name="data[integral_exchange]" <eq name="CONFIG.integral.integral_exchange" value="1">checked="checked"</eq> value="1"/>开启</label>
                  <label><input type="radio" name="data[integral_exchange]" <eq name="CONFIG.integral.integral_exchange" value="0">checked="checked"</eq>  value="0"/>关闭</label>
-                    <code>开启后会员中心才会出现积分兑换余额的按钮，积分兑换比例跟使用比例一致，不建议经常修改
+                    <code>开启后志愿者中心才会出现积分兑换余额的按钮，积分兑换比例跟使用比例一致，不建议经常修改
                    
                     <a style="color:#F00">
                     <if condition="$integral_buy eq 0">

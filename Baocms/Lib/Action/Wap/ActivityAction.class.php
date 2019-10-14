@@ -7,7 +7,7 @@ class ActivityAction extends CommonAction
     {
         parent::_initialize();
         if ($this->_CONFIG['operation']['huodong'] == 0) {
-            $this->error('此功能已关闭');
+            $this->error('此功能暂未开通');
             die;
         }
     }
@@ -250,7 +250,7 @@ class ActivityAction extends CommonAction
         $ActivityLogs = D('ActivityLogs')->where(array('activity_id' => $activity_id, 'user_id' => $sign_user_id, 'today_date' => $cur_date))->find();
         if (!$ActivityLogs) {
             $map['manager_id'] = $user['user_id'];
-            $map['start_date'] = date("Y-m-d H:i:s");
+            $map['start_date'] = time();
             $map['status'] = '1';
             $map['update_time'] = time();
             $map['add_time'] = time();
@@ -262,7 +262,8 @@ class ActivityAction extends CommonAction
         }
         //已经开始结束 结束活动计时
         $map['activity_log_id'] = $ActivityLogs['activity_log_id'];
-        $map['end_date'] = date("Y-m-d H:i:s");
+        $map['end_date'] = time();
+        $map['update_time'] = time();
         $map['status'] = '2';
         if (D('ActivityLogs')->save($map)) {
             $this->success('活动' . $activity['name'] . '计时结束！', U('user/member/index'));

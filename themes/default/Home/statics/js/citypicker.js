@@ -72,7 +72,7 @@
 						}
 						else
 						{
-							_html += '<option value="0">选择商圈</option>';
+							_html += '<option value="0">选择街道</option>';
 						}
 						_html += '</select>';
 					}
@@ -115,7 +115,7 @@
 						var option = '';
 						if (data == null)
 						{
-							option += '<option value="0">暂无商圈</option>';
+							option += '<option value="0">暂无街道</option>';
 						}
 						else
 						{

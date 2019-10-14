@@ -1,18 +1,9 @@
 <div class="blank-20"></div>
  <footer class="foot-fixed">
-  <if condition="($ctl eq 'member') AND ($act eq 'index')">
-    <a class="foot-item <if condition="($ctl eq 'member') AND ($act neq 'fabu')">active</if>" href="<{:u('wap/index/index')}>">		
-    <span class="icon icon-home"></span>
-    <span class="foot-label">首页</span>
-    </a>
-  <else/>
-  <a class="foot-item" href="<{:u('member/index')}>">		
-    <span class="icon icon-home"></span>
-    <span class="foot-label">首页</span>
-    </a>
-  
-  </if>
-
+     <a class="foot-item" href="<{:u('wap/index/index')}>">
+         <span class="icon icon-home"></span>
+         <span class="foot-label">首页</span>
+     </a>
      <a class="foot-item" href="<{:U('user/member/myQRCode')}>">
     <span class="icon icon-plus"></span><span class="foot-label">二维码</span></a>
 
@@ -22,8 +13,8 @@
     <a class="foot-item" href="<{:u('user/activity/myOrganization')}>">
     <span class="icon icon-volume-up"></span><span class="foot-label">我的组织</span></a>
     
-    <a class="foot-item" href="<{:u('information/index')}>" >
-    <span class="icon icon-gear"></span><span class="foot-label">设置</span></a>
+    <a class="foot-item" href="<{:u('user/member/index')}>" >
+    <span class="icon icon-gear"></span><span class="foot-label">我的</span></a>
     
    
     </footer>

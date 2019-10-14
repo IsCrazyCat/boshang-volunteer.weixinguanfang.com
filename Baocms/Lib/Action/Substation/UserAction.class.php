@@ -292,7 +292,7 @@ class UserAction extends CommonAction
         if ($user_id = (int) $user_id) {
             $obj = D('Users');
             if (!($detail = $obj->find($user_id))) {
-                $this->baoError('请选择要编辑的会员');
+                $this->baoError('请选择要编辑的志愿者');
             }
             if ($this->isPost()) {
                 $data = $this->editCheck();
@@ -307,7 +307,7 @@ class UserAction extends CommonAction
                 $this->display();
             }
         } else {
-            $this->baoError('请选择要编辑的会员');
+            $this->baoError('请选择要编辑的志愿者');
         }
     }
     private function editCheck()
@@ -352,7 +352,7 @@ class UserAction extends CommonAction
                 }
                 $this->baoSuccess('删除成功！', U('user/index'));
             }
-            $this->baoError('请选择要删除的会员');
+            $this->baoError('请选择要删除的志愿者');
         }
     }
     public function audit($user_id = 0)
@@ -370,7 +370,7 @@ class UserAction extends CommonAction
                 }
                 $this->baoSuccess('审核成功！', U('user/index'));
             }
-            $this->baoError('请选择要审核的会员');
+            $this->baoError('请选择要审核的志愿者');
         }
     }
     //积分操作

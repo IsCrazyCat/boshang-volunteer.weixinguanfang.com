@@ -9,7 +9,7 @@
 <style>
 .profit {text-align: center;color: #333;font-weight: bold; background: #F5F5FB;}
 </style>
-<p class="attention"><span>注意：</span>这里跟用户升级有关系， 配置了不要随意去修改哦，去看看 <a style="color:#00F" href="<{:U('userrank/index')}>"> 会员等级制度</a></p>
+<p class="attention"><span>注意：</span>这里跟用户升级有关系， 配置了不要随意去修改哦，去看看 <a style="color:#00F" href="<{:U('userrank/index')}>"> 志愿者等级制度</a></p>
 <form  target="baocms_frm" action="<{:U('setting/prestige')}>" method="post">
     <div class="mainScAdd">
         <div class="tableBox">
@@ -26,14 +26,14 @@
                     <td class="lfTdBt">每日登录：</td>
                     <td class="rgTdBt">
                         <input type="text" name="data[login]" value="<{$CONFIG.prestige.login}>" class="scAddTextName w80" />
-                        <code>会员每增登录一次增加多少<{$CONFIG.prestige.name|default='威望'}></code>
+                        <code>志愿者每增登录一次增加多少<{$CONFIG.prestige.name|default='威望'}></code>
                     </td>
                 </tr>
                 <tr>
                     <td class="lfTdBt">点评组织/团体：</td>
                     <td class="rgTdBt">
                         <input type="text" name="data[dianping_shop]" value="<{$CONFIG.prestige.dianping_shop}>" class="scAddTextName w80" />
-                        <code>会员点评一次组织/团体增加多少<{$CONFIG.prestige.name|default='威望'}></code>
+                        <code>志愿者点评一次组织/团体增加多少<{$CONFIG.prestige.name|default='威望'}></code>
                     </td>
                 </tr>
                 

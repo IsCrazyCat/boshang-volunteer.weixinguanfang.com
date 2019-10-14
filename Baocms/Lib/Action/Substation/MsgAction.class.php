@@ -150,7 +150,7 @@ class MsgAction extends CommonAction
             $this->error('类型错误');
         }
 		
-		if (!empty($detail['city_id'])) {//如果表里面会员不为空那么判断ID正常不
+		if (!empty($detail['city_id'])) {//如果表里面志愿者不为空那么判断ID正常不
             if ($detail['city_id'] != $this->city_id) {
             $this->error('您没有权限查看该消息');
         	}

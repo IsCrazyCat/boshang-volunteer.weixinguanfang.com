@@ -75,7 +75,7 @@ class IndexAction extends CommonAction {
 
 	//没实现的功能暂时先跳转到这里
 	public function closed(){
-        $this->error('此功能已关闭');
+        $this->error('此功能暂未开通');
         die;
     }
 	

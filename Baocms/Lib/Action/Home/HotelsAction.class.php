@@ -9,7 +9,7 @@ class HotelsAction extends CommonAction {
     public function _initialize() {
         parent::_initialize();
 		 if ($this->_CONFIG['operation']['hotels'] == 0) {
-            $this->error('此功能已关闭');
+            $this->error('此功能暂未开通');
             die;
         }
         $this->types = D('Hotelbrand')->fetchAll();

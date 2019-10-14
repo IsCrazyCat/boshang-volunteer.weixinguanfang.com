@@ -45,7 +45,7 @@ class MessageAction extends CommonAction{
             $this->error('类型错误');
         }
 		
-		if (!empty($detail['shop_id'])) {//如果表里面会员不为空那么判断ID正常不
+		if (!empty($detail['shop_id'])) {//如果表里面志愿者不为空那么判断ID正常不
             if ($detail['shop_id'] != $this->shop_id) {
             $this->error('您没有权限查看该消息');
         	}
@@ -75,7 +75,7 @@ class MessageAction extends CommonAction{
             }
 			
 			
-			if (!empty($detail['shop_id'])) {//如果表里面会员不为空那么判断ID正常不
+			if (!empty($detail['shop_id'])) {//如果表里面志愿者不为空那么判断ID正常不
 				if ($detail['shop_id'] != $this->shop_id) {
 					$this->error('您没有权限查看该消息');
 				}

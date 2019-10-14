@@ -98,11 +98,13 @@
 						<p>活动时间：<{$var.activity.bg_date}> ~ <{$var.activity.end_date}></em></p>
 						<p>团队/组织：<{$var['shop']['shop_name']}></p>
 						<p>参加状态：
-							<if condition="$var.activityLogs.status eq '0'">
+							<if condition="$var.status eq '0'">
 								未开始
-								<elseif condition="$var.activityLogs.status eq '1'"/>
-								参加中
-								<elseif condition="$var.activityLogs.status eq '2'"/>
+								<elseif condition="$var.status eq '1'"/>
+								未参加
+								<elseif condition="$var.status eq '2'"/>
+								服务中
+								<elseif condition="$var.status eq '3'"/>
 								服务结束
 								<else/>
 								未开始

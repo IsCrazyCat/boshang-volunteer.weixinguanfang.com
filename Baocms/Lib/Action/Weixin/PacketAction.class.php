@@ -346,7 +346,7 @@ class PacketAction extends CommonAction {
 		if($ptype == 1){
 			$data['type_name'] 		= '线下兑换';
 		}else if($ptype == 2){
-			$data['type_name'] 		= '转入会员卡';
+			$data['type_name'] 		= '转入志愿者卡';
 		}else if($ptype == 3){
 			$data['type_name'] 		= '手机充值';
 			$data['mobile']  		= $this->GP['mobile'];

@@ -6,7 +6,7 @@ protected $Activitycates = array();
         parent::_initialize();
 		$lifeservice = (int)$this->_CONFIG['operation']['lifeservice'];
 		if ($lifeservice == 0) {
-				$this->error('此功能已关闭');
+				$this->error('此功能暂未开通');
 				die;
 		}
         $this->lifeservicecates = D('Housekeepingcate')->fetchAll();

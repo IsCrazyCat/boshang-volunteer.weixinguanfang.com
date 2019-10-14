@@ -93,7 +93,7 @@ class  UsertransferlogsModel extends CommonModel{
 					return false;
 				}
 			}else{
-				$this->error = '没有找到用户会员信息';
+				$this->error = '没有找到用户志愿者信息';
 				return false;		
 			}
 			

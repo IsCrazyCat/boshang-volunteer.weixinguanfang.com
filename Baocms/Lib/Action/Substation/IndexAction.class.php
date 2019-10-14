@@ -52,50 +52,7 @@ class IndexAction extends CommonAction
         $counts['users'] = (int) D('Users')->where(array('closed' => 0))->count();
         $counts['shops'] = (int) D('Shop')->where(array('closed' => 0, 'city_id' => $this->city_id))->count();
         $counts['article'] = (int) D('Article')->where(array('closed' => 0, 'city_id' => $this->city_id))->count();
-        $counts['community'] = (int) D('Community')->where(array('closed' => 0, 'city_id' => $this->city_id))->count();
-        $counts['coupon'] = (int) D('Coupon')->where(array('closed' => 0, 'city_id' => $this->city_id))->count();
-        $counts['ele'] = (int) D('Ele')->where(array('closed' => 0, 'city_id' => $this->city_id))->count();
-        $counts['express'] = (int) D('Express')->where(array('closed' => 0, 'city_id' => $this->city_id))->count();
-        $counts['goods'] = (int) D('Goods')->where(array('closed' => 0, 'city_id' => $this->city_id))->count();
-        $counts['life'] = (int) D('Life')->where(array('closed' => 0, 'city_id' => $this->city_id))->count();
-        $counts['tuan'] = (int) D('Tuan')->where(array('closed' => 0, 'city_id' => $this->city_id))->count();
-        $counts['village'] = (int) D('Village')->where(array('closed' => 0, 'city_id' => $this->city_id))->count();
-		
-		
-		$counts['money'] = (int) D('Shopmoney')->where(array('city_id' => $this->city_id))->sum('money');
-		$counts['money_goods'] = (int) D('Shopmoney')->where(array('type'=>goods,'city_id' => $this->city_id))->sum('money');
-		$counts['money_tuan'] = (int) D('Shopmoney')->where(array('type'=>tuan,'city_id' => $this->city_id))->sum('money');
-		$counts['money_ele'] = (int) D('Shopmoney')->where(array('type'=>ele,'city_id' => $this->city_id))->sum('money');
-		$counts['money_ding'] = (int) D('Shopmoney')->where(array('type'=>ding,'city_id' => $this->city_id))->sum('money');
-		
-		$counts['money_day'] = (int) D('Shopmoney')->where(array(
-				'create_time' => array(array('ELT', NOW_TIME), array('EGT', $bg_time)),
-				'city_id' => $this->city_id
-			))->sum('money');
-			
-		$counts['money_day_goods'] = (int) D('Shopmoney')->where(array(
-				'create_time' => array(array('ELT', NOW_TIME), array('EGT', $bg_time)),
-				'city_id' => $this->city_id,
-				'type'=>goods,
-			))->sum('money');
-			
-		$counts['money_day_tuan'] = (int) D('Shopmoney')->where(array(
-				'create_time' => array(array('ELT', NOW_TIME), array('EGT', $bg_time)),
-				'city_id' => $this->city_id,
-				'type'=>tuan,
-			))->sum('money');
-		$counts['money_day_ele'] = (int) D('Shopmoney')->where(array(
-				'create_time' => array(array('ELT', NOW_TIME), array('EGT', $bg_time)),
-				'city_id' => $this->city_id,
-				'type'=>ele,
-			))->sum('money');
-		$counts['money_day_ding'] = (int) D('Shopmoney')->where(array(
-				'create_time' => array(array('ELT', NOW_TIME), array('EGT', $bg_time)),
-				'city_id' => $this->city_id,
-				'type'=>ding,
-			))->sum('money');
-	
-		
+
         $v = (require BASE_PATH . '/version.php');
         $this->assign('v', $v);
         $this->assign('counts', $counts);

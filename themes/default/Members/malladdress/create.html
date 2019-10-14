@@ -4,7 +4,7 @@
     <if condition="!empty($default)">
     <div class="address_mr">
         <ul>
-            <li>默认地址：<{$areas[$default['area_id']]['area_name']}>区<{$business[$default['business_id']]['business_name']}>商圈<{$default.addr}><a class="address_del right" mini="confirm" href="<{:U('malladdress/deletet',array('id'=>$default['id']))}>">删除</a></li>
+            <li>默认地址：<{$areas[$default['area_id']]['area_name']}>区<{$business[$default['business_id']]['business_name']}>街道<{$default.addr}><a class="address_del right" mini="confirm" href="<{:U('malladdress/deletet',array('id'=>$default['id']))}>">删除</a></li>
         </ul>
     </div>
     </if>

@@ -5,7 +5,7 @@ class VillageAction extends CommonAction{
         $getVillageCate = D('Village')->getVillageCate();
         $this->assign('getVillageCate', $getVillageCate);
         if ($this->_CONFIG['operation']['village'] == 0) {
-            $this->error('此功能已关闭');
+            $this->error('此功能暂未开通');
             die;
         }
     }

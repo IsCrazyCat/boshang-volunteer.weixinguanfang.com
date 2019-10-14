@@ -58,7 +58,7 @@ class IndexAction extends CommonAction{
         $counts['gold'] = (int) D('Order')->where(array('type' => 'gold', 'status' => array('EGT', 0)))->count();
         $counts['today_yuyue'] = (int) D('Shopyuyue')->where(array('create_time' => array(array('ELT', NOW_TIME), array('EGT', $bg_time))))->count();
         
-        //查询今日会员
+        //查询今日志愿者
 		$counts['users'] = (int) D('Users')->count();
         $counts['totay_user'] = (int) D('Users')->where(array('reg_time' => array(array('ELT', NOW_TIME), array('EGT', $bg_time))))->count();
 		$counts['user_moblie'] = (int) D('Users')->where(array('mobile'=>array('EXP','IS NULL')))->count();

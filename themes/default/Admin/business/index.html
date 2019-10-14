@@ -3,14 +3,14 @@
     <ul>
         <li class="li1">设置</li>
         <li class="li2">区域设置</li>
-        <li class="li2 li3">商圈管理</li>
+        <li class="li2 li3">街道管理</li>
     </ul>
 </div>
 <div class="main-jsgl">
     <div class="jsglNr">
         <div class="selectNr">
             <div class="left">
-                <{:BA('business/create',array('area_id'=>$area_id),'添加商圈','load','',600,360)}>
+                <{:BA('business/create',array('area_id'=>$area_id),'添加街道','load','',600,360)}>
             </div>
         </div>
         <form target="baocms_frm" method="post">
@@ -19,7 +19,7 @@
                     <tr>
                         <td><input type="checkbox" class="checkAll" rel="business_id" /></td>
                         <td>ID</td>
-                        <td>商圈名称</td>
+                        <td>街道名称</td>
                         <td>排序</td>
                         <td>操作</td>   
                     </tr>
@@ -30,11 +30,7 @@
                             <td><{$var.business_name}></td>
                             <td><{$var.orderby}></td>
                             <td>
-                                <eq name="var.is_hot" value="0">
-                                <{:BA('business/hots',array("business_id"=>$var["business_id"],'area_id'=>$area_id),'设为热门','act','remberBtn')}>
-                        <else/>
-                        <{:BA('business/hots',array("business_id"=>$var["business_id"],'area_id'=>$area_id),'取消热门','act','remberBtn')}>
-                        </eq>
+
                         <{:BA('business/edit',array("business_id"=>$var["business_id"],'area_id'=>$area_id),'编辑','load','remberBtn',600,360)}>
                         <{:BA('business/delete',array("business_id"=>$var["business_id"],'area_id'=>$area_id),'删除','act','remberBtn')}>
                         </td>

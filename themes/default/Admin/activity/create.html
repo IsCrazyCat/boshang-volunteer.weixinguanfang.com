@@ -20,33 +20,33 @@
                         <a mini="select"  w="800" h="600" href="<{:U('shop/select')}>" class="seleSj">选择活动组织/团体</a>
                     </td>
                 </tr>
-                <tr>
-                    <td class="lfTdBt">选择抢购：</td>
-                    <td class="rgTdBt" > 
-                        <div class="lt">
-                            <select id="tuan_id" name="data[tuan_id]" class="scAddTextName manageSelect w300 sj" >
-                                <option value="0">请选择...</option>     
-                            </select>
-                        </div>
-                        <a id="btn_tuan" href="javascript:void(0);" class="seleSj">选择组织/团体抢购</a>
-                    </td>
-                </tr>
-                <script type="text/javascript" language="javascript">
-                $(document).ready(function () {
-                    $('#btn_tuan').click(function () {
-                        var shop_id = $('#shop_id').val();
-                        $.post("<{:U('activity/tuan')}>", {shop_id:shop_id}, function (data) {
-                                var res = '<option value="0">请选择...</option>';
-                                var list = data.list;
-                                $.each(list, function (n, value) {
-                                    res += '<option value="'+value.tuan_id+'">'+value.title+'</option>';
-                                });
+<!--                <tr>-->
+<!--                    <td class="lfTdBt">选择抢购：</td>-->
+<!--                    <td class="rgTdBt" > -->
+<!--                        <div class="lt">-->
+<!--                            <select id="tuan_id" name="data[tuan_id]" class="scAddTextName manageSelect w300 sj" >-->
+<!--                                <option value="0">请选择...</option>     -->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                        <a id="btn_tuan" href="javascript:void(0);" class="seleSj">选择组织/团体抢购</a>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                <script type="text/javascript" language="javascript">-->
+<!--                $(document).ready(function () {-->
+<!--                    $('#btn_tuan').click(function () {-->
+<!--                        var shop_id = $('#shop_id').val();-->
+<!--                        $.post("<{:U('activity/tuan')}>", {shop_id:shop_id}, function (data) {-->
+<!--                                var res = '<option value="0">请选择...</option>';-->
+<!--                                var list = data.list;-->
+<!--                                $.each(list, function (n, value) {-->
+<!--                                    res += '<option value="'+value.tuan_id+'">'+value.title+'</option>';-->
+<!--                                });-->
 
-                                $('#tuan_id').html(res);
-                        }, 'json');
-                    })
-                })
-            </script>
+<!--                                $('#tuan_id').html(res);-->
+<!--                        }, 'json');-->
+<!--                    })-->
+<!--                })-->
+<!--            </script>-->
                 <tr>
                     <td class="lfTdBt">活动类型：</td>
                     <td class="rgTdBt"> 

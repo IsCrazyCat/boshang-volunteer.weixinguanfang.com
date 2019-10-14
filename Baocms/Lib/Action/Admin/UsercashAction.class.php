@@ -84,7 +84,7 @@ class UsercashAction extends CommonAction{
                 $arr['cash_id'] = $cash_id;
                 $arr['status'] = $status;
                 $Userscash->save($arr);
-                D('Weixintmpl')->weixin_cash_user($data['user_id'],2);//申请提现：1会员申请，2组织/团体同意，3组织/团体拒绝
+                D('Weixintmpl')->weixin_cash_user($data['user_id'],2);//申请提现：1志愿者申请，2组织/团体同意，3组织/团体拒绝
                 $this->baoSuccess('操作成功！', U('usercash/index'));
             } else {
                 $this->baoError('请不要重复操作');
@@ -103,7 +103,7 @@ class UsercashAction extends CommonAction{
                 $arr['cash_id'] = $id;
                 $arr['status'] = $status;
                 $Userscash->save($arr);
-                D('Weixintmpl')->weixin_cash_user($data['user_id'],2);//申请提现：1会员申请，2组织/团体同意，3组织/团体拒绝
+                D('Weixintmpl')->weixin_cash_user($data['user_id'],2);//申请提现：1志愿者申请，2组织/团体同意，3组织/团体拒绝
             }
             $this->baoSuccess('操作成功！', U('usercash/index'));
         }
@@ -121,7 +121,7 @@ class UsercashAction extends CommonAction{
                 $arr['cash_id'] = $cash_id;
                 $arr['status'] = $status;
                 $Userscash->save($arr);
-                D('Weixintmpl')->weixin_cash_user($data['user_id'],2);//申请提现：1会员申请，2组织/团体同意，3组织/团体拒绝
+                D('Weixintmpl')->weixin_cash_user($data['user_id'],2);//申请提现：1志愿者申请，2组织/团体同意，3组织/团体拒绝
                 $this->baoSuccess('操作成功！', U('usercash/gold'));
             } else {
                 $this->baoError('操作失败');
@@ -143,7 +143,7 @@ class UsercashAction extends CommonAction{
         if ($status == 2) {
             D('Users')->addMoney($detail['user_id'], $money, '提现拒绝，退款');
             D('Userscash')->save(array('cash_id' => $cash_id, 'status' => $status, 'reason' => $value));
-            D('Weixintmpl')->weixin_cash_user($detail['user_id'],3);//申请提现：1会员申请，2组织/团体同意，3组织/团体拒绝
+            D('Weixintmpl')->weixin_cash_user($detail['user_id'],3);//申请提现：1志愿者申请，2组织/团体同意，3组织/团体拒绝
             $this->ajaxReturn(array('status' => 'success', 'msg' => '拒绝退款操作成功', 'url' => U('usercash/index')));
         }
     }
@@ -162,7 +162,7 @@ class UsercashAction extends CommonAction{
         if ($status == 2) {
             D('Users')->Money($detail['user_id'], $money, '提现拒绝，退款');
             D('Userscash')->save(array('cash_id' => $cash_id, 'status' => $status, 'reason' => $value));
-            D('Weixintmpl')->weixin_cash_user($detail['user_id'],3);//申请提现：1会员申请，2组织/团体同意，3组织/团体拒绝
+            D('Weixintmpl')->weixin_cash_user($detail['user_id'],3);//申请提现：1志愿者申请，2组织/团体同意，3组织/团体拒绝
             $this->ajaxReturn(array('status' => 'success', 'msg' => '拒绝退款操作成功', 'url' => U('usercash/gold')));
         }
     }

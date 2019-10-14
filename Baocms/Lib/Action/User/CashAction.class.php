@@ -73,7 +73,7 @@ class CashAction extends CommonAction{
 			if($cash_id = D('Userscash')->add($arr)){
 				$Users->addMoney($data['user_id'], -$money,$intro);
 				D('Usersex')->save($data);
-				D('Weixintmpl')->weixin_cash_user($this->member['user_id'],1);//申请提现：1会员申请，2组织/团体同意，3组织/团体拒绝
+				D('Weixintmpl')->weixin_cash_user($this->member['user_id'],1);//申请提现：1志愿者申请，2组织/团体同意，3组织/团体拒绝
 				$this->fengmiMsg('申请成功，请等待管理员审核', U('cash/cashlog'));
 			}else{
 				$this->fengmiMsg('抱歉，提现操作失败！');

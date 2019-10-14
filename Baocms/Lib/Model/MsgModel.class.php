@@ -16,7 +16,7 @@ class MsgModel extends CommonModel{
 	
 	 public function getMsgCate() {
         return array(
-            '1' => '会员',
+            '1' => '志愿者',
             '2' => '组织/团体',
             '3' => '分站管理员',
             '4' => '物业小区管理员',

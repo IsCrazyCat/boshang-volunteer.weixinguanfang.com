@@ -36,11 +36,11 @@
                          
                             <td style="text-align: center;">
                                 <{:BA('tuancate/create',array("parent_id"=>$var["cate_id"]),'添加子分类','load','remberBtn',600,300)}>
-                                <eq name="var.is_hot" value="0">
-                                <{:BA('tuancate/hots',array("cate_id"=>$var["cate_id"]),'设为热门','act','remberBtn')}>
-                        <else />
-                        <{:BA('tuancate/hots',array("cate_id"=>$var["cate_id"]),'取消热门','act','remberBtn')}>
-                        </eq>
+<!--                                <eq name="var.is_hot" value="0">-->
+<!--                                <{:BA('tuancate/hots',array("cate_id"=>$var["cate_id"]),'设为热门','act','remberBtn')}>-->
+<!--                        <else />-->
+<!--                        <{:BA('tuancate/hots',array("cate_id"=>$var["cate_id"]),'取消热门','act','remberBtn')}>-->
+<!--                        </eq>-->
                                 <{:BA('tuancate/edit',array("cate_id"=>$var["cate_id"]),'编辑','load','remberBtn',600,300)}>
                                 <{:BA('tuancate/delete',array("cate_id"=>$var["cate_id"]),'删除','act','remberBtn')}>
                             </td>
@@ -54,11 +54,11 @@
                               
                                 <td><{$var2.rate}>‰（千分）</td>
                                 <td >
-                                    <eq name="var2.is_hot" value="0">
-                                    <{:BA('tuancate/hots',array("cate_id"=>$var2["cate_id"]),'设为热门','act','remberBtn')}>
-                            <else />
-                            <{:BA('tuancate/hots',array("cate_id"=>$var2["cate_id"]),'取消热门','act','remberBtn')}>
-                            </eq>
+<!--                                    <eq name="var2.is_hot" value="0">-->
+<!--                                    <{:BA('tuancate/hots',array("cate_id"=>$var2["cate_id"]),'设为热门','act','remberBtn')}>-->
+<!--                            <else />-->
+<!--                            <{:BA('tuancate/hots',array("cate_id"=>$var2["cate_id"]),'取消热门','act','remberBtn')}>-->
+<!--                            </eq>-->
                                     <{:BA('tuancate/edit',array("cate_id"=>$var2["cate_id"]),'编辑','load','remberBtn',600,300)}>
                                     <{:BA('tuancate/delete',array("cate_id"=>$var2["cate_id"]),'删除','act','remberBtn')}>
                                 </td>

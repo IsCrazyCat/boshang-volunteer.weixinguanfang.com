@@ -227,7 +227,7 @@ class OrderModel extends CommonModel{
 			if (empty($order)){//没有找到订单返回假
             return false;
 			}
-            $member = D('Users')->find($order['user_id']);//会员信息
+            $member = D('Users')->find($order['user_id']);//志愿者信息
 			if(!empty($address_id)){
 				$address_id = $address_id;	
 			}else{

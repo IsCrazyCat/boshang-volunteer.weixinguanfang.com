@@ -7,7 +7,7 @@
     </ul>
 </div>
 <div class="main-jsgl main-sc">
-    <p class="attention"><span>注意：</span>这个删除后组织/团体数据就彻底删除了，请谨慎操作！删除后无法恢复！操作前必须备份数据库，否则后果自负！删除后会员就可以重新添加组织/团体啦~</p>
+    <p class="attention"><span>注意：</span>这个删除后组织/团体数据就彻底删除了，请谨慎操作！删除后无法恢复！操作前必须备份数据库，否则后果自负！删除后志愿者就可以重新添加组织/团体啦~</p>
     <div class="jsglNr">
         <div class="selectNr" style="margin-top: 0px; border-top:none;">
             <div class="left">
@@ -109,7 +109,7 @@
                     <td class="w50"><input type="checkbox" class="checkAll" rel="shop_id" /></td>
                     <td class="w50">ID</td>
                     <td>管理者(电话)</td>
-                    <td>组织/团体名称(区域商圈)</td>
+                    <td>组织/团体名称(区域街道)</td>
                     <td>分类(组织/团体标签)</td>
                     <td>组织/团体LOGO</td>
                     <td>入住时间</td>
@@ -139,7 +139,7 @@
 					<{:BA('shop/recovery2',array("shop_id"=>$var["shop_id"]),'恢复','act','remberBtn_small')}>
                     <{:BA('shop/edit',array("shop_id"=>$var["shop_id"]),'编辑','','remberBtn_small')}>
                     <{:BA('shop/delete2',array("shop_id"=>$var["shop_id"]),'删除','act','remberBtn_small')}>
-                    <a target="_blank" class="remberBtn_small" href="<{:U('shop/login',array('shop_id'=>$var['shop_id']))}>">管理</a>
+<!--                    <a target="_blank" class="remberBtn_small" href="<{:U('shop/login',array('shop_id'=>$var['shop_id']))}>">管理</a>-->
                     </td>
                     </tr>
                 </foreach>

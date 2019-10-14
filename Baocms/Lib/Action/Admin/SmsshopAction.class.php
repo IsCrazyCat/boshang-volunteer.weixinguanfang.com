@@ -50,7 +50,7 @@ class SmsshopAction extends CommonAction{
         if (empty($data['user_id'])) {
             $this->baoError('账户不能为空');
         }if (D('Users')->getUserByAccount($data['account'])) {
-            $this->baoError('该会员账户已经存在！');
+            $this->baoError('该志愿者账户已经存在！');
         }$data['shop_id'] = (int) $data['shop_id'];
         if (empty($data['shop_id'])) {
             $this->baoError('账户不能为空');
@@ -73,7 +73,7 @@ class SmsshopAction extends CommonAction{
         if ($log_id = (int) $log_id) {
             $obj = D('Smsshop');
             if (!($detail = $obj->find($log_id))) {
-                $this->baoError('请选择要编辑的会员');
+                $this->baoError('请选择要编辑的志愿者');
             }
             if ($this->isPost()) {
                 $data = $this->editCheck();
@@ -89,7 +89,7 @@ class SmsshopAction extends CommonAction{
                 $this->display();
             }
         } else {
-            $this->baoError('请选择要编辑的会员');
+            $this->baoError('请选择要编辑的志愿者');
         }
     }
     private function editCheck(){
@@ -98,7 +98,7 @@ class SmsshopAction extends CommonAction{
         if (empty($data['user_id'])) {
             $this->baoError('账户不能为空');
         }if (D('Users')->getUserByAccount($data['account'])) {
-            $this->baoError('该会员账户已经存在！');
+            $this->baoError('该志愿者账户已经存在！');
         }$data['shop_id'] = (int) $data['shop_id'];
         if (empty($data['shop_id'])) {
             $this->baoError('账户不能为空');
@@ -131,7 +131,7 @@ class SmsshopAction extends CommonAction{
                 }
                 $this->baoSuccess('删除成功！', U('smsshop/index'));
             }
-            $this->baoError('请选择要删除的会员');
+            $this->baoError('请选择要删除的志愿者');
         }
     }
 	//增加短信

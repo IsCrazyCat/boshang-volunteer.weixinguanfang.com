@@ -67,7 +67,7 @@ class ExpressAction extends CommonAction{
 		
 		$data['user_id'] = (int) $data['user_id'];
         if (empty($data['user_id'])) {
-            $this->baoError('发布人会员不能为空');
+            $this->baoError('发布人志愿者不能为空');
         }
         $data['title'] = htmlspecialchars( $data['title'] );
         if ( empty( $data['title'] ) ){
@@ -161,7 +161,7 @@ class ExpressAction extends CommonAction{
 		
 		$data['user_id'] = (int) $data['user_id'];
         if (empty($data['user_id'])) {
-            $this->baoError('发布人会员不能为空');
+            $this->baoError('发布人志愿者不能为空');
         }
         $data['title'] = htmlspecialchars( $data['title'] );
         if ( empty( $data['title'] ) ){

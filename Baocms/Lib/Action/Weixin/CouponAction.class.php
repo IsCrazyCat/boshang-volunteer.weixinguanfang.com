@@ -34,7 +34,7 @@ class CouponAction extends CommonAction
 			$condition = array ();
 			$detail ['max_count'] > 0 && $condition [] = '每人最多可领取' . $detail ['max_count'] . '张';
 			$detail ['follower_condtion'] == 1 && $condition [] = '必须微信关注后才能领取';
-			$detail ['member_condtion'] == 1 && $condition [] = '必须是平台会员才能领取';
+			$detail ['member_condtion'] == 1 && $condition [] = '必须是平台志愿者才能领取';
 			$this->assign('condition',$condition);
 			$objm =  D('User_weixin');
 			$obju =  D('User');
@@ -153,7 +153,7 @@ class CouponAction extends CommonAction
 					$qrurl =  U('coupon/show', array('sn' => $sn));
 					 header("Location:{$qrurl}");
 				}else {
-					$error = '领取会员卡后才能领取';
+					$error = '领取志愿者卡后才能领取';
 				}
 			}
 			if($error){
@@ -186,7 +186,7 @@ class CouponAction extends CommonAction
 			$condition = array ();
 			$coupon ['max_count'] > 0 && $condition [] = '每人最多可领取' . $coupon ['max_count'] . '张';
 			$coupon ['follower_condtion'] == 1 && $condition [] = '必须微信关注后才能领取';
-			$coupon ['member_condtion'] == 1 && $condition [] = '必须是平台会员才能领取';
+			$coupon ['member_condtion'] == 1 && $condition [] = '必须是平台志愿者才能领取';
 			
 			if($coupon){
 				foreach($coupon as $k => $v){

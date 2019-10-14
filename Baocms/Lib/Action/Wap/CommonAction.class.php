@@ -59,7 +59,7 @@ class CommonAction extends Action
         $this->uid = getUid();
 		
         if (!empty($this->uid)) {
-            $member = $MEMBER = $this->member = D('Users')->find($this->uid);//客户端缓存会员数据
+            $member = $MEMBER = $this->member = D('Users')->find($this->uid);//客户端缓存志愿者数据
             $member['password'] = '';
             $member['token'] = '';
             cookie('member', $member, 86000);//cookie保存时间，建议后台设置，暂时这样修改

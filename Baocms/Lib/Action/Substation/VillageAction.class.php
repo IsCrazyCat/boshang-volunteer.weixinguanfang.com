@@ -454,14 +454,14 @@ class VillageAction extends CommonAction
         if ($business_id = (int) $business_id) {
             $obj = D('Business');
             if (!($detail = $obj->find($business_id))) {
-                $this->baoError('请选择商圈');
+                $this->baoError('请选择街道');
             }
             $detail['is_hot'] = $detail['is_hot'] == 0 ? 1 : 0;
             $obj->save(array('business_id' => $business_id, 'is_hot' => $detail['is_hot']));
             $obj->cleanCache();
             $this->baoSuccess('操作成功', U('business/index'));
         } else {
-            $this->baoError('请选择商圈');
+            $this->baoError('请选择街道');
         }
     }
     private function editCheck($iswork = 0)

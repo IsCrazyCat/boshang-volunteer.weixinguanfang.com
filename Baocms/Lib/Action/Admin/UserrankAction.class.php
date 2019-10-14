@@ -58,7 +58,7 @@ class UserrankAction extends CommonAction
         if ($rank_id = (int) $rank_id) {
             $obj = D('Userrank');
             if (!($detail = $obj->find($rank_id))) {
-                $this->baoError('请选择要编辑的会员等级');
+                $this->baoError('请选择要编辑的志愿者等级');
             }
             if ($this->isPost()) {
                 $data = $this->editCheck();
@@ -73,7 +73,7 @@ class UserrankAction extends CommonAction
                 $this->display();
             }
         } else {
-            $this->baoError('请选择要编辑的会员等级');
+            $this->baoError('请选择要编辑的志愿者等级');
         }
     }
     private function editCheck()
@@ -109,7 +109,7 @@ class UserrankAction extends CommonAction
                 $obj->cleanCache();
                 $this->baoSuccess('删除成功！', U('userrank/index'));
             }
-            $this->baoError('请选择要删除的会员等级');
+            $this->baoError('请选择要删除的志愿者等级');
         }
     }
 }

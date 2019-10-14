@@ -5,7 +5,7 @@ $configs =  array(
     //'配置项'=>'配置值'
     'APP_GROUP_LIST' => 'Admin,Merchant,Wap,Delivery,Distributors,App,Wuye,User,Members,Home,Substation,Weixin,Worker,Property', //项目分组设定
     'DEFAULT_GROUP'  => 'Home', //默认分组
-	//Backstage后台，Merchant组织/团体中心，Wap手机版会员，MembersPC版本会员，HomePC首页，分站Substation，物业，Property，DistributorsWAP组织/团体，
+	//Backstage后台，Merchant组织/团体中心，Wap手机版志愿者，MembersPC版本志愿者，HomePC首页，分站Substation，物业，Property，DistributorsWAP组织/团体，
     //SESSION 的设置
     'SESSION_AUTO_START'    => true,
     'SESSION_TYPE'          => 'DB',   

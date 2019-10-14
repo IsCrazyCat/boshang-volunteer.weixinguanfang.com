@@ -52,16 +52,16 @@ class Wxmesg{
 			'topcolor'     => $data['topcolor'],
 			'data'		   => array(
 				'first'   =>array('value'=>$data['first'],   'color'=>'#000000'),
-				'keyword1'=>array('value'=>$data['accountType'],   'color'=>'#000000'), //会员账户
+				'keyword1'=>array('value'=>$data['accountType'],   'color'=>'#000000'), //志愿者账户
 				'keyword2'=>array('value'=>$data['operateType'],'color'=>'#000000'), //费用类型
 				'keyword3'=>array('value'=>$data['operateInfo'],    'color'=>'#000000'), //消费类型
 				'keyword4'=>array('value'=>$data['price'],'color'=>'#000000'), //变动金额
-				'remark'  =>array('value'=>$data['balance'],  'color'=>'#000000')//会员账户余额
+				'remark'  =>array('value'=>$data['balance'],  'color'=>'#000000')//志愿者账户余额
 			)
 		);
 	}
 	
-	//会员提现余额变动全部封装，哈土豆源码开发
+	//志愿者提现余额变动全部封装，哈土豆源码开发
 	static public function cash($data=null){
 		if(empty($data)) throw new Exception("微信模板消息没有数据！",1002);
 		return array(

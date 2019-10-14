@@ -1,5 +1,5 @@
 <?php
-//WAP会员中心众筹
+//WAP志愿者中心众筹
 class CrowdAction extends CommonAction {
 	 private $create_fields = array('city_id', 'area_id','title','intro', 'user_id', 'photo', 'cate_id', 'price', 'all_price', 'commission',  'orderby', 'views',  'details','lat','lng', 'end_date','ltime');
     private $edit_fields = array('city_id', 'area_id','title','intro', 'user_id', 'photo', 'cate_id', 'price', 'all_price', 'commission',  'orderby', 'views',  'details', 'lat','lng', 'end_date','ltime');
@@ -7,7 +7,7 @@ class CrowdAction extends CommonAction {
     public function _initialize() {
         parent::_initialize();
 		if ($this->_CONFIG['operation']['crowd'] == 0) {
-            $this->error('此功能已关闭');
+            $this->error('此功能暂未开通');
             die;
         }
         $this->cates = D('Crowdcate')->fetchAll();
@@ -351,7 +351,7 @@ class CrowdAction extends CommonAction {
         $data['user_id'] = $this->uid;
         $shop = D('Users')->find($data['user_id']);
         if (empty($shop)) {
-            $this->fengmiMsg('请选择正确的会员');
+            $this->fengmiMsg('请选择正确的志愿者');
         }
    
         $data['cate_id'] = (int) $data['cate_id'];

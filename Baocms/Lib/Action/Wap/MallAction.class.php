@@ -3,7 +3,7 @@ class MallAction extends CommonAction{
     public function _initialize(){
         parent::_initialize();
         if ($this->_CONFIG['operation']['mall'] == 0) {
-            $this->error('此功能已关闭');
+            $this->error('此功能暂未开通');
             die;
         }
         $goods = cookie('goods_spec');
@@ -631,7 +631,7 @@ class MallAction extends CommonAction{
 		
 		//收货地址部分重写
 		if (false == $defaultAddress = D('Paddress')->order_address_id($this->uid,$order_id)) {
-		   $this->error('获取用户地址出错，请先去会员中心添加商城地址后下单');
+		   $this->error('获取用户地址出错，请先去志愿者中心添加商城地址后下单');
 		}
 		$changeAddressUrl = "http://" . $_SERVER['HTTP_HOST'] . U('address/addlist', array('type' => goods, 'order_id' => $order_id));
 		$this -> assign('defaultAddress', $defaultAddress);

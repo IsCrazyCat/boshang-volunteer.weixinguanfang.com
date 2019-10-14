@@ -104,7 +104,7 @@ class RelayAction extends CommonAction {
 			}
 
 			$detail ['follower_condtion'] == 1 && $condition [] = '必须微信关注后才能领取';
-			$detail ['member_condtion'] == 1 && $condition [] = '必须是平台会员才能领取';
+			$detail ['member_condtion'] == 1 && $condition [] = '必须是平台志愿者才能领取';
 			$this->assign('condition',$condition);
 			//$this->pagedata['condition'] = $condition;
 			
@@ -359,7 +359,7 @@ class RelayAction extends CommonAction {
 				}
 
 				$detail ['follower_condtion'] == 1 && $condition [] = '必须微信关注后才能领取';
-				$detail ['member_condtion'] == 1 && $condition [] = '必须是平台会员才能领取';
+				$detail ['member_condtion'] == 1 && $condition [] = '必须是平台志愿者才能领取';
 				$this->assign('condition',$condition);
 				//$this->pagedata['condition'] = $condition;
 			

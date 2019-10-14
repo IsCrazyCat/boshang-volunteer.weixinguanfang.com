@@ -46,7 +46,7 @@ class FansAction extends CommonAction {
 			if($this->member['integral'] < $integral){
 				$this->baoError('您的账户积分不足');
 			}
-			D('Users')->addIntegral($this->uid,-$integral,'赠送会员积分');
+			D('Users')->addIntegral($this->uid,-$integral,'赠送志愿者积分');
 			D('Users')->addIntegral($user_id,$integral,'获得组织/团体赠送积分');
 			$this->baoSuccess('赠送积分成功!',U('fans/add',array('user_id'=>$user_id)));
 		} else {

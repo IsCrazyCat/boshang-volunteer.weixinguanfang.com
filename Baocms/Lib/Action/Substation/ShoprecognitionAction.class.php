@@ -129,12 +129,12 @@ class ShoprecognitionAction extends CommonAction{
             }
 			
 			if($kong = $obj_shop -> where('user_id ='.$detail['user_id']) -> find()) {
-                $this->baoError('认领会员已经有管理的组织/团体了');
+                $this->baoError('认领志愿者已经有管理的组织/团体了');
             }
 			
             $user_ids = D('Users')->find($detail['user_id']);
 			if($user_ids['closed'] == 1) {
-                $this->baoError('认领的会员已被删除');
+                $this->baoError('认领的志愿者已被删除');
             }
             $shops = $obj_shop->find($detail['shop_id']);
 			if(empty($shops) || $shops['closed'] == 1 || $shops['recognition'] == 1) {

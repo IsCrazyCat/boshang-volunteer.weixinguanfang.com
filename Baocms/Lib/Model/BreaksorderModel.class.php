@@ -13,7 +13,7 @@ class BreaksorderModel extends CommonModel{
 		$shopyouhui = D('Shopyouhui')->find($order['shop_id']);//组织/团体优惠信息
 		$shop = D('Shop')->find($order['shop_id']);//组织/团体信息
 		
-		$deduction = $this->get_deduction($shop['shop_id'],$order['amount'],$order['exception']);//网站扣除金额，暂时写到购买的会员余额
+		$deduction = $this->get_deduction($shop['shop_id'],$order['amount'],$order['exception']);//网站扣除金额，暂时写到购买的志愿者余额
 		$intro = '优惠买单，支付记录ID：' . $logs['log_id'];
 		$ip = get_client_ip();//IP
 		
@@ -34,7 +34,7 @@ class BreaksorderModel extends CommonModel{
 		}
 
 		
-		//会员买单实际支付日志
+		//志愿者买单实际支付日志
 		D('Usermoneylogs')->add(array(
           'user_id' => $order['user_id'],
           'money' => $logs['need_pay'],
@@ -84,11 +84,11 @@ class BreaksorderModel extends CommonModel{
             $CONFIG = D('Setting')->fetchAll();
         }
 
-		$user_fuid = D('Users')->find($uid);//查询会员的fuid1
+		$user_fuid = D('Users')->find($uid);//查询志愿者的fuid1
 		$breaksorder = D('Breaksorder')->find($order_id );//查询订单信息
 	
 		if ($user_fuid) {
-			$userModel = D('Users');//找到会员表
+			$userModel = D('Users');//找到志愿者表
 			if ($breaksorder['is_separate'] == 0) {
 				
 				if ($order_type === 2) {
@@ -96,11 +96,11 @@ class BreaksorderModel extends CommonModel{
 					$orderTypeName = '优惠买单';
 				}
 
-				if ($user_fuid['fuid1']) {//如果一级会员不等于空
+				if ($user_fuid['fuid1']) {//如果一级志愿者不等于空
 					$money1 = round($CONFIG['profit']['breaks_profit_rate1'] * $deduction,2);//这里应该就是实际金额
 					if ($money1 > 0) {
 						$info1 = $orderTypeName . '订单ID:' . $order_id . ', 分成: ' . $money1;
-						$fuser1 = $userModel->find($user_fuid['fuid1']);//查询会员是否存在
+						$fuser1 = $userModel->find($user_fuid['fuid1']);//查询志愿者是否存在
 						if ($fuser1) {
 							$userModel->addMoney($user_fuid['fuid1'], round($money1 * 100, 2), $info1);//写入用户金额*100
 							$userModel->addProfit($user_fuid['fuid1'], $order_type, $order_id, round($money1 * 100, 2), 1);//写入分销日志

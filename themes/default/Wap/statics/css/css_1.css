@@ -2849,9 +2849,9 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#BF000000,endCol
 .swiper-visible-switch {background: #aaa;}
 .swiper-active-switch {background: #fff;}
 /* Demo Styles */
-/*商圈选择结束*/
+/*街道选择结束*/
 
-/*商圈首页开始*/
+/*街道首页开始*/
 #index .dist_intro_box{ position:relative; width:100%; height:auto; overflow:hidden;}
 #index .dist_intro_box img{ width:100%; height:auto; min-height:1.2rem;}
 #index .dist_intro{ position:absolute; bottom:0; width:100%; padding:0.1rem 0; background: rgba(0, 0, 0, 0.6); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#BF000000,endColorstr=#BF000000);}
@@ -2876,7 +2876,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#BF000000,endCol
 #index .menu_list li .ico_2{ background-position:center -0.5rem;}
 #index .menu_list li .ico_3{ background-position:center -1rem;}
 #index .menu_list li .ico_4{ background-position:center -1.5rem;}
-/*商圈首页结束*/
+/*街道首页结束*/
 #index .hot_seller .list_box li .fl{ width:100%;}
 #index .hot_seller .list_box li .img .bq{ position:absolute; left:0; top:0; padding:0.1rem; background:url(../images/tagIco.png) no-repeat center top; background-size:100% auto;}
 #index .hot_seller .list_box .tag{border-radius:0.03rem; line-height:0.24rem; padding:0 0.06rem; margin-left:0.04rem; color:#fff; background-color:#ff3f45; font-size:0.1rem;}

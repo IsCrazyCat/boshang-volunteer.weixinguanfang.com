@@ -294,7 +294,7 @@ class HelpAction extends CommonAction {
 				$condition = array ();
 
 				$detail ['follower_condtion'] == 1 && $condition [] = '必须微信关注后才能领取';
-				$detail ['member_condtion'] == 1 && $condition [] = '必须是平台会员才能领取';
+				$detail ['member_condtion'] == 1 && $condition [] = '必须是平台志愿者才能领取';
 
 				//$this->pagedata['condition'] = $condition;
 				$this->assign('condition',$condition);

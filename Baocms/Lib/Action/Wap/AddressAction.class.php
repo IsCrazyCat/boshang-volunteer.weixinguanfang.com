@@ -334,7 +334,7 @@ class AddressAction extends CommonAction{
 		}
 		$this -> display();
 	}
-	//删除地址会员中心直接删除的时候
+	//删除地址志愿者中心直接删除的时候
 	public function delete() {
 		$address_id = (int)$this -> _get('address_id');
 		$obj = D('Paddress');

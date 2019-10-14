@@ -95,7 +95,7 @@ class PincheAction extends CommonAction{
 		
 		$data['user_id'] = (int) $data['user_id'];
         if (empty($data['user_id'])) {
-            $this->baoError('会员不能为空');
+            $this->baoError('志愿者不能为空');
         }
 		
 		$data['photo'] = htmlspecialchars($data['photo']);
@@ -188,7 +188,7 @@ class PincheAction extends CommonAction{
 		
 		$data['user_id'] = (int) $data['user_id'];
         if (empty($data['user_id'])) {
-            $this->baoError('会员不能为空');
+            $this->baoError('志愿者不能为空');
         }
 		
 		$data['photo'] = htmlspecialchars($data['photo']);

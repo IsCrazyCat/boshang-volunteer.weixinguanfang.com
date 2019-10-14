@@ -11,7 +11,7 @@ class  LifeAction extends  CommonAction{
         parent::_initialize();
 		$life = (int)$this->_CONFIG['operation']['life'];
 		if ($life == 0) {
-				$this->error('此功能已关闭');
+				$this->error('此功能暂未开通');
 				die;
 		}
 		
@@ -231,7 +231,7 @@ class  LifeAction extends  CommonAction{
         }
         $data['business_id'] = (int) $data['business_id'];
         if (empty($data['business_id'])) {
-            $this->fengmiMsg('商圈不能为空');
+            $this->fengmiMsg('街道不能为空');
         }
         $data['lng'] = htmlspecialchars(trim($data['lng']));
         $data['lat'] = htmlspecialchars(trim($data['lat']));

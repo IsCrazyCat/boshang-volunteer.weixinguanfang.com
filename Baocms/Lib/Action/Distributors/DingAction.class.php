@@ -10,7 +10,7 @@ class DingAction extends CommonAction {
 
 		if ($this->_CONFIG['operation']['ding'] == 0) {
 
-				$this->error('此功能已关闭');die;
+				$this->error('此功能暂未开通');die;
 
 		}
 

@@ -2,8 +2,8 @@
 <div class="mainBt">
     <ul>
         <li class="li1">组织/团体</li>
-        <li class="li2">会员管理</li>
-        <li class="li2 li3">会员管理</li>
+        <li class="li2">志愿者管理</li>
+        <li class="li2 li3">志愿者管理</li>
     </ul>
 </div>
 <div class="main-jsgl main-sc">
@@ -11,7 +11,7 @@
     <div class="jsglNr">
         <div class="selectNr" style="margin-top: 0px; border-top:none;">
             <div class="left">
-                <{:BA('user/create','','添加会员','load','',700,600)}>
+                <{:BA('user/create','','添加志愿者','load','',700,600)}>
             </div>
             <div class="right">
                 <form class="search_form" method="post" action="<{:U('user/index')}>">
@@ -81,7 +81,7 @@
                     <td class="w50"><input type="checkbox" class="checkAll" rel="user_id" /></td>
                     <td class="w50">ID</td>
                     <td>账户（昵称）</td>
-                    <td>会员等级</td>
+                    <td>志愿者等级</td>
                     <td>账户余额</td>
                     <td>注册时间(IP)</td>
                     <td>状态</td>
@@ -121,14 +121,14 @@
                     </if>
                     </td>
                     <td class="w150">
-                        <{:BA('user/integral',array("user_id"=>$var["user_id"]),'积分','load','remberBtn_small',600,350)}>
-                        <{:BA('user/money',array("user_id"=>$var["user_id"]),'余额','load','remberBtn_small',600,350)}>
+<!--                        <{:BA('user/integral',array("user_id"=>$var["user_id"]),'积分','load','remberBtn_small',600,350)}>-->
+<!--                        <{:BA('user/money',array("user_id"=>$var["user_id"]),'余额','load','remberBtn_small',600,350)}>-->
                         <{:BA('user/edit',array("user_id"=>$var["user_id"]),'编辑','load','remberBtn_small',700,600)}>
                         <{:BA('user/delete',array("user_id"=>$var["user_id"]),'删除','act','remberBtn_small')}>
                         <eq name="var.closed" value="-1">
                         <{:BA('user/audit',array("user_id"=>$var["user_id"]),'审核通过','act','remberBtn_small')}>
-                        </eq>        
-                        <a target="_blank" href="<{:U('user/manage',array('user_id'=>$var['user_id']))}>" class="remberBtn_small">管理用户</a>
+                        </eq>
+<!--                        <a target="_blank" href="<{:U('user/manage',array('user_id'=>$var['user_id']))}>" class="remberBtn_small">管理用户</a>-->
                     </td>
                     </tr>
                 </foreach>

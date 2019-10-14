@@ -308,7 +308,7 @@ class PaymentModel extends CommonModel {
                     return true;
                 } elseif ($logs['type'] == 'crowd') {//众筹
                     D('Crowdorder')->save(array('order_id' => $logs['order_id'],'status' => 1 ));
-					D('Sms')->sms_crowd_user($logs['order_id']);//短信通知会员
+					D('Sms')->sms_crowd_user($logs['order_id']);//短信通知志愿者
 					D('Sms')->sms_crowd_uid($logs['order_id']);//通知众筹发起人
 					return true;
                 } elseif ($logs['type'] == 'farm'){   //农家乐预订
@@ -432,7 +432,7 @@ class PaymentModel extends CommonModel {
                     }
                     D('Tongji')->log(2, $logs['need_pay']); //统计
                 }
-				D('Weixintmpl')->weixin_pay_balance_user($logs['log_id']);//会员账户余额变动通知全局
+				D('Weixintmpl')->weixin_pay_balance_user($logs['log_id']);//志愿者账户余额变动通知全局
 				D('Weixintmpl')->weixin_pay_balance_shop($logs['log_id'],1);//用户付款后微信通知组织/团体
             }
         return true;

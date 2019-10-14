@@ -249,7 +249,7 @@ function change_user_mobile(url1,url2){
 	
 }
 
-//获取城市、地区、商圈的下拉菜单
+//获取城市、地区、街道的下拉菜单
 function get_option(){
 
 		var city_id = 0;

@@ -8,7 +8,7 @@ class VipAction extends CommonAction {
 		parent::_initialize();
 		$check = D('Shop')->where(array('shop_id' => $this->shop_id, 'audit' => 1))->find();
 		if ($check['card_date'] < TODAY || empty($check['card_date'])) {
-			$this->error('您没有开通会员卡服务或者会员卡服务已过期');
+			$this->error('您没有开通志愿者卡服务或者志愿者卡服务已过期');
 		}
 	}
 
@@ -40,7 +40,7 @@ class VipAction extends CommonAction {
 			if($this->member['integral'] < $integral){
 				$this->error('您的账户积分不足');
 			}
-			D('Users')->addIntegral($this->uid,-$integral,'赠送会员积分');
+			D('Users')->addIntegral($this->uid,-$integral,'赠送志愿者积分');
 			D('Users')->addIntegral($Uid,$integral,'获得组织/团体赠送积分');
 			$this->success('赠送积分成功!',U('vip/bonus',array('uid'=>$Uid)));
 		} else {

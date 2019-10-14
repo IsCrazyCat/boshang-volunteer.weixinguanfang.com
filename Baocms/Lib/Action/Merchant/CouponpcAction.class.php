@@ -69,7 +69,7 @@ class CouponpcAction extends CommonAction{
     public function download(){
         /*
         if ($this->shop['card_date'] < TODAY) {
-            $this->error('亲还没有和' . $this->_CONFIG['site']['sitename'] . '合作会员卡推广！',U('expand/buy'));
+            $this->error('亲还没有和' . $this->_CONFIG['site']['sitename'] . '合作志愿者卡推广！',U('expand/buy'));
         }
          * 
          */

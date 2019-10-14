@@ -208,11 +208,11 @@ class CrowdAction extends CommonAction {
         }
         $data['user_id'] = (int) $data['user_id'];
         if (empty($data['user_id'])) {
-            $this->baoError('会员不能为空');
+            $this->baoError('志愿者不能为空');
         }
         $shop = D('Users')->find($data['user_id']);
         if (empty($shop)) {
-            $this->baoError('请选择正确的会员');
+            $this->baoError('请选择正确的志愿者');
         }
    
         $data['cate_id'] = (int) $data['cate_id'];
@@ -303,11 +303,11 @@ class CrowdAction extends CommonAction {
 		
         $data['user_id'] = (int) $data['user_id'];
         if (empty($data['user_id'])) {
-            $this->baoError('会员不能为空');
+            $this->baoError('志愿者不能为空');
         }
         $shop = D('Users')->find($data['user_id']);
         if (empty($shop)) {
-            $this->baoError('请选择正确的会员');
+            $this->baoError('请选择正确的志愿者');
         }
    
         $data['cate_id'] = (int) $data['cate_id'];

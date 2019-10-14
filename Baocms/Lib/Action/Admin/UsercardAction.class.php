@@ -56,7 +56,7 @@ class UsercardAction extends CommonAction
                 }
             }
             if (empty($list)) {
-                $this->error('没有被识别的符合格式的会员卡');
+                $this->error('没有被识别的符合格式的志愿者卡');
             }
             $this->assign('list', $list);
             $this->display('importok');
@@ -67,7 +67,7 @@ class UsercardAction extends CommonAction
     public function importok(){
         $codes = $this->_post('codes');
         if (empty($codes)) {
-            $this->baoError('导入的会员卡不能为空');
+            $this->baoError('导入的志愿者卡不能为空');
         }
         $data = array('user_id' => 0, 'card_num' => '', 'create_time' => NOW_TIME, 'create_ip' => get_client_ip());
         $obj = D('Usercard');
@@ -112,7 +112,7 @@ class UsercardAction extends CommonAction
                 }
                 $this->baoSuccess('删除成功！', U('usercard/index'));
             }
-            $this->baoError('请选择要删除的会员卡');
+            $this->baoError('请选择要删除的志愿者卡');
         }
     }
 }

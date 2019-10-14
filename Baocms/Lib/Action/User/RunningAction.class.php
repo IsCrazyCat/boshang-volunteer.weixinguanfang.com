@@ -7,7 +7,7 @@ class RunningAction extends CommonAction{
         parent::_initialize();
         $running = (int) $this->_CONFIG['operation']['running'];
         if ($running == 0) {
-            $this->error('此功能已关闭');
+            $this->error('此功能暂未开通');
             die;
         }
 		$this->assign('types', D('Running')->getType());

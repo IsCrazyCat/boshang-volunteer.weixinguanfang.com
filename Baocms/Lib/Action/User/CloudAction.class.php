@@ -3,7 +3,7 @@ class CloudAction extends CommonAction{
 	protected function _initialize(){
         parent::_initialize();
         if ($this->_CONFIG['operation']['cloud'] == 0) {
-            $this->error('此功能已关闭');
+            $this->error('此功能暂未开通');
             die;
         }
     }
@@ -59,7 +59,7 @@ class CloudAction extends CommonAction{
         $this->assign("status", $status);
         $this->display();
 	}
-	//会员中心云购数据加载
+	//志愿者中心云购数据加载
 	public function loaddata(){
         $obj = D("Cloudlogs");
         import("ORG.Util.Page");

@@ -192,7 +192,7 @@ class SmsModel extends CommonModel{
 	
 	
 	
-	//优惠劵万能通知接口1,1是用户下载优惠劵，2代表用户会员中心再次请求优惠劵，这个不行了，大于规则更改了报废！！！
+	//优惠劵万能通知接口1,1是用户下载优惠劵，2代表用户志愿者中心再次请求优惠劵，这个不行了，大于规则更改了报废！！！
 	public function sms_coupon_user($download_id,$type){
             $Coupondownload = D('Coupondownload')->find($download_id);
 			$users = D('Users')->find($Coupondownload['user_id']);
@@ -220,7 +220,7 @@ class SmsModel extends CommonModel{
         return true;
     }
 	
-	//优惠劵赠送万能接口，分有会员账户跟没有会员账户，这个已不行了，大于规则修改了
+	//优惠劵赠送万能接口，分有志愿者账户跟没有志愿者账户，这个已不行了，大于规则修改了
 	public function register_account_give_coupon($download_id,$give_user_id){
             $Coupondownload = D('Coupondownload')->find($download_id);
 			$users = D('Users')->find($uid);//新用户账户
@@ -277,14 +277,14 @@ class SmsModel extends CommonModel{
 				if ($config['sms']['dxapi'] == 'dy') {
 					$this->DySms($config['site']['sitename'], 'sms_breaks_tz_shop',$shop['mobile'], array(
 						'shop_name' => $shop['shop_name'], //组织/团体名字
-						'user_name' => $user_name, //会员名字
+						'user_name' => $user_name, //志愿者名字
 						'amount' => $order['amount'], //买单金额
 						'money' => $order['need_pay']//实际付款
 					));
 				} else {
 					$this->sendSms('sms_breaks_tz_shop', $shop['mobile'], array(
 						'shop_name' => $shop['shop_name'], //组织/团体名字
-						'user_name' => $user_name, //会员名字
+						'user_name' => $user_name, //志愿者名字
 						'amount' => $order['amount'], //买单金额
 						'money' => $order['need_pay']//实际付款
 					));
@@ -311,14 +311,14 @@ class SmsModel extends CommonModel{
 			if(!empty($users['mobile'])){
 				if ($config['sms']['dxapi'] == 'dy') {
 					$this->DySms($config['site']['sitename'], 'sms_breaks_tz_user',$users['mobile'], array(
-						'user_name' => $user_name, //会员名字
+						'user_name' => $user_name, //志愿者名字
 						'shop_name' => $shop['shop_name'], //组织/团体名字
 						'money' => $order['need_pay'], //实付金额
 						'data' => $date, //买单时间
 					));
 				} else {
 					$this->sendSms('sms_breaks_tz_user', $user['mobile'], array(
-						'user_name' => $user_name, //会员名字
+						'user_name' => $user_name, //志愿者名字
 						'shop_name' => $shop['shop_name'], //组织/团体名字
 						'money' => $order['need_pay'], //实付金额
 						'data' => $date, //买单时间
@@ -444,7 +444,7 @@ class SmsModel extends CommonModel{
     }
 	
 	
-	//预订通知会员
+	//预订通知志愿者
 	public function sms_booking_user($order_id){
 		    $order = D('Bookingorder')->find($logs['order_id']);
             $booking = D('Booking')->find($order['shop_id']);//这里是预订里面填写的手机

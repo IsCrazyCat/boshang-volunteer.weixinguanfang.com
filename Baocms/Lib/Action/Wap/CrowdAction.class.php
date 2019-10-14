@@ -4,7 +4,7 @@ class CrowdAction extends CommonAction {
 	public function _initialize(){
         parent::_initialize();
 		if ($this->_CONFIG['operation']['crowd'] == 0) {
-            $this->error('此功能已关闭');
+            $this->error('此功能暂未开通');
             die;
         }
 		$check_user_addr = D('Paddress')->where(array('user_id'=>$this->uid))->find();

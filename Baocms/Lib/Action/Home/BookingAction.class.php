@@ -6,7 +6,7 @@ class  BookingAction extends  CommonAction{
     public function _initialize() {
         parent::_initialize();
 		if ($this->_CONFIG['operation']['booking'] == 0) {
-            $this->error('此功能已关闭');
+            $this->error('此功能暂未开通');
             die;
         }
 		$this->assign('cfg',D('Booking')->getCfg());

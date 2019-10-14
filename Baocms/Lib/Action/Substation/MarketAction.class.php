@@ -77,7 +77,7 @@ class MarketAction extends CommonAction
         $data['city_id'] = $area['city_id'];
         $data['business_id'] = (int) $data['business_id'];
         if (empty($data['business_id'])) {
-            $this->baoError('所在商圈不能为空');
+            $this->baoError('所在街道不能为空');
         }
         $data['market_name'] = htmlspecialchars($data['market_name']);
         if (empty($data['market_name'])) {
@@ -195,7 +195,7 @@ class MarketAction extends CommonAction
         $data['city_id'] = $area['city_id'];
         $data['business_id'] = (int) $data['business_id'];
         if (empty($data['business_id'])) {
-            $this->baoError('所在商圈不能为空');
+            $this->baoError('所在街道不能为空');
         }
         $data['market_name'] = htmlspecialchars($data['market_name']);
         if (empty($data['market_name'])) {

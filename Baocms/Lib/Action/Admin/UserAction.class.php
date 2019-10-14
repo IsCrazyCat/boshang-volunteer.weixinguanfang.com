@@ -143,7 +143,7 @@ class UserAction extends CommonAction{
         if ($user_id = (int) $user_id) {
             $obj = D('Users');
             if (!($detail = $obj->find($user_id))) {
-                $this->baoError('请选择要编辑的会员');
+                $this->baoError('请选择要编辑的志愿者');
             }
             if ($this->isPost()) {
                 $data = $this->editCheck();
@@ -158,7 +158,7 @@ class UserAction extends CommonAction{
                 $this->display();
             }
         } else {
-            $this->baoError('请选择要编辑的会员');
+            $this->baoError('请选择要编辑的志愿者');
         }
     }
     private function editCheck(){
@@ -212,7 +212,7 @@ class UserAction extends CommonAction{
                 }
                 $this->baoSuccess('删除成功！', U('user/index'));
             }
-            $this->baoError('请选择要删除的会员');
+            $this->baoError('请选择要删除的志愿者');
         }
     }
     public function audit($user_id = 0){
@@ -229,7 +229,7 @@ class UserAction extends CommonAction{
                 }
                 $this->baoSuccess('审核成功！', U('user/index'));
             }
-            $this->baoError('请选择要审核的会员');
+            $this->baoError('请选择要审核的志愿者');
         }
     }
     public function integral(){
@@ -291,7 +291,7 @@ class UserAction extends CommonAction{
        }       
    }
    
-   //设置会员冻结金 
+   //设置志愿者冻结金 
  	public function frozen_money(){
        $user_id = (int)$this->_get('user_id'); 
        if(!$detail = D('Users')->find($user_id)){
@@ -300,11 +300,11 @@ class UserAction extends CommonAction{
        if($this->isPost()){
 		   $money = (int)  ($this->_post('money') * 100);
            if($money == 0){
-               $this->baoError('请输入正确的会员冻结金');
+               $this->baoError('请输入正确的志愿者冻结金');
            }
            $intro =  $this->_post('intro', 'htmlspecialchars');
 		   if(empty($intro)){
-               $this->baoError('会员冻结金说明不能为空');
+               $this->baoError('志愿者冻结金说明不能为空');
            }
 		   if (!D('Users')->set_frozen_money($user_id,$money,$intro)) {//入账
 			  $this->baoError(D('Users')->getError(), 3000, true);	  

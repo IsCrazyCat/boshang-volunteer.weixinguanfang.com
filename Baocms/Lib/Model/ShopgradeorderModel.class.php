@@ -23,7 +23,7 @@ class ShopgradeorderModel extends CommonModel {
 			$this->error = '您不能降级，只能购买高权限的等级';
 			return false;
 		}elseif($users['money'] < $shop_grade['money']){
-			$this->error = '您的会员余额不足，无法购买，请先到会员中心充值后购买';
+			$this->error = '您的志愿者余额不足，无法购买，请先到志愿者中心充值后购买';
 			return false;
 		}
 		

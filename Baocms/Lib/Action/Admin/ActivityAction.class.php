@@ -10,7 +10,7 @@ class ActivityAction extends CommonAction{
         $keyword = $this->_param('keyword', 'htmlspecialchars');
         if ($keyword) {
             $map['title'] = array('LIKE', '%' . $keyword . '%');
-            $this->assign('title', $title);
+            $this->assign('title',$map['title']);
         }
         if ($shop_id = (int) $this->_param('shop_id')) {
             $map['shop_id'] = $shop_id;

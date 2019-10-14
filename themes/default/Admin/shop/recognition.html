@@ -109,7 +109,7 @@
                     <td class="w50"><input type="checkbox" class="checkAll" rel="shop_id" /></td>
                     <td class="w50">ID</td>
                     <td>管理者(电话)</td>
-                    <td>组织/团体名称(区域商圈)</td>
+                    <td>组织/团体名称(区域街道)</td>
                     <td>分类(组织/团体标签)</td>
                     <td>组织/团体LOGO</td>
                     <td>入住时间</td>
@@ -135,12 +135,15 @@
                         
                     <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
                     <td >
-                        <eq name="var.recognition" value="0">
-                        <a class="remberBtn">未认领</a>
-                        <else/>
-                         <a class="remberBtn">已认领</a>
-                        </eq> 
-                        <a target="_blank" class="remberBtn" href="<{:U('shop/login',array('shop_id'=>$var['shop_id']))}>">管理</a>
+<!--                        <eq name="var.recognition" value="0">-->
+                        <!--                        <a class="remberBtn">未认领</a>-->
+                        <!--                        <else/>-->
+                        <!--                         <a class="remberBtn" >已认领</a>-->
+                        <!--                        </eq>-->
+                        <{:BA('shop/edit',array("shop_id"=>$var["shop_id"]),'编辑','','remberBtn_small')}>
+                        <{:BA('shop/delete',array("shop_id"=>$var["shop_id"]),'删除','act','remberBtn_small_quxiao')}>
+
+<!--                        <a target="_blank" class="remberBtn" href="<{:U('shop/login',array('shop_id'=>$var['shop_id']))}>">管理</a>-->
                         </td>
                     </tr>
                 </foreach>

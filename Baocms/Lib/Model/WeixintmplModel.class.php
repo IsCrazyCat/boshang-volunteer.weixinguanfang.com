@@ -292,7 +292,7 @@ class WeixintmplModel extends CommonModel{
 				'topcolor' => '#F55555', 
 				'first' => '您的账户有退款信息，信息如下：', 
 				'remark' => '如对上述余额变动有异议，请联系'.$config['site']['sitename'].'客服人员协助处理。' . $config['site']['tel'], 
-				'accountType' => $config['site']['sitename'].'会员账户', 
+				'accountType' => $config['site']['sitename'].'志愿者账户', 
 				'operateType' => $type_confirm_refund_name.'费用变动', 
 				'operateInfo' => $type_confirm_refund_name.'成功退款', 
 				'price' => '+' . $confirm_refund_price . '元', 
@@ -434,7 +434,7 @@ class WeixintmplModel extends CommonModel{
 				'topcolor' => '#F55555', 
 				'first' => '您的账户余额发生变动，信息如下：', 
 				'remark' => '如对上述余额变动有异议，请联系'.$config['site']['sitename'].'客服人员协助处理。' . $config['site']['tel'], 
-				'accountType' => $config['site']['sitename'].'会员账户', 
+				'accountType' => $config['site']['sitename'].'志愿者账户', 
 				'operateType' => $type_name.'费用支出', 
 				'operateInfo' => $type_name.'购物消费', 
 				'price' => '-' . $price . '元', 
@@ -657,7 +657,7 @@ class WeixintmplModel extends CommonModel{
 			 return true;
     }
 	
-	//会员提现，审核，拒绝，通知会员自己
+	//志愿者提现，审核，拒绝，通知志愿者自己
  	 public function weixin_cash_user($user_id,$tpye){
 		if($tpye ==1){
 			$tpye_name = '您已经成功申请提现'; 

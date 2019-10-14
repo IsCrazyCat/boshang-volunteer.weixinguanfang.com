@@ -21,7 +21,7 @@
                     <tr>
                         <td class="w50"><input type="checkbox" class="checkAll" rel="tuisong_id" /></td>
                         <td class="w50">ID</td>
-                        <td>指定推送会员</td>
+                        <td>指定推送志愿者</td>
                         <td>限制推送用户组</td>
                         <td>推送内容</td>
                         <td>推送时间</td>
@@ -34,7 +34,7 @@
                             <if condition="!empty($users[$var['user_id']]['account'])">
                             <{$users[$var['user_id']]['account']}>(<{$var.user_id}>)
                             <else/>
-                            全部会员
+                            全部志愿者
                             </if>
                             </td>
                             <td>

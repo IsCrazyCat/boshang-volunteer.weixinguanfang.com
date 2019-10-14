@@ -186,7 +186,7 @@ class OrderAction extends CommonAction
         $total = 1;
         $user_id = $Communityorder['user_id'];
         $obj->save(array('id' => $id, 'is_pay' => 1));
-        //写入会员日志
+        //写入志愿者日志
         D('Users')->addMoney($user_id, -$total, '物业设置为已缴费，未扣费');
         //写入日志
         D('Communityorderlogs')->add(array('user_id' => $Communityorder['user_id'], 'community_id' => $community_id, 'money' => 0, 'type' => $detail['type'], 'create_time' => NOW_TIME, 'create_ip' => get_client_ip()));

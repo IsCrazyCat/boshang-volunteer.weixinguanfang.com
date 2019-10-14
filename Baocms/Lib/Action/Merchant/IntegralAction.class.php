@@ -31,10 +31,10 @@ class IntegralAction extends CommonAction{
             $card_num = $this->_post('card_num',  'htmlspecialchars');
             $card = D('Usercard')->checkCard($card_num);
             if(empty($card)){
-                $this->baoError('该会员卡可能不存在或者没有激活！');
+                $this->baoError('该志愿者卡可能不存在或者没有激活！');
             }
             if(empty($card['user_id'])){
-                $this->baoErrorJump('该会员卡未绑定会员！',U('integral/bind',array('card_num'=>$card_num)));
+                $this->baoErrorJump('该志愿者卡未绑定志愿者！',U('integral/bind',array('card_num'=>$card_num)));
             }else{
                 $this->baoSuccess('查询到对应用户,请赠送积分',U('integral/add',array('uid'=>$card['user_id'])));
             }
@@ -69,11 +69,11 @@ class IntegralAction extends CommonAction{
                // D('Lock')->unlock();
                 $this->baoError('账户余额不足');
             }
-            if(D('Users')->addIntegral($this->uid,-$num,'赠送会员积分！')){
+            if(D('Users')->addIntegral($this->uid,-$num,'赠送志愿者积分！')){
                 D('Users')->addIntegral($uid,$num,'获得“'.$this->shop['shop_name'].'”组织/团体赠送积分');
             }            
           //  D('Lock')->unlock();
-            $this->baoSuccess('赠送会员积分成功！',U('integral/used')); 
+            $this->baoSuccess('赠送志愿者积分成功！',U('integral/used')); 
             
         }else{
             $this->assign('detail',$user);
@@ -91,11 +91,11 @@ class IntegralAction extends CommonAction{
         }
         $card = D('Usercard')->checkCard($card_num);
         if(empty($card)){
-            $this->error('该会员卡可能不存在或者没有激活');
+            $this->error('该志愿者卡可能不存在或者没有激活');
         }
         if($this->isPost()){
             if($card['user_id']){
-                $this->baoError('该卡绑定的是其他会员！');
+                $this->baoError('该卡绑定的是其他志愿者！');
             }
             $username = $this->_post('username','htmlspecialchars');
             $user_id = (int)  $this->_post('user_id');

@@ -113,7 +113,7 @@ class MsgAction extends CommonAction
                 $this->assign('areas', D('Area')->select());
                 $this->assign('business', D('Business')->fetchAll());
                 $this->assign('types', D('Msg')->getType());//通知用户类型
-                $this->assign('user', D('Users')->find($detail['user_id']));//查会员
+                $this->assign('user', D('Users')->find($detail['user_id']));//查志愿者
                 $this->assign('shop', D('Shop')->find($datail['shop_id']));//查组织/团体
                 $this->assign('community', D('Community')->find($datail['community_id']));//查小区
                 $this->assign('village', D('Village')->find($datail['village_id']));//查乡村

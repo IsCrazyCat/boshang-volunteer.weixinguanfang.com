@@ -54,7 +54,7 @@ class FansAction extends CommonAction
             if ($this->member['integral'] < $integral) {
                 $this->fengmiMsg('您的账户积分不足');
             }
-            D('Users')->addIntegral($this->uid, -$integral, '赠送会员积分');
+            D('Users')->addIntegral($this->uid, -$integral, '赠送志愿者积分');
             D('Users')->addIntegral($user_id, $integral, '获得组织/团体赠送积分');
             $this->fengmiMsg('赠送积分成功!', U('fans/index'));
         } else {

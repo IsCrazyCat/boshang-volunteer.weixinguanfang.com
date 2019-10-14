@@ -79,11 +79,11 @@ body{background:#F1F1F1;}
     <div class="comiis_19forum_div">
         <div class="comiis_19forum_title">
             <span class="comiis_19forum_icon"></span>
-            <h2><a href="<{:U('user/index')}>">会员数据</a></h2>
-            <em>总：<{$counts.users}>个会员</em>
+            <h2><a href="<{:U('user/index')}>">志愿者数据</a></h2>
+            <em>总：<{$counts.users}>个志愿者</em>
         </div>
             <div class="comiis_19forum_list">
-            <h3><a href="<{:U('user/index')}>" class="dot">1：今日新增<a class="red"><{$counts.totay_user}></a>个会员</a></h3>
+            <h3><a href="<{:U('user/index')}>" class="dot">1：今日新增<a class="red"><{$counts.totay_user}></a>个志愿者</a></h3>
             <h3><a href="<{:U('user/index')}>">2：已有<{$counts.user_moblie}>人验证手机号</a></h3>
             <h3><a href="<{:U('user/index')}>">3：已有<{$counts.user_email}>人绑定邮箱</a></h3>
             <h3><a href="<{:U('user/index')}>">4：qq注册<{$counts.user_qq}>人.</a></h3>
@@ -103,11 +103,11 @@ body{background:#F1F1F1;}
         <div class="comiis_19forum_title">
             <span class="comiis_19forum_icon"></span>
             <h2><a href="#">资金统计</a></h2>
-            <em>会员总资金<{:round($counts['money_and']/100,2)}>元</em>
+            <em>志愿者总资金<{:round($counts['money_and']/100,2)}>元</em>
         </div>
             <div class="comiis_19forum_list">
-            <h3><a href="<{:U('usermoneylogs/index')}>">1：会员总资金<{:round($counts['money_and']/100,2)}>元</a></h3>
-            <h3><a href="<{:U('usermoneylogs/index')}>">2：会员总积分<{$counts['money_integral']}>分</a></h3>
+            <h3><a href="<{:U('usermoneylogs/index')}>">1：志愿者总资金<{:round($counts['money_and']/100,2)}>元</a></h3>
+            <h3><a href="<{:U('usermoneylogs/index')}>">2：志愿者总积分<{$counts['money_integral']}>分</a></h3>
             <h3><a href="<{:U('usercash/index')}>">3：今日提现<a class="red"><{:round($counts['money_cash_day']/100,2)}></a>元，<a class="red"><{$counts['money_cash_audit']}></a>人待审</a></h3>
             </div>
     </div>
