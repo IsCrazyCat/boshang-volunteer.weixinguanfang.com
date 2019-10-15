@@ -37,11 +37,11 @@ class CommonAction extends Action{
         $ks = $this->citys[$this->city_id];
         if (__ACTION__ == '/payment/payment' || __ACTION__ == '/passport/login' || __ACTION__ == '/passport/register' || __ACTION__ == '/passport/sendsms'|| __ACTION__ == '/payment/check' || __ACTION__ == '/payment/check_pay_password' || __ACTION__ == '/payment/set_pay_password') {
             if ($_SERVER['HTTP_HOST'] == BAO_DOMAIN || $_SERVER['HTTP_HOST'] != 'www.' . BAO_DOMAIN) {
-                header('Location: http://www.' . BAO_DOMAIN . $_SERVER['REQUEST_URI']);
+                header('Location: http://' . BAO_DOMAIN . $_SERVER['REQUEST_URI']);
                 die;
             }
         } else {
-            if ($_SERVER['HTTP_HOST'] == BAO_DOMAIN || $_SERVER['HTTP_HOST'] == 'www.' . BAO_DOMAIN) {
+            if ($_SERVER['HTTP_HOST'] == BAO_DOMAIN || $_SERVER['HTTP_HOST'] == BAO_DOMAIN) {
                 if (empty($this->city_id)) {
                     import('ORG/Net/IpLocation');
                     $IpLocation = new IpLocation('UTFWry.dat');

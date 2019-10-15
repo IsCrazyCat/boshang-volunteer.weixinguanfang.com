@@ -39,7 +39,7 @@ class CityAction extends CommonAction{
         }
         if(isset($this->citys[$city_id])){            
             cookie('city_id',$city_id,86400*30);
-            header("Location: http://www".'.'. BAO_DOMAIN);die;
+            header("Location: http://". BAO_DOMAIN);die;
         }
         $this->error('没有正确的城市');
     }

@@ -45,6 +45,7 @@
             font-size: 15px;
             margin-bottom: 20px;
         }
+
         .modal-btn a {
             width: 90px;
             height: 35px;
@@ -127,57 +128,31 @@
 
     <ul>
         <li>
-            <a class="chukong" id="zuozhiyuan"
-               href="<{:U('activity/index')}>">
+            <a class="chukong" id="zuozhiyuan" href="<{:U('activity/index')}>">
                 <div class="img01">
                     <img src="__TMPL__statics/img/index/zyz_05.png">
                 </div>
                 <em class="tmt-fz_m">做志愿</em></a>
         </li>
-        <li class="li02"><a class="chukong" id="zhaozuzhi"
-                            href="<{:U('wap/index/closed')}>">
-            <div class="img02">
-                <img src="__TMPL__statics/img/index/zyz_07.png">
-            </div>
-            <em class="tmt-fz_m">找组织</em>
-        </a>
-        </li>
-        <li><a class="chukong" href="<{:U('wap/news/index')}>">
-            <div class="img03">
-                <img src="__TMPL__statics/img/index/zyz_09.png">
-            </div>
-            <em class="tmt-fz_m">新鲜事</em>
-        </a>
-        </li>
-        <li class="">
-            <a class="chukong" id="qzty"
-               href="<{:U('wap/index/closed')}>">
-                <div class="img05">
-                    <img src="__TMPL__statics/img/index/zyz_14.png">
-                </div>
-                <em class="tmt-fz_m">亲子体验</em>
-            </a>
-        </li>
         <li class="li02">
+            <a class="chukong" href="<{:U('wap/news/index')}>">
+                <div class="img03">
+                    <img src="__TMPL__statics/img/index/zyz_09.png">
+                </div>
+                <em class="tmt-fz_m">新鲜事</em>
+            </a>
+
+        </li>
+        <li>
             <a class="chukong" href="<{:U('user/member/myQRCode')}>">
                 <div class="img04">
                     <img src="__TMPL__statics/img/index/zyz_zhiyuanka.png">
                 </div>
                 <em class="tmt-fz_m">志愿者码</em>
             </a>
+
         </li>
         <li class="">
-            <a class="chukong" href="<{:U('wap/index/closed')}>">
-                <div class="img05">
-                    <img src="__TMPL__statics/img/index/zyz_pinpai.png">
-                </div>
-                <em class="tmt-fz_m">活动推荐</em>
-            </a>
-        </li>
-
-        <li class="" style="padding-bottom: 10px;">
-
-
             <a class="chukong" href="<{:U('user/member/index')}>">
 
                 <div class="img06">
@@ -185,23 +160,53 @@
                 </div>
                 <em class="tmt-fz_m">我的</em>
             </a>
+
         </li>
-        <li class="li02" style="padding-bottom: 10px;">
+        <li class="li02">
             <a class="chukong" href="<{:U('wap/passport/register')}>">
                 <div class="img04">
                     <img src="__TMPL__statics/img/index/zyz_16.png">
                 </div>
                 <em class="tmt-fz_m">注册</em>
             </a>
+
         </li>
-        <li class="ffli09" style="padding-bottom: 10px;">
-            <a class="chukong" href="https://wxcs.gdzyz.cn/help.jsp">
+        <li class="">
+            <a class="chukong" href="<{:U('wap/index/closed')}>">
                 <div class="img04">
                     <img src="__TMPL__statics/img/index/zyz_bangzhu.png">
                 </div>
                 <em class="tmt-fz_m">帮助</em>
             </a>
+
         </li>
+
+<!--        <li class="" style="padding-bottom: 10px;">-->
+<!--            <a class="chukong" id="qzty"-->
+<!--               href="<{:U('wap/index/closed')}>">-->
+<!--                <div class="img05">-->
+<!--                    <img src="__TMPL__statics/img/index/zyz_14.png">-->
+<!--                </div>-->
+<!--                <em class="tmt-fz_m">亲子体验</em>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li class="li02" style="padding-bottom: 10px;">-->
+<!--            <a class="chukong" id="zhaozuzhi"-->
+<!--               href="<{:U('wap/index/closed')}>">-->
+<!--                <div class="img02">-->
+<!--                    <img src="__TMPL__statics/img/index/zyz_07.png">-->
+<!--                </div>-->
+<!--                <em class="tmt-fz_m">找组织</em>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li class="ffli09" style="padding-bottom: 10px;">-->
+<!--            <a class="chukong" href="<{:U('wap/index/closed')}>">-->
+<!--                <div class="img05">-->
+<!--                    <img src="__TMPL__statics/img/index/zyz_pinpai.png">-->
+<!--                </div>-->
+<!--                <em class="tmt-fz_m">活动推荐</em>-->
+<!--            </a>-->
+<!--        </li>-->
     </ul>
 
 </div>
@@ -235,20 +240,6 @@
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
-
-<!--  通知弹窗 -->
-<div id="modalOld" style="display:none;">
-    <div class="modal-titleOld">关于调整志愿服务时长记录规则的通知</div>
-    <div class="modal-conOld">
-        <p>内附详细说明、操作指引</p>
-        <p>此通知非常重要，请务必详细阅读</p>
-    </div>
-    <div class="modal-btnOld">
-        <a href="javascript:;" class="sureOld" id="sureOld">我知道了</a>
-        <a href="https://wxcs.gdzyz.cn/article/article/articleDetail.action?pageNo=999993434170" class="goOld">前往查看</a>
-    </div>
-</div>
-
 
 <!--底部开始-->
 <div class="footer footerIndex" style="background-color: #f4f4f4;padding-top:0;bottom:0;padding-bottom: 10px;">

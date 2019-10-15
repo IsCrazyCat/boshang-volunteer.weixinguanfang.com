@@ -37,7 +37,7 @@
                 
                    <if condition="$item['domain'] eq 1">
                 
-                	<a href="http://<{$item.pinyin}>.<{$hostdo}>" <if condition="$item['city_id'] eq $city_id">class="current"</if> ><{$item.name}></a>
+                	<a href="http://<{$item.pinyin}>.<{$host}>" <if condition="$item['city_id'] eq $city_id">class="current"</if> ><{$item.name}></a>
                    <else/>
                      <a href="/<{$item.pinyin}>" <if condition="$item['city_id'] eq $city_id">class="current"</if> ><{$item.name}></a>
                             

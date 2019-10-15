@@ -65,35 +65,16 @@
                     <td class="rgTdBt">
 
                         <select name="data[city_id]" id="city_id" style="float: left;" class="seleFl w210"></select>
-                        <select name="data[area_id]" id="area_id" style="float: left;" class="seleFl w210"></select>
-                        <select name="data[business_id]" id="business_id" style="float: left;"
-                                class="seleFl w210"></select>
+                        <select name="data[area_id]" id="area_id" style="float: left;"  class="seleFl w210"></select>
+                        <select name="data[business_id]" id="business_id" style="float: left;"  class="seleFl w210"></select>
                     </td>
                 </tr>
 
                 <script src="<{:U('app/datas/cab',array('name'=>'cityareas'))}>"></script>
                 <script>
-                    var city_id =
-                    <
-                        ? php echo(int)
-                    $detail['city_id'];
-                        ?
-                    >
-                    ;
-                    var area_id =
-                    <
-                        ? php echo(int)
-                    $detail['area_id'];
-                        ?
-                    >
-                    ;
-                    var business_id =
-                    <
-                        ? php echo(int)
-                    $detail['business_id'];
-                        ?
-                    >
-                    ;
+                    var city_id = <?php echo (int)$detail['city_id'];?>;
+                    var area_id = <?php echo (int)$detail['area_id'];?>;
+                    var business_id = <?php echo (int)$detail['business_id'];?>;
                     $(document).ready(function () {
                         var city_str = ' <option value="0">请选择...</option>';
                         for (a in cityareas.city) {
@@ -356,15 +337,15 @@
                         <a style="margin-left: 10px;" mini="select" w="600" h="600" href="<{:U('public/maps')}>"
                            class="seleSj">百度地图</a>
                 </tr>
-                <input type="hidden" name="data[recognition]" value="1" />
-<!--                <tr>-->
-<!--                    <td class="lfTdBt">是否认领</td>-->
-<!--                    <td class="rgTdBt">-->
-<!--                        <input type="hidden" name="data[recognition]" value="1" />未认领-->
-<!--                        <input type="radio" name="data[recognition]" value="1"/>已认领-->
-<!--                        <code>您现在是后台添加商户，肯定选择未认领，除非你直接安排给那个志愿者</code>-->
-<!--                    </td>-->
-<!--                </tr>-->
+
+                <tr>
+                    <td class="lfTdBt">是否认领</td>
+                    <td class="rgTdBt">
+                        <input type="radio" name="data[recognition]" value="0" checked="checked"/>未认领
+                        <input type="radio" name="data[recognition]" value="1"/>已认领
+                        <code>您现在是后台添加商户，肯定选择未认领，除非你直接安排给那个会员</code>
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="lfTdBt">组织/团体介绍：</td>

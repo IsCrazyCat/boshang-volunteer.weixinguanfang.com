@@ -20,13 +20,15 @@ class AdAction extends CommonAction{
             $map['site_id'] = $site_id;
             $this->assign('site_id', $site_id);
         }
+        //只展示wap首页广告位
+        $map['site_id'] = '57';
         $count = $Ad->where($map)->count();
         $Page = new Page($count, 15);
         $show = $Page->show();
         $list = $Ad->where($map)->order(array('ad_id' => 'desc'))->limit($Page->firstRow . ',' . $Page->listRows)->select();
         $this->assign('list', $list);
         $this->assign('page', $show);
-        $this->assign('sites', D('Adsite')->fetchAll());
+        $this->assign('sites', D('Adsite')->where(array('site_id'=>57))->select());
         $this->assign('types', D('Adsite')->getType());
         $this->display();
     }

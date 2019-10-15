@@ -19,15 +19,11 @@
                          <tr>
                          <php>$i=0;</php>
                         <foreach name="adsite" item="var">
-                            <if condition="$var['site_place'] eq $pl">   
-                                    <td>
-                                        (<{$var.site_id}>)<{$var.site_name}>
-                                        <{:BA('ad/index',array("site_id"=>$var["site_id"]),'管理广告','','remberBtn')}>
-                                    </td>
-                                    <php>$i++; if($i%4==0) echo '</tr><tr>';</php> 
-                                 
-                                 
-                            </if>
+                            <td>
+                                (<{$var.site_id}>)<{$var.site_name}>
+                                <{:BA('ad/index',array("site_id"=>$var["site_id"]),'管理广告','','remberBtn')}>
+                            </td>
+                            <php>$i++; if($i%4==0) echo '</tr><tr>';</php>
                         </foreach>
                            </tr>
                     </volist>

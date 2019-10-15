@@ -6,8 +6,8 @@ class AdsiteAction extends CommonAction
     public function index()
     {
         $Adsite = D('Adsite');
-        $this->assign('adsite', $Adsite->fetchAll());
-        $this->assign('types', $Adsite->getType());
+        $this->assign('adsite',  $Adsite->where(array('site_id'=>57))->select());
+        $place = $Adsite->getPlace();
         $this->assign('place', $Adsite->getPlace());
         $this->display();
         // 输出模板

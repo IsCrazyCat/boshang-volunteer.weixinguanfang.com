@@ -11,7 +11,7 @@ class  EmptyAction extends  CommonAction{
         foreach($citys as $val){
             if($val['pinyin'] == $model){
                 cookie('city_id',$val['city_id'],86400*30); //保存一个月
-                header("Location: http://www".'.'. BAO_DOMAIN);
+                header("Location: http://". BAO_DOMAIN);
                 die;
             }            
         }

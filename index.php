@@ -27,7 +27,7 @@ if (!file_exists(BASE_PATH . '/attachs/install.lock')) {
 //error_reporting(0);
 ini_set('display_errors','On');
 error_reporting(0);
-define('APP_DEBUG', false);
+define('APP_DEBUG', true);
 
 //定义项目名称，要修改版权的要重新定义这个名字,二开120585022
 define('APP_NAME', 'Baocms');

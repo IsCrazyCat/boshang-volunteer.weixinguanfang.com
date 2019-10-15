@@ -23,8 +23,8 @@ class CommonAction extends Action
 //        p($this->uid);die;
 
 		if (is_mobile()) {
-           if ($_SERVER['HTTP_HOST'] == BAO_DOMAIN || $_SERVER['HTTP_HOST'] != 'www.' . BAO_DOMAIN) {
-               header("Location: http://www." . BAO_DOMAIN . $_SERVER['REQUEST_URI']);
+           if ($_SERVER['HTTP_HOST'] == BAO_DOMAIN || $_SERVER['HTTP_HOST'] !=  BAO_DOMAIN) {
+               header("Location: http://" . BAO_DOMAIN . $_SERVER['REQUEST_URI']);
                die;
            }
         }

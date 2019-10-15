@@ -106,8 +106,6 @@ class ShopAction extends CommonAction{
             $this->baoError('操作失败！');
         } else {
             $this->assign('cates', D('Shopcate')->fetchAll());
-            $this->assign('city', D('city')->fetchAll());
-            $this->assign('area', D('area')->fetchAll());
             $this->assign('business', D('Business')->fetchAll());
             $this->display();
         }
