@@ -26,29 +26,29 @@
 .add-button{ text-align:center;}
 .layui-layer-title {border-bottom: 0px solid #eee;}
 </style>
-<if condition="$is_weixin"><!--首先是在微信里面-->
-    <if condition="!empty($CONFIG[other][check_connect_uid])">
-    <script>
-        $(document).ready(function () {
-            var check_connect_uid = "<{$check_connect_uid}>";
-            if (check_connect_uid == '' || check_connect_uid == null) {
-               check_connect_uid_wap();//如果等于空
-             }
-        })
-        
-        function check_connect_uid_wap(url) {
-            layer.open({
-                type: 1,
-                title: '是否绑定微信？',
-                skin: 'layui-layer-demo', //加上边框
-                area: ['90%', '150px'], //宽高
-                content: '<div class="add-message"><div class="add-button"><a href="<{:U('wap/passport/wxlogin')}>" id="go_mobile" class="button button-small bg-yellow">立即绑定微信</a></div></div>',
-            });
-            $('.layui-layer-title').css('color', '#ffffff').css('background', '#2fbdaa');
-        
-        }
-    </script> 
-    </if>
-</if>
+<!--<if condition="$is_weixin">&lt;!&ndash;首先是在微信里面&ndash;&gt;-->
+<!--    <if condition="!empty($CONFIG[other][check_connect_uid])">-->
+<!--    <script>-->
+<!--        $(document).ready(function () {-->
+<!--            var check_connect_uid = "<{$check_connect_uid}>";-->
+<!--            if (check_connect_uid == '' || check_connect_uid == null) {-->
+<!--               check_connect_uid_wap();//如果等于空-->
+<!--             }-->
+<!--        })-->
+<!--        -->
+<!--        function check_connect_uid_wap(url) {-->
+<!--            layer.open({-->
+<!--                type: 1,-->
+<!--                title: '是否绑定微信？',-->
+<!--                skin: 'layui-layer-demo', //加上边框-->
+<!--                area: ['90%', '150px'], //宽高-->
+<!--                content: '<div class="add-message"><div class="add-button"><a href="<{:U('wap/passport/wxlogin')}>" id="go_mobile" class="button button-small bg-yellow">立即绑定微信</a></div></div>',-->
+<!--            });-->
+<!--            $('.layui-layer-title').css('color', '#ffffff').css('background', '#2fbdaa');-->
+<!--        -->
+<!--        }-->
+<!--    </script> -->
+<!--    </if>-->
+<!--</if>-->
 </body>
 </html>
