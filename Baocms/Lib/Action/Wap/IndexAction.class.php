@@ -78,5 +78,7 @@ class IndexAction extends CommonAction {
         $this->error('此功能暂未开通');
         die;
     }
-	
+	public function picture(){
+        $this->display();
+    }
 }

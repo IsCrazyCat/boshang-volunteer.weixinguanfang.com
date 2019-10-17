@@ -21,7 +21,7 @@ ul { padding-left: 0px;}
 <div class="blank-10 bg">
 </div>
 <div class="line padding border-bottom" style="margin-top:2rem;">
-	<span class="x12 text-gray">你好：<{$MEMBER['account']}>  &nbsp;您的组织/团体：<{$SHOP.shop_name}></span>
+	<span class="x12 text-gray">你好：<{$member['account']}>  &nbsp;您的组织/团体：<{$SHOP.shop_name}></span>
 	<span class="x12 text-gray">可提现余额：<{:round($gold/100,2)}>元<if condition="!empty($MEMBER['frozen'])">，冻结金：<{:round($MEMBER['frozen']/100,2)}>元。</if>
     </span>
     <if condition="!empty($CONFIG[cash][shop_cash_commission])">

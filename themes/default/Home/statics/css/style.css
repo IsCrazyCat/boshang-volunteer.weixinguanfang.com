@@ -1557,10 +1557,6 @@ span.spxq_qgRedu{right:0;bottom:-1px;height:20px}
 .shfwsy_C2 li:hover{background:rgba(255,255,255,.2);transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-moztransition:all .2s ease-in-out}
 .shfwsy_C2-li-l{width:315px;width:191px;padding:30px 62px}
 .shfwsy_C2-li-l em{display:block;width:90px;height:90px;background-position:center center;background-repeat:no-repeat}
-.shfwsy_C2-li-l .i-1{background-image:url(../images/shfw_num1.png)}
-.shfwsy_C2-li-l .i-2{background-image:url(../images/shfw_num2.png)}
-.shfwsy_C2-li-l .i-3{background-image:url(../images/shfw_num3.png)}
-.shfwsy_C2-li-l .i-4{background-image:url(../images/shfw_num4.png)}
 .shfwsy_C2-li-l p{color:#a5a5a5;font-size:18px;line-height:34px}
 .shfwsy_C2-li-r{width:285px;padding-top:106px;padding-bottom:20px}
 .shfw_bdbanner{width:100%;margin:0 auto;height:auto;overflow:hidden;text-align:center}
@@ -2977,8 +2973,8 @@ table.dzDing tr td p{line-height:24px}
 
 /*订酒店频道-2016-03-25*/
 .hotel_banner{ position:relative;}
-.hotel_soso{ position:absolute; bottom:0; left:0; right:0; padding:18px 0 18px 20px; background: rgba(0, 0, 0, 0.3); 
-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#BF000000,endColorstr=#BF000000);}
+.hotel_soso{ position:absolute; bottom:0; left:0; right:0; padding:18px 0 18px 20px; background: rgba(0, 0, 0, 0.3);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#BF000000,endColorstr=#BF000000);}
 .hotel_soso .int_box{ position:relative; width:140px; padding:0 10px; background:#fff; height:44px; border-radius:5px; margin-right:10px;}
 /*下拉选择*/
 .hotel_soso_pull{ position:absolute; left:0; top:40px; width:100%; background:#fff; box-shadow:0 2px 2px #ccc; z-index:10; display:none;}
@@ -3162,7 +3158,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#BF000000,endCol
 .farm_recmd .list .pub_img{ width:100%; height:200px; position:relative;}
 .farm_recmd .list:hover .pub_img img{opacity:0.8;filter:alpha(opacity=80);}
 .farm_recmd .list .pub_img .tag{ position:absolute; left:0; top:0; display:inline-block; height:36px; line-height:36px; padding:0 10px; background:#ff6600; color:#fff; font-size:16px;}
-.farm_recmd .list .pub_wz{ padding:10px 20px;} 
+.farm_recmd .list .pub_wz{ padding:10px 20px;}
 .farm_recmd .list .pub_wz p,.farm_recmd .list .pub_wz .bt a,.farm_recmd .list .pub_wz .bt b{font-size:16px; line-height:24px;}
 .farm_recmd .list .pub_wz p.line2{line-height:24px; height:48px; overflow: hidden; text-overflow: ellipsis; text-overflow: -o-ellipsis-lastline; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;}
 .farm_recmd .list .pub_wz .box{ overflow:hidden; margin-top:8px;}
@@ -3285,7 +3281,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#BF000000,endCol
 .seat_detl_youhui .list .pub_wz p.price{ font-size:24px; margin-top:10px;}
 .seat_detl_youhui .list .pub_wz del,.seat_detl_youhui .list .pub_wz .num{ font-size:16px;}
 .seat_detl_ding{border:1px solid #e6e6e6; background:#fff; padding:10px; overflow:hidden;}
-.seat_detl_ding .tag{ display:inline-block; padding:0 5px; line-height:24px; height:24px; text-align:center; color:#fff; vertical-align:middle; background:#33b095;} 
+.seat_detl_ding .tag{ display:inline-block; padding:0 5px; line-height:24px; height:24px; text-align:center; color:#fff; vertical-align:middle; background:#33b095;}
 .seat_detl_ding p{ margin-left:40px; font-size:16px; line-height:24px;}
 .seat_soso .int_box.time input{ text-align:left;}
 .seat_soso .short_box select{ width:108px; height: 44px;line-height: 44px;font-size: 14px;text-indent: 10px;background: #fff;border-radius: 5px;border: none; margin-right:10px;}
@@ -3499,7 +3495,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#BF000000,endCol
 .mall_list .box{ position:absolute; z-index:1; left:-1px;top:-1px; width:278px; height:328px; padding:10px; border:1px solid transparent;}
 .mall_list:hover .box{border:1px solid #ff6600;}
 .mall_list h3 a{ font-size:16px; font-weight:normal; color:#333; line-height:30px;}
-.mall_list .btn_box{ margin:10px 10px 5px;} 
+.mall_list .btn_box{ margin:10px 10px 5px;}
 .mall_list .btn{display:inline-block; width:140px;line-height:40px; background:#ff6600; border-radius:5px; font-size:16px; text-align:center; color:#fff; vertical-align:middle;}
 .mall_list .btn:hover{ background:#ff3300;}
 

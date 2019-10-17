@@ -89,7 +89,6 @@
         <a class="rights" href="<{:LinkTo('shop/index',array('cat'=>$cat))}>">全部地区</a>
         </li>
        <foreach name="areas" item="var">
-               <php>if($var['city_id'] == $city_id){</php>         
             <li id="cat_<{$var['cate_id']}>"><a class="rights hasUlLink" title="<{$var.cate_name}>" href="javascript:void(0);>"><{$var.area_name}></a>
              
                <ul id="items0">  
@@ -103,7 +102,6 @@
                </ul>
                        
              </li>
-                <php>}</php>      
         </foreach>
        
       </ul><!--1级end-->

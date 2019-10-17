@@ -44,7 +44,7 @@ $(function(){
     <if condition="$is_weixin">
     <a id="makebtn" ><i class="icon-qrcode"></i></a>
 	<else/>
-    <a href="<{:U('passport/logout')}>"><i class="icon-sign-out"></i></a>  
+    <a href="<{:U('wap/passport/logout')}>"><i class="icon-sign-out"></i></a>
     </if>
 	</div>
 </header>
@@ -180,7 +180,7 @@ $(function(){
 </div>
 <div class="blank-10"></div>
 <div class="container text-center">
-		<a class="button button-block button-big bg-dot" href="<{:U('passport/logout')}>">注销登录</a>
+		<a class="button button-block button-big bg-dot" href="<{:U('wap/passport/logout')}>">注销登录</a>
 </div>
 <div class="blank-20"></div>
 <include  file='public:footer'/>

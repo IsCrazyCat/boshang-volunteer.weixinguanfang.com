@@ -9,7 +9,7 @@ class ActivityAction extends CommonAction{
     }
 
     public function index(){
-        $result = $this->lengthOfTime($this->uid,1);
+        $result = lengthOfTime($this->uid,1);
 
         $this->assign('total_time',$result['total_time']);
         $this->assign('year_time',$result['year_time']);
@@ -134,7 +134,7 @@ class ActivityAction extends CommonAction{
             $year_time = 0;//该组织下属所有活动的今年活动时间
             $sign_users = array();
             foreach ($activitys as $akey => $aval){
-                $result = $this->lengthOfTime($aval['activity_id']);
+                $result = lengthOfTime($aval['activity_id']);
                 //获取该组织下的活动总时长和今年时长
                 $total_time += $result['total_time'];
                 $year_time += $result['year_time'];
@@ -170,7 +170,7 @@ class ActivityAction extends CommonAction{
         $year_time = 0;//该组织下属所有活动的今年活动时间
         $sign_users = array();//该组织下属所有活动的报名人ID
         foreach ($activitys as $akey => $aval){
-            $result = $this->lengthOfTime($aval['activity_id']);
+            $result = lengthOfTime($aval['activity_id']);
             //获取该组织下的活动总时长和今年时长
             $total_time += $result['total_time'];
             $year_time += $result['year_time'];
@@ -216,7 +216,7 @@ class ActivityAction extends CommonAction{
         }
         $sign_users = D('users')->where(array('user_id'=>array('IN',$sign_user_ids)))->select();
         foreach ($sign_user_ids as $key => $val){
-            $result = $this->lengthOfTime($val,1);
+            $result = lengthOfTime($val,1);
             $sign_users[$key]['total_time'] = $result['total_time'];
         }
 
@@ -224,70 +224,4 @@ class ActivityAction extends CommonAction{
         $this->display();
     }
 
-    /**
-     * 服务活动列表
-     */
-    public function activityList(){
-        $organization_id = $this->_param('organization_id');
-
-        $this->assign('organization_id',$organization_id);
-        $this->display(); // 输出模板
-    }
-
-    /**
-     * 获取活动时长相关
-     * @param $id 传入的用户ID或者活动ID
-     * @param $type 0获取传入的活动ID所有的活动时间
-     *              1获取传入的用户ID的活动时间和人数
-     * @return array
-     */
-    public function lengthOfTime($id,$type = 0){
-        $result = array();
-        $where = array();
-        $group = 'user_id';
-        $model = 'activity_sign'; //默认查询报名表
-        if($type == 0){
-            $where['activity_id'] = $id;
-        }else if($type == 1){
-            $where['user_id'] = $id;
-            $group = 'activity_id';
-        }
-        $activityLogs = D('activityLogs')->where($where)->select();
-        if($real_count = D('activityLogs')->where($where)->group($group)->count()){
-            //实际参加活动人数/实际参加活动数
-            $result['real_count'] = $real_count;
-        }
-        //总活动时长
-        $total_time = 0;
-        //今年活动时长
-        $year_time = 0;
-
-        $objs = D($model)->where($where)->select();
-        //个数 报名人数/参加活动个数
-        $count = count($objs);
-        $result['count'] = $count;
-        foreach ($objs as $key =>$val){
-            $result['ids'][$key] = $val[$group];
-        }
-
-        foreach ($activityLogs as $key=>$val) {
-            if(empty($val['end_date'])){
-                $total_time += (time()-$val['start_date']);
-            }else{
-                $total_time += ($val['end_date']-$val['start_date']);
-            }
-            if(substr($val['today_date'],0,4)==date('Y')){
-                $year_time += $total_time;
-            }
-        }
-        if($total_time){
-            $total_time = ceil($total_time/3600);
-            $result['total_time'] = $total_time;
-        }
-        if($year_time){
-            $year_time = ceil($year_time/3600);
-            $result['year_time'] = $year_time;
-        }
-        return $result;
-    }
 }

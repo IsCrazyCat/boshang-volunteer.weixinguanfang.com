@@ -58,8 +58,8 @@
                     <td class="rgTdBt">
                         
                         <select name="data[city_id]" id="city_id" style="float: left;" class="seleFl w210"></select>
-                        <!--<select name="data[area_id]" id="area_id" style="float: left;"  class="seleFl w210"></select>-->
-						<!--<select name="data[business_id]" id="business_id" style="float: left;"  class="seleFl w210"></select>-->
+                        <select name="data[area_id]" id="area_id" style="float: left;"  class="seleFl w210"></select>
+						<select name="data[business_id]" id="business_id" style="float: left;"  class="seleFl w210"></select>
                     </td>
                 </tr>
                
@@ -162,11 +162,11 @@
                 </tr>
                
                <tr>
-                    <td class="lfTdBt">缩略图：</td>
+                    <td class="lfTdBt">组织/团体LOGO：</td>
                  <td class="rgTdBt">
                     <div style="width: 300px;height: 100px; float: left;">
                         <input type="hidden" name="data[logo]" value="<{$detail.logo}>" id="data_logo" />
-                        <div id="fileToUpload" >上传缩略图</div>
+                        <div id="fileToUpload" >上传LOGO</div>
                     </div>
                     <div style="width: 300px;height: 100px; float: left;">
                         <img id="logo_img" width="120" height="80"  src="<{:config_img($detail['logo'])}>" />
@@ -198,11 +198,11 @@
             
             
              <tr>
-                    <td class="lfTdBt">组织/团体缩略图：</td>
+                    <td class="lfTdBt">入驻资料图片：</td>
                  <td class="rgTdBt">
                     <div style="width: 300px;height: 100px; float: left;">
                         <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo" />
-                        <div id="fileToUpload1" >上传缩略图</div>
+                        <div id="fileToUpload1" >上传图片</div>
                     </div>
                     <div style="width: 300px;height: 100px; float: left;">
                         <img id="photo_img" width="120" height="80"  src="<{:config_img($detail['photo'])}>" />

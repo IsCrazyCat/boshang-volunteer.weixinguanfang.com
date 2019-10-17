@@ -415,4 +415,5 @@ class MemberAction extends CommonAction{
         $this->assign('file', $file);
         $this->display();
     }
+
 }

@@ -30,6 +30,9 @@ class ShopAction extends CommonAction{
         $this->assign('order', $order);
         $keyword = $this->_param('keyword', 'htmlspecialchars');
         $this->assign('keyword', $keyword);
+        $citys = D('City')->fetchAll();
+        $city = (int) $this->_param('city');
+        $this->assign('city_id', $city);
         $areas = D('Area')->fetchAll();
         $area = (int) $this->_param('area');
         $this->assign('area_id', $area);
@@ -37,8 +40,9 @@ class ShopAction extends CommonAction{
         $business = (int) $this->_param('business');
         $this->assign('business_id', $business);
         $this->assign('areas', $areas);
+        $this->assign('citys', $citys);
         $this->assign('biz', $biz);
-        $this->assign('nextpage', LinkTo('shop/loaddata', array('cat' => $cat, 'area' => $area, 'business' => $business, 'order' => $order, 't' => NOW_TIME, 'keyword' => $keyword, 'p' => '0000')));
+        $this->assign('nextpage', LinkTo('shop/loaddata', array('cat' => $cat, 'city'=>$city , 'area' => $area, 'business' => $business, 'order' => $order, 't' => NOW_TIME, 'keyword' => $keyword, 'p' => '0000')));
         $this->display();
         // 输出模板
     }
@@ -72,7 +76,12 @@ class ShopAction extends CommonAction{
     {
         $Shop = D('Shop');
         import('ORG.Util.Page');
-        $map = array('closed' => 0, 'audit' => 1, 'city_id' => $this->city_id);
+        $city = (int) $this->_param('city');
+        if($city){
+            $map = array('closed' => 0, 'audit' => 1, 'city_id' => $this->$city);
+        }else{
+            $map = array('closed' => 0, 'audit' => 1);
+        }
         $cat = (int) $this->_param('cat');
         if ($cat) {
             $catids = D('Shopcate')->getChildren($cat);
@@ -142,85 +151,37 @@ class ShopAction extends CommonAction{
             $this->error('该组织/团体已经被删除');
             die;
         }
-        $Shopdianping = D('Shopdianping');
-        import('ORG.Util.Page');
-        $map = array('closed' => 0, 'shop_id' => $shop_id, 'show_date' => array('ELT', TODAY));
-        $count = $Shopdianping->where($map)->count();
-        $Page = new Page($count, 4);
-        $show = $Page->show();
-        $list = $Shopdianping->where($map)->order(array('dianping_id' => 'desc'))->limit(0, 4)->select();
-        $all_ping = $Shopdianping->where('shop_id =' . $shop_id)->count();
-        $this->assign('all_ping', $all_ping);
-        $user_ids = $dianping_ids = array();
-        foreach ($list as $k => $val) {
-            $list[$k] = $val;
-            $user_ids[$val['user_id']] = $val['user_id'];
-            $dianping_ids[$val['dianping_id']] = $val['dianping_id'];
+        $organization = D('shop')->where(array('shop_id'=>$shop_id))->find();
+
+        //获取该组织下的活动
+        $activitys = D('activity')->where(array('shop_id'=>$organization['shop_id']))->select();
+        //该组织下的活动个数
+        $actitity_count = count($activitys);
+        $organization['activity_count'] = $actitity_count;
+
+        $sign_count = 0;//该组织下属所有活动的所有报名人数
+        $join_count = 0;//该组织下属所有活动的所有参加人数
+        $total_time = 0;//该组织下属所有活动的总活动时间
+        $year_time = 0;//该组织下属所有活动的今年活动时间
+        $sign_users = array();
+        foreach ($activitys as $akey => $aval){
+            $result = lengthOfTime($aval['activity_id']);
+            //获取该组织下的活动总时长和今年时长
+            $total_time += $result['total_time'];
+            $year_time += $result['year_time'];
+            //获取该活动下的报名人数和实际参加人数
+            if(!empty($result['ids'])){
+                $sign_users = array_merge($sign_users,$result['ids']);
+            }
+            $join_count += $result['real_count'];
         }
-        if (!empty($user_ids)) {
-            $this->assign('users', D('Users')->itemsByIds($user_ids));
-        }
-        if (!empty($dianping_ids)) {
-            $this->assign('pics', D('Shopdianpingpics')->where(array('dianping_id' => array('IN', $dianping_ids)))->select());
-        }
-        $this->assign('totalnum', $count);
-        $this->assign('list', $list);
-        $this->assign('page', $show);
-        $this->assign('favnum', D('Shopfavorites')->where(array('shop_id' => $shop_id))->count());
-        $this->assign('detail', $detail);
-        $this->seodatas['title'] = $detail['shop_name'];
-        $this->assign('ex', D('Shopdetails')->find($shop_id));
-        $this->assign('cates', D('Shopcate')->fetchAll());
-        $shop_tuan = D('Shop')->where(array('cate_id' => array('neq', $detail['cate_id'])))->order(array('shop_id' => 'desc'))->select();
-        $shop_ids = array();
-        foreach ($shop_tuan as $k => $val) {
-            $list[$k] = $val;
-            $shop_ids[$val['shop_id']] = $val['shop_id'];
-        }
-        $map_tuan['shop_id'] = array('IN', $shop_ids);
-        $map_tuan['closed'] = array('eq', '0');
-        $map_tuan['bg_date'] = array('ELT', TODAY);
-        $map_tuan['end_date'] = array('EGT', TODAY);
-        $tuans = D('Tuan')->where($map_tuan)->order(array('top_date' => 'desc', 'create_time' => 'desc'))->limit(0, 6)->select();
-        foreach ($tuans as $k => $val) {
-            $tuans[$k]['d'] = getDistance($lat, $lng, $val['lat'], $val['lng']);
-        }
-        $this->assign('tuans', $tuans);
-		
-		$if_tuan = D('Tuan')->where(array('shop_id' => $shop_id, 'audit' => 1, 'closed' => 0,'end_date' => array('EGT', TODAY)))->find();
-        $this->assign('if_tuan', $if_tuan);
-		
-		
-        //推荐不同类目组织/团体结束
-        /***********20150915新增********/
-        //招聘
-        $work = D('work')->order('work_id desc ')->where(array('shop_id' => $shop_id, 'audit' => 1, 'city_id' => $this->city_id, 'closed' => 0, 'expire_date' => array('EGT', TODAY)))->select();
-        $this->assign('work', $work);
-        $weidian = D('WeidianDetails')->where(array('audit' => 1, 'city_id' => $this->city_id, 'closed' => 0))->order('id desc')->limit(0, 1)->select();
-        $this->assign('weidian', $weidian);
-        $goods = D('Goods')->where(array('shop_id' => $shop_id, 'audit' => 1, 'city_id' => $this->city_id, 'closed' => 0, 'end_date' => array('EGT', TODAY)))->order('create_time desc')->limit(0, 6)->select();
-        $this->assign('goods', $goods);
-        $coupon = D('Coupon')->order('coupon_id desc ')->where(array('shop_id' => $shop_id, 'audit' => 1, 'city_id' => $this->city_id, 'closed' => 0, 'expire_date' => array('EGT', TODAY)))->select();
-        $this->assign('coupon', $coupon);
-        $huodong = D('Activity')->order('activity_id desc ')->where(array('shop_id' => $shop_id, 'city_id' => $this->city_id, 'audit' => 1, 'closed' => 0, 'end_date' => array('EGT', TODAY), 'bg_date' => array('ELT', TODAY)))->select();
-        $this->assign('huodong', $huodong);
-        $ele_menu = D('ele_product')->order('product_id desc ')->where(array('shop_id' => $shop_id, 'city_id' => $this->city_id))->select();
-        $this->assign('ele_menu', $ele_menu);
-        $ding_menu = D('shop_ding_menu')->order('menu_id desc ')->where(array('shop_id' => $shop_id, 'city_id' => $this->city_id))->select();
-        $this->assign('ding_menu', $ding_menu);
-        D('Shop')->updateCount($shop_id, 'view');
-        if ($this->uid) {
-            D('Userslook')->look($this->uid, $shop_id);
-        }
-        $Weidian = D('Weidian_details');
-        $weidianid = $Weidian->where('shop_id=' . $shop_id . ' ')->find();
-        $this->assign('weidian_id', $weidianid['id']);
-        $this->assign('pic', $pic = D('Shoppic')->where(array('shop_id' => $shop_id))->order(array('pic_id' => 'desc'))->count());
-        $shopyouhui = D('Shopyouhui')->where(array('shop_id' => $shop_id, 'is_open' => 1, 'audit' => 1))->find();
-        $this->assign('shopyouhui', $shopyouhui);
-        $this->mobile_title = $detail['shop_name'];
-        $this->mobile_keywords = $detail['addr'] . ',' . $detail['tel'];
-        $this->mobile_description = $detail['addr'];
+        $sign_count = count(array_unique($sign_users));
+        $organization['total_time'] = $total_time;
+        $organization['year_time'] = $year_time;
+        $organization['sign_count'] = $sign_count;
+        $organization['join_count'] = $join_count;
+
+        $this->assign("organization",$organization);
         $this->display();
     }
     public function favorites(){

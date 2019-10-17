@@ -39,45 +39,21 @@
 
     <script>
         $(function () {
-            var regionId = '';
-            var regionName = '';
-            var missionTypeId = '';
-            var missionTypeName = '';
-            var orderParam = '';
-            var orderStr = '';
-            var keyWordParam = '';
-            if (regionName && regionName != 'undefined' && regionId && regionId != 'undefined') {
+            var business_id = $("#business_id").val();
+            var cate_id = $("#cate_id").val();
+            var orderby = $("#orderBy").val();
+            var keyword = $('#keyword').val();
+            if (business_id && business_id != 'undefined') {
 
-                $(".Regional").html(regionName);
-                $(".Regional").attr("value", regionId);
-                $(".Regional").attr("value", $("#gradew li").eq(regionId).html());
+                $(".Regional").attr("value", business_id);
+                $(".Regional").attr("value", $("#gradew li").eq(business_id).html());
             }
 
-            if (missionTypeId && missionTypeId != 'undefined' && missionTypeName && missionTypeName != 'undefined') {
+            if (cate_id && cate_id != 'undefined') {
 
                 $(".Brand").attr("value", missionTypeId);
                 $(".Brand").attr("value", $(this).attr("value") == 0 ? "" : $(this).attr("value"));
-                $(".Brand").html(missionTypeName);
             }
-
-            if (orderParam && orderParam != 'undefined' && orderStr && orderStr != 'undefined') {
-
-                $(".Sort").attr("value", orderParam);
-                $(".Sort").attr("value", $(this).attr("value"));
-                $(".Sort").html(orderStr);
-            }
-
-            if (keyWordParam && keyWordParam != 'undefined') {
-
-                $("#searchText").val(keyWordParam);
-                $(".searchBox03").attr("value", $("#searchText").val());
-                //$(".searchBox03").html('');
-            }
-
-            var Regional = $(".Regional").attr("value");
-            var Brand = $(".Brand").attr("value");
-            var Sort = $(".Sort").attr("value");
-            var searchBox03 = $(".searchBox03").attr("value");
 
             var pageNo = 1;
             var loadURL = "";
@@ -93,7 +69,7 @@
             html = html + "	</li>";
             html = html + "	<div class='clear'></div>";
 
-            loadJosn(pageNo,'','','','');
+            loadJosn(pageNo,'business_id='+business_id,'','','');
 
             $("#gradew li:first").unbind("click");
 
@@ -327,6 +303,10 @@
 </head>
 
 <body class="bodybg">
+<input type="hidden" value="<{$business_id}>" id="business_id"/>
+<input type="hidden" value="<{$cate_id}>" id="cate_id"/>
+<input type="hidden" value="<{$orderBy}>" id="order_by"/>
+<input type="hidden" value="<{$kerword}>" id="keyword"/>
 <!-- screening -->
 <div class="screening" style="top: 0px;">
     <ul>

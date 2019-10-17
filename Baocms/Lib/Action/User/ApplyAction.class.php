@@ -23,7 +23,7 @@ class ApplyAction extends CommonAction{
                 $wei_pic = D('Weixin')->getCode($shop_id, 1);
                 $ex['wei_pic'] = $wei_pic;
                 D('Shopdetails')->upDetails($shop_id, $ex);
-                $this->fengmiMsg('恭喜您申请成功！请登录电脑版完善组织/团体详细信息！稍后有网站负责人将联系您！', U('user/member/index'));
+                $this->fengmiMsg('恭喜您申请成功！请等待管理员审核！', U('user/member/index'));
             }
             $this->fengmiMsg('申请失败！');
         } else {
@@ -49,13 +49,6 @@ class ApplyAction extends CommonAction{
     private function createCheck(){
         $data = $this->checkFields($this->_post('data', false), $this->create_fields);
 		$data['user_id'] = $this->uid;
-        $data['photo'] = htmlspecialchars($data['photo']);
-        if (empty($data['photo'])) {
-            $this->fengmiMsg('请上传组织/团体形象图');
-        }
-        if (!isImage($data['photo'])) {
-            $this->fengmiMsg('组织/团体形象图格式不正确');
-        }
 		$data['logo'] = htmlspecialchars($data['logo']);
         if (empty($data['logo'])) {
             $this->fengmiMsg('请上传组织/团体LOGO');
@@ -92,9 +85,16 @@ class ApplyAction extends CommonAction{
         if (empty($data['contact'])) {
             $this->fengmiMsg('联系人不能为空');
         }
-        $data['business_time'] = htmlspecialchars($data['business_time']);
-        if (empty($data['business_time'])) {
-            $this->fengmiMsg('营业时间不能为空');
+        $data['apply_id'] = htmlspecialchars($data['apply_id']);
+        if (empty($data['apply_id'])) {
+            $this->fengmiMsg('入驻类型不能为空');
+        }
+        $data['photo'] = htmlspecialchars($data['photo']);
+        if (empty($data['photo'])) {
+            $this->fengmiMsg('请上传入驻申请资料');
+        }
+        if (!isImage($data['photo'])) {
+            $this->fengmiMsg('入驻申请资料格式不正确');
         }
         $data['addr'] = htmlspecialchars($data['addr']);
         if (empty($data['addr'])) {
@@ -173,5 +173,30 @@ class ApplyAction extends CommonAction{
         $data['create_ip'] = get_client_ip();
         return $data;
     }
-	
+    public function volunteerCard(){
+        if (empty($this->uid)) {
+            $this->error('您还没有登录！', U('passport/login'));
+        }
+        $this->display();
+    }
+    public function sendsms(){
+        $mobile = $this->_post('mobile');
+        if (isMobile($mobile)) {
+            session('mobile', $mobile);
+            $randstring = session('code');
+            if (empty($randstring)) {
+                $randstring = rand_string(6, 1);
+                session('code', $randstring);
+            }
+            //大鱼短信
+            if ($this->_CONFIG['sms']['dxapi'] == 'dy') {
+                D('Sms')->DySms($this->_CONFIG['site']['sitename'], 'sms_yzm', $mobile, array(
+                    'sitename' => $this->_CONFIG['site']['sitename'],
+                    'code' => $randstring
+                ));
+            } else {
+                D('Sms')->sendSms('sms_code', $mobile, array('code' => $randstring));
+            }
+        }
+    }
 }

@@ -20,20 +20,20 @@
                         <a mini="select"  w="800" h="600" href="<{:U('shop/select')}>" class="seleSj">选择活动组织/团体</a>
                     </td>
                 </tr>
-                <tr>
-                    <td class="lfTdBt">选择抢购：</td>
-                    <td class="rgTdBt" > 
-                        <div class="lt">
-                            <select id="tuan_id" name="data[tuan_id]" class="scAddTextName manageSelect w300 sj" >
-                                <option value="0">请选择...</option>  
-                                <foreach name="tuan" item="item">
-                                    <option value="<{$item.tuan_id}>"  <eq name="item.tuan_id" value="$detail.tuan_id">selected="selected"</eq> ><{$item.title}></option>
-                                </foreach>
-                            </select>
-                        </div>
-                        <a id="btn_tuan" href="javascript:void(0);" class="seleSj">选择组织/团体抢购</a>
-                    </td>
-                </tr>
+<!--                <tr>-->
+<!--                    <td class="lfTdBt">选择抢购：</td>-->
+<!--                    <td class="rgTdBt" > -->
+<!--                        <div class="lt">-->
+<!--                            <select id="tuan_id" name="data[tuan_id]" class="scAddTextName manageSelect w300 sj" >-->
+<!--                                <option value="0">请选择...</option>  -->
+<!--                                <foreach name="tuan" item="item">-->
+<!--                                    <option value="<{$item.tuan_id}>"  <eq name="item.tuan_id" value="$detail.tuan_id">selected="selected"</eq> ><{$item.title}></option>-->
+<!--                                </foreach>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                        <a id="btn_tuan" href="javascript:void(0);" class="seleSj">选择组织/团体抢购</a>-->
+<!--                    </td>-->
+<!--                </tr>-->
                 <script type="text/javascript" language="javascript">
                 $(document).ready(function () {
                     $('#btn_tuan').click(function () {
@@ -182,11 +182,12 @@
             
            
            
-           <tr>
-            <td class="lfTdBt">价格：</td>
-            <td class="rgTdBt"><input type="text" name="data[price]" value="<{$detail.price|default=''}>" class="manageInput" />
-            </td>
-        </tr><tr>
+<!--           <tr>-->
+                <!--            <td class="lfTdBt">价格：</td>-->
+                <!--            <td class="rgTdBt"><input type="text" name="data[price]" value="<{$detail.price|default=''}>" class="manageInput" />-->
+                <!--            </td>-->
+                <!--        </tr>-->
+                <tr>
             <td class="lfTdBt">活动开始时间：</td>
             <td class="rgTdBt"><input type="text" name="data[bg_date]" value="<{$detail.bg_date|default=''}>" onfocus="WdatePicker();"  class="inputData"  />
             </td>

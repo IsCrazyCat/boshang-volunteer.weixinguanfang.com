@@ -36,6 +36,19 @@ class ActivityAction extends CommonAction
             $citys[$key]['areas'] = $cur_areas;
         }
 
+        if($business_id = $this->_get('business_id')){
+            $this->assign('business_id',$business_id);
+        }
+        if($cate_id = $this->_get('cate_id')){
+            $this->assign('cate_id',$cate_id);
+        }
+        if($orderBy = $this->_get('orderBy')){
+            $this->assign('orderBy',$orderBy);
+        }
+        if($keyword = $this->_get('keyword')){
+            $this->assign('keyword',$keyword);
+        }
+
         //活动类型
         $cates = D('Activitycate')->fetchAll();
         $this->assign('citys', $citys);
@@ -271,5 +284,13 @@ class ActivityAction extends CommonAction
             $this->error('操作失败,请重新操作', U('user/member/index'));
         }
     }
+    /**
+     * 服务活动列表
+     */
+    public function activityList(){
+        $organization_id = $this->_param('organization_id');
 
+        $this->assign('organization_id',$organization_id);
+        $this->display(); // 输出模板
+    }
 }
