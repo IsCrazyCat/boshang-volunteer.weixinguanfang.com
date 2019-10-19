@@ -71,9 +71,6 @@ class ActivityAction extends CommonAction
         if ($area_id = $this->_param('area_id')) {
             $areaInfo = explode("=", $area_id);
             $map[$areaInfo[0]] = $areaInfo[1];
-//            $shop = D('Shop')->find($shop_id);
-//            $result['shop_name'] =  $shop['shop_name'];
-//            $result['shop_id'] =  $shop_id;
         }
         //活动类型
         if ($cate_id = (int)$this->_param('cate_id')) {
@@ -292,5 +289,20 @@ class ActivityAction extends CommonAction
 
         $this->assign('organization_id',$organization_id);
         $this->display(); // 输出模板
+    }
+
+    /**
+     * 扫秒志愿者证的二维码 展示服务信息
+     */
+    public function serviceInfo(){
+        $result = lengthOfTime($this->uid,1);
+        $user_id = $this->_param('user_id');
+        $user = D('users')->where(array('user_id'=>$user_id))->find();
+
+        $this->assign('user',$user);
+        $this->assign('total_time',$result['total_time']);
+        $this->assign('year_time',$result['year_time']);
+        $this->assign('count',$result['count']);//参加的活动个数
+        $this->display();
     }
 }

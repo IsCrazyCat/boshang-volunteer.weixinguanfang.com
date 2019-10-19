@@ -41,8 +41,6 @@
         $(function () {
             var business_id = $("#business_id").val();
             var cate_id = $("#cate_id").val();
-            var orderby = $("#orderBy").val();
-            var keyword = $('#keyword').val();
             if (business_id && business_id != 'undefined') {
 
                 $(".Regional").attr("value", business_id);
@@ -69,7 +67,12 @@
             html = html + "	</li>";
             html = html + "	<div class='clear'></div>";
 
-            loadJosn(pageNo,'business_id='+business_id,'','','');
+            if(business_id){
+                loadJosn(pageNo,'business_id='+business_id,'','','');
+            }else{
+                loadJosn(pageNo,'','','','');
+            }
+
 
             $("#gradew li:first").unbind("click");
 
@@ -134,11 +137,12 @@
                                     hiddenlayer();
                                     return false;
                                 } else {
+                                    var tempVal3 = $(this).attr("value");
                                     $("#cotent").html("");
                                     $(".Regional").attr("value", $(this).html());
                                     $('.grade-e').css("left","66%");
                                     pageNo = 1;
-                                    loadJosn(pageNo,"business_id=".tempVal2, $(".Brand").attr("value"), $(".Sort").attr("value"), $(".searchBox03").attr("value"));
+                                    loadJosn(pageNo,"business_id="+tempVal3, $(".Brand").attr("value"), $(".Sort").attr("value"), $(".searchBox03").attr("value"));
                                     $(".Regional").html($(this).html().substring(0, 2) + "...");
                                     hiddenlayer();
                                     return false;
@@ -199,8 +203,9 @@
                 $("#cotent").html("");
                 hiddenlayer();
                 pageNo = 1;
+
                 $(".searchBox03").attr("value", $("#searchText").val());
-                loadJosn(pageNo,$(".Regional").attr("value"), $(".Brand").attr("value"), $(".Sort").attr("value"), $(".searchBox03").attr("value"));
+                loadJosn(pageNo,$(".Regional").attr("value"), $(".Brand").attr("value"), $(".Sort").attr("value"), $("#searchText").val());
             });
 
             //初始页面加载	分页json

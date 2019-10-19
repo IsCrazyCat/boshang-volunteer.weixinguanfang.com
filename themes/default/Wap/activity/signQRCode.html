@@ -1,29 +1,74 @@
-<include file="public:header"/>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="__TMPL__statics/css/css.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="__TMPL__statics/css/style-tmt.css">
+
+    <link rel="stylesheet" href="/static/default/wap/css/base.css">
+    <link rel="stylesheet" href="/static/default/wap/css/<{$ctl}>.css?V=2"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <style>
+        .XmxqIntroBMC {
+            height: 3rem;
+            width: 100%;
+            background-color: #fff;
+            line-height: 3rem;
+            margin-top: 5px;
+        }
+
+        .tmt-fc_light {
+            color: #888;
+        }
+
+        .tmt-fz_l {
+            font-size: 16px;
+        }
+
+        .XmxqIntroBMC em {
+            font-style: normal;
+        }
+
+        .XmxqIntroRName {
+            float: right;
+            margin-right: 20px;
+            line-height: 3rem;
+        }
+        p{
+            margin:0px;
+        }
+    </style>
+</head>
+
+<body style="background-color: #f4f4f4;">
 <header class="top-fixed bg-yellow bg-inverse">
-    <div class="top-back">
-        <!--		这个是左上角的回退按钮的回退路径-->
-        <a class="top-addr" href="<{:u('distributors/coupon/download')}>"><i class="icon-angle-left"></i></a>
-    </div>
     <div class="top-title">
-        二维码
+        <{$user.nickname}>的报名
     </div>
     <div class="top-signed">
     </div>
 </header>
 
-<div class="panel-list" style="background: #FBFBFB;">
-    <ul>
-        <li><a href="javascript:;">报名活动：<em style="font-size:16px; color:#F00 "><{$activity['title']}></em></a></li>
-        <li><a href="javascript:;">报名人：<em style="font-size:16px; color:#F00 "><{$user['nickname']}></em></a></li>
-    </ul>
-</div>
-
+<article class="XmxqIntroBMC tmt-fc_light tmt-fz_l">
+    <span style="padding-left: 20px">志愿者</span>
+    <p class="XmxqIntroRName tmt-fc_normal lh3 tmt-fz_l">
+        <em><{$user.nickname}></em>
+    </p>
+</article>
+<article class="XmxqIntroBMC tmt-fc_light tmt-fz_l">
+    <span style="padding-left: 20px">报名活动</span>
+    <p class="XmxqIntroRName tmt-fc_normal lh3 tmt-fz_l">
+        <em><{$activity['title']}></em>
+    </p>
+</article>
 
 <div class="container">
     <div class="padding-large">
+        <p>请管理员扫描该二维码，开始/结束活动！</p>
         <img width="100%" src="<{:config_img($file)}>"/>
-        <p>请管理员扫描该二维码，开始活动！</p>
     </div>
 </div>
 
-<include file='public:footer'/>
+</body>
+</html>

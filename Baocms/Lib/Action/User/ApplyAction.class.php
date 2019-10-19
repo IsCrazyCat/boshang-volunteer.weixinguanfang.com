@@ -124,7 +124,7 @@ class ApplyAction extends CommonAction{
 	
 	public function delivery(){
         if (empty($this->uid)) {
-            header("Location:" . U('passport/login'));
+            header("Location:" . U('wap/passport/login'));
             die;
         }
 		$obj = D('Delivery');
@@ -173,12 +173,75 @@ class ApplyAction extends CommonAction{
         $data['create_ip'] = get_client_ip();
         return $data;
     }
+
+    /**
+     * 申请志愿者证
+     */
     public function volunteerCard(){
         if (empty($this->uid)) {
-            $this->error('您还没有登录！', U('passport/login'));
+            $this->error('您还没有登录！', U('wap/passport/login'));
+        }
+        if ($this->isPost()) {
+            $data['user_id']=$this->uid;
+            $data['real_name'] = $this->_param('userName');
+            $data['id_type'] = '1'; //1 身份证 暂时只支持身份证
+            $data['id_num'] = $this->_param('idcardCode');
+            $mobile = $this->_param('mobile');
+            $code = $this->_param('code');
+            if($code != session('code')){
+                $result['status'] = 'err';
+                $result['msg'] = '验证码错误';
+                exit(json_encode($result));
+            }
+            $where = 'id_num = '.$data['id_num'] . ' AND user_id != ' . $this->uid;
+            $user = D('users')->where($where)->find();
+            if(!empty($user)){
+                $result['status'] = 'err';
+                $result['msg'] = '证件号已存在';
+                exit(json_encode($result));
+            }
+            $data['is_certification'] = '2'; //认证中，将用户填写的信息 先录入到数据库
+            $data['certification_date'] =  date("Y-m-d");
+            while(true){
+                $random = mt_rand(10000,99999);
+                $vid = substr($data['id_num'],0,6) . $random;
+                if(!D('users')->where(array('vid'=>$vid))->find()){
+                    $data['vid'] = $vid;
+                    break;
+                }
+            }
+            //判断性别 奇数为男 偶数为女 15为证件号最后一位 18为身份照第17位 判断性别
+            if(count($data['id_num']) == 15){
+                $lastNum = substr($data['id_num'],14,1);
+            }else{
+                $lastNum = substr($data['id_num'],16,1);
+            }
+            $data['sex'] = $lastNum % 2 ;
+
+            if(D('users')->save($data)){
+                $result['status'] = 'success';
+                $result['msg'] = '恭喜您，认证成功！';
+            }else{
+                $result['status'] = 'err';
+                $result['msg'] = '认证失败，请稍后重试！';
+            }
+
+            exit(json_encode($result));
+        }
+
+        $this->display();
+    }
+
+    /**
+     * 实名认证
+     */
+    public function certification(){
+        if (empty($this->uid)) {
+            $this->error('您还没有登录！', U('wap/passport/login'));
         }
         $this->display();
     }
+
     public function sendsms(){
         $mobile = $this->_post('mobile');
         if (isMobile($mobile)) {
@@ -188,15 +251,17 @@ class ApplyAction extends CommonAction{
                 $randstring = rand_string(6, 1);
                 session('code', $randstring);
             }
+            $result = false; //短信发送结果
             //大鱼短信
             if ($this->_CONFIG['sms']['dxapi'] == 'dy') {
-                D('Sms')->DySms($this->_CONFIG['site']['sitename'], 'sms_yzm', $mobile, array(
+                $result= D('Sms')->DySms($this->_CONFIG['site']['sitename'], 'sms_yzm', $mobile, array(
                     'sitename' => $this->_CONFIG['site']['sitename'],
                     'code' => $randstring
                 ));
             } else {
-                D('Sms')->sendSms('sms_code', $mobile, array('code' => $randstring));
+                $result = D('Sms')->sendSms('sms_code', $mobile, array('code' => $randstring));
             }
         }
+        exit($result);
     }
 }

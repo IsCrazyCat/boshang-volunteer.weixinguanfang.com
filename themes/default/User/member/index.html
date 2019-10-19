@@ -61,10 +61,18 @@
             </a>
         </li>
         <li>
-            <a href="<{:U('user/apply/volunteerCard')}>">
-                <span class="icon-gears"></span>我的志愿者证
-                <i class="icon-angle-right"></i>
-            </a>
+            <if condition="$MEMBER.is_certification eq 1">
+                <a href="<{:U('user/member/myCard')}>">
+                    <span class="icon-gears"></span>我的志愿者证
+                    <i class="icon-angle-right"></i>
+                </a>
+            <else/>
+                <a href="<{:U('user/apply/certification')}>">
+                    <span class="icon-gears"></span>申请志愿者证
+                    <i class="icon-angle-right"></i>
+                </a>
+            </if>
+
         </li>
         <!--        需要判断是否是管理员-->
         <!--        <li>-->

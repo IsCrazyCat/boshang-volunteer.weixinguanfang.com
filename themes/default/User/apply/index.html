@@ -86,14 +86,28 @@
         <div class="line">
             <span class="x3">入驻形式：</span>
             <span class="x4">
-				<select name="apply_id" id="apply_id" class="text-select">
+				<select name="apply_id" id="apply_id" onchange="pschange()" class="text-select">
 					<option value="0" selected="selected">请选择</option>
 					<option value="1">民政注册</option>
 					<option value="2">党群机关团体</option>
 				</select>
 			</span>
-			<span class="x5">
-					提供法人证书对应的盖章证明
+            <script>
+                function pschange() {
+
+                    if($("#apply_id").val()==1){
+                        $("#apply_ps").html("注意：提供法人证书");
+                    }
+                    if($("#apply_id").val()==2){
+                        $("#apply_ps").html("注意：提供对应的盖章证明");
+                    }
+                    if($("#apply_id").val()==0){
+                        $("#apply_ps").html("");
+                    }
+                }
+            </script>
+			<span class="x5" id="apply_ps">
+
 			</span>
         </div>
     </div>

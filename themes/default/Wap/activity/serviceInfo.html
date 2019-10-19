@@ -1,0 +1,86 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="__TMPL__statics/css/css.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="__TMPL__statics/css/style-tmt.css">
+
+    <link rel="stylesheet" href="/static/default/wap/css/base.css">
+    <link rel="stylesheet" href="/static/default/wap/css/<{$ctl}>.css?V=2"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <style>
+        .XmxqIntroBMC {
+            height: 3rem;
+            width: 100%;
+            background-color: #fff;
+            line-height: 3rem;
+            margin-top: 5px;
+        }
+
+        .tmt-fc_light {
+            color: #888;
+        }
+
+        .tmt-fz_l {
+            font-size: 16px;
+        }
+
+        .XmxqIntroBMC em {
+            font-style: normal;
+        }
+
+        .XmxqIntroRName {
+            float: right;
+            margin-right: 20px;
+            line-height: 3rem;
+        }
+        p{
+            margin:0px;
+        }
+    </style>
+</head>
+
+<body style="background-color: #f4f4f4;">
+<header class="top-fixed bg-yellow bg-inverse">
+    <div class="top-title">
+        <{$user.real_name}>的服务
+    </div>
+    <div class="top-signed">
+    </div>
+</header>
+
+<article class="XmxqIntroBMC tmt-fc_light tmt-fz_l">
+    <span style="padding-left: 20px">志愿者</span>
+    <p class="XmxqIntroRName tmt-fc_normal lh3 tmt-fz_l">
+        <em><{$user.real_name}></em>
+    </p>
+</article>
+<article class="XmxqIntroBMC tmt-fc_light tmt-fz_l">
+    <span style="padding-left: 20px">注册时间</span>
+    <p class="XmxqIntroRName tmt-fc_normal lh3 tmt-fz_l">
+        <em><{$user.certification_date}></em>
+    </p>
+</article>
+<article class="XmxqIntroBMC tmt-fc_light tmt-fz_l">
+    <span style="padding-left: 20px">服务总时长</span>
+    <p class="XmxqIntroRName tmt-fc_normal lh3 tmt-fz_l">
+        <em><{$total_time}>小时</em>
+    </p>
+</article>
+<article class="XmxqIntroBMC tmt-fc_light tmt-fz_l">
+    <span style="padding-left: 20px">今年服务时长</span>
+    <p class="XmxqIntroRName tmt-fc_normal lh3 tmt-fz_l">
+        <em><{$year_time}></em>小时
+    </p>
+</article>
+<article class="XmxqIntroBMC tmt-fc_light tmt-fz_l">
+    <span style="padding-left: 20px">参加服务</span>
+    <p class="XmxqIntroRName tmt-fc_normal lh3 tmt-fz_l">
+        <em><{$count}></em>个
+    </p>
+</article>
+
+
+</body>
+</html>

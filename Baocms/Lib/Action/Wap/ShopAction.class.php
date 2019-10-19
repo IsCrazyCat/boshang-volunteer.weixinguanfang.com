@@ -12,9 +12,9 @@ class ShopAction extends CommonAction{
             if ($v['cate_id']) {
                 $catids = D('Shopcate')->getChildren($v['cate_id']);
                 if (!empty($catids)) {
-                    $count = D('Shop')->where(array('cate_id' => array('IN', $catids), 'closed' => 0, 'audit' => 1, 'city_id' => $this->city_id))->count();
+                    $count = D('Shop')->where(array('cate_id' => array('IN', $catids), 'closed' => 0, 'audit' => 1))->count();
                 } else {
-                    $count = D('Shop')->where(array('cate_id' => $cat, 'closed' => 0, 'audit' => 1, 'city_id' => $this->city_id))->count();
+                    $count = D('Shop')->where(array('cate_id' => $cat, 'closed' => 0, 'audit' => 1))->count();
                 }
             }
             $shopcates[$key]['count'] = $count;
