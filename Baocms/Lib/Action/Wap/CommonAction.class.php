@@ -22,12 +22,6 @@ class CommonAction extends Action
 
 //        p($this->uid);die;
 
-		if (is_mobile()) {
-           if ($_SERVER['HTTP_HOST'] == BAO_DOMAIN || $_SERVER['HTTP_HOST'] !=  BAO_DOMAIN) {
-               header("Location: http://" . BAO_DOMAIN . $_SERVER['REQUEST_URI']);
-               die;
-           }
-        }
        
         if (empty($this->city_id)) {
             import('ORG/Net/IpLocation');
