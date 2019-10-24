@@ -16,8 +16,19 @@
 
     <div class="blank-10 bg"></div>
     <div class="line padding border-bottom">
+
+    </div>
+    <div class="line padding border-bottom">
         <div class="x3">
-            联系人
+            活动
+        </div>
+        <div class="x9">
+            <{$detail.title}>
+        </div>
+    </div>
+    <div class="line padding border-bottom">
+        <div class="x3">
+            报名人
         </div>
         <div class="x9">
             <input data-role="none" class="text-input" type="text" name="data[name]" value="<if condition="
@@ -36,26 +47,27 @@
             </if>" class="text-input datepicker" />
         </div>
     </div>
+    <input type="hidden" value="1" name="data[num]">
+<!--    <div class="line padding border-bottom">-->
+<!--        <div class="x3">-->
+<!--            总人数-->
+<!--        </div>-->
 
-    <div class="line padding border-bottom">
-        <div class="x3">
-            总人数
-        </div>
-        <div class="x9">
-            <select name="data[num]" class="text-select">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
-        </div>
-    </div>
+<!--        <div class="x9">-->
+<!--            <select name="data[num]" class="text-select">-->
+<!--                <option value="1">1</option>-->
+<!--                <option value="2">2</option>-->
+<!--                <option value="3">3</option>-->
+<!--                <option value="4">4</option>-->
+<!--                <option value="5">5</option>-->
+<!--                <option value="6">6</option>-->
+<!--                <option value="7">7</option>-->
+<!--                <option value="8">8</option>-->
+<!--                <option value="9">9</option>-->
+<!--                <option value="10">10</option>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--    </div>-->
 
 
     <div class="blank-30"></div>

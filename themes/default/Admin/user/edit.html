@@ -62,7 +62,63 @@
                                 </select>
                             </td>
                         </tr>
+                        <tr>
+                            <td class="lfTdBt">认证状态：</td>
+                            <td class="rgTdBt">
+                                <select name="data[is_certification]" onchange="cerChange()" id='is_certification'
+                                        class="seleFl w200">
+                                    <option value="0" >未认证</option>
+                                    <option value="1">已认证</option>
+                                    <option value="2">认证中</option>
+                                </select>
+                                <script>
+                                    var certification_num = "<{$detail.is_certification}>";
+                                    $("#is_certification").val(certification_num);
+                                    if ($("#is_certification").val() != 0) {
+                                        $("tr[name='certificationInfo']").show();
+                                    } else {
+                                        $("tr[name='certificationInfo']").hide();
+                                    }
+                                    function cerChange() {
+                                        if ($("#is_certification").val() != 0) {
+                                            $("tr[name='certificationInfo']").show();
+                                        } else {
+                                            $("tr[name='certificationInfo']").hide();
+                                        }
+                                    }
+                                </script>
+                            </td>
+                        </tr>
+                        <tr style="display: none" name="certificationInfo">
+                            <td class="lfTdBt">真实姓名：</td>
+                            <td class="rgTdBt"><input type="text" name="data[real_name]" value="<{$detail['real_name']}>"
+                                                      class="scAddTextName w200"/>
+                            </td>
+                        </tr>
+                        <tr style="display: none" name="certificationInfo">
+                            <td class="lfTdBt">证件类型：</td>
+                            <td class="rgTdBt">
+                                <select name="data[id_type]" class="seleFl w200">
+                                    <option value="<{$detail[id_type]}>">身份证</option>
+                                </select>
 
+                            </td>
+                        </tr>
+                        <tr style="display: none" name="certificationInfo">
+                            <td class="lfTdBt">证件号：</td>
+                            <td class="rgTdBt"><input type="text" name="data[id_num]" value="<{$detail['id_num']}>"
+                                                      class="scAddTextName w200"/>
+                            </td>
+                        </tr>
+                        <tr style="display: none" name="certificationInfo">
+                            <td class="lfTdBt">归属组织：</td>
+                            <td class="rgTdBt">
+
+                                <input type="text" name="data[organization_id]" value="<{$organization['shop_name']}>"
+                                <if condition="$organization['shop_name'] neq NULL OR $organization['shop_name'] neq ''">readonly</if>
+                                                      class="scAddTextName w200"/>
+                            </td>
+                        </tr>
                         <tr>
                             <td class="lfTdBt">别名：</td>
                             <td class="rgTdBt"><input type="text" name="data[ext0]" value="<{$detail.ext0|default=''}>"
@@ -111,14 +167,78 @@
                                 </script>
                             </td>
                         </tr>
-                        <tr>
+                        <tr style="display: none" name="certificationInfo">
+                            <td class="lfTdBt">认证头像：</td>
+                            <td class="rgTdBt">
+                                <div style="width: 300px;height: 100px; float: left;">
+                                    <input type="hidden" name="data[head_url]" value="<{$detail.head_url}>" id="head_url"/>
+                                    <div id="fileToUpload1">上传认证头像</div>
+                                </div>
+                                <div style="width: 300px;height: 100px; float: left;">
+                                    <img id="head_url_img" width="120" height="80" src="<{:config_img($detail['head_url'])}>"/>
+                                </div>
+                                <script>
+                                    var width_user = '<{:thumbSize($CONFIG[attachs][user][thumb],0)}>';
+                                    var height_user = '<{:thumbSize($CONFIG[attachs][user][thumb],1)}>';
+                                    var uploader = WebUploader.create({
+                                        auto: true,
+                                        swf: '/static/default/webuploader/Uploader.swf',
+                                        server: '<{:U("app/upload/uploadify",array("model"=>"user"))}>',
+                                        pick: '#fileToUpload1',
+                                        resize: true,
+                                        compress: {
+                                            width: width_user,
+                                            height: height_user,
+                                            quality: 80,
+                                            allowMagnify: false,
+                                            crop: true
+                                        }
+                                    });
+                                    uploader.on('uploadSuccess', function (file, resporse) {
+                                        $("#head_url").val(resporse.url);
+                                        $("#head_url_img").attr('src', resporse.url).show();
+                                    });
+                                    uploader.on('uploadError', function (file) {
+                                        alert('上传出错');
+                                    });
+                                </script>
+                            </td>
+                        </tr>
+                        <tr style="display: none" name="certificationInfo">
                             <td class="lfTdBt">志愿者证：</td>
                             <td class="rgTdBt">
-
                                 <div style="width: 300px;height: 100px; float: left;">
-                                    <img id="face_img1" width="120" height="80" src="<{$detail['certification_img_url']}>"/>
-
+                                    <input type="hidden" name="data[certification_img_url]" value="<{$detail.certification_img_url}>" id="certification_img_url"/>
+                                    <div id="fileToUpload2">上传志愿者证</div>
                                 </div>
+                                <div style="width: 300px;height: 100px; float: left;">
+                                    <img id="certification_img" width="120" height="80" src="<{:config_img($detail['certification_img_url'])}>"/>
+                                </div>
+                                <script>
+                                    var width_user = '<{:thumbSize($CONFIG[attachs][user][thumb],0)}>';
+                                    var height_user = '<{:thumbSize($CONFIG[attachs][user][thumb],1)}>';
+                                    var uploader = WebUploader.create({
+                                        auto: true,
+                                        swf: '/static/default/webuploader/Uploader.swf',
+                                        server: '<{:U("app/upload/uploadify",array("model"=>"user"))}>',
+                                        pick: '#fileToUpload2',
+                                        resize: true,
+                                        compress: {
+                                            width: width_user,
+                                            height: height_user,
+                                            quality: 80,
+                                            allowMagnify: false,
+                                            crop: true
+                                        }
+                                    });
+                                    uploader.on('uploadSuccess', function (file, resporse) {
+                                        $("#certification_img_url").val(resporse.url);
+                                        $("#certification_img").attr('src', resporse.url).show();
+                                    });
+                                    uploader.on('uploadError', function (file) {
+                                        alert('上传出错');
+                                    });
+                                </script>
                             </td>
                         </tr>
                     </table>

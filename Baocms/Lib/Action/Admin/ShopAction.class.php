@@ -1,13 +1,18 @@
 <?php
-class ShopAction extends CommonAction{
-    private $create_fields = array('user_id', 'cate_id', 'grade_id','city_id', 'area_id', 'business_id', 'shop_name', 'logo', 'mobile', 'photo', 'addr', 'tel', 'extension', 'contact', 'tags', 'near', 'is_pei', 'business_time', 'delivery_time', 'orderby', 'lng', 'lat', 'price', 'recognition','panorama_url');
-    private $edit_fields = array('user_id', 'cate_id','grade_id','city_id', 'area_id', 'business_id', 'shop_name', 'mobile', 'logo', 'photo', 'addr', 'tel', 'extension', 'contact', 'tags', 'near', 'business_time', 'delivery_time', 'is_pei', 'orderby', 'lng', 'lat', 'price', 'is_ding', 'recognition','panorama_url', 'apiKey', 'mKey', 'partner', 'machine_code', 'service', 'service_audit', 'is_ele_print', 'is_tuan_print', 'is_goods_print', 'is_booking_print','is_appoint_print','service_audit');
-	
-	public function _initialize(){
+
+class ShopAction extends CommonAction
+{
+    private $create_fields = array('user_id', 'cate_id', 'apply_id', 'parent_id', 'grade_id', 'city_id', 'area_id', 'business_id', 'shop_name', 'logo', 'mobile', 'photo', 'addr', 'tel', 'extension', 'contact', 'tags', 'near', 'is_pei', 'business_time', 'delivery_time', 'orderby', 'lng', 'lat', 'price', 'recognition', 'panorama_url');
+    private $edit_fields = array('user_id', 'cate_id', 'grade_id', 'city_id', 'area_id', 'business_id', 'shop_name', 'mobile', 'logo', 'photo', 'addr', 'tel', 'extension', 'contact', 'tags', 'near', 'business_time', 'delivery_time', 'is_pei', 'orderby', 'lng', 'lat', 'price', 'is_ding', 'recognition', 'panorama_url', 'apiKey', 'mKey', 'partner', 'machine_code', 'service', 'service_audit', 'is_ele_print', 'is_tuan_print', 'is_goods_print', 'is_booking_print', 'is_appoint_print', 'service_audit');
+
+    public function _initialize()
+    {
         parent::_initialize();
-        $this->assign('grades',$grades = D('Shopgrade')->where(array('closed'=>0))->select());//哈土豆二开增加组织/团体等级
+        $this->assign('grades', $grades = D('Shopgrade')->where(array('closed' => 0))->select());//哈土豆二开增加组织/团体等级
     }
-    public function index(){
+
+    public function index()
+    {
         $Shop = D('Shop');
         import('ORG.Util.Page');
         $map = array('closed' => 0, 'audit' => 1);
@@ -15,15 +20,15 @@ class ShopAction extends CommonAction{
             $map['shop_name|tel'] = array('LIKE', '%' . $keyword . '%');
             $this->assign('keyword', $keyword);
         }
-        if ($city_id = (int) $this->_param('city_id')) {
+        if ($city_id = (int)$this->_param('city_id')) {
             $map['city_id'] = $city_id;
             $this->assign('city_id', $city_id);
         }
-        if ($area_id = (int) $this->_param('area_id')) {
+        if ($area_id = (int)$this->_param('area_id')) {
             $map['area_id'] = $area_id;
             $this->assign('area_id', $area_id);
         }
-        if ($cate_id = (int) $this->_param('cate_id')) {
+        if ($cate_id = (int)$this->_param('cate_id')) {
             $map['cate_id'] = array('IN', D('Shopcate')->getChildren($cate_id));
             $this->assign('cate_id', $cate_id);
         }
@@ -46,6 +51,7 @@ class ShopAction extends CommonAction{
         $this->assign('page', $show);
         $this->display();
     }
+
     public function apply()
     {
         $Shop = D('Shop');
@@ -55,15 +61,15 @@ class ShopAction extends CommonAction{
             $map['shop_name|tel'] = array('LIKE', '%' . $keyword . '%');
             $this->assign('keyword', $keyword);
         }
-        if ($city_id = (int) $this->_param('city_id')) {
+        if ($city_id = (int)$this->_param('city_id')) {
             $map['city_id'] = $city_id;
             $this->assign('city_id', $city_id);
         }
-        if ($area_id = (int) $this->_param('area_id')) {
+        if ($area_id = (int)$this->_param('area_id')) {
             $map['area_id'] = $area_id;
             $this->assign('area_id', $area_id);
         }
-        if ($cate_id = (int) $this->_param('cate_id')) {
+        if ($cate_id = (int)$this->_param('cate_id')) {
             $map['cate_id'] = array('IN', D('Shopcate')->getChildren($cate_id));
             $this->assign('cate_id', $cate_id);
         }
@@ -86,6 +92,7 @@ class ShopAction extends CommonAction{
         $this->assign('page', $show);
         $this->display();
     }
+
     public function create()
     {
         if ($this->isPost()) {
@@ -107,9 +114,11 @@ class ShopAction extends CommonAction{
         } else {
             $this->assign('cates', D('Shopcate')->fetchAll());
             $this->assign('business', D('Business')->fetchAll());
+            $this->assign('organizations', D('Shop')->fetchAll());
             $this->display();
         }
     }
+
     public function select()
     {
         $Shop = D('Shop');
@@ -120,15 +129,15 @@ class ShopAction extends CommonAction{
             $map['shop_name|tel'] = array('LIKE', '%' . $keyword . '%');
             $this->assign('keyword', $keyword);
         }
-        if ($city_id = (int) $this->_param('city_id')) {
+        if ($city_id = (int)$this->_param('city_id')) {
             $map['city_id'] = $city_id;
             $this->assign('city_id', $city_id);
         }
-        if ($area_id = (int) $this->_param('area_id')) {
+        if ($area_id = (int)$this->_param('area_id')) {
             $map['area_id'] = $area_id;
             $this->assign('area_id', $area_id);
         }
-        if ($cate_id = (int) $this->_param('cate_id')) {
+        if ($cate_id = (int)$this->_param('cate_id')) {
             $map['cate_id'] = array('IN', D('Shopcate')->getChildren($cate_id));
             $this->assign('cate_id', $cate_id);
         }
@@ -151,26 +160,33 @@ class ShopAction extends CommonAction{
         $this->assign('page', $show);
         $this->display();
     }
-    private function createCheck(){
+
+    private function createCheck()
+    {
         $data = $this->checkFields($this->_post('data', false), $this->create_fields);
-        $data['user_id'] = (int) $data['user_id'];
+        $data['user_id'] = (int)$data['user_id'];
         if (empty($data['user_id'])) {
             $this->baoError('管理者不能为空');
         }
-        $data['cate_id'] = (int) $data['cate_id'];
+        $data['cate_id'] = (int)$data['cate_id'];
         if (empty($data['cate_id'])) {
             $this->baoError('分类不能为空');
         }
-		$data['grade_id'] = (int) $data['grade_id'];
+        $data['parent_id'] = (int)$data['parent_id'];
+        if (empty($data['parent_id'])) {
+//            $this->baoError('归属组织不能为空');
+        }
+
+        $data['grade_id'] = (int)$data['grade_id'];
         if (empty($data['grade_id'])) {
 //            $this->baoError('组织/团体等级不能为空');
         }
-        $data['city_id'] = (int) $data['city_id'];
-        $data['area_id'] = (int) $data['area_id'];
+        $data['city_id'] = (int)$data['city_id'];
+        $data['area_id'] = (int)$data['area_id'];
         if (empty($data['area_id'])) {
 //            $this->baoError('所在区域不能为空');
         }
-        $data['business_id'] = (int) $data['business_id'];
+        $data['business_id'] = (int)$data['business_id'];
         if (empty($data['business_id'])) {
 //            $this->baoError('所在街道不能为空');
         }
@@ -185,12 +201,16 @@ class ShopAction extends CommonAction{
         if (!isImage($data['logo'])) {
             $this->baoError('组织/团体LOGO格式不正确');
         }
+        $data['apply_id'] = htmlspecialchars($data['apply_id']);
+        if (empty($data['apply_id'])) {
+            $this->baoError('请选择入驻类型');
+        }
         $data['photo'] = htmlspecialchars($data['photo']);
         if (empty($data['photo'])) {
-            $this->baoError('请上传组织/团体缩略图');
+            $this->baoError('请上传入驻资料缩略图');
         }
         if (!isImage($data['photo'])) {
-            $this->baoError('组织/团体缩略图格式不正确');
+            $this->baoError('parent_id缩略图格式不正确');
         }
         $data['addr'] = htmlspecialchars($data['addr']);
         if (empty($data['addr'])) {
@@ -206,11 +226,11 @@ class ShopAction extends CommonAction{
         $data['tags'] = str_replace(',', '，', htmlspecialchars($data['tags']));
         $data['near'] = htmlspecialchars($data['near']);
         $data['business_time'] = htmlspecialchars($data['business_time']);
-        $data['orderby'] = (int) $data['orderby'];
-		$data['panorama_url'] = htmlspecialchars($data['panorama_url']);
-        $data['price'] = (int) $data['price'];
-        $data['is_pei'] = (int) $data['is_pei'];
-        $data['recognition'] = (int) $data['recognition'];
+        $data['orderby'] = (int)$data['orderby'];
+        $data['panorama_url'] = htmlspecialchars($data['panorama_url']);
+        $data['price'] = (int)$data['price'];
+        $data['is_pei'] = (int)$data['is_pei'];
+        $data['recognition'] = (int)$data['recognition'];
         $data['lng'] = htmlspecialchars($data['lng']);
         $data['lat'] = htmlspecialchars($data['lat']);
         $data['audit'] = 1;
@@ -218,9 +238,10 @@ class ShopAction extends CommonAction{
         $data['create_ip'] = get_client_ip();
         return $data;
     }
+
     public function edit($shop_id = 0)
     {
-        if ($shop_id = (int) $shop_id) {
+        if ($shop_id = (int)$shop_id) {
             $obj = D('Shop');
             if (!($detail = $obj->find($shop_id))) {
                 $this->baoError('请选择要编辑的组织/团体');
@@ -254,6 +275,7 @@ class ShopAction extends CommonAction{
                 $this->assign('areas', D('Area')->fetchAll());
                 $this->assign('cates', D('Shopcate')->fetchAll());
                 $this->assign('business', D('Business')->fetchAll());
+                $this->assign('organizations', D('Shop')->fetchAll());
                 $this->assign('ex', D('Shopdetails')->find($shop_id));
                 $this->assign('user', D('Users')->find($detail['user_id']));
                 $this->assign('detail', $detail);
@@ -263,30 +285,36 @@ class ShopAction extends CommonAction{
             $this->baoError('请选择要编辑的组织/团体');
         }
     }
-    private function editCheck($shop_id) {
+
+    private function editCheck($shop_id)
+    {
         $data = $this->checkFields($this->_post('data', false), $this->edit_fields);
-        $data['user_id'] = (int) $data['user_id'];
+        $data['user_id'] = (int)$data['user_id'];
         if (empty($data['user_id'])) {
             $this->baoError('管理者不能为空');
         }
-        $shop = D('Shop')->find(array('where' => array('user_id' => $data['user_id'])));
-        if (!empty($shop) && $shop['shop_id'] != $shop_id) {
-            $this->baoError('该管理者已经拥有组织/团体了');
-        }
-        $data['cate_id'] = (int) $data['cate_id'];
+//        $shop = D('Shop')->find(array('where' => array('user_id' => $data['user_id'])));
+//        if (!empty($shop) && $shop['shop_id'] != $shop_id) {
+//            $this->baoError('该管理者已经拥有组织/团体了');
+//        }
+        $data['cate_id'] = (int)$data['cate_id'];
         if (empty($data['cate_id'])) {
             $this->baoError('分类不能为空');
         }
-		$data['grade_id'] = (int) $data['grade_id'];
+        $data['parent_id'] = (int)$data['parent_id'];
+        if (empty($data['parent_id'])) {
+//            $this->baoError('归属组织不能为空');
+        }
+        $data['grade_id'] = (int)$data['grade_id'];
         if (empty($data['grade_id'])) {
 //            $this->baoError('组织/团体等级不能为空');
         }
-        $data['city_id'] = (int) $data['city_id'];
-        $data['area_id'] = (int) $data['area_id'];
+        $data['city_id'] = (int)$data['city_id'];
+        $data['area_id'] = (int)$data['area_id'];
         if (empty($data['area_id'])) {
 //            $this->baoError('所在区域不能为空');
         }
-        $data['business_id'] = (int) $data['business_id'];
+        $data['business_id'] = (int)$data['business_id'];
         if (empty($data['business_id'])) {
 //            $this->baoError('所在街道不能为空');
         }
@@ -301,12 +329,16 @@ class ShopAction extends CommonAction{
         if (!isImage($data['logo'])) {
             $this->baoError('组织/团体LOGO格式不正确');
         }
+        $data['apply_id'] = htmlspecialchars($data['apply_id']);
+        if (empty($data['apply_id'])) {
+            $this->baoError('请选择入驻类型');
+        }
         $data['photo'] = htmlspecialchars($data['photo']);
         if (empty($data['photo'])) {
-            $this->baoError('请上传组织/团体缩略图');
+            $this->baoError('请上传入驻资料');
         }
         if (!isImage($data['photo'])) {
-            $this->baoError('组织/团体缩略图格式不正确');
+            $this->baoError('入驻资料格式不正确');
         }
         $data['addr'] = htmlspecialchars($data['addr']);
         if (empty($data['addr'])) {
@@ -321,27 +353,29 @@ class ShopAction extends CommonAction{
         $data['tags'] = htmlspecialchars($data['tags']);
         $data['near'] = htmlspecialchars($data['near']);
         $data['business_time'] = htmlspecialchars($data['business_time']);
-        $data['orderby'] = (int) $data['orderby'];
-		$data['panorama_url'] = htmlspecialchars($data['panorama_url']);
+        $data['orderby'] = (int)$data['orderby'];
+        $data['panorama_url'] = htmlspecialchars($data['panorama_url']);
         $data['lng'] = htmlspecialchars($data['lng']);
         $data['lat'] = htmlspecialchars($data['lat']);
-        $data['price'] = (int) $data['price'];
-        $data['is_pei'] = (int) $data['is_pei'];
+        $data['price'] = (int)$data['price'];
+        $data['is_pei'] = (int)$data['is_pei'];
         $data['apiKey'] = htmlspecialchars($data['apiKey']);
         $data['mKey'] = htmlspecialchars($data['mKey']);
         $data['partner'] = htmlspecialchars($data['partner']);
         $data['machine_code'] = htmlspecialchars($data['machine_code']);
         $data['service'] = $data['service'];
-        $data['service_audit'] = (int) $data['service_audit'];
-        $data['is_ele_print'] = (int) $data['is_ele_print'];
-        $data['is_tuan_print'] = (int) $data['is_tuan_print'];
-        $data['is_goods_print'] = (int) $data['is_goods_print'];
-        $data['is_booking_print'] = (int) $data['is_booking_print'];
-		$data['is_appoint_print'] = (int) $data['is_appoint_print'];
+        $data['service_audit'] = (int)$data['service_audit'];
+        $data['is_ele_print'] = (int)$data['is_ele_print'];
+        $data['is_tuan_print'] = (int)$data['is_tuan_print'];
+        $data['is_goods_print'] = (int)$data['is_goods_print'];
+        $data['is_booking_print'] = (int)$data['is_booking_print'];
+        $data['is_appoint_print'] = (int)$data['is_appoint_print'];
         return $data;
     }
-    public function delete($shop_id = 0) {
-        if (is_numeric($shop_id) && ($shop_id = (int) $shop_id)) {
+
+    public function delete($shop_id = 0)
+    {
+        if (is_numeric($shop_id) && ($shop_id = (int)$shop_id)) {
             $obj = D('Shop');
             $obj->save(array('shop_id' => $shop_id, 'closed' => 1));
             $this->baoSuccess('删除成功！', U('shop/index'));
@@ -357,8 +391,10 @@ class ShopAction extends CommonAction{
             $this->baoError('请选择要删除的组织/团体');
         }
     }
-    public function audit($shop_id = 0){
-        if (is_numeric($shop_id) && ($shop_id = (int) $shop_id)) {
+
+    public function audit($shop_id = 0)
+    {
+        if (is_numeric($shop_id) && ($shop_id = (int)$shop_id)) {
             $obj = D('Shop');
             $obj->save(array('shop_id' => $shop_id, 'audit' => 1));
             $this->baoSuccess('审核成功！', U('shop/apply'));
@@ -374,7 +410,9 @@ class ShopAction extends CommonAction{
             $this->baoError('请选择要审核的组织/团体');
         }
     }
-    public function login($shop_id){
+
+    public function login($shop_id)
+    {
         $obj = D('Shop');
         if (!($detail = $obj->find($shop_id))) {
             $this->error('请选择要编辑的组织/团体');
@@ -386,7 +424,9 @@ class ShopAction extends CommonAction{
         header('Location:' . U('Merchant/index/index'));
         die;
     }
-    public function ding($shop_id){
+
+    public function ding($shop_id)
+    {
         $obj = D('Shop');
         if (!($detail = $obj->find($shop_id))) {
             $this->error('请选择要编辑的组织/团体');
@@ -398,7 +438,9 @@ class ShopAction extends CommonAction{
         $obj->save($data);
         $this->baoSuccess('操作成功', U('shop/index'));
     }
-    public function biz($shop_id){
+
+    public function biz($shop_id)
+    {
         $obj = D('Shop');
         if (!($detail = $obj->find($shop_id))) {
             $this->error('请选择要编辑的组织/团体');
@@ -410,7 +452,9 @@ class ShopAction extends CommonAction{
         $obj->save($data);
         $this->baoSuccess('操作成功', U('shop/index'));
     }
-    public function profit($shop_id){
+
+    public function profit($shop_id)
+    {
         $obj = D('Shop');
         if (!($detail = $obj->find($shop_id))) {
             $this->error('请选择要编辑的组织/团体');
@@ -422,8 +466,10 @@ class ShopAction extends CommonAction{
         $obj->save($data);
         $this->baoSuccess('操作成功', U('shop/index'));
     }
+
     //改版
-    public function pei($shop_id){
+    public function pei($shop_id)
+    {
         $obj = D('Shop');
         if (!($detail = $obj->find($shop_id))) {
             $this->error('请选择要编辑的组织/团体');
@@ -447,7 +493,9 @@ class ShopAction extends CommonAction{
         }
         $this->baoSuccess('操作成功', U('shop/index'));
     }
-    public function recovery(){
+
+    public function recovery()
+    {
         $Shop = D('Shop');
         import('ORG.Util.Page');
         $map = array('closed' => 1);
@@ -455,15 +503,15 @@ class ShopAction extends CommonAction{
             $map['shop_name|tel'] = array('LIKE', '%' . $keyword . '%');
             $this->assign('keyword', $keyword);
         }
-        if ($city_id = (int) $this->_param('city_id')) {
+        if ($city_id = (int)$this->_param('city_id')) {
             $map['city_id'] = $city_id;
             $this->assign('city_id', $city_id);
         }
-        if ($area_id = (int) $this->_param('area_id')) {
+        if ($area_id = (int)$this->_param('area_id')) {
             $map['area_id'] = $area_id;
             $this->assign('area_id', $area_id);
         }
-        if ($cate_id = (int) $this->_param('cate_id')) {
+        if ($cate_id = (int)$this->_param('cate_id')) {
             $map['cate_id'] = array('IN', D('Shopcate')->getChildren($cate_id));
             $this->assign('cate_id', $cate_id);
         }
@@ -486,8 +534,10 @@ class ShopAction extends CommonAction{
         $this->assign('page', $show);
         $this->display();
     }
+
     //认领开始
-    public function recognition(){
+    public function recognition()
+    {
         $Shop = D('Shop');
         import('ORG.Util.Page');
         $map = array('closed' => 0, 'recognition' => 0);
@@ -495,15 +545,15 @@ class ShopAction extends CommonAction{
             $map['shop_name|tel'] = array('LIKE', '%' . $keyword . '%');
             $this->assign('keyword', $keyword);
         }
-        if ($city_id = (int) $this->_param('city_id')) {
+        if ($city_id = (int)$this->_param('city_id')) {
             $map['city_id'] = $city_id;
             $this->assign('city_id', $city_id);
         }
-        if ($area_id = (int) $this->_param('area_id')) {
+        if ($area_id = (int)$this->_param('area_id')) {
             $map['area_id'] = $area_id;
             $this->assign('area_id', $area_id);
         }
-        if ($cate_id = (int) $this->_param('cate_id')) {
+        if ($cate_id = (int)$this->_param('cate_id')) {
             $map['cate_id'] = array('IN', D('Shopcate')->getChildren($cate_id));
             $this->assign('cate_id', $cate_id);
         }
@@ -526,9 +576,11 @@ class ShopAction extends CommonAction{
         $this->assign('page', $show);
         $this->display();
     }
+
     //认领结束
-    public function recovery2($shop_id = 0){
-        if (is_numeric($shop_id) && ($shop_id = (int) $shop_id)) {
+    public function recovery2($shop_id = 0)
+    {
+        if (is_numeric($shop_id) && ($shop_id = (int)$shop_id)) {
             $obj = D('Shop');
             $obj->save(array('shop_id' => $shop_id, 'closed' => 0));
             $this->baoSuccess('恢复组织/团体成功！', U('shop/index'));
@@ -544,8 +596,10 @@ class ShopAction extends CommonAction{
             $this->baoError('请选择要恢复的组织/团体');
         }
     }
-    public function delete2($shop_id = 0){
-        $shop_id = (int) $shop_id;
+
+    public function delete2($shop_id = 0)
+    {
+        $shop_id = (int)$shop_id;
         if (!empty($shop_id)) {
             $goods = D('Goods')->where(array('shop_id' => $shop_id))->select();
             foreach ($goods as $k => $value) {
@@ -566,4 +620,68 @@ class ShopAction extends CommonAction{
             $this->baoError('操作失败');
         }
     }
+
+    public function volunteers($organization_id = 0)
+    {
+        if ($organization_id = (int)$organization_id) {
+            if (!($organization = D('Shop')->find($organization_id))) {
+                $this->baoError('请选择要查看的组织/团体');
+            }
+            $where = 'organization_id = ' . $organization_id;
+//            if($this->_param('keyword')){
+//                $where .= ' AND ';
+//            }
+            if ($volunteers = D('organizationVolunteer')->where($where)->select()) {
+                foreach ($volunteers as $key => $val) {
+                    $user = D('users')->where(array('user_id' => $val['user_id']))->find();
+                    $volunteers[$key]['users'] = $user;
+                }
+                $this->assign('volunteers', $volunteers);
+            }
+        }
+        $this->assign('organization', $organization);
+        $this->display();
+    }
+
+    public function volunteer_audit($volunteer_id)
+    {
+        if (!$volunteer_id) {
+            $this->baoError('请选择要审核的志愿者');
+        }
+        $data['volunteer_id'] = $volunteer_id;
+        if ($volunteer = D('OrganizationVolunteer')->find($volunteer_id)) {
+            if ($volunteer['status'] == 0) {
+                $data['status'] = 1;
+                if (D('OrganizationVolunteer')->save($data)) {
+                    $this->baoSuccess('恭喜您，审核成功！');
+                } else {
+                    $this->baoError('审核失败，请稍后重试！');
+                }
+            } else {
+                $this->baoError('您已审核过，无需重复审核');
+            }
+        } else {
+            $this->baoError('该志愿者未提交申请');
+        }
+
+    }
+
+    public function volunteer_del($volunteer_id)
+    {
+        if (!$volunteer_id) {
+            $this->baoError('请选择要操作的志愿者');
+        }
+        $data['volunteer_id'] = $volunteer_id;
+        if ($volunteer = D('OrganizationVolunteer')->find($volunteer_id)) {
+            if (D('OrganizationVolunteer')->delete($data)) {
+                $this->baoSuccess('恭喜您，删除成功！');
+            } else {
+                $this->baoError('删除失败，请稍后重试！');
+            }
+        } else {
+            $this->baoError('未查找到该志愿者信息。');
+        }
+
+    }
+
 }

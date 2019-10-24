@@ -1,8 +1,8 @@
 <?php
 class UserAction extends CommonAction{
     private $create_fields = array('account', 'password', 'pay_password','rank_id', 'face', 'mobile', 'email', 'nickname', 'face', 'ext0');
-    private $edit_fields = array('account', 'password','pay_password', 'rank_id', 'face', 'mobile', 'email', 'nickname', 'face', 'ext0');
-   
+    private $edit_fields = array('account', 'password','pay_password', 'rank_id','is_certification','real_name','id_type','id_num','organization_id','head_url','certification_img_url', 'face', 'mobile', 'email', 'nickname', 'face', 'ext0');
+
     public function index(){
         $User = D('Users');
         import('ORG.Util.Page');
@@ -153,6 +153,8 @@ class UserAction extends CommonAction{
                 }
                 $this->baoError('操作失败');
             } else {
+                $organization = D('shop')->find($detail['organization_id']);
+                $this->assign('organization', $organization);
                 $this->assign('detail', $detail);
                 $this->assign('ranks', D('Userrank')->fetchAll());
                 $this->display();
@@ -176,7 +178,7 @@ class UserAction extends CommonAction{
             }
             $data['password'] = md5($data['password']);
         }
-		
+
 		if ($data['pay_password'] == '******') {
             unset($data['pay_password']);
         } else {
@@ -186,7 +188,7 @@ class UserAction extends CommonAction{
             }
             $data['pay_password'] = md5(md5($data['pay_password']));
         }
-		
+
         $data['nickname'] = htmlspecialchars($data['nickname']);
 		if (empty($data['nickname'])) {
             $this->baoError('昵称不能为空');
@@ -195,7 +197,7 @@ class UserAction extends CommonAction{
         $data['email'] = htmlspecialchars($data['email']);
         $data['ext0'] = htmlspecialchars($data['ext0']);
         $data['rank_id'] = (int) $data['rank_id'];
-        
+
         return $data;
     }
     public function delete($user_id = 0){
@@ -254,10 +256,10 @@ class UserAction extends CommonAction{
             }
             D('Users')->save(array('user_id' => $user_id, 'integral' => $detail['integral'] + $integral));
             D('Userintegrallogs')->add(array(
-				'user_id' => $user_id, 
-				'integral' => $integral, 
-				'intro' => $intro, 
-				'create_time' => NOW_TIME, 
+				'user_id' => $user_id,
+				'integral' => $integral,
+				'intro' => $intro,
+				'create_time' => NOW_TIME,
 				'create_ip' => get_client_ip()
 			));
             $this->baoSuccess('操作成功', U('userintegrallogs/index'));
@@ -266,9 +268,9 @@ class UserAction extends CommonAction{
             $this->display();
         }
     }
-    //设置商户冻结金 
+    //设置商户冻结金
  	public function frozen_gold(){
-       $user_id = (int)$this->_get('user_id'); 
+       $user_id = (int)$this->_get('user_id');
        if(!$detail = D('Users')->find($user_id)){
            $this->baoError('没有该用户！');
        }
@@ -282,18 +284,18 @@ class UserAction extends CommonAction{
                $this->baoError('商户冻结金说明不能为空');
            }
 		   if (!D('Users')->set_frozen_gold($user_id,$gold,$intro)) {//入账
-			  $this->baoError(D('Users')->getError(), 3000, true);	  
+			  $this->baoError(D('Users')->getError(), 3000, true);
 		   }
            $this->baoSuccess('操作成功',U('user/index'));
        }else{
            $this->assign('user_id',$user_id);
            $this->display();
-       }       
+       }
    }
-   
-   //设置志愿者冻结金 
+
+   //设置志愿者冻结金
  	public function frozen_money(){
-       $user_id = (int)$this->_get('user_id'); 
+       $user_id = (int)$this->_get('user_id');
        if(!$detail = D('Users')->find($user_id)){
            $this->baoError('没有该用户！');
        }
@@ -307,16 +309,16 @@ class UserAction extends CommonAction{
                $this->baoError('志愿者冻结金说明不能为空');
            }
 		   if (!D('Users')->set_frozen_money($user_id,$money,$intro)) {//入账
-			  $this->baoError(D('Users')->getError(), 3000, true);	  
+			  $this->baoError(D('Users')->getError(), 3000, true);
 		   }
            $this->baoSuccess('操作成功',U('user/index'));
        }else{
            $this->assign('user_id',$user_id);
            $this->display();
-       }       
+       }
    }
-   
-   
+
+
     public function manage(){
         $user_id = (int) $this->_get('user_id');
         if (empty($user_id)) {
@@ -351,10 +353,10 @@ class UserAction extends CommonAction{
             }
             D('Users')->save(array('user_id' => $user_id, 'money' => $detail['money'] + $money));
             D('Usermoneylogs')->add(array(
-				'user_id' => $user_id, 
-				'money' => $money, 
-				'intro' => $intro, 
-				'create_time' => NOW_TIME, 
+				'user_id' => $user_id,
+				'money' => $money,
+				'intro' => $intro,
+				'create_time' => NOW_TIME,
 				'create_ip' => get_client_ip()
 			));
             $this->baoSuccess('操作成功', U('usermoneylogs/index'));

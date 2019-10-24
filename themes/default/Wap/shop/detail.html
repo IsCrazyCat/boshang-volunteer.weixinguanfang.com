@@ -42,7 +42,7 @@
 <article class="XmxqIntroBMC tmt-fc_light tmt-fz_l">
     <img src="__TMPL__statics/img/index/png01.png" alt="logo" class="XmxqIntroLogo XmxqIntroLogoP">志愿者
     <p class="XmxqIntroRName tmt-fc_normal lh3 tmt-fz_l">
-        <em><{$organization.sign_count}></em> 人
+        <em><{$organization.volunteer_count}></em> 人
     </p>
 </article>
 
@@ -98,9 +98,26 @@
     <div class="clear"></div>
 </article>
 
-<footer class="WybmFooterBtnC" style="padding-bottom:20px;">
-    <a href="<{:U('wap/activity/activityList',array('organization_id'=>$organization.shop_id))}>"
-       class="tmt-btn_b tmt-btn_warn tmt-btn SearchFootero SearchFooterBtn" style = 'width: 100%;'>查看活动</a>
+<footer class="WybmFooterBtnC">
+<!--    <if condition="$is_volunteer neq 0 OR $volunteerInfo neq NULL">-->
+<!--        <a href="<{:U('wap/activity/activityList',array('organization_id'=>$organization['shop_id']))}>"-->
+<!--           class="tmt-btn_b tmt-btn_warn tmt-btn SearchFootero SearchFooterBtn" style = 'width: 45%;'>查看<{$volunteerInfo['status']}>活动</a>-->
+<!--        <a href="<{:U('wap/shop/index',array('organization_id'=>$organization['shop_id']))}>"-->
+<!--           class="tmt-btn_b tmt-btn_warn tmt-btn SearchFootero SearchFooterBtn" style = 'width: 45%;'>查看下属组织</a>-->
+<!--        <else/>-->
+<!--        <a href="<{:U('wap/activity/activityList',array('organization_id'=>$organization['shop_id']))}>"-->
+<!--           class="tmt-btn_b tmt-btn_warn tmt-btn SearchFootero SearchFooterBtn" style = 'width: 30%;'>查看活动</a>-->
+<!--        <a href="<{:U('wap/shop/index',array('organization_id'=>$organization['shop_id']))}>"-->
+<!--           class="tmt-btn_b tmt-btn_warn tmt-btn SearchFootero SearchFooterBtn" style = 'width: 30%;'>查看下属组织<{$organization['shop_id']}></a>-->
+<!--        <a href="<{:U('user/organization/organizationVolunteerSign',array('organization_id'=>$organization['shop_id']))}>"-->
+<!--           class="WybmFooterBtn SearchFooterBtn tmt-btn_b2 tmt-btn_warn tmt-btn"style = 'width: 30%;'>成为志愿者</a>-->
+<!--    </if>-->
+    <a href="<{:U('wap/activity/activityList',array('organization_id'=>$organization['shop_id']))}>"
+       class="tmt-btn_b tmt-btn_warn tmt-btn SearchFootero SearchFooterBtn" style = 'width: 30%;'>查看活动</a>
+    <a href="<{:U('wap/shop/index',array('organization_id'=>$organization['shop_id']))}>"
+       class="tmt-btn_b tmt-btn_warn tmt-btn SearchFootero SearchFooterBtn" style = 'width: 30%;'>查看下属组织</a>
+    <a href="<{:U('user/organization/organizationVolunteerSign',array('organization_id'=>$organization['shop_id']))}>"
+       class="WybmFooterBtn SearchFooterBtn tmt-btn_b2 tmt-btn_warn tmt-btn"style = 'width: 30%;'>成为志愿者</a>
 </footer>
 </body>
 </html>

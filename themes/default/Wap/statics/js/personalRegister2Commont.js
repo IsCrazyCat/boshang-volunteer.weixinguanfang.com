@@ -302,7 +302,7 @@ function getbankCarFn(){
 //显示组织归属框
 //$("#workingAddressDiv").click(function() {
 //	$('#gsdw,#fullxi').show();
-//	gsdwULItem("40288188119c102f01119cadc42d01d0");//40288188119c102f01119cadc42d01d0--全国；b0dc9771d14211e18718000aebf5352e--广东
+//	gsdwULItem("40288188119c102f01119cadc42d01d0");//40288188119c102f01119cadc42d01d0--全国；b0dc9771d14211e18718000aebf5352e--聊城市
 //});
 
 function workingAddressDivFun(n){
@@ -310,12 +310,12 @@ function workingAddressDivFun(n){
 	$('#cancelbtn').attr("index",n);//保存index的id值为id
 	
 	$('#gsdw,#fullxi').show();
-	gsdwULItem("40288188119c102f01119cadc42d01d0");//40288188119c102f01119cadc42d01d0--全国；b0dc9771d14211e18718000aebf5352e--广东
+	gsdwULItem("40288188119c102f01119cadc42d01d0");//40288188119c102f01119cadc42d01d0--全国；b0dc9771d14211e18718000aebf5352e--聊城市
 	
 }
 function gsdwULItem(districtParentId) {
 	
-	if (districtParentId == "b0dc9771d14211e18718000aebf5352e") {//40288188119c102f01119cadc42d01d0--全国；b0dc9771d14211e18718000aebf5352e--广东
+	if (districtParentId == "b0dc9771d14211e18718000aebf5352e") {//40288188119c102f01119cadc42d01d0--全国；b0dc9771d14211e18718000aebf5352e--聊城市
 		$("#gsdw #upLayer").hide();
 	} else {
 		$("#gsdw #upLayer").show();

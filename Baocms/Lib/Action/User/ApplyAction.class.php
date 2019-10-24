@@ -1,15 +1,15 @@
 <?php
 class ApplyAction extends CommonAction{
-    private $create_fields = array('user_id','city_id', 'area_id', 'business_id', 'logo', 'cate_id', 'tel', 'logo', 'photo', 'shop_name', 'contact', 'details', 'business_time', 'area_id', 'addr', 'lng', 'lat', 'recognition','is_pei');
+    private $create_fields = array('user_id','apply_id','city_id', 'area_id', 'business_id','organization_leader', 'logo', 'cate_id', 'tel', 'logo', 'photo', 'shop_name', 'contact', 'details', 'business_time', 'area_id', 'addr', 'lng', 'lat', 'recognition','is_pei');
 	private $delivery_create_fields = array('city_id', 'user_id','photo', 'name', 'mobile', 'addr');
     public function index(){
         if (empty($this->uid)) {
             header("Location:" . U('passport/login'));
             die;
         }
-        if (D('Shop')->find(array('where' => array('user_id' => $this->uid)))) {
-            $this->error('您已经拥有一家组织/团体了！', U('Distributors/index/index'));
-        }
+//        if (D('Shop')->find(array('where' => array('user_id' => $this->uid)))) {
+//            $this->error('您已经拥有一家组织/团体了！', U('Distributors/index/index'));
+//        }
         if ($this->isPost()) {
             $data = $this->createCheck();
             $obj = D('Shop');
@@ -43,6 +43,8 @@ class ApplyAction extends CommonAction{
             $areas = D('Area')->fetchAll();
             $this->assign('cates', D('Shopcate')->fetchAll());
             $this->assign('areas', $areas);
+            $orgnaiztaions = D('Shop')->fetchAll();
+            $this->assign('orgnaiztaions',$orgnaiztaions);
             $this->display();
         }
     }
@@ -76,6 +78,11 @@ class ApplyAction extends CommonAction{
         if (empty($data['business_id'])) {
             $this->fengmiMsg('街道不能为空');
         }
+        $data['parent_id'] = (int) $data['organization_leader'];
+        if (empty($data['parent_id'])) {
+            $this->fengmiMsg('归属组织不能为空');
+        }
+
         $data['lng'] = htmlspecialchars($data['lng']);
         $data['lat'] = htmlspecialchars($data['lat']);
         if (empty($data['lng']) || empty($data['lat'])) {
@@ -87,7 +94,7 @@ class ApplyAction extends CommonAction{
         }
         $data['apply_id'] = htmlspecialchars($data['apply_id']);
         if (empty($data['apply_id'])) {
-            $this->fengmiMsg('入驻类型不能为空');
+            $this->fengmiMsg('组织入驻类型不能为空');
         }
         $data['photo'] = htmlspecialchars($data['photo']);
         if (empty($data['photo'])) {
@@ -110,10 +117,10 @@ class ApplyAction extends CommonAction{
         if (isMobile($data['tel'])) {
             $data['phone'] = $data['tel'];
         }
-        $detail = D('Shop')->where(array('user_id' => $this->uid))->find();
-        if (!empty($detail)) {
-            $this->fengmiMsg('您已经是组织/团体了');
-        }
+//        $detail = D('Shop')->where(array('user_id' => $this->uid))->find();
+//        if (!empty($detail)) {
+//            $this->fengmiMsg('您已经是组织/团体了');
+//        }
         $data['recognition'] = 1;
 		$data['is_pei'] = 1;
         $data['user_id'] = $this->uid;
@@ -186,6 +193,9 @@ class ApplyAction extends CommonAction{
             $data['real_name'] = $this->_param('userName');
             $data['id_type'] = '1'; //1 身份证 暂时只支持身份证
             $data['id_num'] = $this->_param('idcardCode');
+            $data['head_url'] = $this->_param('head_url');
+            $data['organization_id'] = $this->_param('organization_id');
+
             $mobile = $this->_param('mobile');
             $code = $this->_param('code');
             if($code != session('code')){
@@ -238,6 +248,12 @@ class ApplyAction extends CommonAction{
     public function certification(){
         if (empty($this->uid)) {
             $this->error('您还没有登录！', U('wap/passport/login'));
+        }
+        //查看是否已经成为某组织的志愿者 没有则先去成为某组织的志愿者
+        if($organization_ids = D('OrganizationVolunteer')->where(array('user_id'=>$this->uid,'status'=>'1','is_del'=>'0'))->getField('organization_id',true)){
+            $this->assign('organizations',D('shop')->where(array('shop_id'=>array('IN',implode(',',$organization_ids))))->select());
+        }else{
+            $this->error('请先成为某个组织志愿者！',U('wap/shop/index'));
         }
         $this->display();
     }

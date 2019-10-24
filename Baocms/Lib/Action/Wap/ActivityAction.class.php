@@ -165,6 +165,11 @@ class ActivityAction extends CommonAction
             $data['create_time'] = NOW_TIME;
             $data['create_ip'] = get_client_ip();
             $obj = D('Activitysign');
+            $sign = D('Activitysign')->where(array('user_id' => $this->uid, 'activity_id' => $activity_id))->find();
+            if($sign){
+                $this->error('您已经报过名，请勿重复操作！',
+                    U('wap/activity/detail', array('activity_id' => $activity_id)));
+            }
             if ($obj->add($data)) {
                 D('Activity')->updateCount($activity_id, 'sign_num');
                 $this->error('恭喜您报名成功',
@@ -181,18 +186,18 @@ class ActivityAction extends CommonAction
     {
         $data = $this->checkFields($this->_post('data', false), array('name', 'mobile', 'num'));
         $data['user_id'] = (int)$this->uid;
-        $data['name'] = $data['name'];
+        $data['name'] = rtrim($data['name']);
         if (empty($data['name'])) {
             $this->error('联系人不能为空');
         }
-        $data['mobile'] = htmlspecialchars($data['mobile']);
+        $data['mobile'] = htmlspecialchars(rtrim($data['mobile']));
         if (empty($data['mobile'])) {
             $this->error('联系电话不能为空');
         }
         if (!isPhone($data['mobile']) && !isMobile($data['mobile'])) {
             $this->error('联系电话格式不正确');
         }
-        $data['num'] = (int)$data['num'];
+        $data['num'] = (int)(rtrim($data['num']));
         if (empty($data['num'])) {
             $this->error('活动人数不能为空');
         }

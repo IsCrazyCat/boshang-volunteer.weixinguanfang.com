@@ -261,9 +261,9 @@ class ShopAction extends CommonAction{
             header('Location:' . U('passport/login'));
             die;
         }
-        if (D('Shop')->find(array('where' => array('user_id' => $this->uid)))) {
-            $this->error('您已经拥有一家组织/团体了！', U('Merchant/index/index'));
-        }
+//        if (D('Shop')->find(array('where' => array('user_id' => $this->uid)))) {
+//            $this->error('您已经拥有一家组织/团体了！', U('Merchant/index/index'));
+//        }
         if ($this->isPost()) {
             $yzm = $this->_post('yzm');
             if (strtolower($yzm) != strtolower(session('verify'))) {
@@ -636,12 +636,12 @@ class ShopAction extends CommonAction{
             if ($detail['closed']) {
                 $this->ajaxReturn(array('status' => 'error', 'msg' => '该组织/团体已经被删除'));
             }
-            if (D('Shop')->find(array('where' => array('user_id' => $this->uid)))) {
-                $this->ajaxReturn(array('status' => 'error', 'msg' => '您已经拥有一家组织/团体了'));
-            }
-            if (D('Shoprecognition')->where(array('user_id' => $this->uid))->find()) {
-                $this->ajaxReturn(array('status' => 'error', 'msg' => '您已经认领过一家组织/团体了'));
-            }
+//            if (D('Shop')->find(array('where' => array('user_id' => $this->uid)))) {
+//                $this->ajaxReturn(array('status' => 'error', 'msg' => '您已经拥有一家组织/团体了'));
+//            }
+//            if (D('Shoprecognition')->where(array('user_id' => $this->uid))->find()) {
+//                $this->ajaxReturn(array('status' => 'error', 'msg' => '您已经认领过一家组织/团体了'));
+//            }
             $data['user_id'] = (int) $this->uid;
             $data['shop_id'] = (int) $shop_id;
             $data['name'] = htmlspecialchars($_POST['name']);

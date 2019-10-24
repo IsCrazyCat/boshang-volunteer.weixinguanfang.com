@@ -45,7 +45,16 @@
                         </select>
                     </td>
                 </tr>
-
+                <tr>
+                    <td class="lfTdBt">归属组织：</td>
+                    <td class="rgTdBt">
+                        <select id="parent_id" name="data[parent_id]" class="seleFl w210">
+                            <foreach name="organizations" item="organization">
+                                <option value="<{$organization['shop_id']}>"><{$organization['shop_name']}></option>
+                            </foreach>
+                        </select>
+                    </td>
+                </tr>
                 <!--<tr>-->
                 <!--<td class="lfTdBt">组织/团体等级：</td>-->
                 <!--<td class="rgTdBt">-->
@@ -208,7 +217,16 @@
                         </script>
                     </td>
                 </tr>
-
+                <tr>
+                    <td class="lfTdBt">入驻类型：</td>
+                    <td class="rgTdBt">
+                        <select name="data[apply_id]" id="apply_id" class="seleFl w210">
+                            <option value="0" selected="selected">请选择</option>
+                            <option value="1">民政注册</option>
+                            <option value="2">党群机关团体</option>
+                        </select>
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="lfTdBt">入驻资料图片：</td>
@@ -297,13 +315,13 @@
                         </tr>
                                 -->
 
-                <tr>
-                    <td class="lfTdBt">工作时间：</td>
-                    <td class="rgTdBt"><input type="text" name="data[business_time]"
-                                              value="<{$detail.business_time|default=''}>" class="scAddTextName w210"/>
-                        <code>例如8:00-19：00</code>
-                    </td>
-                </tr>
+<!--                <tr>-->
+<!--                    <td class="lfTdBt">工作时间：</td>-->
+<!--                    <td class="rgTdBt"><input type="text" name="data[business_time]"-->
+<!--                                              value="<{$detail.business_time|default=''}>" class="scAddTextName w210"/>-->
+<!--                        <code>例如8:00-19：00</code>-->
+<!--                    </td>-->
+<!--                </tr>-->
                 <tr>
                     <td class="lfTdBt">固定排名：</td>
                     <td class="rgTdBt"><input type="text" name="data[orderby]" value="<{$detail.orderby|default='100'}>"

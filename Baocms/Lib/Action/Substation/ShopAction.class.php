@@ -315,10 +315,10 @@ class ShopAction extends CommonAction
         if (empty($data['user_id'])) {
             $this->baoError('管理者不能为空');
         }
-        $shop = D('Shop')->find(array('where' => array('user_id' => $data['user_id'])));
-        if (!empty($shop) && $shop['shop_id'] != $shop_id) {
-            $this->baoError('该管理者已经拥有组织/团体了');
-        }
+//        $shop = D('Shop')->find(array('where' => array('user_id' => $data['user_id'])));
+//        if (!empty($shop) && $shop['shop_id'] != $shop_id) {
+//            $this->baoError('该管理者已经拥有组织/团体了');
+//        }
         $data['cate_id'] = (int) $data['cate_id'];
         if (empty($data['cate_id'])) {
             $this->baoError('分类不能为空');

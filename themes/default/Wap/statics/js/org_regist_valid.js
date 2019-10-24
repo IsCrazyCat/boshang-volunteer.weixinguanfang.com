@@ -197,6 +197,14 @@ function userInfoSubmit(){
             $("#idcardCode"));
         return false;
     }
+    if ($("#head_model").attr("src") == "") {
+        mylayer("头像不能为空！", $("#fileUpload"), "1");
+        return false;
+    }
+    if ($("#organization_id").val() == "") {
+        mylayer("归属组织不能为空！", $("#organization_id"), "1");
+        return false;
+    }
 	if ($("#mobile").val() == "") {
 		mylayer("手机号码不能为空！", $("#mobile"), "1");
 		return false;
@@ -210,10 +218,12 @@ function userInfoSubmit(){
 		type:"POST",
 		url:"/user/apply/volunteerCard",
 		data:{
-			userName:$("#userName").val(),
-			idcardCode:$("#idcardCode").val(),
-			mobile:$("#mobile").val(),
-			code:$("#inputVerifyCode").val()
+			"userName":$("#userName").val(),
+			"idcardCode":$("#idcardCode").val(),
+			"mobile":$("#mobile").val(),
+			"code":$("#inputVerifyCode").val(),
+            "head_url":$("#head_model").attr("src"),
+            "organization_id":$("#organization_id").val()
 		},
         dataType:"json",
 		success:function (data) {

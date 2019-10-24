@@ -86,7 +86,7 @@
         <div class="line">
             <span class="x3">入驻形式：</span>
             <span class="x4">
-				<select name="apply_id" id="apply_id" onchange="pschange()" class="text-select">
+				<select name="data[apply_id]" id="apply_id" onchange="pschange()" class="text-select">
 					<option value="0" selected="selected">请选择</option>
 					<option value="1">民政注册</option>
 					<option value="2">党群机关团体</option>
@@ -316,10 +316,40 @@
                 }
                 $("#business_id").change(function () {
                     business_id = $(this).val();
+                    // alert("business_id = "+business_id);
+                    // if(business_id > 0){
+                    //     //组织联动 展示该区域下的组织
+                    //     var organizations = <?php echo json_encode($shops);?>;
+                    //     var organizationStr = "";
+                    //     for(organization in organizations){
+                    //         if(organization['business_id'] == business_id){
+                    //             organizationStr = "<option value='"+organization['shop_id']+"' >"+organization['shop_name']+"</option>";
+                    //         }
+                    //
+                    //     }
+                    //     if()
+                    //     $("#organization_leader").html(organizationStr);
+                    // }
                 });
             });
         </script>
 
+    </div>
+    <div class="row">
+        <div class="line">
+            <span class="x3">归属组织：</span>
+            <span class="x4">
+				<select name="data[organization_leader]" id="organization_leader" class="text-select">
+					<option value="0" selected="selected">请选择</option>
+
+                    <foreach name="orgnaiztaions" item="var">
+
+					<option value="<{$var.shop_id}>"><{$var.shop_name}></option>
+
+                </foreach>
+				</select>
+			</span>
+        </div>
     </div>
     <div class="row">
         <div class="line">

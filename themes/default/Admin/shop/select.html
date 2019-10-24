@@ -123,7 +123,9 @@
 <script>
     $(document).ready(function (e) {
         $("#select_btn").click(function () {
+            alert(1);
             $("input[name='shop_id']").each(function (a) {
+                alert(2);
                 if ($(this).prop("checked") == true) {
                     parent.selectCallBack('shop_id', 'shop_name', $(this).val(), $(this).attr('rel'));
                 }

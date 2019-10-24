@@ -38,11 +38,13 @@ class ShopAction extends CommonAction{
         $this->assign('area_id', $area);
         $biz = D('Business')->fetchAll();
         $business = (int) $this->_param('business');
+        $organization_id = (int) $this->_param('organization_id');
         $this->assign('business_id', $business);
+        $this->assign('organization_id', $organization_id);
         $this->assign('areas', $areas);
         $this->assign('citys', $citys);
         $this->assign('biz', $biz);
-        $this->assign('nextpage', LinkTo('shop/loaddata', array('cat' => $cat, 'city'=>$city , 'area' => $area, 'business' => $business, 'order' => $order, 't' => NOW_TIME, 'keyword' => $keyword, 'p' => '0000')));
+        $this->assign('nextpage', LinkTo('shop/loaddata', array('cat' => $cat, 'city'=>$city , 'area' => $area, 'business' => $business, 'order' => $order,'organization_id'=>$organization_id, 't' => NOW_TIME, 'keyword' => $keyword, 'p' => '0000')));
         $this->display();
         // 输出模板
     }
@@ -101,6 +103,10 @@ class ShopAction extends CommonAction{
         $business = (int) $this->_param('business');
         if ($business) {
             $map['business_id'] = $business;
+        }
+        $organization_id = (int) $this->_param('organization_id');
+        if ($organization_id) {
+            $map['parent_id'] = $organization_id;
         }
         $order = (int) $this->_param('order');
         $lat = addslashes(cookie('lat'));
@@ -181,6 +187,18 @@ class ShopAction extends CommonAction{
         $organization['sign_count'] = $sign_count;
         $organization['join_count'] = $join_count;
 
+        if (!empty($this->uid)) {
+            $this->assign("is_login","1");//0未登录 1已登录
+            //登陆状态
+            $data['user_id'] = $this->uid;
+            $data['organization_id'] = $this->_param('shop_id');
+            if($volunteerInfo = D('organizationVolunteer')->where($data)->find()){
+                $this->assign("volunteerInfo",$volunteerInfo);//是否是该组织的志愿者 0否 1是
+            }else{
+                $this->assign("is_volunteer",'0');//是否是该组织的志愿者 0否 1是
+            }
+        }
+        $organization['volunteer_count'] = D('OrganizationVolunteer')->where(array('organization_id'=>$shop_id))->count();
         $this->assign("organization",$organization);
         $this->display();
     }
@@ -668,12 +686,12 @@ class ShopAction extends CommonAction{
         }
         if ($this->isPost()) {
             $data = $this->checkFields($this->_post('data', false), array('name', 'mobile', 'content'));
-            if (D('Shop')->find(array('where' => array('user_id' => $this->uid)))) {
-                $this->fengmiMsg('您已经拥有一家组织/团体了！不能认领了！', U('distributors/index/index'));
-            }
-            if (D('Shoprecognition')->where(array('user_id' => $this->uid))->find()) {
-                $this->fengmiMsg('您已经认领过一家组织/团体了，不能认领了哦！');
-            }
+//            if (D('Shop')->find(array('where' => array('user_id' => $this->uid)))) {
+//                $this->fengmiMsg('您已经拥有一家组织/团体了！不能认领了！', U('distributors/index/index'));
+//            }
+//            if (D('Shoprecognition')->where(array('user_id' => $this->uid))->find()) {
+//                $this->fengmiMsg('您已经认领过一家组织/团体了，不能认领了哦！');
+//            }
             $data['user_id'] = (int) $this->uid;
             $data['shop_id'] = (int) $shop_id;
             $data['name'] = htmlspecialchars($data['name']);
