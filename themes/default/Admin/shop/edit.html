@@ -90,27 +90,9 @@
 
                 <script src="<{:U('app/datas/cab',array('name'=>'cityareas'))}>"></script>
                 <script>
-                    var city_id =
-                    <
-                        ? php echo(int)
-                    $detail['city_id'];
-                        ?
-                    >
-                    ;
-                    var area_id =
-                    <
-                        ? php echo(int)
-                    $detail['area_id'];
-                        ?
-                    >
-                    ;
-                    var business_id =
-                    <
-                        ? php echo(int)
-                    $detail['business_id'];
-                        ?
-                    >
-                    ;
+                    var city_id = <?php echo (int)$detail['city_id'];?>;
+                    var area_id = <?php echo (int)$detail['area_id'];?>;
+                    var business_id = <?php echo (int)$detail['business_id'];?>;
                     $(document).ready(function () {
                         var city_str = ' <option value="0">请选择...</option>';
                         for (a in cityareas.city) {
@@ -247,12 +229,13 @@
 
 
                 <tr>
-                    <td class="lfTdBt">入驻类型：</td>
+                    <td class="lfTdBt">组织类型：</td>
                     <td class="rgTdBt">
                         <select name="data[apply_id]" id="apply_id" class="seleFl w210">
                             <option value="0" selected="selected">请选择</option>
                             <option value="1">民政注册</option>
                             <option value="2">党群机关团体</option>
+                            <option value="3">公民自发团体</option>
                         </select>
                         <script>
                             $(document).ready(function(){

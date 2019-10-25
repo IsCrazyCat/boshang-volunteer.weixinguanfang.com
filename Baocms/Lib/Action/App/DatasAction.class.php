@@ -20,7 +20,7 @@ class  DatasAction extends  CommonAction{
         echo   'var  cityareas = '.  json_encode($data);die;
     }
     
-    public function cab() { //城市地区街道
+    public function cab() { //城市地区区县
         $name = htmlspecialchars($_GET['name']);
         $data = array();
         $data['city']       = D('City')->fetchAll();
@@ -72,7 +72,7 @@ class  DatasAction extends  CommonAction{
         $this->stringify($data);
 	}
 
-	public function cab_app() { //城市地区街道
+	public function cab_app() { //城市地区区县
         $name = htmlspecialchars($this->_param('name'));
         $data = array();
         $data['city']       = D('City')->fetchAll();

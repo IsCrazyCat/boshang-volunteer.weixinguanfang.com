@@ -211,7 +211,7 @@ class ShopAction extends CommonAction
         }
         $data['business_id'] = (int) $data['business_id'];
         if (empty($data['business_id'])) {
-//            $this->baoError('所在街道不能为空');
+//            $this->baoError('所在区县不能为空');
         }
         $data['shop_name'] = htmlspecialchars($data['shop_name']);
         if (empty($data['shop_name'])) {
@@ -330,7 +330,7 @@ class ShopAction extends CommonAction
         }
         $data['business_id'] = (int) $data['business_id'];
         if (empty($data['business_id'])) {
-//            $this->baoError('所在街道不能为空');
+//            $this->baoError('所在区县不能为空');
         }
         $data['shop_name'] = htmlspecialchars($data['shop_name']);
         if (empty($data['shop_name'])) {

@@ -87,7 +87,7 @@ class AreaAction extends CommonAction{
             $obj = D('Area');
 			$count = D('Business')->where(array('area_id'=>$area_id))->count;
 			if($count > 0){
-				$this->baoError('该区域下面还有街道，请先删除对应的街道');
+				$this->baoError('该区域下面还有区县，请先删除对应的区县');
 			}
             $obj->delete($area_id);
             $obj->cleanCache();
@@ -99,7 +99,7 @@ class AreaAction extends CommonAction{
                 foreach ($area_id as $id) {
 					$count = D('Business')->where(array('area_id'=>$id))->count;
 					if($count > 0){
-						$this->baoError('该区域下面还有街道，请先删除对应的街道');
+						$this->baoError('该区域下面还有区县，请先删除对应的区县');
 					}
                     $obj->delete($id);
                 }

@@ -200,7 +200,7 @@ class ShopAction extends CommonAction{
         $this->Shopcates = D('Shopcate')->fetchAll();
         $this->seodatas['cate_name'] = $this->Shopcates[$detail['cate_id']]['cate_name'];//分类
         $this->seodatas['cate_area'] = $this->areas[$detail['area_id']]['area_name'];//地区
-        $this->seodatas['cate_business'] = $this->bizs[$detail['business_id']]['business_name'];//街道
+        $this->seodatas['cate_business'] = $this->bizs[$detail['business_id']]['business_name'];//区县
         $this->seodatas['shop_name'] = $detail['shop_name'];
         if (!empty($detail['mobile'])) {
             $this->seodatas['shop_tel'] = $detail['mobile'];
@@ -318,7 +318,7 @@ class ShopAction extends CommonAction{
         }
         $data['business_id'] = (int) $data['business_id'];
         if (empty($data['business_id'])) {
-            $this->baoError('街道不能为空', 2000, true);
+            $this->baoError('区县不能为空', 2000, true);
         }
         $data['contact'] = htmlspecialchars($data['contact']);
         if (empty($data['contact'])) {

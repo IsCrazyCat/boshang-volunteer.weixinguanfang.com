@@ -51,7 +51,7 @@
                     </tr>
                      <foreach name="volunteers" item="var">
                 <tr>
-                    <td><input class="child_sign_id" type="checkbox" name="sign_id[]" value="<{$var.sign_id}>" /></td>
+                    <td><input class="child_sign_id" type="checkbox" name="volunteer_id[]" value="<{$var.volunteer_id}>" /></td>
                     <td><{$var.volunteer_id}></td>
                     <td><{$var['user_id']}></td>
                     <td><{$var['users']['nickname']}></td>
@@ -86,7 +86,7 @@
             </div>
           <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
                 <div class="left">
-                    <{:BA('activitysign/delete','','批量删除','list','a2')}>
+                    <{:BA('shop/volunteer_audit','','批量审核','list','remberBtn')}>
                 </div>
             </div>
 

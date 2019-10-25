@@ -85,7 +85,7 @@ class UseraddrAction extends CommonAction
         }
         $data['business_id'] = (int) $data['business_id'];
         if (empty($data['business_id'])) {
-            $this->baoError('街道不能为空');
+            $this->baoError('区县不能为空');
         }
         $data['name'] = htmlspecialchars($data['name']);
         if (empty($data['name'])) {
@@ -148,7 +148,7 @@ class UseraddrAction extends CommonAction
         }
         $data['business_id'] = (int) $data['business_id'];
         if (empty($data['business_id'])) {
-            $this->baoError('街道不能为空');
+            $this->baoError('区县不能为空');
         }
         $data['name'] = htmlspecialchars($data['name']);
         if (empty($data['name'])) {

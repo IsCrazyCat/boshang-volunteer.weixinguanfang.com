@@ -46,7 +46,7 @@ class AddrAction extends CommonAction
                 $this->ajaxReturn(array('status' => 'error', 'msg' => '联系人没有填写！'));
             }
             /*if (!$city_id || !$area_id || !$business_id) {
-                $this->ajaxReturn(array('status' => 'error', 'msg' => '城市、地区、街道必须都选择！'));
+                $this->ajaxReturn(array('status' => 'error', 'msg' => '城市、地区、区县必须都选择！'));
             }*/
             if (!isMobile($mobile)) {
                 $this->ajaxReturn(array('status' => 'error', 'msg' => '手机号码不正确！'));
@@ -102,7 +102,7 @@ class AddrAction extends CommonAction
                 $this->ajaxReturn(array('status' => 'error', 'msg' => '联系人没有填写！'));
             }
            /* if (!$city_id || !$area_id || !$business_id) {
-                $this->ajaxReturn(array('status' => 'error', 'msg' => '城市、地区、街道必须都选择！'));
+                $this->ajaxReturn(array('status' => 'error', 'msg' => '城市、地区、区县必须都选择！'));
             }*/
             if (!isMobile($mobile)) {
                 $this->ajaxReturn(array('status' => 'error', 'msg' => '手机号码不正确！'));

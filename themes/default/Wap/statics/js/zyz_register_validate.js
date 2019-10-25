@@ -718,9 +718,9 @@ function firset_page_validate(){
 		return false;
     	
     }
-  //常住地址-街道门牌号
+  //常住地址-区县门牌号
     if($('#address').val()==''){
-    	alert("请输入街道门牌号")
+    	alert("请输入区县门牌号")
 		return false;
     	
     }

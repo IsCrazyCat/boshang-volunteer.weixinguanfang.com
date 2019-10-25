@@ -19,7 +19,7 @@ class ActivityAction extends CommonAction
         $business = array();
         $areas = array();
         foreach ($citys as $key => $val) {
-            //区域 例：东昌府区下的开发区下的街道
+            //区域 例：东昌府区下的开发区下的区县
             $cur_areas = D('area')->where(array('city_id' => $val['city_id']))->select();
             foreach ($cur_areas as $ak => $av) {
                 $cur_business = D('business')->where(array('area_id' => $av['area_id']))->select();

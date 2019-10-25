@@ -3,14 +3,14 @@
     <ul>
         <li class="li1">设置</li>
         <li class="li2">区域设置</li>
-        <li class="li2 li3">街道管理</li>
+        <li class="li2 li3">区县管理</li>
     </ul>
 </div>
 <div class="main-jsgl">
     <div class="jsglNr">
         <div class="selectNr">
             <div class="left">
-                <{:BA('business/create',array('area_id'=>$area_id),'添加街道','load','',600,360)}>
+                <{:BA('business/create',array('area_id'=>$area_id),'添加区县','load','',600,360)}>
             </div>
         </div>
         <form target="baocms_frm" method="post">
@@ -19,7 +19,7 @@
                     <tr>
                         <td><input type="checkbox" class="checkAll" rel="business_id" /></td>
                         <td>ID</td>
-                        <td>街道名称</td>
+                        <td>区县名称</td>
                         <td>排序</td>
                         <td>操作</td>   
                     </tr>

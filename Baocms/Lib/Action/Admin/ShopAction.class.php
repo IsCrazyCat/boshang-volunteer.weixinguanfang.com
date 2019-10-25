@@ -3,7 +3,7 @@
 class ShopAction extends CommonAction
 {
     private $create_fields = array('user_id', 'cate_id', 'apply_id', 'parent_id', 'grade_id', 'city_id', 'area_id', 'business_id', 'shop_name', 'logo', 'mobile', 'photo', 'addr', 'tel', 'extension', 'contact', 'tags', 'near', 'is_pei', 'business_time', 'delivery_time', 'orderby', 'lng', 'lat', 'price', 'recognition', 'panorama_url');
-    private $edit_fields = array('user_id', 'cate_id', 'grade_id', 'city_id', 'area_id', 'business_id', 'shop_name', 'mobile', 'logo', 'photo', 'addr', 'tel', 'extension', 'contact', 'tags', 'near', 'business_time', 'delivery_time', 'is_pei', 'orderby', 'lng', 'lat', 'price', 'is_ding', 'recognition', 'panorama_url', 'apiKey', 'mKey', 'partner', 'machine_code', 'service', 'service_audit', 'is_ele_print', 'is_tuan_print', 'is_goods_print', 'is_booking_print', 'is_appoint_print', 'service_audit');
+    private $edit_fields = array('user_id', 'cate_id', 'apply_id', 'grade_id', 'city_id', 'area_id', 'business_id', 'shop_name', 'mobile', 'logo', 'photo', 'addr', 'tel', 'extension', 'contact', 'tags', 'near', 'business_time', 'delivery_time', 'is_pei', 'orderby', 'lng', 'lat', 'price', 'is_ding', 'recognition', 'panorama_url', 'apiKey', 'mKey', 'partner', 'machine_code', 'service', 'service_audit', 'is_ele_print', 'is_tuan_print', 'is_goods_print', 'is_booking_print', 'is_appoint_print', 'service_audit');
 
     public function _initialize()
     {
@@ -188,7 +188,7 @@ class ShopAction extends CommonAction
         }
         $data['business_id'] = (int)$data['business_id'];
         if (empty($data['business_id'])) {
-//            $this->baoError('所在街道不能为空');
+//            $this->baoError('所在区县不能为空');
         }
         $data['shop_name'] = htmlspecialchars($data['shop_name']);
         if (empty($data['shop_name'])) {
@@ -316,7 +316,7 @@ class ShopAction extends CommonAction
         }
         $data['business_id'] = (int)$data['business_id'];
         if (empty($data['business_id'])) {
-//            $this->baoError('所在街道不能为空');
+//            $this->baoError('所在区县不能为空');
         }
         $data['shop_name'] = htmlspecialchars($data['shop_name']);
         if (empty($data['shop_name'])) {
@@ -331,7 +331,7 @@ class ShopAction extends CommonAction
         }
         $data['apply_id'] = htmlspecialchars($data['apply_id']);
         if (empty($data['apply_id'])) {
-            $this->baoError('请选择入驻类型');
+            $this->baoError('请选择组织类型');
         }
         $data['photo'] = htmlspecialchars($data['photo']);
         if (empty($data['photo'])) {
@@ -643,25 +643,47 @@ class ShopAction extends CommonAction
         $this->display();
     }
 
-    public function volunteer_audit($volunteer_id)
+    public function volunteer_audit($volunteer_id = 0)
     {
-        if (!$volunteer_id) {
-            $this->baoError('请选择要审核的志愿者');
-        }
-        $data['volunteer_id'] = $volunteer_id;
-        if ($volunteer = D('OrganizationVolunteer')->find($volunteer_id)) {
-            if ($volunteer['status'] == 0) {
-                $data['status'] = 1;
-                if (D('OrganizationVolunteer')->save($data)) {
-                    $this->baoSuccess('恭喜您，审核成功！');
+        if (is_numeric($volunteer_id) && ($volunteer_id = (int) $volunteer_id)) {
+            if ($volunteer = D('OrganizationVolunteer')->find($volunteer_id)) {
+                if ($volunteer['status'] == 0) {
+                    $data['status'] = 1;
+                    $data['volunteer_id'] = $volunteer_id;
+                    if (D('OrganizationVolunteer')->save($data)) {
+                        $this->baoSuccess('恭喜您，审核成功！');
+                    } else {
+                        $this->baoError('审核失败，请稍后重试！');
+                    }
                 } else {
-                    $this->baoError('审核失败，请稍后重试！');
+                    $this->baoError('您已审核过，无需重复审核');
                 }
             } else {
-                $this->baoError('您已审核过，无需重复审核');
+                $this->baoError('该志愿者未提交申请');
             }
         } else {
-            $this->baoError('该志愿者未提交申请');
+            $volunteer_id = $this->_post('volunteer_id', false);
+            if (is_array($volunteer_id)) {
+                foreach ($volunteer_id as $key=>$id) {
+                    if ($volunteer = D('OrganizationVolunteer')->find($id)) {
+                        if ($volunteer['status'] == 0) {
+                            $data['status'] = 1;
+                            $data['volunteer_id'] = $id;
+                            if (D('OrganizationVolunteer')->save($data)) {
+                                $this->baoSuccess('恭喜您，审核成功！');
+                            } else {
+                                $this->baoError('审核失败，请稍后重试！');
+                            }
+                        } else {
+                            $this->baoError('志愿者' .$id. '已审核过，无需重复审核');
+                        }
+                    } else {
+                        $this->baoError('该志愿者未提交申请');
+                    }
+                }
+                $this->baoSuccess('批量审核成功！', U('shop/index'));
+            }
+            $this->baoError('请选择要审核的志愿者');
         }
 
     }

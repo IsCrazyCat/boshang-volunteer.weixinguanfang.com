@@ -117,7 +117,7 @@ class JifenAction extends CommonAction{
                     $this->baoError('地区不能为空');
                 }
                 if (empty($data['business_id'])) {
-                    $this->baoError('街道不能为空');
+                    $this->baoError('区县不能为空');
                 }
                 $data['mobile'] = htmlspecialchars($data['mobile']);
                 if (empty($data['mobile'])) {

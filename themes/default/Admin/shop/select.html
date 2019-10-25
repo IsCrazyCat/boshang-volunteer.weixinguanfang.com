@@ -95,7 +95,7 @@
                 <tr>
                     <td class="w50">ID</td>
                     <td>分类</td>
-                    <td>所在区域街道</td>
+                    <td>所在区域区县</td>
                     <td>组织/团体名称</td>
                     <td>组织/团体电话</td>
                 </tr>
@@ -123,9 +123,7 @@
 <script>
     $(document).ready(function (e) {
         $("#select_btn").click(function () {
-            alert(1);
             $("input[name='shop_id']").each(function (a) {
-                alert(2);
                 if ($(this).prop("checked") == true) {
                     parent.selectCallBack('shop_id', 'shop_name', $(this).val(), $(this).attr('rel'));
                 }

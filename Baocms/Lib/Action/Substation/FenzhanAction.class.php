@@ -22,7 +22,7 @@ class  FenzhanAction extends  CommonAction{
     
  
 	
-     public function cab() { //城市地区街道
+     public function cab() { //城市地区区县
         $name = htmlspecialchars($_GET['name']);
         $data = array();
         $data['city']       = D('City')->where(array('closed' => 0,'city_id'=>$this->city_id))->select();//这里应该查询fetchAll不过有缓存会错

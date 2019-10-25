@@ -248,7 +248,7 @@
 									<div class="des x10">
 				<php>$business = D('Business') -> where('business_id ='.$item['business_id']) -> find(); $business_name = $business['business_name'];</php>
 										<h5><{:bao_msubstr($item['shop_name'],0,10,false)}>
-                                        	<a style="color:#999; margin-left:10px;"><{$business_name}>街道 &nbsp;<{$item.d}></a>
+                                        	<a style="color:#999; margin-left:10px;"><{$business_name}>区县 &nbsp;<{$item.d}></a>
                                         </h5>
 										<p class="intro">地址：<{:bao_msubstr($item[ 'addr'],0,12,false)}></p>
 									</div>

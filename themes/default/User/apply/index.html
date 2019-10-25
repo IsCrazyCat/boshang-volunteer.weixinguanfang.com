@@ -74,7 +74,7 @@
 
     <div class="row">
         <div class="line">
-            <span class="x3">商户名称</span>
+            <span class="x3">组织名称</span>
             <span class="x9">
 				<input type="text" class="text-input" name="data[shop_name]"/>
 			</span>
@@ -84,22 +84,28 @@
 
     <div class="row">
         <div class="line">
-            <span class="x3">入驻形式：</span>
+            <span class="x3">组织类型：</span>
             <span class="x4">
 				<select name="data[apply_id]" id="apply_id" onchange="pschange()" class="text-select">
 					<option value="0" selected="selected">请选择</option>
 					<option value="1">民政注册</option>
 					<option value="2">党群机关团体</option>
+                    <option value="3">公民自发团体</option>
 				</select>
 			</span>
             <script>
+                // $("#leader_div").hide();
                 function pschange() {
-
+                    // $("#leader_div").hide();
                     if($("#apply_id").val()==1){
                         $("#apply_ps").html("注意：提供法人证书");
                     }
                     if($("#apply_id").val()==2){
                         $("#apply_ps").html("注意：提供对应的盖章证明");
+                    }
+                    if($("#apply_id").val()==3){
+                        $("#apply_ps").html("注意：需选择归属组织");
+                        // $("#leader_div").show();
                     }
                     if($("#apply_id").val()==0){
                         $("#apply_ps").html("");
@@ -222,7 +228,7 @@
 
             <span class="x3">
 			<select name="data[business_id]" id="business_id" class="text-select">
-				<option value="0" selected="selected">← 街道</option>
+				<option value="0" selected="selected">← 区县</option>
 			</select>
 		</span>
 
@@ -335,7 +341,7 @@
         </script>
 
     </div>
-    <div class="row">
+    <div class="row" id="leader_div">
         <div class="line">
             <span class="x3">归属组织：</span>
             <span class="x4">

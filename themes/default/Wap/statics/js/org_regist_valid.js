@@ -134,7 +134,7 @@ function sendCodeAction() {
         return false;
     }
 
-    if ((/^1[3456789]\d{9}$/.test("18864874770"))) {
+    if ((/^1[3456789]\d{9}$/.test($("#mobile").val()))) {
         $.ajax({
             type: 'post',
             url: '/user/apply/sendsms',

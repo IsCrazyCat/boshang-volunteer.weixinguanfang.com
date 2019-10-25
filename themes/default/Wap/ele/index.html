@@ -170,7 +170,7 @@
            <php>if($var['city_id'] == $city_id){</php>         
             <li id="cat_<{$var['cate_id']}>"><a class="rights hasUlLink" title="<{$var.cate_name}>" href="javascript:void(0);>"><{$var.area_name}></a>
                <ul id="items0">  
-               <li><a href="<{:LinkTo('ele/index',array('cat'=>$cat,'area'=>$area_id))}>" class="<if condition='empty($business_id)'>on</if>">全部街道</a></li>
+               <li><a href="<{:LinkTo('ele/index',array('cat'=>$cat,'area'=>$area_id))}>" class="<if condition='empty($business_id)'>on</if>">全部区县</a></li>
                 <foreach name="bizs" item="product">
                    <if condition="$product.area_id eq $var['area_id']"> 
                        <li><a title="<{$product.business_name}>" href="<{:LinkTo('ele/index',array('cat'=>$var['cate_id'],'area'=>$var['area_id'],'business'=>$product['business_id']))}>"> <{$product.business_name}></a>

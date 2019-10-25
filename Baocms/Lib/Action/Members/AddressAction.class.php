@@ -42,7 +42,7 @@ class AddressAction extends CommonAction {
             $this->baoError('地区不能为空');
         }
         if (empty($data['business_id'])) {
-            $this->baoError('街道不能为空');
+            $this->baoError('区县不能为空');
         }
         $data['mobile'] = htmlspecialchars($data['mobile']);
         if (empty($data['mobile'])) {
@@ -195,7 +195,7 @@ class AddressAction extends CommonAction {
             }
             $data['business_id'] = (int) $_POST['business_id'];
             if (empty($data['business_id'])) {
-                $this->ajaxReturn(array('status' => 'error', 'msg' => '街道不能为空！'));
+                $this->ajaxReturn(array('status' => 'error', 'msg' => '区县不能为空！'));
             }
             $data['mobile'] = htmlspecialchars($_POST['mobile']);
             if (empty($data['mobile'])) {
@@ -268,7 +268,7 @@ class AddressAction extends CommonAction {
             }
             $data['business_id'] = (int) $_POST['business_id'];
             if (empty($data['business_id'])) {
-                $this->ajaxReturn(array('status' => 'error', 'msg' => '街道不能为空！'));
+                $this->ajaxReturn(array('status' => 'error', 'msg' => '区县不能为空！'));
             }
             $data['mobile'] = htmlspecialchars($_POST['mobile']);
             if (empty($data['mobile'])) {

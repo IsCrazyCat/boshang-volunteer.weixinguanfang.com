@@ -421,7 +421,7 @@ class LifeAction extends CommonAction{
         }
         $data['business_id'] = (int) $data['business_id'];
         if (empty($data['business_id'])) {
-            $this->fengmiError('街道不能为空');
+            $this->fengmiError('区县不能为空');
         }
         $data['text1'] = htmlspecialchars($data['text1']);
         $data['text2'] = htmlspecialchars($data['text2']);

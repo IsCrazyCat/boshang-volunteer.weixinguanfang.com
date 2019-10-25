@@ -21,7 +21,7 @@ class AddressAction extends CommonAction{
             }
             $data['areas'] = (int) $_POST['areas'];
             if (empty($data['areas'])) {
-                $this->ajaxReturn(array('status' => 'error', 'msg' => '街道不能为空！'));
+                $this->ajaxReturn(array('status' => 'error', 'msg' => '区县不能为空！'));
             }
             $data['addtel'] = htmlspecialchars($_POST['addtel']);
             if (empty($data['addtel'])) {

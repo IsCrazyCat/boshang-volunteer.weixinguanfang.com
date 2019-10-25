@@ -469,9 +469,8 @@ class MemberAction extends CommonAction
             $url = U('wap/activity/serviceInfo',array('user_id'=>$this->uid));
             //这个token只是作为二维码生成后的存放路径的一个依据 并无实际意义
             $token = 'userRegister_' . $this->uid;
-            $file = baoQrCode($token, $url);
+            $file = baoQrCodeLogo($token,$url,$user['head_url']);
 
-            $user = D('users')->where(array('user_id'=>$this->uid))->find();
             $organization = D('shop')->find($user['organization_id']);
             $cardURL = $this->bornshareqrode(config_img($file),$user['user_id'],$user['real_name'],$user['sex'],$organization['shop_name'],$user['certification_date'],$user['vid']);
 

@@ -76,12 +76,9 @@ class ApplyAction extends CommonAction{
         }
         $data['business_id'] = (int) $data['business_id'];
         if (empty($data['business_id'])) {
-            $this->fengmiMsg('街道不能为空');
+            $this->fengmiMsg('区县不能为空');
         }
-        $data['parent_id'] = (int) $data['organization_leader'];
-        if (empty($data['parent_id'])) {
-            $this->fengmiMsg('归属组织不能为空');
-        }
+
 
         $data['lng'] = htmlspecialchars($data['lng']);
         $data['lat'] = htmlspecialchars($data['lat']);
@@ -94,7 +91,13 @@ class ApplyAction extends CommonAction{
         }
         $data['apply_id'] = htmlspecialchars($data['apply_id']);
         if (empty($data['apply_id'])) {
-            $this->fengmiMsg('组织入驻类型不能为空');
+            $this->fengmiMsg('组织类型不能为空');
+        }
+        if($data['apply_id'] == 3){
+            $data['parent_id'] = (int) $data['organization_leader'];
+            if (empty($data['parent_id'])) {
+                $this->fengmiMsg('归属组织不能为空');
+            }
         }
         $data['photo'] = htmlspecialchars($data['photo']);
         if (empty($data['photo'])) {

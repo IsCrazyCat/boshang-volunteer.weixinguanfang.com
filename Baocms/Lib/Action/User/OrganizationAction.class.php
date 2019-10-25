@@ -139,4 +139,54 @@ class OrganizationAction extends CommonAction{
         }
         $this->display();
     }
+
+    /**
+     * 我加入的组织，即我申请成为志愿者的组织
+     */
+    public function myJoin(){
+        if (empty($this->uid)) {
+            $this->error('您还没有登录！', U('passport/login'));
+        }
+        //获取该用户所加入的所有组织
+        $organizationVolunteers = D('organizationVolunteer')->where(array('user_id'=>$this->uid,'is_del'=>'0','status'=>array('IN','0,1')))->select();
+        $organizations = array();
+        foreach ($organizationVolunteers as $key=>$volunteer) {
+            $organizations[$key] = D('Shop')->where(array('shop_id' => $volunteer['organization_id'],'audit'=>'1'))->find();
+            $organizations[$key]['user'] = $volunteer;
+        }
+
+        foreach ($organizations as $key => $val){
+            //获取该组织下的活动
+            $activitys = D('activity')->where(array('shop_id'=>$val['shop_id']))->select();
+            //该组织下的活动个数
+            $actitity_count = count($activitys);
+            $organizations[$key]['activity_count'] = $actitity_count;
+
+            $sign_count = 0;//该组织下属所有活动的所有报名人数
+            $join_count = 0;//该组织下属所有活动的所有参加人数
+            $total_time = 0;//该组织下属所有活动的总活动时间
+            $year_time = 0;//该组织下属所有活动的今年活动时间
+            $sign_users = array();
+            foreach ($activitys as $akey => $aval){
+                $result = lengthOfTime($aval['activity_id']);
+                //获取该组织下的活动总时长和今年时长
+                $total_time += $result['total_time'];
+                $year_time += $result['year_time'];
+                //获取该活动下的报名人数和实际参加人数
+                if(!empty($result['ids'])){
+                    $sign_users = array_merge($sign_users,$result['ids']);
+                }
+                $join_count += $result['real_count'];
+            }
+            $sign_count = count(array_unique($sign_users));
+            $organizations[$key]['total_time'] = $total_time;
+            $organizations[$key]['year_time'] = $year_time;
+            $organizations[$key]['sign_count'] = $sign_count;
+            $organizations[$key]['join_count'] = $join_count;
+            $organizations[$key]['volunteer_count'] = D('OrganizationVolunteer')->where(array('organization_id'=>$val['shop_id']))->count();
+        }
+
+        $this->assign('organizations',$organizations);
+        $this->display();
+    }
 }

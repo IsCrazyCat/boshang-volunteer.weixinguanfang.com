@@ -53,13 +53,12 @@
 <div class="blank-10 bg"></div>
 <div class="panel-list">
     <ul>
-
-        <li>
-            <a href="<{:U('user/member/myQRCode')}>">
-                <span class="icon-gears"></span>我的二维码
-                <i class="icon-angle-right"></i>
-            </a>
-        </li>
+<!--        <li>-->
+<!--            <a href="<{:U('user/member/myQRCode')}>">-->
+<!--                <span class="icon-gears"></span>我的二维码-->
+<!--                <i class="icon-angle-right"></i>-->
+<!--            </a>-->
+<!--        </li>-->
         <li>
             <if condition="$MEMBER.is_certification eq 1">
                 <a href="<{:U('user/member/myCard')}>">
@@ -90,6 +89,12 @@
             </a>
         </li>
         <div class="blank-10 bg"></div>
+        <li>
+            <a href="<{:u('user/organization/myJoin')}>">
+                <span class="icon-gears"></span>我加入的组织
+                <i class="icon-angle-right"></i>
+            </a>
+        </li>
         <if condition="$is_shop neq null">
             <li>
                 <a href="<{:u('user/organization/myOrganization')}>">
@@ -107,7 +112,7 @@
             </a>
         </li>
         <li>
-            <a href="tel:18864874770">
+            <a href="tel:123456">
                 <span class="icon-gears"></span>在线咨询（热线123456）
                 <i class="icon-angle-right"></i>
             </a>
