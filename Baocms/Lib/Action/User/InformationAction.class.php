@@ -37,6 +37,28 @@ class InformationAction extends CommonAction{
             }
         }
     }
+
+    /**
+     * 更新认证头像
+     */
+    public function upload_head_url(){
+        if (!$this->uid) {
+            $this->ajaxReturn(array('status' => 'error', 'message' => '您没有登录或登录超时！'));
+        } else {
+            $avatar = I('avatar', '', 'trim,htmlspecialchars');
+            if (!$avatar) {
+                $this->ajaxReturn(array('status' => 'error', 'message' => '没有上传认证头像！'));
+            } else {
+                $u = D('Users');
+                $up = $u->where('user_id =' . $this->uid)->setField('head_url', $avatar);
+                if ($up) {
+                    $this->ajaxReturn(array('status' => 'success', 'message' => '修改成功！'));
+                } else {
+                    $this->ajaxReturn(array('status' => 'error', 'message' => '修改失败！'));
+                }
+            }
+        }
+    }
     public function worker($worker_id = 0){
         if (empty($worker_id)) {
             $this->error('访问错误！');

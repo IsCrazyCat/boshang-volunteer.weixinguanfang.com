@@ -14,57 +14,66 @@
 </head>
 
 <body>
-    <!--form 开始  -->
-    <form id="myform" name="myform" action="<{:U('user/member/myCard')}>" method="post">
-        <input type="hidden" name="createMode" value="30">
-        <div class="rmationxi tmt-fz_l index_txt2" style="text-align: center;">请继续补充资料，申办“注册志愿者证”<font
-                style="color:#666; font-size:13px;"></font></div>
+<!--form 开始  -->
+<form id="myform" name="myform" action="<{:U('user/member/myCard')}>" method="post">
+    <input type="hidden" name="createMode" value="30">
+    <div class="rmationxi tmt-fz_l index_txt2" style="text-align: center;">请继续补充资料，申办“聊城志愿者(义工)证”<font
+            style="color:#666; font-size:13px;"></font></div>
 
-        <section class="bdcontentxi pageTow" style="">
-            <div class="notice_box">
-                <div class="notice_box_phone" style="width:100%;height:13rem;">
+    <section class="bdcontentxi pageTow" style="">
+        <div class="notice_box">
+            <div class="notice_box_phone" style="width:100%;height:13rem;">
 
-                    <img src="/themes/default/wap/statics/img/index/11.jpg" style="width:100%;height:13rem;display:block;">
-                </div>
-
-                <p>“聊城志愿者（义工）证”是<span style="color:red;">官方认定发行的聊城市志愿者唯一身份凭证</span>
-                    ，是全市通行的唯一激励凭据，提供时长记录、服务查询、保险保障、实名服装、交通出行、消费优惠、社会激励、公益配捐等服务。<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <!--  志愿者证附加借记卡或信用卡功能（不满18周岁只能选择附加借记卡功能的志愿者证）。借记卡或信用卡功能自愿激活，<span style="color:red;">激活后赠送志愿服务保险</span>，首次消费后免费配送实名服装，<span style="color:red;">且终生免年费</span>。借记卡或信用卡功能不激活，依然可以正常使用证件主体功能。 -->
-                    <span style="color:red;">志愿者证可选择申办借记卡或信用卡类型（不满18周岁只能选择借记卡类型），均不需要任何费用。借记卡类型志愿者证金融功能领证时激活，信用卡类型志愿者证金融功能自愿激活，激活后送志愿服务保险，首次消费后送实名服装，此证终生免年费。附加的金融功能不激活，可正常使用证件其他功能。</span><br>
-                    根据粤文明办〔2017〕82号文要求，2017年8月1日以后新注册志愿者<span style="color:red;">原则上都要办理志愿者证</span>，保障您的权益并享受相关激励。</p>
-
-
+                <img src="/themes/default/wap/statics/img/index/volunteerCardModel.jpg" id = "cardImg" style="width:100%;height:13rem;display:block;">
+                <script>
+                    var img_w = 1654;//图片宽度
+                    var img_h = 594;//图片高度
+                    var w = $("body").width();//容器宽度
+                    var height = (w * img_h) / img_w; //高度等比缩放
+                    $("#cardImg").css({"width": w, "height": height});//设置缩放后的宽度和高度
+                    $(".notice_box_phone").css({"width": w, "height": height});//设置缩放后的宽度和高度
+                </script>
             </div>
 
-        </section>
-        <p class="margTop m_left5 tmt-fz_m" style="text-align: center;">
-            <!-- <label for="isAgree"   > -->
-            <label>
-                <input class="tmt-fz_m" name="isAgree" type="checkbox" id="isAgree" style="vertical-align:middle"> 我已经看过并同意
-            </label>
-            <a href="https://wxcs.gdzyz.cn/cczyz_web/view/register/personalRegRequirements.jsp" class="zred tmt-fz_m">《志愿者注册服务协议》</a>
-            <a href="https://www.izyz.org/card/cardRequirements" class="zred tmt-fz_m">《“注册志愿者证”用户协议》</a>
-            <a href="https://www.gdzyz.cn/article/detail.do?pageno=999993434127" class="zred tmt-fz_m">《“注册志愿者证”服务协议》</a>
-        </p>
+            <p>“聊城志愿者（义工）证”是<span style="color:red;">官方认定发行的聊城市志愿者唯一身份凭证</span>
+                ，是全市通行的唯一激励凭据，提供时长记录、服务查询、保险保障、实名服装、交通出行、消费优惠、社会激励、公益配捐等服务。<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <!--  志愿者证附加借记卡或信用卡功能（不满18周岁只能选择附加借记卡功能的志愿者证）。借记卡或信用卡功能自愿激活，<span style="color:red;">激活后赠送志愿服务保险</span>，首次消费后免费配送实名服装，<span style="color:red;">且终生免年费</span>。借记卡或信用卡功能不激活，依然可以正常使用证件主体功能。 -->
+                <span style="color:red;">志愿者证可选择申办借记卡或信用卡类型（不满18周岁只能选择借记卡类型），均不需要任何费用。借记卡类型志愿者证金融功能领证时激活，信用卡类型志愿者证金融功能自愿激活，激活后送志愿服务保险，首次消费后送实名服装，此证终生免年费。附加的金融功能不激活，可正常使用证件其他功能。</span><br>
+                根据粤文明办〔2017〕82号文要求，2017年8月1日以后新注册志愿者<span style="color:red;">原则上都要办理志愿者证</span>，保障您的权益并享受相关激励。</p>
 
-        <!--个人信息end-->
 
-        <div style="text-align: center; margin-top: 20px ; display:none; color:red; " id="bottom_tishi"></div>
-        <!-- 下一页  button-->
-        <div class="submitxi clearfix isShowPre" style="margin-bottom: 20px;">
-            <button type="button" class="button tmt-btn tmt-btn_l " id="" onclick="cancel()">取消</button>
-            <button href="javascript:void(0)" onclick="certificationSubmit()" class="button button2 tmt-btn tmt-btn_l"
-                    type="button" id="button3">确定
-            </button>
         </div>
 
-    </form>
+    </section>
+    <p class="margTop m_left5 tmt-fz_m" style="text-align: center;">
+        <!-- <label for="isAgree"   > -->
+        <label>
+            <input class="tmt-fz_m" name="isAgree" type="checkbox" id="isAgree" style="vertical-align:middle"> 我已经看过并同意
+        </label>
+        <a href="https://wxcs.gdzyz.cn/cczyz_web/view/register/personalRegRequirements.jsp" class="zred tmt-fz_m">《志愿者注册服务协议》</a>
+        <a href="https://www.izyz.org/card/cardRequirements" class="zred tmt-fz_m">《“注册志愿者证”用户协议》</a>
+        <a href="https://www.gdzyz.cn/article/detail.do?pageno=999993434127" class="zred tmt-fz_m">《“注册志愿者证”服务协议》</a>
+    </p>
+
+    <!--个人信息end-->
+
+    <div style="text-align: center; margin-top: 20px ; display:none; color:red; " id="bottom_tishi"></div>
+    <!-- 下一页  button-->
+    <div class="submitxi clearfix isShowPre" style="margin-bottom: 20px;">
+        <button type="button" class="button tmt-btn tmt-btn_l " id="" onclick="cancel()">取消</button>
+        <button href="javascript:void(0)" onclick="certificationSubmit()" class="button button2 tmt-btn tmt-btn_l"
+                type="button" id="button3">确定
+        </button>
+    </div>
+
+</form>
 <script>
-    function cancel(){
+    function cancel() {
         location.href = '/user/member/index';
     }
-    function certificationSubmit(){
+
+    function certificationSubmit() {
         var radioAgree = document.getElementById("isAgree").checked;
         if (radioAgree == false) {
             alert("你必须要同意服务协议才能提交，请确认同意");

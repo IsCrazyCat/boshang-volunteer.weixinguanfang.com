@@ -145,6 +145,12 @@ class ActivityAction extends CommonAction
 			if (false !== D('Shop')->fenzhan_check_city_id($detail['shop_id'],$this->city_id)) {
                $this->error('请不要非法操作', U('activity/index'));
             }
+            $managers = D('ActivityManager')->where(array('activity_id'=>$activity_id))->select();
+            foreach ($managers as $key => $val){
+                $manager_user = D('users')->where(array('user_id'=>$val['user_id']))->find();
+                $managers[$key]['user'] = $manager_user;
+            }
+            $this->assign("managers",$managers);
             if ($this->isPost()) {
                 $data = $this->editCheck();
                 $data['activity_id'] = $activity_id;

@@ -29,6 +29,7 @@ class AdminAction extends CommonAction{
         if ($this->isPost()) {
             $data = $this->createCheck();
             $obj = D('Admin');
+            $data['create_time'] = time();
             if ($obj->add($data)) {
                 $this->baoSuccess('添加成功', U('admin/index'));
             }

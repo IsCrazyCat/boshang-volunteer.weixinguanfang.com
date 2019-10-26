@@ -232,14 +232,13 @@ class ActivityAction extends CommonAction
     /**
      * 扫描报名二维码 开始计时或者结束计时
      */
-    public function scanScan()
-    {
+    public function scanScan(){
         $user = D('Users')->where(array('user_id' => $this->uid))->find();
         $activity_id = $this->_param('activity_id');
         $sign_user_id = $this->_param('user_id');
 
-        if (!$activity = D('activity')->where(array('activity_id' => $activity_id))->find()) {
-            $this->baoError('该活动不存在！');
+        if (!($activity = D('activity')->where(array('activity_id' => $activity_id))->find())) {
+            $this->error('该活动不存在！');
         }
         $cur_date = date("Y-m-d");
         $start_date = $activity['bg_date'];
@@ -247,15 +246,23 @@ class ActivityAction extends CommonAction
 
         //判断活动是否开始/结束
         if (strtotime($cur_date) < strtotime($start_date)) {
-            $this->baoError('该活动尚未开始！');
+            $this->error('该活动尚未开始！');
         } else if (strtotime($cur_date) > strtotime($end_date)) {
-            $this->baoError('该活动已经结束！');
+            $this->error('该活动已经结束！');
         }
 
         //是否是该活动的管理员
+        $is_manager = false; //是否是该活动管理员 管理员才具有扫码权限
         $shop = D('shop')->where(array('shop_id' => $activity['shop_id']))->find();
-        if ($shop['user_id'] != $user['user_id']) {
-            $this->baoError('您不是该活动的管理者！');
+        $managers = D('ActivityManager')->where(array('activity_id'=>$activity_id))->select();
+        foreach ($managers as $key => $val){
+            if($val['user_id'] == $this->uid){
+                $is_manager = true;
+                break;
+            }
+        }
+        if ($shop['user_id'] != $user['user_id'] && !$is_manager) {
+            $this->error('您不是该活动的管理员，无法计时！');
         }
 
         $map['today_date'] = $cur_date;

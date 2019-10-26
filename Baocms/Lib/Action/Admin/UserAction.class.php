@@ -1,7 +1,7 @@
 <?php
 class UserAction extends CommonAction{
-    private $create_fields = array('account', 'password', 'pay_password','rank_id', 'face', 'mobile', 'email', 'nickname', 'face', 'ext0');
-    private $edit_fields = array('account', 'password','pay_password', 'rank_id','is_certification','real_name','id_type','id_num','organization_id','head_url','certification_img_url', 'face', 'mobile', 'email', 'nickname', 'face', 'ext0');
+    private $create_fields = array('account', 'password','pay_password', 'rank_id','vid','is_certification','real_name','id_type','id_num','organization_id','head_url','certification_img_url', 'face', 'mobile', 'email', 'nickname', 'face', 'ext0');
+    private $edit_fields = array('account', 'password','pay_password', 'rank_id','vid','is_certification','real_name','id_type','id_num','organization_id','head_url','certification_img_url', 'face', 'mobile', 'email', 'nickname', 'face', 'ext0');
 
     public function index(){
         $User = D('Users');

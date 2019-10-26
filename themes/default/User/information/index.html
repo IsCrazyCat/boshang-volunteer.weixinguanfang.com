@@ -14,10 +14,7 @@
 <style>
 .layui-layer-molv .layui-layer-title {background-color: #F8F8F8;border-bottom: 1px solid #eee;color: #333;}
 </style>
-<div class="container">
-		<div class="blank-10"></div>
-		<p><span class="text-dot">小提示：</span> 如果您是微信登录的用户，请绑定手机后都改登录密码，然后就可以登录电脑版了！</p>
-	</div>
+<div class="blank-10 bg">
 <div class="panel-list border-top">
 	<ul>
 		<li>
@@ -26,11 +23,19 @@
 				<i class="icon-angle-right"></i>
 			</a>
 		</li>
-<!--		<li>-->
-<!--			<a href="<{:U('info/nickname')}>">-->
-<!--				用户昵称<em><{$res.nickname}> ID：<{$res.user_id}></em>-->
-<!--			</a>-->
-<!--		</li>-->
+		<if condition="$MEMBER['is_certification'] neq 0">
+			<li>
+				<a href="<{:U('info/headImgUrl')}>">
+					上传认证头像
+					<i class="icon-angle-right"></i>
+				</a>
+			</li>
+		</if>
+		<li>
+			<a href="<{:U('info/nickname')}>">
+				用户昵称<em><{$res.nickname}> ID：<{$res.user_id}></em>
+			</a>
+		</li>
 <!--		<li>-->
 <!--			<a href="<{:u('addrs/index')}>">-->
 <!--				外卖收货地址<em><{$addr_count}>个</em>-->

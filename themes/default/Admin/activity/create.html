@@ -20,6 +20,93 @@
                         <a mini="select"  w="800" h="600" href="<{:U('shop/select')}>" class="seleSj">选择活动组织/团体</a>
                     </td>
                 </tr>
+                <tr name="activityM">
+                    <td class="lfTdBt">管理员：</td>
+                    <td class="rgTdBt">
+                        <a mini="select" w="800" h="600" href="<{:U('user/select')}>" onclick="changeNickname()" class="seleSj">选择用户</a>
+                        <div style="padding-top: 5px" name="nicknameDiv">
+                            <input type="hidden" id="user_id" name="manager_id"
+                                   value="<{$managers[0]['user_id']}>"/>
+                            <input class="scAddTextName w210 sj" readonly="readonly" type="text" name="nickname" id="nickname"
+                                   value="<{$managers[0]['user']['nickname']}>"/>
+                            <a name="delNickname"  w="400" h="600" class="seleSj">删除</a>
+                        </div>
+                        <foreach name="managers" item="manager" key="index" >
+
+                            <if condition="$index eq 0">
+
+                                <else/>
+                                <div style="padding-top: 5px" name="nicknameDiv">
+                                    <input type="hidden" id="user_id<{$index+1}>" name="manager_id"
+                                           value="<{$manager['user_id']}>"/>
+                                    <input class="scAddTextName w210 sj" readonly="readonly" type="text" name="nickname" id="nickname<{$index+1}>"
+                                           value="<{$manager['user']['nickname']}>"/>
+                                    <a name="delNickname"  w="400" h="600" class="seleSj">删除</a>
+                                </div>
+                            </if>
+
+                        </foreach>
+
+                        <script>
+                            var flag = 0;
+                            function changeNickname() {
+                                var tdobj = $("div[name='nicknameDiv']").parent();
+                                var count = $("div[name='nicknameDiv']").size();
+                                if(flag == 0){
+                                    flag = count;
+                                }
+                                if(count <= 0){
+                                    var str =
+                                        "<div style='padding-top: 5px' name='nicknameDiv'>" +
+                                        "<input type='hidden' id='user_id' name='manager_id' value=''/>" +
+                                        "<input class='scAddTextName w210 sj' readonly='readonly' type='text' name='nickname' id='nickname'value=''/> " +
+                                        "<a  name='delNickname' w='400' h='600' class='seleSj'>删除</a>" +
+                                        "</div>";
+                                    $("a[mini='select']").parent().append(str);
+                                    flag = flag + 1;
+                                }
+                                //当前只有一个管理员 看是否添加了 如果已经添加了就修改id 新增一个文本框接受新添加的用户
+                                //所以说最后一个最新的一个文本框的id是nickname和user_id
+                                if($("#user_id").val()!=""&&$("#user_id").val()!=null){
+                                    //修改当前id 为nickname和user_id的id属性
+                                    $("#user_id").attr('id','user_id'+flag);
+                                    $("#nickname").attr('id','nickname'+flag);
+                                    // alert($("#user_id"+count).val());
+                                    // alert($("#nickname"+count).val());
+
+                                    var str =
+                                        "<div style='padding-top: 5px' name='nicknameDiv'>" +
+                                        "<input type='hidden' id='user_id' name='manager_id' value=''/>" +
+                                        "<input class='scAddTextName w210 sj' readonly='readonly' type='text' name='nickname' id='nickname'value=''/> " +
+                                        "<a  name='delNickname' w='400' h='600' class='seleSj'>删除</a>" +
+                                        "</div>";
+                                    tdobj.append(str);
+                                    flag = flag + 1;
+                                }
+                            }
+                            $(document).on("click", "a[name='delNickname']", function() {
+                                var count = $("div[name='nicknameDiv']").size();
+                                if(count<=1){
+                                    alert("至少一个管理员");
+                                    return false;
+                                }
+                                $(this).parent().remove();
+                                var user_id = "#user_id"+(flag-1);
+                                var nickname = "#nickname"+(flag-1);
+                                if($("#user_id")){
+                                    if($(this).prev().attr('id')=="nickname"||$(this).prev().attr('id')=="user_id"){
+                                        $(user_id).attr('id','user_id');
+                                        $(nickname).attr('id','nickname');
+                                    }
+                                }else{
+                                    alert(1);
+                                }
+
+                            });
+
+                        </script>
+                    </td>
+                </tr>
 <!--                <tr>-->
 <!--                    <td class="lfTdBt">选择抢购：</td>-->
 <!--                    <td class="rgTdBt" > -->
@@ -176,17 +263,17 @@
 <!--                </tr>-->
                 <tr>
                     <td class="lfTdBt">活动开始时间：</td>
-                    <td class="rgTdBt"><input type="text" name="data[bg_date]" value="<{$detail.bg_date|default=''}>" onfocus="WdatePicker();"  class="inputData"  />
+                    <td class="rgTdBt"><input type="text" name="data[bg_date]" value="<{$detail.bg_date|default=''}>" onfocus="WdatePicker(dateFmt: 'yyyy-MM-dd HH:mm:ss');"  class="inputData"  />
                     </td>
                 </tr><tr>
                     <td class="lfTdBt">活动结束时间：</td>
-                    <td class="rgTdBt"><input type="text" name="data[end_date]" value="<{$detail.end_date|default=''}>" onfocus="WdatePicker();"  class="inputData"  />
+                    <td class="rgTdBt"><input type="text" name="data[end_date]" value="<{$detail.end_date|default=''}>" onfocus="WdatePicker(dateFmt: 'yyyy-MM-dd HH:mm:ss');"  class="inputData"  />
 
                     </td>
                 </tr>
                 <tr>
                     <td class="lfTdBt">报名截止时间：</td>
-                    <td class="rgTdBt"><input type="text" name="data[sign_end]" value="<{$detail.sign_end|default=''}>" onfocus="WdatePicker();"  class="inputData"  />
+                    <td class="rgTdBt"><input type="text" name="data[sign_end]" value="<{$detail.sign_end|default=''}>" onfocus="WdatePicker(dateFmt: 'yyyy-MM-dd HH:mm:ss');"  class="inputData"  />
                     </td>
                 </tr>
                 <tr>
@@ -210,5 +297,49 @@
             <input type="submit" value="确认添加" class="smtQrIpt" />
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            $(".smtQrIpt").on("click",function () {
+                //先添加活动管理员
+                //获取添加的管理员ID
+                var user_ids = $("input[name='manager_id']");
+                // alert(user_ids.size());
+                // $.ajax({
+                //     type:'POST',
+                //     data:"",
+                //     url:"<{:U('activity/addManager')}>",
+                //     success:function(data){
+                //
+                //     }
+                // });
+                // return false;
+                if(!user_ids){
+                    alert("请至少添加一个管理员");
+                    return false;
+                }
+                var ids = [];
+                user_ids.each(function (i) {
+                    ids[i] = $(this).val();
+                });
+
+                $.ajax({
+                    url: "<{:U('activity/addManager')}>",
+                    type:'post',
+                    data:{
+                        user_ids:ids,
+                        activity_id:$("#activity_id").val()
+                    },
+                    success: function(data){
+                        if(data == "success"){
+
+                        }
+                    },
+                    error:function () {
+
+                    }
+                });
+            })
+        });
+    </script>
 </form>
 <include  file='public:footer'/>    

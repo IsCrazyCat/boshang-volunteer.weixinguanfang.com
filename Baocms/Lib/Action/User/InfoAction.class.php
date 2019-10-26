@@ -3,6 +3,9 @@ class InfoAction extends CommonAction{
     public function face(){
         $this->display();
     }
+    public function headImgUrl(){
+        $this->display();
+    }
 	public function wxpayexception(){
 		$this->error('非法错误，请联系网站管理员解决', U('member/index'));
         $this->display();

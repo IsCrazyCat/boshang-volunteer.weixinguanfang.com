@@ -117,8 +117,8 @@ function baoQrCodeLogo($token,$url,$logo_img,$size = 8){ //生成网址的二维
         QRcode::png($data, $fileName, $level, $size,2,true);
     }
     if($logo_img){
-        $QR = imagecreatefromstring(file_get_contents( config_img($file) ));
-        $logo_img = imagecreatefromstring(file_get_contents(config_img($logo_img)));
+        $QR = imagecreatefromstring(file_get_contents(BASE_PATH.'/attachs/'.$file));
+        $logo_img = imagecreatefromstring(file_get_contents(BASE_PATH . $logo_img));
         $QR_width = imagesx($QR);//二维码图片宽度
         $QR_height = imagesy($QR);//二维码图片高度
         $logo_width = imagesx($logo_img);//logo图片宽度
@@ -128,7 +128,8 @@ function baoQrCodeLogo($token,$url,$logo_img,$size = 8){ //生成网址的二维
         $logo_qr_height = $logo_height/$scale;
         $from_width = ($QR_width - $logo_qr_width) / 2;//重新组合图片并调整大小
         imagecopyresampled($QR, $logo_img, $from_width, $from_width, 0, 0, $logo_qr_width,$logo_qr_height, $logo_width, $logo_height);//输出图片
-        imagepng($QR, $file );
+        imagepng($QR, BASE_PATH.'/attachs/'.'weixin/'.$dir.$md5.'_logo.png');
+        return 'weixin/'.$dir.$md5.'_logo.png';
     }
     return $file;
 }

@@ -6,7 +6,7 @@
 		<a class="top-addr" href="<{:U('information/index')}>"><i class="icon-angle-left"></i></a>
 	</div>
 		<div class="top-title">
-			修改头像
+			修改认证头像
 		</div>
 <!--	<div class="top-signed">-->
 <!--		<a href="<{:u('wap/message/index')}>"><i class="icon-envelope"></i></a>-->
@@ -14,12 +14,12 @@
 </header>
 <div class="container">
 	<div class="blank-10"></div>
-	<p>当前头像<{$MEMBER.face}></p>
-	<img class="txt txt-big radius-circle bg-green" src="<{$MEMBER.face|default='__ROOT__/attachs/default.jpg'}>" />
+	<p>当前认证头像</p>
+	<img class="txt txt-big radius-circle bg-green" src="<{$MEMBER.head_url|default='__ROOT__/attachs/default.jpg'}>" />
 	<div class="blank-20"></div>
 	<div class="form-group">
 		<div class="field">
-			<div id="fileToUpload" >新头像</div>
+			<div id="fileToUpload" >新认证头像</div>
 			<p class="text-gray text-small">图片建议大小为300X300像素，形状为正方形。</p>
 		</div>
 	</div>
@@ -47,7 +47,7 @@
 		$(document).ready(function () {
 			$(document).on("click", "#images a", function () {
 				var avatar = ($('#photos').val());
-				$.post('<{:U("information/upload_face")}>',{avatar:avatar},function(result){
+				$.post('<{:U("information/upload_head_url")}>',{avatar:avatar},function(result){
 					if(result.status='success'){
 						layer.msg(result.message,{icon:1});
 						setTimeout(function(){

@@ -172,7 +172,9 @@ class UserAction extends CommonAction
         foreach ($list as $k => $val) {
             $val['reg_ip_area'] = $this->ipToArea($val['reg_ip']);
             $val['last_ip_area'] = $this->ipToArea($val['last_ip']);
+            $rank = D('Userrank')->where(array('rank_id'=>$val['rank_id']))->find();
             $list[$k] = $val;
+            $list[$k]['rank_name'] = $rank['rank_name'];
         }
         $this->assign('list', $list);
         // 赋值数据集

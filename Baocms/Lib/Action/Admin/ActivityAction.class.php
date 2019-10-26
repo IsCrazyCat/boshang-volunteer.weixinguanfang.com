@@ -139,6 +139,12 @@ class ActivityAction extends CommonAction{
             if (!($detail = $obj->find($activity_id))) {
                 $this->baoError('请选择要编辑的活动');
             }
+            $managers = D('ActivityManager')->where(array('activity_id'=>$activity_id))->select();
+            foreach ($managers as $key => $val){
+                $manager_user = D('users')->where(array('user_id'=>$val['user_id']))->find();
+                $managers[$key]['user'] = $manager_user;
+            }
+            $this->assign("managers",$managers);
             if ($this->isPost()) {
                 $data = $this->editCheck();
                 $data['activity_id'] = $activity_id;
@@ -268,5 +274,27 @@ class ActivityAction extends CommonAction{
             }
             $this->baoError('请选择要审核的活动');
         }
+    }
+
+    /**
+     * 添加活动管理者
+     */
+    public function addManager(){
+        $ids = $this->_param("user_ids");
+        $activity_id = $this->_param("activity_id");
+        if(is_array($ids)){
+            foreach ($ids as $key=>$val){
+                $manager = D('ActivityManager')->where(array('user_id'=>$ids,'activity_id'=>$activity_id))->find();
+                if(!$manager){
+                    D('ActivityManager')->add(array('user_id'=>$ids,'activity_id'=>$activity_id,'create_time'=>time()));
+                }
+            }
+        }else{
+            $manager = D('ActivityManager')->where(array('user_id'=>$ids,'activity_id'=>$activity_id))->find();
+            if(!$manager){
+                D('ActivityManager')->add(array('user_id'=>$ids,'activity_id'=>$activity_id,'create_time'=>time()));
+            }
+        }
+        $this->baoSuccess('设置成功！', U('activitysign/index'));
     }
 }

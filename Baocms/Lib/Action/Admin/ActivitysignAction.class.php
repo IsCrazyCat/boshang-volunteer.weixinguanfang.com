@@ -24,9 +24,19 @@ class ActivitysignAction extends CommonAction
         // 分页显示输出
         $list = $Activitysign->where($map)->order(array('sign_id' => 'desc'))->limit($Page->firstRow . ',' . $Page->listRows)->select();
         $activity_ids = array();
-        foreach ($list as $val) {
+        foreach ($list as $key=>$val) {
             $activity_ids[$val['activity_id']] = $val['activity_id'];
+
+            $manager = D('ActivityManager')->where(array('user_id'=>$val['user_id'],'activity_id'=>$activity_id))->find();
+            if($manager){
+                $list[$key]['is_manager'] = 0; //0不是该活动的管理员
+            }else{
+                $list[$key]['is_manager'] = 1;//是该活动的管理员
+            }
+
         }
+
+
         $this->assign('activity', D('Activity')->itemsByIds($activity_ids));
         $this->assign('list', $list);
         // 赋值数据集
