@@ -55,20 +55,6 @@
     <div class="right sjgl_top_r">
         <ul>
             <li class="left sjgl_topli sjgl_toplixl"><a>您好：<{$SHOP.shop_name}></a><span class="suxian">|</span></li>
-            <if condition="!empty($SHOPGRADE['grade_name'])">
-            	<li class="left sjgl_topli sjgl_toplixl"><a>组织/团体等级：<{$SHOPGRADE.grade_name}></a><span class="suxian">|</span></li>
-            <else/>
-            	<li class="left sjgl_topli"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=<{$CONFIG.site.qq}>&site=qq&menu=yes">暂无等级</a><span class="suxian">|</span></li>
-            </if>
-            <li class="left sjgl_topli sjgl_toplixl"><a target="main_frm" href="<{:U('shop/grade')}>">查看等级权限</a><span class="suxian">|</span></li>
-            <li class="left sjgl_topli"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=<{$CONFIG.site.qq}>&site=qq&menu=yes">联系客服</a><span class="suxian">|</span></li>
-            <li class="left sjgl_topli">
-                <a  target="main_frm" href="<{:U('message/index')}>">网站通知 
-                    <if condition="$msg_day gt 0">
-                        <i class="tongzhi"><{$msg_day}></i>
-                    </if>
-                </a><span class="suxian">|</span>
-            </li>
             <li class="left sjgl_topli"><a target="_blank" href="<{:u('home/index/index')}>">网站首页</a><span class="suxian">|</span></li>
             <li class="left sjgl_topli"><a href="<{:U('login/logout')}>"><em class="toptc"><img src="__TMPL__statics/images/toptc_03.png" /></em>退出</a></li>
         </ul>
@@ -93,32 +79,32 @@
             <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a2"  target="main_frm" href="<{:U('branch/index')}>"><em>&nbsp;</em>组织/团体管理</a>
                 <div class="leftNav2">
                     <ul>
-                        <li><a target="main_frm" href="<{:U('shop/about')}>"><em>&nbsp;</em>基本管理</a></li>
+                        <li><a target="main_frm" href="<{:U('shop/edit')}>"><em>&nbsp;</em>基本管理</a></li>
                         <!--<li><a  target="main_frm" href="<{:U('shop/service')}>"><em>&nbsp;</em>打印设置</a></li>-->
-						<li><a target="main_frm" href="<{:U('audit/index')}>"><em>&nbsp;</em>认证管理</a></li>
+<!--						<li><a target="main_frm" href="<{:U('audit/index')}>"><em>&nbsp;</em>认证管理</a></li>-->
                     	<!--<li><a  target="main_frm" href="<{:U('branch/index')}>"><em>&nbsp;</em>分店地址</a></li>-->
                         <!--<li><a  target="main_frm" href="<{:U('shopyouhui/index')}>"><em>&nbsp;</em>优惠买单</a></li>-->
-                        <li><a  target="main_frm" href="<{:U('worker/index')}>"><em>&nbsp;</em>员工管理</a></li>
+                        <li><a  target="main_frm" href="<{:U('worker/index')}>"><em>&nbsp;</em>志愿者管理</a></li>
                         <!--<li><a  target="main_frm" href="<{:U('shopkuaidi/index')}>"><em>&nbsp;</em>商城运费模板</a></li>-->
                     </ul>
                 </div>
             </li>
 
 
-			<if condition="!empty($SHOPGRADE['is_tuan'])">
-                <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a3" target="main_frm" href="<{:U('tuan/index')}>"><em>&nbsp;</em>抢购管理</a>
-                    <div class="leftNav2">
-                        <ul>
-                            <li><a target="main_frm" href="<{:U('tuan/index')}>"><em>&nbsp;</em>抢购商品列表</a></li>
-                            <li><a target="main_frm" href="<{:U('tuan/create')}>"><em>&nbsp;</em>添加抢购</a></li>
-                            <li><a target="main_frm" href="<{:U('tuan/order')}>"><em>&nbsp;</em>抢购订单列表</a></li>
-                            <li><a target="main_frm" href="<{:U('tuan/code')}>"><em>&nbsp;</em>抢购劵列表</a></li>
-                            <li><a target="main_frm" href="<{:U('tuan/used')}>"><em>&nbsp;</em>抢购劵核销</a></li>
-                            <li><a target="main_frm" href="<{:U('tuan/usedok')}>"><em>&nbsp;</em>抢购劵验证记录</a></li>
-                        </ul>
-                    </div>
-                </li>
-            </if>
+<!--			<if condition="!empty($SHOPGRADE['is_tuan'])">-->
+<!--                <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a3" target="main_frm" href="<{:U('tuan/index')}>"><em>&nbsp;</em>抢购管理</a>-->
+<!--                    <div class="leftNav2">-->
+<!--                        <ul>-->
+<!--                            <li><a target="main_frm" href="<{:U('tuan/index')}>"><em>&nbsp;</em>抢购商品列表</a></li>-->
+<!--                            <li><a target="main_frm" href="<{:U('tuan/create')}>"><em>&nbsp;</em>添加抢购</a></li>-->
+<!--                            <li><a target="main_frm" href="<{:U('tuan/order')}>"><em>&nbsp;</em>抢购订单列表</a></li>-->
+<!--                            <li><a target="main_frm" href="<{:U('tuan/code')}>"><em>&nbsp;</em>抢购劵列表</a></li>-->
+<!--                            <li><a target="main_frm" href="<{:U('tuan/used')}>"><em>&nbsp;</em>抢购劵核销</a></li>-->
+<!--                            <li><a target="main_frm" href="<{:U('tuan/usedok')}>"><em>&nbsp;</em>抢购劵验证记录</a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--            </if>-->
          <!--   <if condition="!empty($SHOPGRADE['is_coupon'])">
                 <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a10" target="main_frm" href="<{:U('coupon/index')}>"><em>&nbsp;</em>优惠劵管理</a>
                     <div class="leftNav2">
@@ -331,7 +317,7 @@
                     <div class="leftNav2">
                       <ul>
                         <li><a target="main_frm" href="<{:U('activity/index')}>"><em>&nbsp;</em>活动管理</a></li>
-                        <li><a target="main_frm" href="<{:U('activity/sign')}>"><em>&nbsp;</em>报名管理</a></li>
+<!--                        <li><a target="main_frm" href="<{:U('activity/sign')}>"><em>&nbsp;</em>报名管理</a></li>-->
                       </ul>
                     </div>
                   </li>

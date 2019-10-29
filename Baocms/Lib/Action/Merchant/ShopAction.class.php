@@ -1,5 +1,8 @@
 <?php
 class ShopAction extends CommonAction{
+    private $edit_fields = array('user_id', 'cate_id', 'apply_id', 'grade_id', 'city_id', 'area_id', 'business_id', 'shop_name', 'mobile', 'logo', 'photo', 'addr', 'tel', 'extension', 'contact', 'tags', 'near', 'business_time', 'delivery_time', 'is_pei', 'orderby', 'lng', 'lat', 'price', 'is_ding', 'recognition', 'panorama_url', 'apiKey', 'mKey', 'partner', 'machine_code', 'service', 'service_audit', 'is_ele_print', 'is_tuan_print', 'is_goods_print', 'is_booking_print', 'is_appoint_print', 'service_audit');
+
+
     public function index(){
         $this->display();
     }
@@ -58,9 +61,9 @@ class ShopAction extends CommonAction{
             $data['contact'] = htmlspecialchars($data['contact']);
 			$data['tel'] = htmlspecialchars($data['tel']);
 			$data['mobile'] = htmlspecialchars($data['mobile']);
-            if (empty($data['mobile'])) {
-                $this->baoError('手机不能为空');
-            }
+//            if (empty($data['mobile'])) {
+//                $this->baoError('手机不能为空');
+//            }
             if (!isMobile($data['mobile'])) {
                 $this->baoError('手机格式不正确');
             }
@@ -210,5 +213,137 @@ class ShopAction extends CommonAction{
 			 $this->baoSuccess('恭喜您购买等级成功', U('shop/grade'));
 		}
         $this->display();
+    }
+    public function edit(){
+
+        if ($shop_id = $this->shop_id) {
+            $obj = D('Shop');
+            if (!($detail = $obj->find($shop_id))) {
+                $this->baoError('请选择要编辑的组织/团体');
+            }
+            if ($this->isPost()) {
+                $data = $this->editCheck($shop_id);
+                $data['shop_id'] = $shop_id;
+                $details = $this->_post('details', 'SecurityEditorHtml');
+                if ($words = D('Sensitive')->checkWords($details)) {
+                    $this->baoError('组织/团体介绍含有敏感词：' . $words);
+                }
+                $bank = $this->_post('bank', 'htmlspecialchars');
+                $shopdetails = D('Shopdetails')->find($shop_id);
+                $ex = array('details' => $details, 'bank' => $bank, 'near' => $data['near'], 'price' => $data['price'], 'business_time' => $data['business_time']);
+                if (!empty($shopdetails['wei_pic'])) {
+                    if (true !== strpos($shopdetails['wei_pic'], 'https://mp.weixin.qq.com/')) {
+                        $wei_pic = D('Weixin')->getCode($shop_id, 1);
+                        $ex['wei_pic'] = $wei_pic;
+                    }
+                } else {
+                    $wei_pic = D('Weixin')->getCode($shop_id, 1);
+                    $ex['wei_pic'] = $wei_pic;
+                }
+                unset($data['near'], $data['price'], $data['business_time']);
+                if (false !== $obj->save($data)) {
+                    D('Shopdetails')->upDetails($shop_id, $ex);
+                    $this->baoSuccess('操作成功', U('shop/index'));
+                }
+                $this->baoError('操作失败');
+            } else {
+                $this->assign('areas', D('Area')->fetchAll());
+                $this->assign('cates', D('Shopcate')->fetchAll());
+                $this->assign('business', D('Business')->fetchAll());
+                $this->assign('organizations', D('Shop')->fetchAll());
+                $this->assign('ex', D('Shopdetails')->find($shop_id));
+                $this->assign('user', D('Users')->find($detail['user_id']));
+                $this->assign('detail', $detail);
+                $this->display();
+            }
+        } else {
+            $this->baoError('请选择要编辑的组织/团体');
+        }
+    }
+    private function editCheck($shop_id)
+    {
+        $data = $this->checkFields($this->_post('data', false), $this->edit_fields);
+        $data['user_id'] = (int)$data['user_id'];
+        if (empty($data['user_id'])) {
+            $this->baoError('管理者不能为空');
+        }
+//        $shop = D('Shop')->find(array('where' => array('user_id' => $data['user_id'])));
+//        if (!empty($shop) && $shop['shop_id'] != $shop_id) {
+//            $this->baoError('该管理者已经拥有组织/团体了');
+//        }
+        $data['cate_id'] = (int)$data['cate_id'];
+        if (empty($data['cate_id'])) {
+            $this->baoError('分类不能为空');
+        }
+        $data['parent_id'] = (int)$data['parent_id'];
+        if (empty($data['parent_id'])) {
+//            $this->baoError('归属组织不能为空');
+        }
+        $data['grade_id'] = (int)$data['grade_id'];
+        if (empty($data['grade_id'])) {
+//            $this->baoError('组织/团体等级不能为空');
+        }
+        $data['city_id'] = (int)$data['city_id'];
+        $data['area_id'] = (int)$data['area_id'];
+        if (empty($data['area_id'])) {
+//            $this->baoError('所在区域不能为空');
+        }
+        $data['business_id'] = (int)$data['business_id'];
+        if (empty($data['business_id'])) {
+//            $this->baoError('所在区县不能为空');
+        }
+        $data['shop_name'] = htmlspecialchars($data['shop_name']);
+        if (empty($data['shop_name'])) {
+            $this->baoError('组织/团体名称不能为空');
+        }
+        $data['logo'] = htmlspecialchars($data['logo']);
+        if (empty($data['logo'])) {
+            $this->baoError('请上传组织/团体LOGO');
+        }
+        if (!isImage($data['logo'])) {
+            $this->baoError('组织/团体LOGO格式不正确');
+        }
+        $data['apply_id'] = htmlspecialchars($data['apply_id']);
+        if (empty($data['apply_id'])) {
+            $this->baoError('请选择组织类型');
+        }
+        $data['photo'] = htmlspecialchars($data['photo']);
+        if (empty($data['photo'])) {
+            $this->baoError('请上传入驻资料');
+        }
+        if (!isImage($data['photo'])) {
+            $this->baoError('入驻资料格式不正确');
+        }
+        $data['addr'] = htmlspecialchars($data['addr']);
+        if (empty($data['addr'])) {
+            $this->baoError('组织/团体地址不能为空');
+        }
+        $data['tel'] = htmlspecialchars($data['tel']);
+        $data['mobile'] = htmlspecialchars($data['mobile']);
+        if (empty($data['tel']) && empty($data['mobile'])) {
+            $this->baoError('组织/团体电话不能为空');
+        }
+        $data['contact'] = htmlspecialchars($data['contact']);
+        $data['tags'] = htmlspecialchars($data['tags']);
+        $data['near'] = htmlspecialchars($data['near']);
+        $data['business_time'] = htmlspecialchars($data['business_time']);
+        $data['orderby'] = (int)$data['orderby'];
+        $data['panorama_url'] = htmlspecialchars($data['panorama_url']);
+        $data['lng'] = htmlspecialchars($data['lng']);
+        $data['lat'] = htmlspecialchars($data['lat']);
+        $data['price'] = (int)$data['price'];
+        $data['is_pei'] = (int)$data['is_pei'];
+        $data['apiKey'] = htmlspecialchars($data['apiKey']);
+        $data['mKey'] = htmlspecialchars($data['mKey']);
+        $data['partner'] = htmlspecialchars($data['partner']);
+        $data['machine_code'] = htmlspecialchars($data['machine_code']);
+        $data['service'] = $data['service'];
+        $data['service_audit'] = (int)$data['service_audit'];
+        $data['is_ele_print'] = (int)$data['is_ele_print'];
+        $data['is_tuan_print'] = (int)$data['is_tuan_print'];
+        $data['is_goods_print'] = (int)$data['is_goods_print'];
+        $data['is_booking_print'] = (int)$data['is_booking_print'];
+        $data['is_appoint_print'] = (int)$data['is_appoint_print'];
+        return $data;
     }
 }

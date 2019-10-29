@@ -456,27 +456,32 @@ class MemberAction extends CommonAction
         }
         $user = D('users')->where(array('user_id'=>$this->uid))->find();
         //还未进行认证，跳转到认证页面
+
         if($user['is_certification'] == 0){
             $this->error('您还没有认证！', U('user/apply/certification'));
-        }else if($user['is_certification'] == 1){
+        }else if($user['is_certification'] == 1 && (strtotime('2019-10-29') < strtotime($user['certification_date']))){
             $this->assign('cardUrl',$user['certification_img_url']);
+            $cardOtherURL = substr_replace($user['certification_img_url'],'_other.png',-4);
+            $this->assign('cardOtherURL',$cardOtherURL);
             $this->display();
         }else{
             $data['user_id'] = $this->uid;
             $data['is_certification'] = 1;//更改认证状态为已认证
-
+            $data['certification_date'] = date("Y-m-d");
             //生成二维码
             $url = U('wap/activity/serviceInfo',array('user_id'=>$this->uid));
             //这个token只是作为二维码生成后的存放路径的一个依据 并无实际意义
             $token = 'userRegister_' . $this->uid;
-            $file = baoQrCodeLogo($token,$url,$user['head_url']);
+            $file = baoQrCode($token,$url,$user['head_url']);
 
             $organization = D('shop')->find($user['organization_id']);
-            $cardURL = $this->bornshareqrode(config_img($file),$user['user_id'],$user['real_name'],$user['sex'],$organization['shop_name'],$user['certification_date'],$user['vid']);
+            $cardURL = $this->bornshareqrode(config_img($user['head_url']),config_img($file),$user['user_id'],$user['real_name'],$user['sex'],$organization['shop_name'],$user['certification_date'],$user['vid']);
 
             $data['certification_img_url'] = $cardURL;
             D('users')->save($data);
+            $cardOtherURL = substr_replace($cardURL,'_other.png',-4);
             $this->assign('cardUrl',$cardURL);
+            $this->assign('cardOtherURL',$cardOtherURL);
             $this->display();
         }
 
@@ -484,43 +489,60 @@ class MemberAction extends CommonAction
 
 
     //图片处理函数
-    function bornshareqrode($qrimg,$user_id,$name,$sex,$organization,$reg_date,$vid)
+    function bornshareqrode($head_url,$qrimg,$user_id,$name,$sex,$organization,$reg_date,$vid)
     {
+//        $head_url='/attachs/2019/10/29/thumb_5db7b08751f4c.jpg';
+//        $name='果果';
+//        $organization='归属上级组织';
+//        $qrimg='/attachs/weixin/4bc/3e0/2b6/4bc3e02b65761d35599bf4dd864d478e.png';
+//        $vid='37152212002';
+//        $user_id='2';
+//        $reg_date='2019-10-29';
+//        $sex='1';
+
+
         $root_path = $_SERVER['DOCUMENT_ROOT'];
         //这是背景图片的url
-        $bgimg = $root_path . '/themes/default/Wap/statics/img/index/bg.png';
+        $bgimg = $root_path . '/themes/default/Wap/statics/img/qrcode/bg.png';
+        $bgotherimg = $root_path . '/themes/default/Wap/statics/img/qrcode/bg_other.png';
         //这是需要插入到背景图的图片url
         $qrimg = $root_path . $qrimg;
+        $head_url = $root_path . $head_url;
         if ($bgimg) {
             //这是合成后的图片保存的路径
             $upload_dir = $root_path . "/themes/default/Wap/statics/img/qrcode/";
             if (is_file($bgimg)) {
                 //创建画布
                 $bgimg = imagecreatefromstring(file_get_contents($bgimg));
-                $qring = imagecreatefromstring(file_get_contents($qrimg));
+                $bgotherimg = imagecreatefromstring(file_get_contents($bgotherimg));
+                $qrimg = imagecreatefromstring(file_get_contents($qrimg));
+                $head_url = imagecreatefromstring(file_get_contents($head_url));
 
                 //写入文字
                 $black = imagecolorallocate($bgimg, 0, 0, 0);
                 $green = imagecolorallocate($bgimg, 11, 153, 0);
 
-                //将$qrimg插入到$bgimg里
+                //将$qrimg插入到$bgotherimg里
                 //$dst_image 做背景的图片, $src_image 要插入的图片, $dst_x 要插入图片的位置的X坐标, $dst_y插入图片的位置的X坐标,
                 // $src_x, $src_y, $dst_w 插入图片的宽度, $dst_h 插入图片的高度, $src_w, $src_h
                 //imagesx 获取图像的宽度，单位是像素  imagesy获取图像的高度
-                imagecopyresampled($bgimg, $qring, 376, 192, 0, 0, 100, 100, imagesx($qring), imagesy($qring));
+                imagecopyresampled($bgimg, $head_url, 755, 160, 0, 0, 205, 255, imagesx($head_url), imagesy($head_url));
+                imagecopyresampled($bgotherimg, $qrimg, 53, 390, 0, 0, 220, 220, imagesx($qrimg), imagesy($qrimg));
                 //写的文字用到的字体
                 $font = $root_path . "/themes/default/Wap/statics/img/qrcode/simhei.ttf";
 
                 //在图片里插入文字($msg,$black,$grey)
                 //参数1：背景画布 参数2：字体大小 参数3：字体倾斜的角度 参数4、5：文字的x、y坐标 参数6：文字的颜色 参数7：字体文件 参数8：绘制的文字
-                imagettftext($bgimg, 16, 0, 140, 128, $black, $font, $name);
-                imagettftext($bgimg, 16, 0, 140, 161, $black, $font, $sex == 1 ? '男' : '女');
-                imagettftext($bgimg, 16, 0, 140, 194, $black, $font, $organization);
-                imagettftext($bgimg, 16, 0, 140, 230, $black, $font, $reg_date);
-                imagettftext($bgimg, 16, 0, 140, 268, $black, $font, $vid);
+                imagettftext($bgimg, 16, 0, 307, 255, $black, $font, $name);
+                imagettftext($bgimg, 16, 0, 620, 200, $black, $font, $sex == 1 ? '男' : '女');
+                imagettftext($bgimg, 16, 0, 680, 200, $black, $font, $sex == 1 ? 'F' : 'M');
+                imagettftext($bgimg, 16, 0, 307, 312, $black, $font, $organization);
+//                imagettftext($bgimg, 22, 0, 140, 230, $black, $font, $reg_date);
+                imagettftext($bgimg, 16, 0, 307, 372, $black, $font, $vid);
 
                 //生成图片
                 imagepng($bgimg, $upload_dir . 'vol' . $user_id . '.png');
+                imagepng($bgotherimg, $upload_dir . 'vol' . $user_id . '_other.png');
                 //生成图片名字
                 $imgUrl = '/themes/default/Wap/statics/img/qrcode/vol' . $user_id . '.png';
             }

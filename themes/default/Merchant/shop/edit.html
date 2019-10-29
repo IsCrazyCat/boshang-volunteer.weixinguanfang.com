@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title><{$CONFIG.site.title}>管理后台</title>
+    <meta name="description" content="<{$CONFIG.site.title}>管理后台" />
+    <meta name="keywords" content="<{$CONFIG.site.title}>管理后台" />
+    <link href="__TMPL__statics/css/newstyle.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/js/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script>
+        var BAO_PUBLIC = '__PUBLIC__'; var BAO_ROOT = '__ROOT__';
+    </script>
+    <script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/jquery-ui.min.js"></script>
+    <script src="__PUBLIC__/js/web.js"></script>
+    <script src="__PUBLIC__/js/layer/layer.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/default/webuploader/webuploader.css">
+    <script src="/static/default/webuploader/webuploader.min.js"></script>
+    <!-- <link href="/themes/default/admin/statics/css/index.css" rel="stylesheet" type="text/css" /> -->
+    <link href="/themes/default/admin/statics/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="/themes/default/admin/statics/css/land.css" rel="stylesheet" type="text/css" />
+    <link href="/themes/default/admin/statics/css/pub.css" rel="stylesheet" type="text/css" />
+    <link href="/themes/default/admin/statics/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/js/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script> var BAO_PUBLIC = '__PUBLIC__'; var BAO_ROOT = '__ROOT__'; </script>
+    <script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/jquery-ui.min.js"></script>
+    <script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+    <script src="/Public/js/layer/layer.js"></script>
+    <script src="__PUBLIC__/js/admin.js?v=20150409"></script>
+    <link rel="stylesheet" type="text/css" href="/static/default/webuploader/webuploader.css">
+    <script src="/static/default/webuploader/webuploader.min.js"></script>
+</head>
+
+
+</head>
+<style type="text/css">
+    #ie9-warning{ background:#F00; height:38px; line-height:38px; padding:10px;
+        position:absolute;top:0;left:0;font-size:12px;color:#fff;width:97%;text-align:left; z-index:9999999;}
+    #ie6-warning a {text-decoration:none; color:#fff !important;}
+</style>
+
+<!--[if lte IE 9]>
+<div id="ie9-warning">您正在使用 Internet Explorer 9以下的版本，请用谷歌浏览器访问后台、部分浏览器可以开启极速模式访问！不懂点击这里！ <a href="" target="_blank">查看为什么？</a>
+</div>
+<script type="text/javascript">
+    function position_fixed(el, eltop, elleft){
+        // check if this is IE6
+        if(!window.XMLHttpRequest)
+            window.onscroll = function(){
+                el.style.top = (document.documentElement.scrollTop + eltop)+"px";
+                el.style.left = (document.documentElement.scrollLeft + elleft)+"px";
+            }
+        else el.style.position = "fixed";
+    }
+    position_fixed(document.getElementById("ie9-warning"),0, 0);
+</script>
+<![endif]-->
+
+
+<body>
+<iframe id="baocms_frm" name="baocms_frm" style="display:none;"></iframe>
+<div class="main">
+<form target="baocms_frm" action="<{:U('shop/edit',array('shop_id'=>$detail['shop_id']))}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"
+                   style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+                <tr>
+                    <td class="lfTdBt">管理者：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]"
+                                   value="<{$detail.user_id|default=''}>"/>
+                            <input readonly="readonly" class="scAddTextName w210 sj" type="text" name="nickname" id="nickname"
+                                   value="<{$user.nickname}>"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+
+                    <td class="lfTdBt">分类：</td>
+                    <td class="rgTdBt">
+                        <select id="cate_id" name="data[cate_id]" class="seleFl w210">
+                            <foreach name="cates" item="var">
+                                <eq name="var.parent_id" value="0">
+                                    <option value="<{$var.cate_id}>"
+                                    <eq name="var.cate_id" value="$detail.cate_id">selected="selected"</eq>
+                                    ><{$var.cate_name}></option>
+                                    <foreach name="cates" item="var2">
+                                        <eq name="var2.parent_id" value="$var.cate_id">
+                                            <option value="<{$var2.cate_id}>"
+                                            <eq name="var2.cate_id" value="$detail.cate_id">selected="selected"</eq>
+                                            > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<{$var2.cate_name}></option>
+                                        </eq>
+                                    </foreach>
+                                </eq>
+                            </foreach>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">归属组织：</td>
+                    <td class="rgTdBt">
+                        <select id="parent_id" name="data[parent_id]" class="seleFl w210">
+                            <foreach name="organizations" item="organization">
+                                <if condition="$organization['shop_id'] eq $detail['parent_id']">
+                                    <option value="<{$organization['shop_id']}>" selected="selected">
+                                        <{$organization['shop_name']}>
+                                    </option>
+                                    <else/>
+                                    <option value="<{$organization['shop_id']}>"><{$organization['shop_name']}></option>
+                                </if>
+                            </foreach>
+                        </select>
+                    </td>
+                </tr>
+                <!--
+                    <tr>
+                        <td class="lfTdBt">组织/团体等级：</td>
+                        <td class="rgTdBt">
+                           <select id="grade_id" name="data[grade_id]" class="seleFl w210">
+                           <option value="0">请选择...</option>
+                            <foreach name="grades" item="var">
+                             <option value="<{$var.grade_id}>"  <eq name="var.grade_id" value="$detail.grade_id">selected="selected"</eq> ><{$var.grade_name}></option>
+                            </foreach>
+                            </select>
+                            <code>组织/团体等级必须选择，如果没有等级显示去》》》组织/团体》》》组织/团体等级管理》》》添加等级》》》添加后才来添加组织/团体</code>
+                        </td>
+                    </tr>
+                     -->
+                <tr>
+                    <td class="lfTdBt">所在区域：</td>
+                    <td class="rgTdBt">
+
+                        <select name="data[city_id]" id="city_id" style="float: left;" class="seleFl w210"></select>
+                        <select name="data[area_id]" id="area_id" style="float: left;" class="seleFl w210"></select>
+                        <select name="data[business_id]" id="business_id" style="float: left;"
+                                class="seleFl w210"></select>
+                    </td>
+                </tr>
+
+                <script src="<{:U('app/datas/cab',array('name'=>'cityareas'))}>"></script>
+                <script>
+                    var city_id = <?php echo (int)$detail['city_id'];?>;
+                    var area_id = <?php echo (int)$detail['area_id'];?>;
+                    var business_id = <?php echo (int)$detail['business_id'];?>;
+                    $(document).ready(function () {
+                        var city_str = ' <option value="0">请选择...</option>';
+                        for (a in cityareas.city) {
+                            if (city_id == cityareas.city[a].city_id) {
+                                city_str += '<option selected="selected" value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                            } else {
+                                city_str += '<option value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                            }
+                        }
+                        $("#city_id").html(city_str);
+
+                        $("#city_id").change(function () {
+                            if ($("#city_id").val() > 0) {
+                                city_id = $("#city_id").val();
+                                var area_str = ' <option value="0">请选择...</option>';
+                                for (a in cityareas.area) {
+                                    if (cityareas.area[a].city_id == city_id) {
+                                        if (area_id == cityareas.area[a].area_id) {
+                                            area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                        } else {
+                                            area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                        }
+                                    }
+                                }
+                                $("#area_id").html(area_str);
+                                $("#business_id").html('<option value="0">请选择...</option>');
+                            } else {
+                                $("#area_id").html('<option value="0">请选择...</option>');
+                                $("#business_id").html('<option value="0">请选择...</option>');
+                            }
+
+                        });
+
+                        if (city_id > 0) {
+                            var area_str = ' <option value="0">请选择...</option>';
+                            for (a in cityareas.area) {
+                                if (cityareas.area[a].city_id == city_id) {
+                                    if (area_id == cityareas.area[a].area_id) {
+                                        area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                    } else {
+                                        area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                    }
+                                }
+                            }
+                            $("#area_id").html(area_str);
+                        }
+
+
+                        $("#area_id").change(function () {
+                            if ($("#area_id").val() > 0) {
+                                area_id = $("#area_id").val();
+                                var business_str = ' <option value="0">请选择...</option>';
+                                for (a in cityareas.business) {
+                                    if (cityareas.business[a].area_id == area_id) {
+                                        if (business_id == cityareas.business[a].business_id) {
+                                            business_str += '<option selected="selected" value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                        } else {
+                                            business_str += '<option value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                        }
+                                    }
+                                }
+                                $("#business_id").html(business_str);
+                            } else {
+                                $("#business_id").html('<option value="0">请选择...</option>');
+                            }
+
+                        });
+
+                        if (area_id > 0) {
+                            var business_str = ' <option value="0">请选择...</option>';
+                            for (a in cityareas.business) {
+                                if (cityareas.business[a].area_id == area_id) {
+                                    if (business_id == cityareas.business[a].business_id) {
+                                        business_str += '<option selected="selected" value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                    } else {
+                                        business_str += '<option value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                    }
+                                }
+                            }
+                            $("#business_id").html(business_str);
+                        }
+                        $("#business_id").change(function () {
+                            business_id = $(this).val();
+                        });
+                    });
+                </script>
+
+                <tr>
+                    <td class="lfTdBt">组织/团体名称：</td>
+                    <td class="rgTdBt"><input type="text" name="data[shop_name]"
+                                              value="<{$detail.shop_name|default=''}>" class="scAddTextName w210"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="lfTdBt">组织/团体LOGO：</td>
+                    <td class="rgTdBt">
+                        <div style="width: 300px;height: 100px; float: left;">
+                            <input type="hidden" name="data[logo]" value="<{$detail.logo}>" id="data_logo"/>
+                            <div id="fileToUpload">上传LOGO</div>
+                        </div>
+                        <div style="width: 300px;height: 100px; float: left;">
+                            <img id="logo_img" width="120" height="80" src="<{:config_img($detail['logo'])}>"/>
+                            <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                            建议尺寸<{$CONFIG.attachs.shoplogo.thumb}>
+                        </div>
+                        <script>
+                            var width_shoplogo = '<{:thumbSize($CONFIG[attachs][shoplogo][thumb],0)}>';
+                            var height_shoplogo = '<{:thumbSize($CONFIG[attachs][shoplogo][thumb],1)}>';
+                            var uploader = WebUploader.create({
+                                auto: true,
+                                swf: '/static/default/webuploader/Uploader.swf',
+                                server: '<{:U("app/upload/uploadify",array("model"=>"shoplogo"))}>',
+                                pick: '#fileToUpload',
+                                resize: true,
+                                compress: {
+                                    width: width_shoplogo,
+                                    height: height_shoplogo,
+                                    quality: 80,
+                                    allowMagnify: false,
+                                    crop: true
+                                }
+                            });
+                            uploader.on('uploadSuccess', function (file, resporse) {
+                                $("#data_logo").val(resporse.url);
+                                $("#logo_img").attr('src', resporse.url).show();
+                            });
+                            uploader.on('uploadError', function (file) {
+                                alert('上传出错');
+                            });
+                        </script>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="lfTdBt">组织类型：</td>
+                    <td class="rgTdBt">
+                        <select name="data[apply_id]" id="apply_id" class="seleFl w210">
+                            <option value="0" selected="selected">请选择</option>
+                            <option value="1">民政注册</option>
+                            <option value="2">党群机关团体</option>
+                            <option value="3">公民自发团体</option>
+                        </select>
+                        <script>
+                            $(document).ready(function(){
+
+                            });
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">入驻资料图片：</td>
+                    <td class="rgTdBt">
+                        <div style="width: 300px;height: 100px; float: left;">
+                            <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo"/>
+                            <div id="fileToUpload1">上传图片</div>
+                        </div>
+                        <div style="width: 300px;height: 100px; float: left;">
+                            <img id="photo_img" width="120" height="80" src="<{:config_img($detail['photo'])}>"/>
+                            <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                            建议尺寸<{$CONFIG.attachs.shopphoto.thumb}>
+                        </div>
+                        <script>
+                            var width_shopphoto = '<{:thumbSize($CONFIG[attachs][shopphoto][thumb],0)}>';
+                            var height_shopphoto = '<{:thumbSize($CONFIG[attachs][shopphoto][thumb],1)}>';
+                            var uploader = WebUploader.create({
+                                auto: true,
+                                swf: '/static/default/webuploader/Uploader.swf',
+                                server: '<{:U("app/upload/uploadify",array("model"=>"shopphoto"))}>',
+                                pick: '#fileToUpload1',
+                                resize: true,
+                                compress: {
+                                    width: width_shopphoto,
+                                    height: height_shopphoto,
+                                    quality: 80,
+                                    allowMagnify: false,
+                                    crop: true
+                                }
+                            });
+                            uploader.on('uploadSuccess', function (file, resporse) {
+                                $("#data_photo").val(resporse.url);
+                                $("#photo_img").attr('src', resporse.url).show();
+                            });
+                            uploader.on('uploadError', function (file) {
+                                alert('上传出错');
+                            });
+                        </script>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="lfTdBt">组织/团体地址：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[addr]" value="<{$detail.addr|default=''}>"
+                               class="scAddTextName w210"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">组织/团体电话：</td>
+                    <td class="rgTdBt"><input type="text" name="data[tel]" value="<{$detail.tel|default=''}>"
+                                              class="scAddTextName w210"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">联系人：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[contact]" value="<{$detail.contact|default=''}>"
+                               class="scAddTextName w210"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">手机号码：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[mobile]" value="<{$detail.mobile|default=''}>"
+                               class="scAddTextName w210"/>
+                        <code>认真填写手机号码，部分场景用来组织/团体接收短信使用</code>
+                    </td>
+                </tr>
+                <tr>
+
+                    <td class="lfTdBt">标签：</td>
+                    <td class="rgTdBt"><input type="text" name="data[tags]" value="<{$detail.tags|default=''}>"
+                                              class="scAddTextName w210"/>
+                        <code>每个标签用“，”分隔</code>
+                    </td>
+                </tr>
+
+                <!--
+
+                        <tr>
+                            <td class="lfTdBt">等待配送时间：</td>
+                            <td class="rgTdBt">
+                                <label><input type="text" class="scAddTextName w210"  name="data[delivery_time]" value="<{$ex.delivery_time|default='30'}>" />分钟</label>
+                                <code>自主配送则不用填</code>
+                            </td>
+                        </tr>
+                -->
+
+                <!--       <tr>-->
+                <!--            <td class="lfTdBt">工作时间：</td>-->
+                <!--            <td class="rgTdBt"><input type="text" name="data[business_time]" value="<{$ex.business_time|default=''}>" class="scAddTextName w210" />-->
+                <!--                <code>例如8:00-19：00</code>-->
+                <!--            </td>-->
+
+                <!--        </tr>-->
+
+                <tr>
+                    <td class="lfTdBt">固定排名：</td>
+                    <td class="rgTdBt"><input type="text" name="data[orderby]" value="<{$detail.orderby|default='100'}>"
+                                              class="scAddTextName w210"/>
+                        <code>1就是固定排名在第一位，一般建议不需要设置这个值！</code>
+                    </td>
+                </tr>
+
+                <!--<tr>-->
+                <!--<td  class="lfTdBt">全景URL地址：</td>-->
+                <!--<td class="rgTdBt"><input type="text" name="data[panorama_url]" value="<{$detail.panorama_url}>" class="scAddTextName w360" />-->
+                <!--<code>请填写完整的全景URL地址，带http://，填写后默认组织/团体详情页顶部展示，不填写不展示，前台加载的是框架</code>-->
+                <!--</td>-->
+                <!--</tr>-->
+                <!---->
+
+                <!--<tr>-->
+                <!--<td class="lfTdBt">人均消费：</td>-->
+                <!--<td class="rgTdBt"><input type="text" name="data[price]" value="<{$ex.price|default='0'}>" class="scAddTextName w210" />-->
+                <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+
+                <!--<td class="lfTdBt">订座：</td>-->
+                <!--<td class="rgTdBt">&nbsp;&nbsp;&nbsp;<input type="radio" name="data[is_ding]" value="1" <if condition="$detail.is_ding eq 1"> checked="checked" </if>  />是 &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="data[is_ding]" value="0"  <if condition="$detail.is_ding eq 0"> checked="checked" </if>/>否&nbsp;&nbsp;&nbsp;-->
+                <!--</td>-->
+
+                <!--</tr>-->
+
+                <tr>
+
+                    <td class="lfTdBt">组织/团体坐标：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            经度<input type="text" name="data[lng]" id="data_lng" value="<{$detail.lng|default=''}>"
+                                     class="scAddTextName w210 w100"/>
+                            纬度 <input type="text" name="data[lat]" id="data_lat" value="<{$detail.lat|default=''}>"
+                                      class="scAddTextName w210 w100"/>
+                        </div>
+                        <a style="margin-left: 10px;" mini="select" w="600" h="600"
+                           href="<{:U('public/maps',array('lat'=>$detail['lat'],'lng'=>$detail['lng']))}>"
+                           class="seleSj">百度地图</a>
+
+                </tr>
+
+
+                <input type="hidden" name="data[recognition]" value="1"/>
+                <!--          <tr>-->
+                <!--                    <td class="lfTdBt">是否认领</td>-->
+                <!--                    <td class="rgTdBt">-->
+                <!--                 <input type="radio" name="data[recognition]" value="0" <if condition="$detail[recognition] eq 0">checked="checked"</if> />未认领-->
+                <!--				<input type="radio" name="data[recognition]" value="1" <if condition="$detail[recognition] eq 1">checked="checked"</if> />已认领-->
+
+                <!--                <code>特别说明，前台申请默认是已认领状态！如果是后台添加则是未认领状态，请注意区别</code>-->
+                <!--                    </td>-->
+                <!--        </tr>-->
+
+
+                <!--
+
+                 <tr>
+                     <td class="lfTdBt">打印标识(apiKey)</td>
+                     <td class="rgTdBt"><input type="text" name="data[apiKey]" value="<{$detail.apiKey}>" class="scAddTextName w210" />
+                     <code>打印标识</code>
+                     </td>
+                 </tr>
+
+                 <tr>
+                     <td class="lfTdBt">密钥(mKey)</td>
+                     <td class="rgTdBt"><input type="text" name="data[mKey]" value="<{$detail.mKey}>" class="scAddTextName w210" />
+                     <code>密钥</code>
+                     </td>
+
+                 </tr>
+
+                 <tr>
+                     <td class="lfTdBt">用户id(partner)</td>
+                     <td class="rgTdBt"><input type="text" name="data[partner]" value="<{$detail.partner}>" class="scAddTextName w210" />
+                     <code>你再打印平台注册的ID</code>
+                     </td>
+                 </tr>
+
+                 <tr>
+                     <td class="lfTdBt">打印机终端号(machine_code)</td>
+                     <td class="rgTdBt"><input type="text" name="data[machine_code]" value="<{$detail.machine_code}>" class="scAddTextName w210" />
+                      <code>打印机终端号，一般购买打印机后打印机后面都有此号码。</code>
+                     </td>
+                 </tr>
+
+                 -->
+
+
+                <!--<tr>
+                        <td  class="lfTdBt">客服代码：</td>
+                        <td class="rgTdBt"><textarea  name="data[service]" cols="120" rows="15" ><{$detail.service|default=''}></textarea>
+
+                        </td>
+                    </tr>
+
+
+
+                  <tr>
+                      <td class="lfTdBt">是否显示客服代码</td>
+                      <td class="rgTdBt">
+                         <input type="radio" name="data[service_audit]" value="0" <if condition="$detail[service_audit] eq 0">checked="checked"</if> />不显示
+                        <input type="radio" name="data[service_audit]" value="1" <if condition="$detail[service_audit] eq 1">checked="checked"</if> />显示
+                        <code>特别说明，部分用户的JS代码是不安全的，所以需要你后台审核通过才可以显示</code>
+                       </td>
+                  </tr>
+
+
+                  <tr>
+                      <td class="lfTdBt">外卖打印</td>
+                      <td class="rgTdBt">
+                         <input type="radio" name="data[is_ele_print]" value="1" <if condition="$detail[is_ele_print] eq 1">checked="checked"</if> />开启
+                        <input type="radio" name="data[is_ele_print]" value="0" <if condition="$detail[is_ele_print] eq 0">checked="checked"</if> />关闭
+                        <code>开启状态才能打印外卖订单</code>
+                       </td>
+                  </tr>
+
+                  <tr>
+                      <td class="lfTdBt">抢购打印</td>
+                      <td class="rgTdBt">
+                         <input type="radio" name="data[is_tuan_print]" value="1" <if condition="$detail[is_tuan_print] eq 1">checked="checked"</if> />开启
+                        <input type="radio" name="data[is_tuan_print]" value="0" <if condition="$detail[is_tuan_print] eq 0">checked="checked"</if> />关闭
+                        <code>开启状态才能打印抢购订单</code>
+                       </td>
+                  </tr>
+
+                   <tr>
+                      <td class="lfTdBt">商城打印</td>
+                      <td class="rgTdBt">
+                         <input type="radio" name="data[is_goods_print]" value="1" <if condition="$detail[is_goods_print] eq 1">checked="checked"</if> />开启
+                        <input type="radio" name="data[is_goods_print]" value="0" <if condition="$detail[is_goods_print] eq 0">checked="checked"</if> />关闭
+                        <code>开启状态才能打印商城订单</code>
+                       </td>
+                  </tr>
+
+                   <tr>
+                      <td class="lfTdBt">订座打印</td>
+                      <td class="rgTdBt">
+                         <input type="radio" name="data[is_booking_print]" value="1" <if condition="$detail[is_booking_print] eq 1">checked="checked"</if> />开启
+                        <input type="radio" name="data[is_booking_print]" value="0" <if condition="$detail[is_booking_print] eq 0">checked="checked"</if> />关闭
+                        <code>开启状态才能打印订座订单</code>
+                       </td>
+                  </tr>
+
+                  <tr>
+                      <td class="lfTdBt">家政打印</td>
+                      <td class="rgTdBt">
+                         <input type="radio" name="data[is_appoint_print]" value="1" <if condition="$detail[is_appoint_print] eq 1">checked="checked"</if> />开启
+                        <input type="radio" name="data[is_appoint_print]" value="0" <if condition="$detail[is_appoint_print] eq 0">checked="checked"</if> />关闭
+                        <code>开启状态才能打印家政订单</code>
+                       </td>
+                  </tr>-->
+
+
+                <tr>
+                    <td class="lfTdBt">组织/团体介绍：</td>
+                    <td class="rgTdBt">
+                        <script type="text/plain" id="details" name="details" style="width:800px;height:360px;">
+                            <{$ex.details}>
+                        </script>
+                    </td>
+                </tr>
+                <link rel="stylesheet" href="__PUBLIC__/qiniu_ueditor/themes/default/css/ueditor.min.css"
+                      type="text/css">
+                <script type="text/javascript" charset="utf-8"
+                        src="__PUBLIC__/qiniu_ueditor/ueditor.config.js"></script>
+                <script type="text/javascript" charset="utf-8"
+                        src="__PUBLIC__/qiniu_ueditor/ueditor.all.min.js"></script>
+                <script type="text/javascript" src="__PUBLIC__/qiniu_ueditor/lang/zh-cn/zh-cn.js"></script>
+                <script>
+                    um = UE.getEditor('details', {
+                        lang: 'zh-cn',
+                        toolbars: [['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'backcolor', 'fontsize']],
+                    });
+                </script>
+
+
+            </table>
+
+        </div>
+        <div class="smtQr"><input type="submit" value="确认编辑" class="smtQrIpt"/></div>
+    </div>
+</form>
+<include file='public:footer'/>

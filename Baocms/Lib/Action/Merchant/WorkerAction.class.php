@@ -4,29 +4,49 @@ class WorkerAction extends CommonAction {
 	private $edit_fields = array('user_id', 'name', 'tel', 'mobile', 'qq', 'weixin', 'work', 'addr', 'tuan', 'coupon', 'yuyue', 'is_job','is_mall', 'is_ding', 'is_dianping', 'is_yuyue','is_life','is_news','is_appoint','is_booking');
 	
     public function index() {
-        $Shopworker = D('Shopworker');
-        import('ORG.Util.Page');
-        $map = array('shop_id' => $this->shop_id);
-        if ($keyword = $this->_param('keyword', 'htmlspecialchars')) {
-            $map['name'] = array('LIKE', '%' . $keyword . '%');
-            $this->assign('keyword', $keyword);
+        if ($organization_id = $this->shop_id) {
+            if (!($organization = D('Shop')->find($organization_id))) {
+                $this->baoError('该组织/团体不存在');
+            }
+            $where = 'organization_id = ' . $organization_id;
+//            if($this->_param('keyword')){
+//                $where .= ' AND ';
+//            }
+            if ($volunteers = D('organizationVolunteer')->where($where)->select()) {
+                foreach ($volunteers as $key => $val) {
+                    $user = D('users')->where(array('user_id' => $val['user_id']))->find();
+                    $volunteers[$key]['users'] = $user;
+                }
+                $this->assign('volunteers', $volunteers);
+            }
         }
-        $count = $Shopworker->where($map)->count(); 
-        $Page = new Page($count, 25); 
-        $show = $Page->show(); 
-        $list = $Shopworker->where($map)->order(array('worker_id' => 'desc'))->limit($Page->firstRow . ',' . $Page->listRows)->select();
-		
-		$user_ids = array();
-        foreach ($list as $k => $val) {
-            $user_ids[$val['user_id']] = $val['user_id'];
-        }
-        $this->assign('users', D('Users')->itemsByIds($user_ids));
-		
-		
-        $this->assign('list', $list); 
-        $this->assign('page', $show);
-		$this->assign('detail', $detail);
-		$this->display();
+        $this->assign('organization', $organization);
+        $this->display();
+
+
+//        $Shopworker = D('Shopworker');
+//        import('ORG.Util.Page');
+//        $map = array('shop_id' => $this->shop_id);
+//        if ($keyword = $this->_param('keyword', 'htmlspecialchars')) {
+//            $map['name'] = array('LIKE', '%' . $keyword . '%');
+//            $this->assign('keyword', $keyword);
+//        }
+//        $count = $Shopworker->where($map)->count();
+//        $Page = new Page($count, 25);
+//        $show = $Page->show();
+//        $list = $Shopworker->where($map)->order(array('worker_id' => 'desc'))->limit($Page->firstRow . ',' . $Page->listRows)->select();
+//
+//		$user_ids = array();
+//        foreach ($list as $k => $val) {
+//            $user_ids[$val['user_id']] = $val['user_id'];
+//        }
+//        $this->assign('users', D('Users')->itemsByIds($user_ids));
+//
+//
+//        $this->assign('list', $list);
+//        $this->assign('page', $show);
+//		$this->assign('detail', $detail);
+//		$this->display();
 
     }
 	
