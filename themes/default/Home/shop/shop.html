@@ -1,4 +1,4 @@
-<title><{$detail.shop_name}>分店详情页面</title>
+<title><{$detail.shop_name}>下属组织详情页面</title>
 <include  file='public:header_community'/> 
 
 <style>
@@ -20,7 +20,7 @@
 				<div class="x7">
 					<div class="head-desc">
 						
-						<p class="addr"><i class="icon icon-map-marker"></i> 分店地址：<{$detail.addr}><if condition="!empty($ex['near'])">(<{$ex.near}>)</if></p>
+						<p class="addr"><i class="icon icon-map-marker"></i> 下属组织地址：<{$detail.addr}><if condition="!empty($ex['near'])">(<{$ex.near}>)</if></p>
 						<if condition="!empty($ex['business_time'])">
 						<p class="open"><i class="icon icon-clock-o"></i> 营业：<{$ex.business_time}></p>
 						</if>

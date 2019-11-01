@@ -4,7 +4,7 @@
 			<a class="top-addr" href="<{:u('distributors/index/index')}>"><i class="icon-angle-left"></i></a>
 		</div>
 		<div class="top-title">
-			分店地址
+			下属组织地址
 		</div>
 		<div class="top-share">
 			<a href="<{:u('distributors/branch/create')}>" class="top-addr icon-plus"> 增加</a>
@@ -17,7 +17,7 @@ ul { padding-left: 0px;}
 </style>
 <!-- 筛选TAB -->
 <ul id="shangjia_tab">
-        <li style="width: 25%;"><a href="<{:u('distributors/branch/index')}>" class="on">分店管理</a></li>
+        <li style="width: 25%;"><a href="<{:u('distributors/branch/index')}>" class="on">下属组织管理</a></li>
         <li style="width: 25%;"><a href="<{:u('distributors/worker/index')}>">员工管理</a></li>
         <li style="width: 25%;"><a href="<{:u('distributors/shop/about')}>">基本设置</a></li>
         <li style="width: 25%;"><a href="<{:u('distributors/shop/photo/')}>">环境图</a></li>
@@ -30,7 +30,7 @@ ul { padding-left: 0px;}
 				<div class="field">
 					<div class="input-group">
 						<span class="addbtn"><button type="button" class="button icon-search"></button></span>
-						<input type="text" class="input" name="keyword" size="50" value="<{$keyword}>" placeholder="分店名称/地址"  />
+						<input type="text" class="input" name="keyword" size="50" value="<{$keyword}>" placeholder="下属组织名称/地址"  />
 						<span class="addbtn"><button type="submit" class="button">搜索</button></span>
 					</div>
 				</div>
@@ -43,9 +43,9 @@ ul { padding-left: 0px;}
         <volist name="list" id="var">
         <li class="line">
                 <div class="x10">	
-                    <h5>分店名称：<{$var.name}> </h5>	
+                    <h5>下属组织名称：<{$var.name}> </h5>
                     <p class="addr">所属城市：<{$city[$var['city_id']]['name']}></p>
-                    <p class="addr">分店地址：<{$area[$var['area_id']]['area_name']}><{$business[$var['business_id']]['business_name']}></p>
+                    <p class="addr">下属组织地址：<{$area[$var['area_id']]['area_name']}><{$business[$var['business_id']]['business_name']}></p>
                     <p class="addr">申请时间：<{$var.create_time|date='Y-m-d H:i',###}></eq></p>
                     <p class="addr">审核状态：<eq name="var.audit" value="0">等待审核<else/>正常</eq></p>
                 </div>
@@ -64,7 +64,7 @@ ul { padding-left: 0px;}
 	$(document).ready(function () {
 		$(document).on('click', ".jquery-delete", function (e) {
 			var branch_id = $(this).attr('rel');
-			layer.confirm('您确定要删除该分店？', {
+			layer.confirm('您确定要删除该下属组织？', {
 				skin: 'layer-ext-demo', 
 				area: ['50%', 'auto'], //宽高
 				btn: ['是的', '不'], //按钮

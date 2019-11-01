@@ -56,18 +56,28 @@ class ActivityAction extends CommonAction{
             $shop = D('shop')->where(array('shop_id'=>$activity['shop_id']))->find();
             $list[$k]['shop'] = $shop;
             //某活动的服务时长
-            $activityLogs = D('activityLogs')->where(array('user_id'=>$this->uid,'activity_id'=>$val['activity_id']))->select();
+            $activityLog = D('activityLogs')->where(array('user_id'=>$this->uid,'activity_id'=>$val['activity_id']))->find();
             $total_time = 0;
-            foreach ($activityLogs as $logKey=>$logval){
-                if(!empty($logval['start_date'])){
-                    if(!empty($logval['end_date'])){
-                        $total_time += ($logval['end_date']-$logval['start_date']);
-                    }else{
-                        $total_time += (time()-$logval['start_date']);
-                    }
+            if(!empty($activityLog['start_date'])){
+
+                if(!empty($activityLog['end_date'])){
+                    $total_time += ($activityLog['end_date']-$activityLog['start_date']);
+                }else{
+                    $total_time += (time()-$activityLog['start_date']);
+                }
+
+                if($activityLog['add_service_time']){
+                    $list[$k]['total_time']=ceil($total_time/3600)+$activityLog['add_service_time'].'小时';
+                }else{
+                    $list[$k]['total_time']=ceil($total_time/3600).'小时';
+                }
+            }else{
+                if($activityLog['add_service_time']){
+                    $list[$k]['total_time']=$activityLog['add_service_time'] .'小时';
+                }else{
+                    $list[$k]['total_time']='尚未参加活动';
                 }
             }
-            $list[$k]['total_time']=ceil($total_time/3600);
             //该项活动的服务状态 先判断活动是否还在进行中 0未开始 1未参加 2服务中 3服务结束
             $cur_date = date("Y-m-d");
             $start_date = $activity['bg_date'];
@@ -79,7 +89,7 @@ class ActivityAction extends CommonAction{
                 $list[$k]['status'] = 0;
             } else if (strtotime($cur_date) > strtotime($end_date)) {
                 //活动已经结束 查看是否参加过活动
-                if($activityLogs){
+                if($activityLog){
                     $list[$k]['status'] = 1;
                 }else{
                     $list[$k]['status'] = 3;
@@ -87,12 +97,12 @@ class ActivityAction extends CommonAction{
 
             }else{
                 //活动正在进行中 是否参加了
-                if(!$activityLogs){
+                if(!$activityLog){
                     $list[$k]['status'] = 0;
                 }else{
                     //报名了并且参加了 查看今日是否参加了
                     $list[$k]['status'] = 3;
-                    foreach ($activityLogs as $logKey=>$logval){
+                    foreach ($activityLog as $logKey=>$logval){
                         if(substr($logval['today_date'],0,4)==date('Y')){
                             if(!empty($logval['start_date'])){
                                 if(!empty($logval['end_date'])){

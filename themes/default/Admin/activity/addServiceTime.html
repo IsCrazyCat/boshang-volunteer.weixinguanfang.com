@@ -1,0 +1,98 @@
+<include  file='public:header'/>
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form  target="baocms_frm" method="post">
+            <div class="mainScAdd">
+                <div class="tableBox">
+                    <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                        <tr>
+                            <td class="lfTdBt">活动标题：</td>
+                            <td  class="rgTdBt">
+                                <input type="hidden" id="activity_id" value="<{$activity['activity_id']}>"/>
+                                <input type="text" name="data[title]" value="<{$activity['title']}>" class="manageInput"  readonly="readonly"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">活动时长：</td>
+                            <td  class="rgTdBt">
+                                <input type="text" name="data[activity_time]" value="<{$activity_time}>小时" class="manageInput" readonly="readonly"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">志愿者：</td>
+                            <td  class="rgTdBt">
+                                <input type="text" name="data[nickname]" value="<{$user['nickname']}>" class="manageInput" readonly="readonly"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">服务时长：</td>
+                            <td  class="rgTdBt">
+                                <input type="text" name="data[service_time]" value="<{$service_time}>小时" class="manageInput" readonly="readonly"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">可增加时长：</td>
+                            <td  class="rgTdBt">
+                                <input type="hidden" id="add_time" value="<{$add_time}>" class="manageInput" readonly="readonly"/>
+                                <input type="text" name="data[add_time]" value="<{$add_time}>小时" class="manageInput" readonly="readonly"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">增加时长：</td>
+                            <td  class="rgTdBt">
+                                <input type="text" name="data[add_service_time]" id="add_service_time" onchange="checkTime()" value="0" class="manageInput"/>小时
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="smtQr"><input type="button" id="subBtn" onclick="subClick()" value="确认添加" class="smtQrIpt" /></div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function checkTime(){
+        var add_time =  $("#add_time").val().trim();
+        var add_service_time = $("#add_service_time").val();
+        var reg=/^[1-9]\d*$/; //由 1-9开头 的正则表达式
+        //先判断是否为整数
+        if(reg.test(add_service_time)){
+            if(add_service_time > add_time){
+                $("#add_service_time").val(add_time);
+                alert("最多只能增加"+add_time+"小时");
+            }
+        }else{
+            $("#add_service_time").val('0');
+            alert('请输入整数');
+        }
+
+    }
+    function subClick(){
+        var add_service_time = $("#add_service_time").val();
+        var activity_id = $("#activity_id").val();
+        if(add_service_time>0){
+            $.ajax({
+                url:"<{:U('activity/addServiceTime',array('parent_id'=>$parent_id))}>",
+                method:"POST",
+                data:{
+                    "user_id":'<{$user.user_id}>',
+                    "activity_id":'<{$activity.activity_id}>',
+                    "add_service_time":add_service_time
+                },
+                success:function (data) {
+                    if(data=='success'){
+                        alert("增加时长成功！");
+                        window.location.href = "/admin/activitysign/index/activity_id/"+activity_id;
+                    }else{
+                        alert("增加时长失败！");
+                    }
+                }
+            });
+        }else{
+            alert("增加时长不能小于1");
+        }
+
+    }
+</script>
+<include  file='public:footer'/>

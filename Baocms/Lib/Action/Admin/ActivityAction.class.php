@@ -110,10 +110,10 @@ class ActivityAction extends CommonAction{
         if (empty($data['sign_end'])) {
             $this->baoError('报名截止时间不能为空');
         }
-        $data['time'] = htmlspecialchars($data['time']);
-        if (empty($data['time'])) {
-            $this->baoError('活动具体时间不能为空');
-        }
+//        $data['time'] = htmlspecialchars($data['time']);
+//        if (empty($data['time'])) {
+//            $this->baoError('活动具体时间不能为空');
+//        }
         $data['addr'] = htmlspecialchars($data['addr']);
         if (empty($data['addr'])) {
             $this->baoError('活动地址不能为空');
@@ -222,10 +222,10 @@ class ActivityAction extends CommonAction{
         if (empty($data['sign_end'])) {
             $this->baoError('报名截止时间不能为空');
         }
-        $data['time'] = htmlspecialchars($data['time']);
-        if (empty($data['time'])) {
-            $this->baoError('活动具体时间不能为空');
-        }
+//        $data['time'] = htmlspecialchars($data['time']);
+//        if (empty($data['time'])) {
+//            $this->baoError('活动具体时间不能为空');
+//        }
         $data['addr'] = htmlspecialchars($data['addr']);
         if (empty($data['addr'])) {
             $this->baoError('活动地址不能为空');
@@ -282,19 +282,62 @@ class ActivityAction extends CommonAction{
     public function addManager(){
         $ids = $this->_param("user_ids");
         $activity_id = $this->_param("activity_id");
+        D('ActivityManager')->where(array('activity_id'=>$activity_id))->delete();
         if(is_array($ids)){
             foreach ($ids as $key=>$val){
-                $manager = D('ActivityManager')->where(array('user_id'=>$ids,'activity_id'=>$activity_id))->find();
-                if(!$manager){
-                    D('ActivityManager')->add(array('user_id'=>$ids,'activity_id'=>$activity_id,'create_time'=>time()));
-                }
+                D('ActivityManager')->add(array('user_id'=>$val,'activity_id'=>$activity_id,'create_time'=>time()));
             }
         }else{
-            $manager = D('ActivityManager')->where(array('user_id'=>$ids,'activity_id'=>$activity_id))->find();
-            if(!$manager){
-                D('ActivityManager')->add(array('user_id'=>$ids,'activity_id'=>$activity_id,'create_time'=>time()));
-            }
+            D('ActivityManager')->add(array('user_id'=>$ids,'activity_id'=>$activity_id,'create_time'=>time()));
         }
         $this->baoSuccess('设置成功！', U('activitysign/index'));
+    }
+    public function addServiceTime(){
+        $user_id = $this->_param('user_id');
+        $activity_id = $this->_param('activity_id');
+        if(!$user = D('users')->find($user_id)){
+            $this->error("用户ID不能为空");
+        }
+        if(!$activity = D('activity')->find($activity_id)){
+            $this->error("活动ID不能为空");
+        }
+
+        //获取可添加时长 不能超过活动总时长
+        //获取活动总时长
+        $activity_time = strtotime($activity['end_date'])-strtotime($activity['bg_date']);
+//        $activity_time = ceil($activity_time/3600 * 100) / 100 ;
+        $activity_time = ceil($activity_time/3600);
+        $activityLog = D('ActivityLogs')->where(array('user_id'=>$user_id,'activity_id'=>$activity_id))->find();
+        if(empty($activityLog)){
+            $this->error('该志愿者未开始参加活动，无法增加时长!',U('activitysign/index',array('activity_id'=>$activity_id)));
+        }else{
+            $data['activity_log_id'] = $activityLog['activity_log_id'];
+        }
+        $service_time = 0;//已服务时长
+        if(!empty($activityLog['service_time'])){
+            $service_time = $activityLog['service_time'];
+        }
+        $add_time = $activity_time - $service_time;//可添加时长
+        $this->assign('user',$user);
+        $this->assign('activity',$activity);
+        $this->assign('activity_time',$activity_time);
+        $this->assign('service_time',$service_time);
+        $this->assign('add_time',$add_time );
+        if ($this->isPost()) {
+            $data['user_id'] = $user_id;
+            $data['activity_id'] = $activity_id;
+
+            $add_service_time = $this->_param("add_service_time");
+            $data['add_service_time'] = $add_service_time;
+            $data['update_time']=time();
+            $result=array();
+            if(D('ActivityLogs')->save($data)){
+                exit('success');
+            }else{
+                exit('error');
+            }
+        }
+        $this->display();
+
     }
 }

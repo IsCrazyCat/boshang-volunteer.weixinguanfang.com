@@ -68,12 +68,12 @@ p, .p {margin-bottom: 0px; }
         <if condition="!empty($rsb)"> 
            <div class="list-link detail-link radius-none">
 		    <a href="<{:U('shop/branch/',array('shop_id'=>$detail['shop_id']))}>">
-				<span class="txt txt-little radius-little bg-yellow">店</span> 查看另外<{$rsb}>家分店
+				<span class="txt txt-little radius-little bg-yellow">店</span> 查看另外<{$rsb}>家下属组织
 				<span class="float-right icon-angle-right"></span>
 			</a>
            </div>
         <else/>
-       <!--该组织/团体无分店-->
+       <!--该组织/团体无下属组织-->
         </if>
        </div> 
        
@@ -99,7 +99,7 @@ p, .p {margin-bottom: 0px; }
     <div class="blank-10 bg"></div>
      <div class="container2">
 		<div class="panel detail-intro radius-none">
-			<div class="panel-head">分店介绍</div>
+			<div class="panel-head">下属组织介绍</div>
 			<div class="panel-body">
 				<{:cleanhtml($detail['details'])}>
 				<gt name="detail.niu_date" value="$today" >

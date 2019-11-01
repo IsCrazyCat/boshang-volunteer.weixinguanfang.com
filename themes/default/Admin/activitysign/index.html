@@ -10,19 +10,19 @@
 <div class="main-jsgl main-sc">
     <div class="jsglNr">
         <div class="selectNr">
-       
+
             <div class="left">
-                    <a href="<{:U('activity/index')}>">返回活动列表</a>            
+                    <a href="<{:U('activity/index')}>">返回活动列表</a>
             </div>
             <div class="right">
-                <form class="search_form" method="post" action="<{:U('activitysign/index')}>"> 
+                <form class="search_form" method="post" action="<{:U('activitysign/index')}>">
                     <div class="seleHidden" id="seleHidden">
-                   
+
                         <span>  联系人或电话：</span>
                          <input type="text" name="keyword" id="keyword"  value="<{$keyword}>"   class="inptText" />
                         <input type="submit" value="   搜索"  class="inptButton" />
 
-                    </div> 
+                    </div>
                 </form>
 
                 <div class="clear"></div>
@@ -39,13 +39,14 @@
                 <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
                     <tr>
                 <td><input type="checkbox" class="checkAll" rel="sign_id" /></td>
-                <td>报名ID</td>
+<!--                <td>报名ID</td>-->
                 <td>活动标题</td>
-                <td>用户ID</td>
+<!--                <td>用户ID</td>-->
                 <td>角色</td>
                 <td>手机号码</td>
                 <td>姓名</td>
                 <td>报名时间</td>
+                <td>服务时长</td>
                 <td>报名IP</td>
                 <td>操作</td>
 
@@ -53,10 +54,10 @@
                      <foreach name="list" item="var">
                 <tr>
                     <td><input class="child_sign_id" type="checkbox" name="sign_id[]" value="<{$var.sign_id}>" /></td>
-                    <td><{$var.sign_id}></td>
+<!--                    <td><{$var.sign_id}></td>-->
                     <td><{:bao_msubstr($activity[$var['activity_id']]['title'],0,10,false)}>...<a class="tips" rel="<{$activity[$var['activity_id']]['title']}>" style="color: #fff; background: #1ca290; padding: 0px 5px; margin-right:5px;border-radius:0px; margin-left: 10px; display: inline-block; float: right; height: 20px; line-height: 20px;" href="javascript:void(0)">查看</a></td>
-                    
-                    <td><{$var.user_id}></td>
+
+<!--                    <td><{$var.user_id}></td>-->
                     <if condition="$var['is_manager'] eq 1">
                         <td>管理员</td>
                         <else/>
@@ -65,18 +66,21 @@
                     <td><{$var.mobile}></td>
                     <td><{$var.name}></td>
                     <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                    <td><{$var.total_time}></td>
                     <td><{$var.create_ip}></td>
                     <td>
                         <if condition="$var['is_manager'] eq 0">
                             <{:BA('activity/addManager',array("user_ids"=>$var['user_id'],"activity_id"=>$var['activity_id']),'设为管理员','act','remberBtn')}>
                         </if>
+                        <a style="background: #0099cc;color: #fff;padding: 0px 10px;height: 30px;line-height: 30px;display: inline-block;"
+                                href="<{:U('activity/addServiceTime', array('user_id'=>$var['user_id'],'activity_id'=>$var['activity_id']))}>">增加时长</a>
                         <{:BA('activitysign/delete',array("sign_id"=>$var["sign_id"]),'删除','act','remberBtn')}>
                     </td>
                 </tr>
             </foreach>
                     <tr>
                         <td colspan="20">
-                         
+
                         </td>
                     </tr>
                 </table>
@@ -95,7 +99,7 @@
 
 <script>
        $(document).ready(function (e) {
-    
+
 			$(".tips").click(function () {
 				var tipnr = $(this).attr('rel');
 				layer.tips(tipnr, $(this), {
@@ -105,6 +109,6 @@
 			})
 		});
     </script>
-    
+
 <include  file='public:footer'/>  
 

@@ -263,25 +263,25 @@
 <!--                </tr>-->
                 <tr>
                     <td class="lfTdBt">活动开始时间：</td>
-                    <td class="rgTdBt"><input type="text" name="data[bg_date]" value="<{$detail.bg_date|default=''}>" onfocus="WdatePicker(dateFmt: 'yyyy-MM-dd HH:mm:ss');"  class="inputData"  />
+                    <td class="rgTdBt"><input type="text" name="data[bg_date]" value="<{$detail.bg_date|default=''}>" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  class="inputData"  />
                     </td>
                 </tr><tr>
                     <td class="lfTdBt">活动结束时间：</td>
-                    <td class="rgTdBt"><input type="text" name="data[end_date]" value="<{$detail.end_date|default=''}>" onfocus="WdatePicker(dateFmt: 'yyyy-MM-dd HH:mm:ss');"  class="inputData"  />
+                    <td class="rgTdBt"><input type="text" name="data[end_date]" value="<{$detail.end_date|default=''}>" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  class="inputData"  />
 
                     </td>
                 </tr>
                 <tr>
                     <td class="lfTdBt">报名截止时间：</td>
-                    <td class="rgTdBt"><input type="text" name="data[sign_end]" value="<{$detail.sign_end|default=''}>" onfocus="WdatePicker(dateFmt: 'yyyy-MM-dd HH:mm:ss');"  class="inputData"  />
+                    <td class="rgTdBt"><input type="text" name="data[sign_end]" value="<{$detail.sign_end|default=''}>" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  class="inputData"  />
                     </td>
                 </tr>
-                <tr>
-                    <td class="lfTdBt">活动具体时间：</td>
-                    <td class="rgTdBt"><input type="text" name="data[time]" value="<{$detail.time|default=''}>"  class="manageInput"  />
-                        <code>(例如：2014年10月24日 7点半 -- 9点半 或者 2014-10-24 7:30 -- 9:00)</code>
-                    </td>
-                </tr>
+<!--                <tr>-->
+<!--                    <td class="lfTdBt">活动具体时间：</td>-->
+<!--                    <td class="rgTdBt"><input type="text" name="data[time]" value="<{$detail.time|default=''}>"  class="manageInput"  />-->
+<!--                        <code>(例如：2014年10月24日 7点半 &#45;&#45; 9点半 或者 2014-10-24 7:30 &#45;&#45; 9:00)</code>-->
+<!--                    </td>-->
+<!--                </tr>-->
                 <tr>
                     <td class="lfTdBt">活动地址：</td>
                     <td class="rgTdBt"><input type="text" name="data[addr]" value="<{$detail.addr|default=''}>" class="manageInput" />

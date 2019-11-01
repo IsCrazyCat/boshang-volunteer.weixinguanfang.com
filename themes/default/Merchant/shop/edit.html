@@ -26,7 +26,7 @@
     <script src="__PUBLIC__/js/jquery-ui.min.js"></script>
     <script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
     <script src="/Public/js/layer/layer.js"></script>
-    <script src="__PUBLIC__/js/admin.js?v=20150409"></script>
+<!--    <script src="__PUBLIC__/js/admin.js?v=20150409"></script>-->
     <link rel="stylesheet" type="text/css" href="/static/default/webuploader/webuploader.css">
     <script src="/static/default/webuploader/webuploader.min.js"></script>
 </head>
@@ -39,22 +39,6 @@
     #ie6-warning a {text-decoration:none; color:#fff !important;}
 </style>
 
-<!--[if lte IE 9]>
-<div id="ie9-warning">您正在使用 Internet Explorer 9以下的版本，请用谷歌浏览器访问后台、部分浏览器可以开启极速模式访问！不懂点击这里！ <a href="" target="_blank">查看为什么？</a>
-</div>
-<script type="text/javascript">
-    function position_fixed(el, eltop, elleft){
-        // check if this is IE6
-        if(!window.XMLHttpRequest)
-            window.onscroll = function(){
-                el.style.top = (document.documentElement.scrollTop + eltop)+"px";
-                el.style.left = (document.documentElement.scrollLeft + elleft)+"px";
-            }
-        else el.style.position = "fixed";
-    }
-    position_fixed(document.getElementById("ie9-warning"),0, 0);
-</script>
-<![endif]-->
 
 
 <body>
@@ -80,7 +64,7 @@
 
                     <td class="lfTdBt">分类：</td>
                     <td class="rgTdBt">
-                        <select id="cate_id" name="data[cate_id]" class="seleFl w210">
+                        <select id="cate_id" name="data[cate_id]" class="seleFl w210" disabled="disabled">
                             <foreach name="cates" item="var">
                                 <eq name="var.parent_id" value="0">
                                     <option value="<{$var.cate_id}>"
@@ -101,7 +85,7 @@
                 <tr>
                     <td class="lfTdBt">归属组织：</td>
                     <td class="rgTdBt">
-                        <select id="parent_id" name="data[parent_id]" class="seleFl w210">
+                        <select id="parent_id" name="data[parent_id]" class="seleFl w210" disabled="disabled">
                             <foreach name="organizations" item="organization">
                                 <if condition="$organization['shop_id'] eq $detail['parent_id']">
                                     <option value="<{$organization['shop_id']}>" selected="selected">
@@ -132,9 +116,9 @@
                     <td class="lfTdBt">所在区域：</td>
                     <td class="rgTdBt">
 
-                        <select name="data[city_id]" id="city_id" style="float: left;" class="seleFl w210"></select>
-                        <select name="data[area_id]" id="area_id" style="float: left;" class="seleFl w210"></select>
-                        <select name="data[business_id]" id="business_id" style="float: left;"
+                        <select name="data[city_id]" id="city_id" style="float: left;" class="seleFl w210" disabled="disabled"></select>
+                        <select name="data[area_id]" id="area_id" style="float: left;" class="seleFl w210" disabled="disabled"></select>
+                        <select name="data[business_id]" id="business_id" style="float: left;" disabled="disabled"
                                 class="seleFl w210"></select>
                     </td>
                 </tr>
@@ -233,7 +217,7 @@
 
                 <tr>
                     <td class="lfTdBt">组织/团体名称：</td>
-                    <td class="rgTdBt"><input type="text" name="data[shop_name]"
+                    <td class="rgTdBt"><input type="text" name="data[shop_name]"  readonly="readonly"
                                               value="<{$detail.shop_name|default=''}>" class="scAddTextName w210"/>
                     </td>
                 </tr>
@@ -243,12 +227,12 @@
                     <td class="rgTdBt">
                         <div style="width: 300px;height: 100px; float: left;">
                             <input type="hidden" name="data[logo]" value="<{$detail.logo}>" id="data_logo"/>
-                            <div id="fileToUpload">上传LOGO</div>
+<!--                            <div id="fileToUpload"  disabled="disabled">上传LOGO</div>-->
                         </div>
                         <div style="width: 300px;height: 100px; float: left;">
                             <img id="logo_img" width="120" height="80" src="<{:config_img($detail['logo'])}>"/>
-                            <a href="<{:U('setting/attachs')}>">缩略图设置</a>
-                            建议尺寸<{$CONFIG.attachs.shoplogo.thumb}>
+<!--                            <a href="<{:U('setting/attachs')}>">缩略图设置</a>-->
+<!--                            建议尺寸<{$CONFIG.attachs.shoplogo.thumb}>-->
                         </div>
                         <script>
                             var width_shoplogo = '<{:thumbSize($CONFIG[attachs][shoplogo][thumb],0)}>';
@@ -282,16 +266,15 @@
                 <tr>
                     <td class="lfTdBt">组织类型：</td>
                     <td class="rgTdBt">
-                        <select name="data[apply_id]" id="apply_id" class="seleFl w210">
-                            <option value="0" selected="selected">请选择</option>
+                        <select name="data[apply_id]" id="apply_id" class="seleFl w210"  disabled="disabled">
+                            <option value="0">请选择</option>
                             <option value="1">民政注册</option>
                             <option value="2">党群机关团体</option>
                             <option value="3">公民自发团体</option>
                         </select>
                         <script>
-                            $(document).ready(function(){
-
-                            });
+                            var apply_id = '<{$detail[\'apply_id\']}>';
+                            $("#apply_id").val(apply_id);
                         </script>
                     </td>
                 </tr>
@@ -300,12 +283,12 @@
                     <td class="rgTdBt">
                         <div style="width: 300px;height: 100px; float: left;">
                             <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo"/>
-                            <div id="fileToUpload1">上传图片</div>
+<!--                            <div id="fileToUpload1" disabled="disabled">上传图片</div>-->
                         </div>
                         <div style="width: 300px;height: 100px; float: left;">
                             <img id="photo_img" width="120" height="80" src="<{:config_img($detail['photo'])}>"/>
-                            <a href="<{:U('setting/attachs')}>">缩略图设置</a>
-                            建议尺寸<{$CONFIG.attachs.shopphoto.thumb}>
+<!--                            <a href="<{:U('setting/attachs')}>">缩略图设置</a>-->
+<!--                            建议尺寸<{$CONFIG.attachs.shopphoto.thumb}>-->
                         </div>
                         <script>
                             var width_shopphoto = '<{:thumbSize($CONFIG[attachs][shopphoto][thumb],0)}>';
@@ -394,7 +377,7 @@
 
                 <tr>
                     <td class="lfTdBt">固定排名：</td>
-                    <td class="rgTdBt"><input type="text" name="data[orderby]" value="<{$detail.orderby|default='100'}>"
+                    <td class="rgTdBt"><input type="text" name="data[orderby]"  readonly="readonly" value="<{$detail.orderby|default='100'}>"
                                               class="scAddTextName w210"/>
                         <code>1就是固定排名在第一位，一般建议不需要设置这个值！</code>
                     </td>
@@ -426,14 +409,14 @@
                     <td class="lfTdBt">组织/团体坐标：</td>
                     <td class="rgTdBt">
                         <div class="lt">
-                            经度<input type="text" name="data[lng]" id="data_lng" value="<{$detail.lng|default=''}>"
+                            经度<input type="text" name="data[lng]" id="data_lng" value="<{$detail.lng|default=''}>" readonly="readonly"
                                      class="scAddTextName w210 w100"/>
-                            纬度 <input type="text" name="data[lat]" id="data_lat" value="<{$detail.lat|default=''}>"
+                            纬度 <input type="text" name="data[lat]" id="data_lat" value="<{$detail.lat|default=''}>" readonly="readonly"
                                       class="scAddTextName w210 w100"/>
                         </div>
-                        <a style="margin-left: 10px;" mini="select" w="600" h="600"
-                           href="<{:U('public/maps',array('lat'=>$detail['lat'],'lng'=>$detail['lng']))}>"
-                           class="seleSj">百度地图</a>
+<!--                        <a style="margin-left: 10px;" mini="select" w="600" h="600"-->
+<!--                           href="<{:U('public/maps',array('lat'=>$detail['lat'],'lng'=>$detail['lng']))}>"-->
+<!--                           class="seleSj">百度地图</a>-->
 
                 </tr>
 
@@ -579,3 +562,6 @@
     </div>
 </form>
 <include file='public:footer'/>
+</div>
+</body>
+</html>

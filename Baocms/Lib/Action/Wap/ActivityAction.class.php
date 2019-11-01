@@ -65,7 +65,7 @@ class ActivityAction extends CommonAction
     {
         $Activity = D('Activity');
         import('ORG.Util.Page');
-        $map = array('closed' => 0);
+        $map = array('closed' => 0,'audit'=>1);
 
         //活动地点
         if ($area_id = $this->_param('area_id')) {
@@ -282,16 +282,22 @@ class ActivityAction extends CommonAction
                 $this->error('操作失败,请重新操作', U('user/member/index'));
             }
         }
-        //已经开始结束 结束活动计时
-        $map['activity_log_id'] = $ActivityLogs['activity_log_id'];
-        $map['end_date'] = time();
-        $map['update_time'] = time();
-        $map['status'] = '2';
-        if (D('ActivityLogs')->save($map)) {
-            $this->success('活动' . $activity['name'] . '计时结束！', U('user/member/index'));
-        } else {
-            $this->error('操作失败,请重新操作', U('user/member/index'));
+        if($ActivityLogs['end_date']){
+            //已经开始计时 结束活动计时
+            $map['activity_log_id'] = $ActivityLogs['activity_log_id'];
+            $map['end_date'] = time();
+            $map['service_time'] = ceil(($map['end_date'] - $map['start_date'])/3600);
+            $map['update_time'] = time();
+            $map['status'] = '2';
+            if (D('ActivityLogs')->save($map)) {
+                $this->success('活动' . $activity['name'] . '计时结束！', U('user/member/index'));
+            } else {
+                $this->error('操作失败,请重新操作', U('user/member/index'));
+            }
+        }else{
+            $this->error('该志愿者已结束活动，请勿重复计时。', U('user/member/index'));
         }
+
     }
     /**
      * 服务活动列表

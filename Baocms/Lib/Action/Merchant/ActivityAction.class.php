@@ -7,8 +7,8 @@ class ActivityAction extends CommonAction {
             die;
         }
     }
-	
-    private $create_fields = array('cate_id', 'shop_id','tuan_id','city_id', 'area_id','business_id', 'title', 'intro', 'photo', 'thumb', 'details', 'price', 'bg_date', 'end_date', 'time', 'sign_end', 'addr', 'orderby', 'sign_num');
+
+    private $create_fields = array('cate_id', 'shop_id', 'tuan_id', 'city_id', 'area_id', 'business_id', 'title', 'intro', 'photo', 'thumb', 'details', 'price', 'bg_date', 'end_date', 'time', 'sign_end', 'addr', 'orderby', 'sign_num');
     private $edit_fields = array('cate_id', 'shop_id','tuan_id','city_id', 'area_id','business_id', 'title', 'intro', 'photo', 'thumb', 'details', 'price', 'bg_date', 'end_date', 'time', 'sign_end', 'addr', 'orderby', 'sign_num');
 
     public function index() {
@@ -53,8 +53,8 @@ class ActivityAction extends CommonAction {
         }
     }
 
-    public function create() {
-		
+    public function create(){
+        $this->assign("shop_id",$this->shop_id);
         if ($this->isPost()) {
             $data = $this->createCheck();
             $obj = D('Activity');
@@ -63,25 +63,17 @@ class ActivityAction extends CommonAction {
             }
             $this->baoError('操作失败！');
         } else {
-			
-			$shop_id = $this->shop_id;
-			$this->assign('shop_id', $shop_id);
-			$tuanlist = D('Tuan')->where(array('shop_id' => $shop_id))->order('tuan_id asc')->select();
-			$this->assign('tuanlist',$tuanlist);
-			
             $this->assign('cates', D('Activitycate')->fetchAll());
             $this->display();
         }
     }
-
-    private function createCheck() {
+    private function createCheck(){
         $data = $this->checkFields($this->_post('data', false), $this->create_fields);
         $data['cate_id'] = (int) $data['cate_id'];
         if (empty($data['cate_id'])) {
             $this->baoError('类型ID不能为空');
         }
-        $data['shop_id'] = $this->shop_id;
-        $data['tuan_id'] = (int) $data['tuan_id'];
+        $data['shop_id'] = (int) $data['shop_id'];
         $shop = D('Shop')->find($data['shop_id']);
         $data['city_id'] = $shop['city_id'];
         $data['area_id'] = $shop['area_id'];
@@ -89,7 +81,8 @@ class ActivityAction extends CommonAction {
         $data['title'] = htmlspecialchars($data['title']);
         if (empty($data['title'])) {
             $this->baoError('活动标题不能为空');
-        } $data['intro'] = htmlspecialchars($data['intro']);
+        }
+        $data['intro'] = htmlspecialchars($data['intro']);
         if (empty($data['intro'])) {
             $this->baoError('活动简介不能为空');
         }
@@ -110,22 +103,28 @@ class ActivityAction extends CommonAction {
         $data['details'] = SecurityEditorHtml($data['details']);
         if (empty($data['details'])) {
             $this->baoError('活动内容不能为空');
-        } $data['price'] = htmlspecialchars($data['price']);
+        }
+        $data['price'] = htmlspecialchars($data['price']);
         if (empty($data['price'])) {
 //            $this->baoError('价格不能为空');
-        } $data['bg_date'] = htmlspecialchars($data['bg_date']);
+        }
+        $data['bg_date'] = htmlspecialchars($data['bg_date']);
         if (empty($data['bg_date'])) {
             $this->baoError('活动开始时间不能为空');
-        } $data['end_date'] = htmlspecialchars($data['end_date']);
+        }
+        $data['end_date'] = htmlspecialchars($data['end_date']);
         if (empty($data['end_date'])) {
             $this->baoError('活动结束时间不能为空');
-        }$data['sign_end'] = htmlspecialchars($data['sign_end']);
+        }
+        $data['sign_end'] = htmlspecialchars($data['sign_end']);
         if (empty($data['sign_end'])) {
             $this->baoError('报名截止时间不能为空');
-        }$data['time'] = htmlspecialchars($data['time']);
-        if (empty($data['time'])) {
-            $this->baoError('活动具体时间不能为空');
-        } $data['addr'] = htmlspecialchars($data['addr']);
+        }
+//        $data['time'] = htmlspecialchars($data['time']);
+//        if (empty($data['time'])) {
+//            $this->baoError('活动具体时间不能为空');
+//        }
+        $data['addr'] = htmlspecialchars($data['addr']);
         if (empty($data['addr'])) {
             $this->baoError('活动地址不能为空');
         }
@@ -211,7 +210,8 @@ class ActivityAction extends CommonAction {
         $data['details'] = SecurityEditorHtml($data['details']);
         if (empty($data['details'])) {
             $this->baoError('活动内容不能为空');
-        } $data['price'] = htmlspecialchars($data['price']);
+        }
+        $data['price'] = htmlspecialchars($data['price']);
         if (empty($data['price'])) {
 //            $this->baoError('价格不能为空');
         } $data['bg_date'] = htmlspecialchars($data['bg_date']);
@@ -223,10 +223,12 @@ class ActivityAction extends CommonAction {
         }$data['sign_end'] = htmlspecialchars($data['sign_end']);
         if (empty($data['sign_end'])) {
             $this->baoError('报名截止时间不能为空');
-        }$data['time'] = htmlspecialchars($data['time']);
-        if (empty($data['time'])) {
-            $this->baoError('活动具体时间不能为空');
-        } $data['addr'] = htmlspecialchars($data['addr']);
+        }
+        $data['time'] = htmlspecialchars($data['time']);
+//        if (empty($data['time'])) {
+//            $this->baoError('活动具体时间不能为空');
+//        }
+        $data['addr'] = htmlspecialchars($data['addr']);
         if (empty($data['addr'])) {
             $this->baoError('活动地址不能为空');
         }
@@ -291,5 +293,44 @@ class ActivityAction extends CommonAction {
        $this->assign('page',$show);
        $this->display(); 
     }
-
+    public function select(){
+        $User = D('Users');
+        import('ORG.Util.Page');
+        $map = array('closed' => array('IN', '0,-1'));
+        if ($account = $this->_param('account', 'htmlspecialchars')) {
+            $map['account'] = array('LIKE', '%' . $account . '%');
+            $this->assign('account', $account);
+        }
+        if ($nickname = $this->_param('nickname', 'htmlspecialchars')) {
+            $map['nickname'] = array('LIKE', '%' . $nickname . '%');
+            $this->assign('nickname', $nickname);
+        }
+        if ($ext0 = $this->_param('ext0', 'htmlspecialchars')) {
+            $map['ext0'] = array('LIKE', '%' . $ext0 . '%');
+            $this->assign('ext0', $ext0);
+        }
+        $count = $User->where($map)->count();
+        $Page = new Page($count, 8);
+        $pager = $Page->show();
+        $list = $User->where($map)->order(array('user_id' => 'desc'))->limit($Page->firstRow . ',' . $Page->listRows)->select();
+        $this->assign('list', $list);
+        $this->assign('page', $pager);
+        $this->display();
+    }
+    /**
+     * 添加活动管理者
+     */
+    public function addManager(){
+        $ids = $this->_param("user_ids");
+        $activity_id = $this->_param("activity_id");
+        D('ActivityManager')->where(array('activity_id'=>$activity_id))->delete();
+        if(is_array($ids)){
+            foreach ($ids as $key=>$val){
+                D('ActivityManager')->add(array('user_id'=>$val,'activity_id'=>$activity_id,'create_time'=>time()));
+            }
+        }else{
+            D('ActivityManager')->add(array('user_id'=>$ids,'activity_id'=>$activity_id,'create_time'=>time()));
+        }
+        exit;
+    }
 }

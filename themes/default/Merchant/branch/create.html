@@ -2,20 +2,20 @@
 <script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
 <div class="sjgl_lead">
     <ul>
-        <li><a href="#">组织/团体管理</a> > <a href="">分店</a> > <a>添加分店</a></li>
+        <li><a href="#">组织/团体管理</a> > <a href="">下属组织</a> > <a>添加下属组织</a></li>
     </ul>
 </div>
 <div class="tuan_content">
     <div class="radius5 tuan_top">
         <div class="tuan_top_t">
-            <div class="left tuan_topser_l">组织/团体添加的分店要在后台审核之后才能显示在前台</div>
+            <div class="left tuan_topser_l">组织/团体添加的下属组织要在后台审核之后才能显示在前台</div>
         </div>
     </div> 
     <div class="tabnr_change  show">
         <form method="post"  action="<{:U('branch/create')}>"  target="baocms_frm">
             <table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                    <td width="120"><p class="tuanfabu_t">分店名称：</p></td>
+                    <td width="120"><p class="tuanfabu_t">下属组织名称：</p></td>
                     <td><div class="tuanfabu_nr">
                             <input type="text" name="data[name]" value="<{$SHOP.shop_name}>" class="tuanfabu_int tuanfabu_intw2" />
                             <code>格式类似:<{$SHOP['shop_name']}>(绿地蓝海店)</code>
@@ -23,15 +23,15 @@
                 </tr>
                 
                 <tr>
-                 <td width="120"><p class="tuanfabu_t">分店LOGO：</p></td>
+                 <td width="120"><p class="tuanfabu_t">下属组织LOGO：</p></td>
                  <td><div class="tuanfabu_nr">
                     <div style="width:300px;float: left;">
                         <input type="hidden" name="photo" value="<{$detail.photo}>" id="data_photo" />
-                        <div id="fileToUpload" >分店LOGO</div>
+                        <div id="fileToUpload" >下属组织LOGO</div>
                     </div>
                     <div style="width: 300px;float: left;">
                         <img id="photo_img" width="60" height="60"  src="<{:config_img($detail['photo'])}>" />
-                        <a href="<{:U('setting/attachs')}>">分店LOGO缩略图设置</a>
+                        <a href="<{:U('setting/attachs')}>">下属组织LOGO缩略图设置</a>
                         建议尺寸<{$CONFIG.attachs.shopphoto.thumb}>
                     </div>
                     <script>                                            
@@ -181,7 +181,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td width="120"><p class="tuanfabu_t">分店地址：</p></td>
+                    <td width="120"><p class="tuanfabu_t">下属组织地址：</p></td>
                     <td><div class="tuanfabu_nr">
                             <input type="text" name="data[addr]" value="<{$detail.addr|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
                         </div></td>
@@ -201,7 +201,7 @@
                         </div></td>
                 </tr>
                 <tr>
-                    <td width="120"><p class="tuanfabu_t">分店坐标：</p></td>
+                    <td width="120"><p class="tuanfabu_t">下属组织坐标：</p></td>
                     <td><div class="tuanfabu_nr">
                             <input type="text" name="data[lng]" id="lng" value="<{$detail.lng|default=''}>" class="tuanfabu_int tuanfabu_intw2" /> 经度
                             <input type="text" name="data[lat]" id="lat" value="<{$detail.lat|default=''}>" class="tuanfabu_int tuanfabu_intw2" /> 纬度
@@ -307,7 +307,7 @@
                 </tr>
                 
                <!--详情开始--> 
-                <tr><td><p class="tuanfabu_t">分店介绍：</p></td> <td><div class="tuanfabu_nr">
+                <tr><td><p class="tuanfabu_t">下属组织介绍：</p></td> <td><div class="tuanfabu_nr">
                 <script type="text/plain" id="details" name="details" style="width:800px;height:360px;"><{$detail.details}></script>
                 <link rel="stylesheet" href="/Public/qiniu_ueditor/themes/default/css/ueditor.min.css" type="text/css">
                 <script type="text/javascript" charset="utf-8" src="/Public/qiniu_ueditor/ueditor.config.js"></script>

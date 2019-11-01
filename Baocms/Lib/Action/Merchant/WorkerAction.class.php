@@ -24,30 +24,6 @@ class WorkerAction extends CommonAction {
         $this->display();
 
 
-//        $Shopworker = D('Shopworker');
-//        import('ORG.Util.Page');
-//        $map = array('shop_id' => $this->shop_id);
-//        if ($keyword = $this->_param('keyword', 'htmlspecialchars')) {
-//            $map['name'] = array('LIKE', '%' . $keyword . '%');
-//            $this->assign('keyword', $keyword);
-//        }
-//        $count = $Shopworker->where($map)->count();
-//        $Page = new Page($count, 25);
-//        $show = $Page->show();
-//        $list = $Shopworker->where($map)->order(array('worker_id' => 'desc'))->limit($Page->firstRow . ',' . $Page->listRows)->select();
-//
-//		$user_ids = array();
-//        foreach ($list as $k => $val) {
-//            $user_ids[$val['user_id']] = $val['user_id'];
-//        }
-//        $this->assign('users', D('Users')->itemsByIds($user_ids));
-//
-//
-//        $this->assign('list', $list);
-//        $this->assign('page', $show);
-//		$this->assign('detail', $detail);
-//		$this->display();
-
     }
 	
     public function create() {
@@ -136,11 +112,7 @@ class WorkerAction extends CommonAction {
 		D('Shopworker')->where(array('worker_id'=>$worker['worker_id']))->delete();
 		$this->success('员工信息删除成功！', U('worker/index'));
 	}
-	
-	
-	
-	
-	
+
     private function editCheck() {
         $data = $this->checkFields($this->_post('data', false), $this->edit_fields);
         $data['shop_id'] = $this->shop_id;
@@ -177,6 +149,69 @@ class WorkerAction extends CommonAction {
 		$data['is_booking'] = (int) $data['is_booking'];
         return $data;
     }
-	
+
+    public function volunteer_audit($volunteer_id = 0)
+    {
+        if (is_numeric($volunteer_id) && ($volunteer_id = (int) $volunteer_id)) {
+            if ($volunteer = D('OrganizationVolunteer')->find($volunteer_id)) {
+                if ($volunteer['status'] == 0) {
+                    $data['status'] = 1;
+                    $data['volunteer_id'] = $volunteer_id;
+                    if (D('OrganizationVolunteer')->save($data)) {
+                        $this->baoSuccess('恭喜您，审核成功！',U('worker/index'));
+                    } else {
+                        $this->baoError('审核失败，请稍后重试！');
+                    }
+                } else {
+                    $this->baoError('您已审核过，无需重复审核');
+                }
+            } else {
+                $this->baoError('该志愿者未提交申请');
+            }
+        } else {
+            $volunteer_id = $this->_post('volunteer_id', false);
+            if (is_array($volunteer_id)) {
+                foreach ($volunteer_id as $key=>$id) {
+                    if ($volunteer = D('OrganizationVolunteer')->find($id)) {
+                        if ($volunteer['status'] == 0) {
+                            $data['status'] = 1;
+                            $data['volunteer_id'] = $id;
+                            if (D('OrganizationVolunteer')->save($data)) {
+//                                $this->baoSuccess('恭喜您，审核成功！');
+                            } else {
+                                $this->baoError('志愿者ID为：'.$id.'审核失败，请稍后重试！');
+                            }
+                        } else {
+                            $this->baoError('志愿者' .$id. '已审核过，无需重复审核');
+                        }
+                    } else {
+                        $this->baoError('该志愿者未提交申请');
+                    }
+                }
+                $this->baoSuccess('批量审核成功！', U('worker/index'));
+            }
+            $this->baoError('请选择要审核的志愿者');
+        }
+
+    }
+
+    public function volunteer_del($volunteer_id)
+    {
+        if (!$volunteer_id) {
+            $this->baoError('请选择要操作的志愿者');
+        }
+        $data['volunteer_id'] = $volunteer_id;
+        if ($volunteer = D('OrganizationVolunteer')->find($volunteer_id)) {
+            if (D('OrganizationVolunteer')->delete($data)) {
+                $this->baoSuccess('恭喜您，删除成功！');
+            } else {
+                $this->baoError('删除失败，请稍后重试！');
+            }
+        } else {
+            $this->baoError('未查找到该志愿者信息。');
+        }
+
+    }
+
 
 }

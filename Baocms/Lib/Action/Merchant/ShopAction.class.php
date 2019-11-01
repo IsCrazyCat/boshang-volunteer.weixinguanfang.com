@@ -243,7 +243,7 @@ class ShopAction extends CommonAction{
                 unset($data['near'], $data['price'], $data['business_time']);
                 if (false !== $obj->save($data)) {
                     D('Shopdetails')->upDetails($shop_id, $ex);
-                    $this->baoSuccess('操作成功', U('shop/index'));
+                    $this->baoSuccess('操作成功', U('shop/edit'));
                 }
                 $this->baoError('操作失败');
             } else {

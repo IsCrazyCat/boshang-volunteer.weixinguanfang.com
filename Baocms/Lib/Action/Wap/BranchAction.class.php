@@ -6,10 +6,10 @@ class BranchAction extends CommonAction {
         $shop_id = (int) $this->_get('shop_id');
         $detail = D('Shopbranch')->find($branch_id);
         if(empty($detail)||$detail['shop_id'] != $shop_id){
-            $this->error('该分店不存在');
+            $this->error('该下属组织不存在');
         }
         if ($detail['closed'] != 0 || $detail['audit'] != 1) {
-           $this->error('该分店不存在');
+           $this->error('该下属组织不存在');
             die;
         }
         $this->assign('detail', $detail);
@@ -41,10 +41,10 @@ class BranchAction extends CommonAction {
         $shop_id = (int) $this->_get('shop_id');
         $detail = D('Shopbranch')->find($branch_id);
         if(empty($detail)||$detail['shop_id'] != $shop_id){
-            $this->error('该分店不存在');
+            $this->error('该下属组织不存在');
         }
         if ($detail['closed'] != 0 || $detail['audit'] != 1) {
-           $this->error('该分店不存在');
+           $this->error('该下属组织不存在');
             die;
         }
         $this->assign('detail', $detail);

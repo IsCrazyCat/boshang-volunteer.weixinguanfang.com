@@ -112,10 +112,10 @@ class ActivityAction extends CommonAction
         if (empty($data['sign_end'])) {
             $this->baoError('报名截止时间不能为空');
         }
-        $data['time'] = htmlspecialchars($data['time']);
-        if (empty($data['time'])) {
-            $this->baoError('活动具体时间不能为空');
-        }
+//        $data['time'] = htmlspecialchars($data['time']);
+//        if (empty($data['time'])) {
+//            $this->baoError('活动具体时间不能为空');
+//        }
         $data['addr'] = htmlspecialchars($data['addr']);
         if (empty($data['addr'])) {
             $this->baoError('活动地址不能为空');
@@ -229,10 +229,10 @@ class ActivityAction extends CommonAction
         if (empty($data['sign_end'])) {
             $this->baoError('报名截止时间不能为空');
         }
-        $data['time'] = htmlspecialchars($data['time']);
-        if (empty($data['time'])) {
-            $this->baoError('活动具体时间不能为空');
-        }
+//        $data['time'] = htmlspecialchars($data['time']);
+//        if (empty($data['time'])) {
+//            $this->baoError('活动具体时间不能为空');
+//        }
         $data['addr'] = htmlspecialchars($data['addr']);
         if (empty($data['addr'])) {
             $this->baoError('活动地址不能为空');

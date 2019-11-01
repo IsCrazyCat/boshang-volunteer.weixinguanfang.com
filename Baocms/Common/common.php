@@ -1476,6 +1476,8 @@ function lengthOfTime($id,$type = 0){
     }
     //总活动时长
     $total_time = 0;
+    $add_service_time = 0;
+    $year_add_service_time = 0;
     //今年活动时长
     $year_time = 0;
 
@@ -1488,21 +1490,29 @@ function lengthOfTime($id,$type = 0){
     }
 
     foreach ($activityLogs as $key=>$val) {
-        if(empty($val['end_date'])){
-            $total_time += (time()-$val['start_date']);
-        }else{
-            $total_time += ($val['end_date']-$val['start_date']);
+        $time = 0;
+        if(!empty($val['add_service_time'])){
+            $add_service_time +=  $val['add_service_time'];
         }
+        if(empty($val['end_date'])){
+            $time = (time()-$val['start_date']);
+        }else{
+            $time = ($val['end_date']-$val['start_date']);
+        }
+        $total_time+= $time;
         if(substr($val['today_date'],0,4)==date('Y')){
-            $year_time += $total_time;
+            $year_time += $time;
+            if(!empty($val['add_service_time'])){
+                $year_add_service_time +=  $val['add_service_time'];
+            }
         }
     }
     if($total_time){
-        $total_time = ceil($total_time/3600);
+        $total_time = ceil($total_time/3600)+$add_service_time;
         $result['total_time'] = $total_time;
     }
     if($year_time){
-        $year_time = ceil($year_time/3600);
+        $year_time = ceil($year_time/3600)+$year_add_service_time;
         $result['year_time'] = $year_time;
     }
     return $result;

@@ -1,52 +1,117 @@
-<include  file='public:header'/>
-<div class="sjgl_lead">
-	<ul>
-		<li><a href="#">组织/团体管理</a> > <a href="">志愿者管理</a> > <a>志愿者列表</a></li>
-	</ul>
-</div>
-<div class="tuan_content">
-	<form method="post" action="<{:U('worker/index')}>">
-		<div class="radius5 tuan_top">
-			<div class="tuan_top_t">
-				<div class="left tuan_topser_l">
-					组织/团体添加志愿者<input type="text" class="radius3 tuan_topser" name="keyword" value="<{$keyword}>"/><input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
-				</div>
-				<div class="right tuan_topfb_r">
-					<a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('worker/create')}>">添加志愿者+</a>
+<!DOCTYPE html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title><{$CONFIG.site.title}>管理后台</title>
+	<meta name="description" content="<{$CONFIG.site.title}>管理后台" />
+	<meta name="keywords" content="<{$CONFIG.site.title}>管理后台" />
+	<link href="__TMPL__statics/css/newstyle.css" rel="stylesheet" type="text/css" />
+	<link href="__PUBLIC__/js/jquery-ui.css" rel="stylesheet" type="text/css" />
+	<script>
+		var BAO_PUBLIC = '__PUBLIC__'; var BAO_ROOT = '__ROOT__';
+	</script>
+	<script src="__PUBLIC__/js/jquery.js"></script>
+	<script src="__PUBLIC__/js/jquery-ui.min.js"></script>
+	<script src="__PUBLIC__/js/web.js"></script>
+	<script src="__PUBLIC__/js/layer/layer.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/default/webuploader/webuploader.css">
+	<script src="/static/default/webuploader/webuploader.min.js"></script>
+	<!-- <link href="/themes/default/admin/statics/css/index.css" rel="stylesheet" type="text/css" /> -->
+	<link href="/themes/default/admin/statics/css/style.css" rel="stylesheet" type="text/css" />
+	<link href="/themes/default/admin/statics/css/land.css" rel="stylesheet" type="text/css" />
+	<link href="/themes/default/admin/statics/css/pub.css" rel="stylesheet" type="text/css" />
+	<link href="/themes/default/admin/statics/css/main.css" rel="stylesheet" type="text/css" />
+	<link href="__PUBLIC__/js/jquery-ui.css" rel="stylesheet" type="text/css" />
+	<script> var BAO_PUBLIC = '__PUBLIC__'; var BAO_ROOT = '__ROOT__'; </script>
+	<script src="__PUBLIC__/js/jquery.js"></script>
+	<script src="__PUBLIC__/js/jquery-ui.min.js"></script>
+	<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+	<script src="/Public/js/layer/layer.js"></script>
+	<!--    <script src="__PUBLIC__/js/admin.js?v=20150409"></script>-->
+	<link rel="stylesheet" type="text/css" href="/static/default/webuploader/webuploader.css">
+	<script src="/static/default/webuploader/webuploader.min.js"></script>
+</head>
+
+
+
+
+<body>
+<iframe id="baocms_frm" name="baocms_frm" style="display:none;"></iframe>
+<div class="main">
+
+<div class="main-jsgl main-sc">
+	<div class="jsglNr">
+		<form  target="baocms_frm" method="post">
+			<div class="tableBox">
+				<table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+					<tr>
+						<td><input type="checkbox" class="checkAll" rel="sign_id" /></td>
+						<td>志愿者ID</td>
+						<td>用户ID</td>
+						<td>昵称</td>
+						<td>手机号码</td>
+						<td>姓名</td>
+						<td>申请时间</td>
+						<td>审核状态</td>
+						<td>操作</td>
+
+					</tr>
+					<foreach name="volunteers" item="var">
+						<tr>
+							<td><input class="child_sign_id" type="checkbox" name="volunteer_id[]" value="<{$var.volunteer_id}>" /></td>
+							<td><{$var.volunteer_id}></td>
+							<td><{$var['user_id']}></td>
+							<td><{$var['users']['nickname']}></td>
+							<td><{$var['users']['mobile']}></td>
+							<td><{$var['users']['real_name']}></td>
+							<td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+							<td>
+								<if condition="$var.status eq 0">
+									审核中
+									<elseif condition="$var.status eq 1"/>
+									已审核
+									<elseif condition="$var.status eq 2"/>
+									审核失败
+								</if>
+							</td>
+							<td>
+								<if condition="$var.status eq 0">
+									<{:BA('worker/volunteer_audit',array('volunteer_id'=>$var['volunteer_id']),'审核','act','remberBtn')}>
+								</if>
+								<{:BA('worker/volunteer_del',array('volunteer_id'=>$var['volunteer_id']),'删除','act','remberBtn')}>
+							</td>
+						</tr>
+					</foreach>
+					<tr>
+						<td colspan="20">
+
+						</td>
+					</tr>
+				</table>
+				<{$page}>
+
+			</div>
+			<div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+				<div class="left">
+					<{:BA('worker/volunteer_audit','','批量审核','list','remberBtn')}>
 				</div>
 			</div>
-		</div>
-	</form>
-	<include  file='shop:nav'/>
-	<table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
-	<tr style="background-color:#eee;">
-        <td>志愿者编号</td>
-        <td>志愿者账户/ID</td>
-		<td>姓名</td>
-		<td>手机号</td>
-		<td>QQ号</td>
-		<td>状态</td>
-		<td>操作</td>
-		
-	</tr>
-	<foreach name="volunteers" item="var">
-	<tr>
-        <td><{$var['users']['vid']}></td>
-        <td> <{$var['users']['nickname']}> （<{$var['users']['user_id']}>）</td>
-		<td><{$var['users']['real_name']}></td>
-		<td><{$var['users']['mobile']}></td>
-		<td><{$var['users']['qq']}></td>
-		<td>
-			<if condition="$var.status eq 1"><span class="text-gray">正常</span></if>
-				<if condition="$var.status eq 0"><span class="text-dot">等待接受</span></if>
-		</td>
-		<td>
-			<a class="tag" href="<{:U('worker/edit',array('worker_id'=>$var['worker_id']))}>">编辑</a>
-			<a class="tag" href="<{:U('worker/delete',array('worker_id'=>$var['worker_id']))}>">删除</a>
-		</td>
-		
-	</tr>
-	</foreach>
-	</table>
-	<{$page}>
+
+		</form>
+	</div>
 </div>
+
+<script>
+	$(document).ready(function (e) {
+
+		$(".tips").click(function () {
+			var tipnr = $(this).attr('rel');
+			layer.tips(tipnr, $(this), {
+				tips: [4, '#1ca290'],
+				time: 4000
+			});
+		})
+	});
+</script>
+</div>
+</body>
+</html>

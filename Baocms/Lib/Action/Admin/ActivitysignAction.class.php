@@ -25,6 +25,31 @@ class ActivitysignAction extends CommonAction
         $list = $Activitysign->where($map)->order(array('sign_id' => 'desc'))->limit($Page->firstRow . ',' . $Page->listRows)->select();
         $activity_ids = array();
         foreach ($list as $key=>$val) {
+            //某活动的服务时长
+            $activityLog = D('activityLogs')->where(array('user_id'=>$val['user_id'],'activity_id'=>$val['activity_id']))->find();
+            $total_time = 0;
+
+            if(!empty($activityLog['start_date'])){
+
+                if(!empty($activityLog['end_date'])){
+                    $total_time += ($activityLog['end_date']-$activityLog['start_date']);
+                }else{
+                    $total_time += (time()-$activityLog['start_date']);
+                }
+
+                if($activityLog['add_service_time']){
+                    $list[$key]['total_time']=ceil($total_time/3600)+$activityLog['add_service_time'].'小时';
+                }else{
+                    $list[$key]['total_time']=ceil($total_time/3600).'小时';
+                }
+            }else{
+                if($activityLog['add_service_time']){
+                    $list[$key]['total_time']=$activityLog['add_service_time'] .'小时';
+                }else{
+                    $list[$key]['total_time']='尚未参加活动';
+                }
+            }
+
             $activity_ids[$val['activity_id']] = $val['activity_id'];
 
             $manager = D('ActivityManager')->where(array('user_id'=>$val['user_id'],'activity_id'=>$activity_id))->find();
@@ -33,9 +58,7 @@ class ActivitysignAction extends CommonAction
             }else{
                 $list[$key]['is_manager'] = 1;//是该活动的管理员
             }
-
         }
-
 
         $this->assign('activity', D('Activity')->itemsByIds($activity_ids));
         $this->assign('list', $list);

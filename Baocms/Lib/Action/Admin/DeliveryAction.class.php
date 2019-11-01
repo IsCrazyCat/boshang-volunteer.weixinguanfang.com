@@ -62,7 +62,7 @@ class DeliveryAction extends CommonAction{
             $this->baoError('电话不能为空');
         }
         if (!isPhone($data['mobile']) && !isMobile($data['mobile'])) {
-            $this->baoError('电话应该为13位手机号码');
+            $this->baoError('电话应该为11位手机号码');
         }
         $data['addr'] = htmlspecialchars($data['addr']);
         if (empty($data['addr'])) {
@@ -119,7 +119,7 @@ class DeliveryAction extends CommonAction{
             $this->baoError('电话不能为空');
         }
         if (!isPhone($data['mobile']) && !isMobile($data['mobile'])) {
-            $this->baoError('电话应该为13位手机号码');
+            $this->baoError('电话应该为11位手机号码');
         }
         $data['addr'] = htmlspecialchars($data['addr']);
         if (empty($data['addr'])) {

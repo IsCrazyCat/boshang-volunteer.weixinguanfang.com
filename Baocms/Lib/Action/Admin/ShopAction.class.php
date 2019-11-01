@@ -670,9 +670,9 @@ class ShopAction extends CommonAction
                             $data['status'] = 1;
                             $data['volunteer_id'] = $id;
                             if (D('OrganizationVolunteer')->save($data)) {
-                                $this->baoSuccess('恭喜您，审核成功！');
+//                                $this->baoSuccess('恭喜您，审核成功！');
                             } else {
-                                $this->baoError('审核失败，请稍后重试！');
+                                $this->baoError('志愿者ID为：'.$id.'审核失败，请稍后重试！');
                             }
                         } else {
                             $this->baoError('志愿者' .$id. '已审核过，无需重复审核');

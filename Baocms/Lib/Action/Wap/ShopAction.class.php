@@ -414,20 +414,20 @@ class ShopAction extends CommonAction{
         $this->assign('list', $list);
         $this->display();
     }
-    //分店重写
+    //下属组织重写
     public function branches(){
         $shop_id = (int) $this->_get('shop_id');
         $branch_id = (int) $this->_get('branch_id');
         import('ORG.Util.Page');
         $detail = D('Shopbranch')->find($branch_id);
         if (empty($detail) || $detail['shop_id'] != $shop_id) {
-            $this->error('该分店不存在');
+            $this->error('该下属组织不存在');
         }
         if ($detail['closed'] != 0 || $detail['audit'] != 1) {
-            $this->error('该分店不存在');
+            $this->error('该下属组织不存在');
             die;
         }
-        //调用分店数据
+        //调用下属组织数据
         $this->assign('goods', $goods = D('Goods')->where(array('shop_id' => $shop_id, 'branch_id' => $branch_id, 'city_id' => $this->city_id, 'audit' => 1, 'closed' => 0, 'end_date' => array('EGT', TODAY)))->order('goods_id desc')->limit(0, 12)->select());
         $this->assign('tuan', $tuan = D('Tuan')->where(array('shop_id' => $shop_id, 'branch_id' => $branch_id, 'city_id' => $this->city_id, 'audit' => 1, 'closed' => 0, 'end_date' => array('EGT', TODAY)))->order('tuan_id desc ')->limit(0, 10)->select());
         //调用总店数据

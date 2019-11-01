@@ -45,7 +45,7 @@ ul { padding-left: 0px;}
 		<li class="line ">
 		<dt><a class="x2">ID：<{$var.tuan_id}></a><a class="x10 text-right text-gray">
 		<php>$branch_ids = D('Shopbranch') -> where('branch_id ='.$var['branch_id']) -> find();</php>
-		<if condition="!empty($branch_ids['name'])">所属分店：<{$branch_ids['name']}>
+		<if condition="!empty($branch_ids['name'])">所属下属组织：<{$branch_ids['name']}>
 		<else/>总店</if>
 		</a></dt>
 		<dd class="zhong">

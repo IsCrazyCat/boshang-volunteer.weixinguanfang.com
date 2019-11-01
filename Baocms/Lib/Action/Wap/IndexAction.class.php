@@ -81,4 +81,7 @@ class IndexAction extends CommonAction {
 	public function picture(){
         $this->display();
     }
+    public function help(){
+        $this->display();
+    }
 }

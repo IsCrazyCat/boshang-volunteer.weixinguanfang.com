@@ -42,10 +42,10 @@ class BranchAction extends CommonAction {
         if (is_numeric($branch_id) && ($branch_id = (int) $branch_id)) {
             $obj = D('Shopbranch');
             if (!$detail = $obj->find($branch_id)) {
-                $this->ajaxReturn(array('status'=>'error','message'=>'请选择要删除的分店！'));
+                $this->ajaxReturn(array('status'=>'error','message'=>'请选择要删除的下属组织！'));
             }
             if ($detail['closed'] == 1) {
-				$this->ajaxReturn(array('status'=>'error','message'=>'该分店不存在！'));
+				$this->ajaxReturn(array('status'=>'error','message'=>'该下属组织不存在！'));
             }
             if ($detail['shop_id'] != $this->shop_id) {
 				$this->ajaxReturn(array('status'=>'error','message'=>'请不要试图越权操作其他人的内容！'));
@@ -53,7 +53,7 @@ class BranchAction extends CommonAction {
             $obj->save(array('branch_id' => $branch_id, 'closed' => 1));
 			$this->ajaxReturn(array('status'=>'success','msg'=>'删除成功', U('branch/index')));
         } else {
-			$this->ajaxReturn(array('status'=>'error','message'=>'请选择要删除的分店！'));
+			$this->ajaxReturn(array('status'=>'error','message'=>'请选择要删除的下属组织！'));
         }
     }
 	
@@ -82,7 +82,7 @@ class BranchAction extends CommonAction {
         $data = $this->checkFields($this->_post('data', false), $this->create_fields);
         $data['name'] = htmlspecialchars($data['name']);
         if (empty($data['name'])) {
-            $this->fengmiMsg('分店名称不能为空');
+            $this->fengmiMsg('下属组织名称不能为空');
         }
         $data['shop_id'] = $this->shop_id;
         $data['city_id'] = (int) $data['city_id'];
@@ -99,12 +99,12 @@ class BranchAction extends CommonAction {
         }
         $data['addr'] = htmlspecialchars($data['addr']);
         if (empty($data['addr'])) {
-            $this->fengmiMsg('分店地址不能为空');
+            $this->fengmiMsg('下属组织地址不能为空');
         }
         $data['lng'] = htmlspecialchars($data['lng']);
         $data['lat'] = htmlspecialchars($data['lat']);
         if (empty($data['lng']) || empty($data['lat'])) {
-            $this->fengmiMsg('分店坐标不能为空');
+            $this->fengmiMsg('下属组织坐标不能为空');
         }
 	 $data['telephone'] = htmlspecialchars($data['telephone']);	
 	if (empty($data['telephone'])) {
@@ -125,7 +125,7 @@ class BranchAction extends CommonAction {
         if ($branch_id = (int) $branch_id) {
             $obj = D('Shopbranch');
             if (!$detail = $obj->find($branch_id)) {
-                $this->error('请选择要编辑的分店');
+                $this->error('请选择要编辑的下属组织');
             }
             if ($detail['shop_id'] != $this->shop_id) {
                 $this->error('请不要试图越权操作其他人的内容');
@@ -142,7 +142,7 @@ class BranchAction extends CommonAction {
                 $this->display();
             }
         } else {
-            $this->error('请选择要编辑的分店');
+            $this->error('请选择要编辑的下属组织');
         }
     }
 
@@ -150,7 +150,7 @@ class BranchAction extends CommonAction {
         $data = $this->checkFields($this->_post('data', false), $this->edit_fields);
         $data['name'] = htmlspecialchars($data['name']);
         if (empty($data['name'])) {
-            $this->fengmiMsg('分店名称不能为空');
+            $this->fengmiMsg('下属组织名称不能为空');
         }
         $data['shop_id'] = $this->shop_id;
         $data['city_id'] = (int) $data['city_id'];
@@ -167,12 +167,12 @@ class BranchAction extends CommonAction {
         }
         $data['addr'] = htmlspecialchars($data['addr']);
         if (empty($data['addr'])) {
-            $this->fengmiMsg('分店地址不能为空');
+            $this->fengmiMsg('下属组织地址不能为空');
         }
         $data['lng'] = htmlspecialchars($data['lng']);
         $data['lat'] = htmlspecialchars($data['lat']);
         if (empty($data['lng']) || empty($data['lat'])) {
-            $this->fengmiMsg('分店坐标不能为空');
+            $this->fengmiMsg('下属组织坐标不能为空');
         }
         $data['telephone'] = htmlspecialchars($data['telephone']);	
 	if (empty($data['telephone'])) {
@@ -190,7 +190,7 @@ class BranchAction extends CommonAction {
         if ($branch_id = (int) $branch_id) {
             $obj = D('Shopbranch');
             if (!$detail = $obj->find($branch_id)) {
-                $this->error('请选择要设置的分店');
+                $this->error('请选择要设置的下属组织');
             }
             if ($detail['shop_id'] != $this->shop_id) {
                 $this->error('请不要试图越权操作其他人的内容');
@@ -214,7 +214,7 @@ class BranchAction extends CommonAction {
                 $this->display();
             }
         }else{
-            $this->baoError('请选择要设置的分店');
+            $this->baoError('请选择要设置的下属组织');
         }
     }
 
