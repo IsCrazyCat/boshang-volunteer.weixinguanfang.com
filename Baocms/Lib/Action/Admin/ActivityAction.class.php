@@ -305,18 +305,13 @@ class ActivityAction extends CommonAction{
         //获取可添加时长 不能超过活动总时长
         //获取活动总时长
         $activity_time = strtotime($activity['end_date'])-strtotime($activity['bg_date']);
-//        $activity_time = ceil($activity_time/3600 * 100) / 100 ;
         $activity_time = ceil($activity_time/3600);
-        $activityLog = D('ActivityLogs')->where(array('user_id'=>$user_id,'activity_id'=>$activity_id))->find();
-        if(empty($activityLog)){
-            $this->error('该志愿者未开始参加活动，无法增加时长!',U('activitysign/index',array('activity_id'=>$activity_id)));
-        }else{
-            $data['activity_log_id'] = $activityLog['activity_log_id'];
-        }
-        $service_time = 0;//已服务时长
-        if(!empty($activityLog['service_time'])){
-            $service_time = $activityLog['service_time'];
-        }
+
+        //获取活动计时时间
+        $service_info = service_info_user($user_id);
+        //该活动该用户已服务时长 = 用户参加活动的时长 + 用户被添加的时长
+        $service_time = $service_info['activity_service_time'] + $service_info['activity_add_time'];
+        //可添加时长 = 活动总时长 - 该活动该用户已服务时长
         $add_time = $activity_time - $service_time;//可添加时长
         $this->assign('user',$user);
         $this->assign('activity',$activity);
@@ -328,16 +323,20 @@ class ActivityAction extends CommonAction{
             $data['activity_id'] = $activity_id;
 
             $add_service_time = $this->_param("add_service_time");
+            $add_service_msg = $this->_param("add_service_msg");
             $data['add_service_time'] = $add_service_time;
+            $data['add_service_msg'] = $add_service_msg;
+            $data['type'] = 2;
+            $data['status'] = 2;
+            $data['today_date'] = date("Y-m-d");
             $data['update_time']=time();
-            $result=array();
-            if(D('ActivityLogs')->save($data)){
+            $data['add_time']=time();
+            if(D('ActivityLogs')->add($data)){
                 exit('success');
             }else{
                 exit('error');
             }
         }
         $this->display();
-
     }
 }

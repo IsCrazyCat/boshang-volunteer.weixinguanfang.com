@@ -51,6 +51,7 @@
                     <td class="lfTdBt">归属组织：</td>
                     <td class="rgTdBt">
                         <select id="parent_id" name="data[parent_id]" class="seleFl w210">
+                            <option value="">请选择</option>
                             <foreach name="organizations" item="organization">
                                 <if condition="$organization['shop_id'] eq $detail['parent_id']">
                                     <option value="<{$organization['shop_id']}>" selected="selected">

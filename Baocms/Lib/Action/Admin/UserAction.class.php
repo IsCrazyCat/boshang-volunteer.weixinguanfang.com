@@ -33,6 +33,7 @@ class UserAction extends CommonAction{
         $list = $User->where($map)->order(array('user_id' => 'desc'))->limit($Page->firstRow . ',' . $Page->listRows)->select();
 		$rank_ids = array();
         foreach ($list as $k => $val) {
+            $val['service_info'] = service_info_user($val['user_id']);
 			$rank_ids[$val['rank_id']] = $val['rank_id'];
             $val['reg_ip_area'] = $this->ipToArea($val['reg_ip']);
             $val['last_ip_area'] = $this->ipToArea($val['last_ip']);
@@ -364,5 +365,40 @@ class UserAction extends CommonAction{
             $this->assign('user_id', $user_id);
             $this->display();
         }
+    }
+
+    /**
+     * 增加用户总的服务时长
+     *
+     */
+    public function addServiceTime(){
+        $user_id = $this->_param('user_id');
+        if(!$user = D('users')->find($user_id)){
+            $this->error("用户ID不能为空");
+        }
+        $result = service_info_user($user_id);
+        if ($this->isPost()) {
+            $data['user_id'] = $user_id;
+
+            $add_service_time = $this->_param("add_service_time");
+            $add_service_msg = $this->_param("add_service_msg");
+            $data['add_service_time'] = $add_service_time;
+            $data['add_service_msg'] = $add_service_msg;
+            $data['type'] = 1;
+            $data['status'] = 2;
+            $data['today_date'] = date("Y-m-d");
+            $data['update_time']=time();
+            $data['add_time']=time();
+
+            if(D('ActivityLogs')->add($data)){
+                exit('success');
+            }else{
+                exit('error');
+            }
+        }
+        $this->assign('user',$user);
+        $this->assign('serviceInfo',$result);
+        $this->display();
+
     }
 }

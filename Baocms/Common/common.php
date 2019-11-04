@@ -1469,6 +1469,7 @@ function lengthOfTime($id,$type = 0){
         $where['user_id'] = $id;
         $group = 'activity_id';
     }
+    $where['type'] = 0;
     $activityLogs = D('activityLogs')->where($where)->select();
     if($real_count = D('activityLogs')->where($where)->group($group)->count()){
         //实际参加活动人数/实际参加活动数
@@ -1515,5 +1516,192 @@ function lengthOfTime($id,$type = 0){
         $year_time = ceil($year_time/3600)+$year_add_service_time;
         $result['year_time'] = $year_time;
     }
+    return $result;
+}
+
+/**
+ * 获取用户服务信息
+ * @param $user_id 用户ID
+ * @param int $activity_id 活动ID，若不为0 则是获取该用户在该活动下的服务信息
+ */
+function service_info_user($user_id,$activity_id = 0){
+    $service_time = 0;//某用户总服务时长
+    $service_time_year = 0;//某用户今年总服务时长
+    $activity_service_time = 0;//参加活动服务时长
+    $activity_service_time_year = 0;//参加活动今年服务时长
+    $activity_add_time = 0;//参加活动手动添加的时长
+    $activity_add_time_year=0;//参加活动今年手动添加的时长
+    $add_time = 0;//手动添加的总时长
+    $add_time_year=0;//今年手动添加的总时长
+    $join_count = 0;//参加活动个数
+    $sign_count = 0;//报名活动个数
+
+    $data['user_id']=$user_id;
+    if($activity_id){
+        $data['activity_id']=$activity_id;
+    }
+
+    //统计活动计时数据-----------------start----------------------
+    $activitySigns = D('ActivitySign')->where($data)->select();
+    $activity_ids = array();
+    foreach ($activitySigns as $key=>$val){
+        //获取报名的所有活动ID
+        $activity_ids[$key] = $val['activity_id'];
+    }
+
+    if(!empty($activity_ids)){
+        //报名活动ID去重 其实没必要，以防万一
+        array_unique($activity_ids);
+        $sign_count = count($activity_ids);
+    }
+
+    $where['user_id'] = $user_id;
+    $where['type'] = 0;//0活动计时 1记录用户添加总时长
+    foreach($activity_ids as $key=>$val){
+        //遍历参加的活动 统计数据
+        $where['activity_id'] = $val;
+        //这里每个人每个活动只有一条，因为邓总说每个活动只有一天，如果有两天就发两个活动
+        $activityLog = D('activityLogs')->where($where)->find();
+        if(empty($activityLog)){
+            //没有参加信息，则不用统计
+            continue;
+        }
+        if(!empty($activityLog['add_service_time'])){
+            $activity_add_time +=  $activityLog['add_service_time'];//累计每个活动增加的时长数 单位是小时
+        }
+        $time = 0;
+        if(empty($activityLog['end_date'])){
+            //如果没有结束时间，1活动还未结束，服务时长为当前时间-开始时间 2服务结束时忘记打卡服务时长为活动时长
+            $activity = D('Activity')->find($val);
+            if(time()>strtotime($activity['end_date'])){
+                //当前时间大于活动结束时间 归于情况1
+                $time = (time()-$activityLog['start_date']);
+            }else{
+                //情况2 统计时长 并更新数据
+                $time = (strtotime($activity['end_date'])-$activityLog['start_date']);
+                //更新数据 结束时间更新为活动结束时间
+                $map['activity_log_id'] = $activityLog['activity_log_id'];
+                $map['end_date'] = strtotime($activity['end_date']);
+                $map['update_time'] = time();
+                D('ActivityLogs')->save($map);
+            }
+
+        }else{
+            $time = ($activityLog['end_date']-$activityLog['start_date']);
+        }
+        $activity_service_time+= $time;
+        if(substr($activityLog['today_date'],0,4)==date('Y')){
+            $activity_service_time_year += $time;
+            if(!empty($activityLog['add_service_time'])){
+                $activity_add_time_year +=  $activityLog['add_service_time'];
+            }
+        }
+    }
+    //统计活动计时数据-----------------end----------------------
+
+    //-----------------start------------
+    //统计活动增加时长 这里并不确定用户是否在系统参加了活动或者报名，不重要，邓总要给人增加时长。
+    $data['type'] = 2;//用户未打卡活动增加时长 即ActivityLogs表中没有这个人的活动开始结束数据，硬加进来的活动时长
+    $activityLogs = D('activityLogs')->where($data)->select();
+    foreach($activityLogs as $key=>$val){
+        array_push($activity_ids,$val['activity_id']);
+        $activity_add_time +=  $val['add_service_time'];
+        if(substr($val['today_date'],0,4)==date('Y')){
+            if(!empty($val['add_service_time'])){
+                $activity_add_time_year +=  $val['add_service_time'];
+            }
+        }
+    }
+    array_unique($activity_ids);
+    $join_count = count($activity_ids);
+    //--------------end---------------------
+
+    //--------------start---------------------
+    //统计用户总增加的时长
+    $data['type'] = 1;//用户增加服务总时长 即ActivityLogs表跟活动无关增加的时长，硬加进来的活动时长
+    $activityLogs_user = D('activityLogs')->where($data)->select();
+    foreach($activityLogs_user as $key=>$val){
+        $add_time +=  $val['add_service_time'];
+        if(substr($val['today_date'],0,4)==date('Y')){
+            if(!empty($val['add_service_time'])){
+                $add_time_year +=  $val['add_service_time'];
+            }
+        }
+    }
+    //--------------end---------------------
+
+    //汇总
+    //将参加服务的时间转换成小时，超过一小时的部分按照一小时算。即1小时零1分钟按照2个小时算
+    $activity_service_time = ceil($activity_service_time/3600);
+    $activity_service_time_year = ceil($activity_service_time_year/3600);
+
+    $service_time = $activity_service_time + $activity_add_time + $add_time;
+    $service_time_year = $activity_service_time_year + $activity_add_time_year + $add_time_year;
+
+    $result['activity_service_time'] = $activity_service_time;
+    $result['activity_service_time_year'] = $activity_service_time_year;
+    $result['activity_add_time'] = $activity_add_time;
+    $result['activity_add_time_year'] = $activity_add_time_year;
+    $result['add_time'] = $add_time;
+    $result['add_time_year'] = $add_time_year;
+    $result['service_time'] = $service_time;
+    $result['service_time_year'] = $service_time_year;
+    $result['join_count']=$join_count;
+    $result['sign_count']=$sign_count;
+
+    return $result;
+}
+
+/**
+ * 获取活动服务信息
+ */
+function service_info_organization($activity_id){
+    $sign_count = 0;//报名人数
+    $join_count = 0;//实际参与人数
+    $service_time = 0;//总服务时长
+
+    //获取活动信息
+    $activity = D('Activity')->find($activity_id);
+    //获取报名人数及报名ID
+    $activitySigns = D('ActivitySign')->where(array('activity_id'=>$activity_id))->select();
+    if(!empty($activitySigns)){
+        $sign_count = count($activitySigns);
+    }
+    $activityLogs = D('ActivityLogs')->where(array('activity_id'=>$activity_id))->select();
+    $join_ids = array();
+    $time = 0;
+    foreach ($activityLogs as $key=>$val){
+        array_push($join_ids,$val['user_id']);
+        if(!empty($val['add_service_time'])){
+            $service_time +=  $val['add_service_time'];//累计每个活动增加的时长数 单位是小时
+        }
+        if(!empty($val['start_date'])){
+            if(empty($val['end_date'])){
+                //如果没有结束时间，1活动还未结束，服务时长为当前时间-开始时间 2服务结束时忘记打卡服务时长为活动时长
+                $activity = D('Activity')->find($val);
+                if(time()>strtotime($activity['end_date'])){
+                    //当前时间大于活动结束时间 归于情况1
+                    $time += (time()-$val['start_date']);
+                }else{
+                    //情况2 统计时长 并更新数据
+                    $time += (strtotime($activity['end_date'])-$val['start_date']);
+                    //更新数据 结束时间更新为活动结束时间
+                    $map['activity_log_id'] = $val['activity_log_id'];
+                    $map['end_date'] = strtotime($activity['end_date']);
+                    $map['update_time'] = time();
+                    D('ActivityLogs')->save($map);
+                }
+            }else{
+                $time += ($val['end_date']-$val['start_date']);
+            }
+        }
+    }
+    $join_count = count(array_unique($join_ids));
+    $service_time += ceil($time/3600);
+
+    $result['sign_count'] = $sign_count;
+    $result['join_count'] = $join_count;
+    $result['service_time'] = $service_time;
+
     return $result;
 }

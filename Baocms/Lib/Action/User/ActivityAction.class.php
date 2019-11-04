@@ -9,11 +9,11 @@ class ActivityAction extends CommonAction{
     }
 
     public function index(){
-        $result = lengthOfTime($this->uid,1);
+        $result = service_info_user($this->uid);
 
-        $this->assign('total_time',$result['total_time']);
-        $this->assign('year_time',$result['year_time']);
-        $this->assign('count',$result['count']);//参加的活动个数
+        $this->assign('total_time',$result['service_time']);
+        $this->assign('year_time',$result['service_time_year']);
+        $this->assign('count',$result['join_count']);//参加的活动个数
         $this->display();
     }
     public function load(){
@@ -53,30 +53,18 @@ class ActivityAction extends CommonAction{
             $activity = D('activity')->where(array('activity_id'=>$val['activity_id']))->find();
             $list[$k]['activity'] = $activity;
             //报名活动的组织信息
-            $shop = D('shop')->where(array('shop_id'=>$activity['shop_id']))->find();
+            $shop = D('shop')->where(array('shop_id'=>$activity['shop_id'],'closed'=>0))->find();
             $list[$k]['shop'] = $shop;
             //某活动的服务时长
-            $activityLog = D('activityLogs')->where(array('user_id'=>$this->uid,'activity_id'=>$val['activity_id']))->find();
-            $total_time = 0;
-            if(!empty($activityLog['start_date'])){
-
-                if(!empty($activityLog['end_date'])){
-                    $total_time += ($activityLog['end_date']-$activityLog['start_date']);
-                }else{
-                    $total_time += (time()-$activityLog['start_date']);
-                }
-
-                if($activityLog['add_service_time']){
-                    $list[$k]['total_time']=ceil($total_time/3600)+$activityLog['add_service_time'].'小时';
-                }else{
-                    $list[$k]['total_time']=ceil($total_time/3600).'小时';
-                }
+            $activityLog = D('activityLogs')->where(array('user_id'=>$this->uid,'activity_id'=>$val['activity_id'],'type'=>0))->find();
+            //某活动的服务时长
+            $service_info = service_info_user($this->uid,$val['activity_id']);
+            //该活动该用户已服务时长 = 用户参加活动的时长 + 用户被添加的时长
+            $service_time = $service_info['activity_service_time'] + $service_info['activity_add_time'];
+            if($service_time){
+                $list[$k]['total_time']=$service_time .'小时';
             }else{
-                if($activityLog['add_service_time']){
-                    $list[$k]['total_time']=$activityLog['add_service_time'] .'小时';
-                }else{
-                    $list[$k]['total_time']='尚未参加活动';
-                }
+                $list[$k]['total_time']='尚未参加活动';
             }
             //该项活动的服务状态 先判断活动是否还在进行中 0未开始 1未参加 2服务中 3服务结束
             $cur_date = date("Y-m-d");

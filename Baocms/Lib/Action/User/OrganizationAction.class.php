@@ -11,7 +11,7 @@ class OrganizationAction extends CommonAction{
      */
     public function myOrganization(){
         //获取该用户所管理的所有组织
-        $organizations = D('Shop')->where(array('user_id' => $this->uid,'audit'=>'1'))->select();
+        $organizations = D('Shop')->where(array('user_id' => $this->uid,'audit'=>'1','closed'=>0))->select();
 
         foreach ($organizations as $key => $val){
             //获取该组织下的活动
@@ -50,7 +50,7 @@ class OrganizationAction extends CommonAction{
     public function organization(){
 
         $organization_id = $this->_get('organization_id');
-        $organization = D('shop')->where(array('shop_id'=>$organization_id))->find();
+        $organization = D('shop')->where(array('shop_id'=>$organization_id,'closed'=>0))->find();
 
         //获取该组织下的活动
         $activitys = D('activity')->where(array('shop_id'=>$organization['shop_id']))->select();
@@ -90,7 +90,7 @@ class OrganizationAction extends CommonAction{
      */
     public function volunteer(){
         $organization_id = $this->_get('organization_id');
-        $organization = D('shop')->where(array('shop_id'=>$organization_id))->find();
+        $organization = D('shop')->where(array('shop_id'=>$organization_id,'closed'=>0))->find();
 
         //获取该组织下的活动
         $activitys = D('activity')->where(array('shop_id'=>$organization['shop_id']))->select();
@@ -151,7 +151,7 @@ class OrganizationAction extends CommonAction{
         $organizationVolunteers = D('organizationVolunteer')->where(array('user_id'=>$this->uid,'is_del'=>'0','status'=>array('IN','0,1')))->select();
         $organizations = array();
         foreach ($organizationVolunteers as $key=>$volunteer) {
-            $organizations[$key] = D('Shop')->where(array('shop_id' => $volunteer['organization_id'],'audit'=>'1'))->find();
+            $organizations[$key] = D('Shop')->where(array('shop_id' => $volunteer['organization_id'],'audit'=>'1','closed'=>0))->find();
             $organizations[$key]['user'] = $volunteer;
         }
 

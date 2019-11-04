@@ -6,35 +6,15 @@
                 <div class="tableBox">
                     <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
                         <tr>
-                            <td class="lfTdBt">活动标题：</td>
-                            <td  class="rgTdBt">
-                                <input type="hidden" id="activity_id" value="<{$activity['activity_id']}>"/>
-                                <input type="text" name="data[title]" value="<{$activity['title']}>" class="manageInput"  readonly="readonly"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="lfTdBt">活动时长：</td>
-                            <td  class="rgTdBt">
-                                <input type="text" name="data[activity_time]" value="<{$activity_time}>小时" class="manageInput" readonly="readonly"/>
-                            </td>
-                        </tr>
-                        <tr>
                             <td class="lfTdBt">志愿者：</td>
                             <td  class="rgTdBt">
                                 <input type="text" name="data[nickname]" value="<{$user['nickname']}>" class="manageInput" readonly="readonly"/>
                             </td>
                         </tr>
                         <tr>
-                            <td class="lfTdBt">已服务时长：</td>
+                            <td class="lfTdBt">服务时长：</td>
                             <td  class="rgTdBt">
-                                <input type="text" name="data[service_time]" value="<{$service_time}>小时" class="manageInput" readonly="readonly"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="lfTdBt">可增加时长：</td>
-                            <td  class="rgTdBt">
-                                <input type="hidden" id="add_time" value="<{$add_time}>" class="manageInput" readonly="readonly"/>
-                                <input type="text" name="data[add_time]" value="<{$add_time}>小时" class="manageInput" readonly="readonly"/>
+                                <input type="text" name="data[service_time]" value="<{$serviceInfo['service_time']}>小时" class="manageInput" readonly="readonly"/>
                             </td>
                         </tr>
                         <tr>
@@ -49,6 +29,7 @@
                                 <textarea name="data[add_service_msg]" id="add_service_msg" class="manageInput"></textarea>
                             </td>
                         </tr>
+
                     </table>
                 </div>
                 <div class="smtQr"><input type="button" id="subBtn" onclick="subClick()" value="确认添加" class="smtQrIpt" /></div>
@@ -63,10 +44,7 @@
         var reg=/^[1-9]\d*$/; //由 1-9开头 的正则表达式
         //先判断是否为整数
         if(reg.test(add_service_time)){
-            if(parseInt(add_service_time) > parseInt(add_time)){
-                $("#add_service_time").val(add_time);
-                alert("最多只能增加"+add_time+"小时");
-            }
+
         }else{
             $("#add_service_time").val('0');
             alert('请输入整数');
@@ -74,28 +52,25 @@
 
     }
     function subClick(){
-
         var add_service_time = $("#add_service_time").val();
         var add_service_msg = $("#add_service_msg").val();
-        var activity_id = $("#activity_id").val();
         if(add_service_time>0){
             if(add_service_msg.trim()==''){
                 alert("描述不能为空！");
                 return false;
             }
             $.ajax({
-                url:"<{:U('activity/addServiceTime')}>",
+                url:"<{:U('user/addServiceTime')}>",
                 method:"POST",
                 data:{
                     "user_id":'<{$user.user_id}>',
-                    "activity_id":'<{$activity.activity_id}>',
                     "add_service_time":add_service_time,
                     "add_service_msg":add_service_msg
                 },
                 success:function (data) {
                     if(data=='success'){
                         alert("增加时长成功！");
-                        window.location.href = "/admin/activitysign/index/activity_id/"+activity_id;
+                        window.location.href = "/admin/user/index";
                     }else{
                         alert("增加时长失败！");
                     }

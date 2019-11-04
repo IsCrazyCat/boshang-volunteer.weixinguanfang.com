@@ -275,7 +275,7 @@ class ShopAction extends CommonAction
                 $this->assign('areas', D('Area')->fetchAll());
                 $this->assign('cates', D('Shopcate')->fetchAll());
                 $this->assign('business', D('Business')->fetchAll());
-                $this->assign('organizations', D('Shop')->fetchAll());
+                $this->assign('organizations', D('Shop')->where(array('closed'=>0))->select());
                 $this->assign('ex', D('Shopdetails')->find($shop_id));
                 $this->assign('user', D('Users')->find($detail['user_id']));
                 $this->assign('detail', $detail);

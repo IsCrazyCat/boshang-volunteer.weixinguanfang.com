@@ -1,477 +1,216 @@
-
-<!-- saved from url=(0030)https://wxcs.gdzyz.cn/help.jsp -->
-<html style="font-size: 41.6406px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script type="text/javascript" src="/themes/default/wap/statics/js/goto_email.js"></script>
-    <link href="/themes/default/wap/statics/css/stylecity.css" rel="stylesheet" type="text/css">
-    <link href="/themes/default/wap/statics/css/style.css" rel="stylesheet" type="text/css">
-    <link href="/themes/default/wap/statics/css/css.css" rel="stylesheet" type="text/css">
-    <link href="/themes/default/wap/statics/css/cityserverStyle.css" rel="stylesheet" type="text/css">
-    <link href="/themes/default/wap/statics/css/cityCommonstyle.css" rel="stylesheet" type="text/css">
-    <link href="/themes/default/wap/statics/css/weixinzyzStyle.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="/themes/default/wap/statics/css/style-tmt.css">
-
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>常见问题解答</title>
-    <style type="text/css">
-        *{padding: 0;margin: 0;list-style: none;font-family: 'Microsoft Yahei';}
-        .clearfix:after{ content:""; height:0; line-height:0; display:block; visibility:hidden; clear:both; }
-        .clearfix{zoom:1;}
-        header{background-color: #333;height: 1.76rem;line-height: 1.76rem;text-align: center;color:#fff;font-size: 0.6rem;position: relative;}
-        header span{position: absolute;left: 0;top: 0;width: 1rem;height: 100%;background: url(/public/img/common/backArrow.png) no-repeat 0.4rem center;background-size: 0.34rem;}
-        header em{position: absolute;right: 0;top: 0;width: 0.98rem;height: 100%;background: url(/public/img/common/more.png) no-repeat 0.4rem center;background-size: 0.18rem;}
-        section{background-color: #fff;padding: 0 .2rem;}
-        section .item{padding: 0.6rem 0 0.46rem  0;border-bottom: 1px solid #e2e2e2;padding-right: 0.4rem;}
-        section .item:last-child{border-bottom: 0;}
-        section .item .left{float: left;width: 0.72rem;height: 0.72rem;border-radius: 0.2rem;background-color: #ff8815;font-size: 0.48rem;color: #fff;text-align: center;line-height: 0.72rem;}
-        section .item .right{padding-left: 1.24rem;}
-        section .item .right .p01{font-size: 0.52rem;color: #000;line-height: 0.72rem;}
-        section .item .right .p02{font-size: 0.48rem;color: #999;line-height: 0.64rem;padding-top: 0.3rem;}
-
-        ul {
-            list-style: none;
-            width: 100%;
-        }
-        li {
-            cursor: pointer;
-        }
-        /*------------ Main Menu ------------*/
-        .mainmenu {
-            margin: 10px auto;
-            font-size: 16px;
-            position:relative;
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>常见问题</title>
+    <script src="/themes/default/Wap/statics/js/jquery-1.11.3.min.js"></script>
+    <script src="/themes/default/Wap/statics/js/jquery.mobile-1.4.5.min.js"></script>
+    <link rel="stylesheet" href="/themes/default/Wap/statics/css/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="/themes/default/Wap/statics/css/index.css">
+    <script src="/themes/default/Wap/statics/js/index.js"></script>
+    <script>
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    docEl.style.fontSize = 100 * (clientWidth / 640) + 'px';
+                };
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+    </script>
+    <script>
+        $(document).ready(function(){
+            $(".page1 .page1_list li").click(function(){
+                $(this).children('div')	.slideToggle().show();
+            })
+        })
+    </script>
+    <style>
+        form, div, table, span, p, b, a, i, input, font, dl, dt, dd, font, ul, li, ol, h1, h2, h3, h4, h5, h6, figure, button {
+            margin:0;
             padding:0;
+            list-style: none;
+            list-style-type: none;
+            font-size:0.22rem;
         }
-        .mainmenu > li {
-            background-color: #aba7a6;
-            border-top: 1px solid #fff;
-            height: 48px;
-            color: #f7f1e3;
-            box-sizing: border-box;
-            position:relative;
-            padding:0 0 0 40px;
+        html { height: 100%; width: 100%; font-family: 'Heiti SC', 'Microsoft YaHei'; font-size: 100px; outline: 0; -webkit-text-size-adjust:none;}
+        body { height: 100%; margin: 0; -webkit-user-select: none; position: relative;}
+        ul{
+            list-style:none;
         }
-        .mainmenu > li:first-child {
-            border-radius: 7px 7px 0 0;
-            border-top: 0;
+        a{
+            text-decoration: none;
         }
-        .mainmenu > li:last-child {
-            border-radius: 0 0 7px 7px;
+        a:hover {
+            text-decoration: none;
         }
-        .mainmenu > li span {
-            display:block;
-            line-height: 48px;
+        .page1{
+            background-color:#eee;
         }
-        .mainmenu > li .icon {
-            float: left;
-            width: 20px;
-            height: 20px;
-            display:block;
-            position:absolute;
-            left:10px;
-            top:15px;
-        }
-
-        /*------------ Sub Menu ------------*/
-        .submenu {
-            box-sizing: border-box;
-            color: #ae9f9f;
-            font-size: 13px;
-            content: " ";
-            display:none;
-            /*opacity: 0.5;*/
-        }
-        .submenu li {
-            line-height: 20px;
-            /* height: 35px; */
-            padding-top: 11px;
-            transition: border-left 220ms ease-in;
-        }
-        .submenu .chosen,
-        .submenu .chosen:hover {
-            border-left: solid 6px #96d145;
-        }
-        .submenu li:hover {
-            border-left: solid 6px #d05942;
-        }
-        .submenu li .item {
-            margin-left:5px;
-        }
-        .animate {
-            animation: flip 2000ms ease-in-out alternate;
-        }
-        .show{
-            display:block;
-        }
-        @keyframes flip {
-            to {
-                transform: rotateY(360deg);
-            }
+        p{
+            padding-top: 10px;
         }
     </style>
-    <script src="/themes/default/wap/statics/js/vue.js"></script>
-    <script type="text/javascript">
-        !function(n){var e=n.document,t=e.documentElement,i=640,d=i/50,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>640&&(n=640),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);
-    </script>
 </head>
 <body>
-<header><!-- <a href="javascript:history.go(-1);"><span class="back"></span></a> -->常见问题解答<!-- <em class="more"></em> --></header>
-<section>
-    <ul id="mainmenu" class="mainmenu"><li class=""><span>注册问题</span></li> <ul class="submenu"><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">港澳台用户如何注册志愿者账号？</p> <p class="p02">港澳台用户自行在平台申请注册志愿者账号即可。（需要邀请证明人作为证明，然后再由组织管理员进行身份校验信息进行审核（在实名制校验中））</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">登录提示“您的账号正在实名审批中，请耐心等待”。</p> <p class="p02">由于帐号在等待公安系统的身份证校验，志愿者注册提交资料同时，系统将会志愿者身份信息进行实时校验。登录使用账号。正常情况下，志愿者身份信息校验可实现秒过。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">关于身份信息校验情况说明？（新注册用户一般为24小时即可处理完成，老用户的需要进行排队审核。）</p> <p class="p02">身份信息校验是我系统和公安系统对接的身份验证过程，主要为校验姓名和身份证号是否一致。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">注册时发现身份证信息已存在，但是不清楚帐号填写的手机和邮箱？</p> <p class="p02">可能由于学校或单位采用excel表格批量导入信息所致。
-        （1）先尝试使用身份证号作为帐号，6个0作为密码进行登录；
-        （2）可通过本系统“忘记密码”，在输入登录账号时尝试用手机号/身份证号作为账号，经手机号码和邮箱获取验证码找回密码。
-        找回密码申诉。如还不解决问题将个人身份证+姓名+手机号+问题发送至kf@izyz.org 客服邮箱处理。
-        步骤：“本系统登录”—“忘记密码”—“输入身份证号或者手机号码为主”—“选择第三个申诉入口”
-        （如果清楚自己的注册组织的用户最好联系自己归属组织的管理员进行密码重置）。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">在一号通注册后,在本系统登录账号显示密码错误，找回密码时输入手机号码或者身份证号码显示账号不存在？</p> <p class="p02">由于在一号通注册账号但没有进行完善资料。
-        步骤:“一号通登录”—“忘记密码”—“找回密码”—“进行完善资料”。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">同一个身份证注册了志愿者还能注册成为组织管理员吗?</p> <p class="p02">能。注册志愿者，也可以注册管理员。
-        （注意：在注册管理员时的登录账号必须设置与个人登录账号不一样，管理员帐号是不可以参加志愿活动）。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">归属组织选错了需要更改组织？</p> <p class="p02">进入用户中心-完善资料，选择正确的归属组织，最多支持加入5个组织。（需要联系您所选择归属组织的管理员进行审核）。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">注册组织账号如何区分已备案和未备案？</p> <p class="p02">已备案指的是在民政部门登记成立的法人组织。
-        未备案指的是未在民政部门登记备案的社会组织或其他。
-        （选择其他，可无需填组织机构代码或者统一社会信用代码）
-        注；在民政部门登记成立的法人组织将由登记备案所在的民政管理员进行审核。未在民政部门登记备案的社会组织或其他组织将由归属组织的管理员进行审核。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">登录账号显示身份校验不通过？</p> <p class="p02">核实姓名或者身份证号是否正确，信息有误请修正重新校验信息。（姓名或者身份证号无误由管理员进行“重新校验”，如“重新校验”无法通过，请提供身份证手持图片发到kf@izyz.org 。）</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">注册成功可以登录账号了，可显示归属组织还在审核中？</p> <p class="p02">新注册的用户只要身份信息校验通过即可登录使用账号，无需等待注册时所选组织的审核通过。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">关于注册时（或者是忘记密码），手机（或者邮箱）获取不了验证，如何解决？</p> <p class="p02">（1）可查询手机是否开通短信智能拦截或者是否安装的安全软件自动拦截。
-        （2）可查询邮箱设置是否开通拒收邮件功能或者进入垃圾邮件中查询。
-        （3）在拦截处查询不到短信请向i志愿客服反应，并提供接收验证码信息的手机号码或邮箱；或者身份证+姓名+手机（邮箱）+问题发到客服邮箱kf@izyz.org 。</p></div></div></li></ul> <li class="chosen"><span>账号问题</span></li> <ul class="submenu show"><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">登录志愿者账号出现账号密码错误或者用户不存在情况，点击“忘记密码”，进行密码修改。</p> <p class="p02">请在第一步输入帐号时尽量输入登录账号（手机号/身份证号）作为账号，通过短信、邮箱、提交申诉资料三种方式找回密码。如还不解决问题将个人身份证+姓名+手机号+问题发送至kf@izyz.org 客服邮箱处理。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">登录组织/团体账号出现账号密码错误或者用户不存在情况，点击“忘记密码”，进行密码修改。</p> <p class="p02">请在第一步输入帐号时尽量输入登录账号（手机号/身份证号）作为账号，通过短信、邮箱、提交申诉资料三种方式找回密码。如还不解决问题将个人身份证+姓名+手机号+问题发送至kf@izyz.org 客服邮箱处理。</p></div></div></li></ul> <li class=""><span>活动问题</span></li> <ul class="submenu"><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">关于面验，是怎么操作的？</p> <p class="p02">第一次参加志愿者活动时需要面验才可以进行扫码签到。
-        面验：面验指的是活动管理员查看需要面验的人员的身份证件，以确保信息真实性。
-        注意以下几点：
-        1.活动考勤前需要对未面验的志愿者进行面验，如未面验，会造成考勤失败。
-        2.注册信息与身份证信息一致，面验通过。注册信息与身份证信息不一致，面验不通过。
-        3.平台在活动开始前会以短信方式通知到需要面验志愿者携带身份证参加活动。
-        4.面验通过的志愿者，下次活动无需面验。
-        5.面验操作可在微信城市服务端、支付宝城市服务端、pc端进行操作。
-        步骤：PC端“活动管理”—“活动查询”—“搜索活动名称”—“操作”—“考勤”—“面验”
-        微信端  登录管理员帐号“我的”—“活动管理”—“活动考勤”—“搜索活动名称”—“面验”</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">如何邀请录用？</p> <p class="p02">邀请是指邀请组织名下的志愿者进行参加活动，以站内信的方式发给用户报名活动。
-        录用是指用户报名活动，管理员在后台进行录用志愿者或者拒绝志愿者。
-        步骤：PC端 “活动管理”—“邀请录用”—“搜索活动名称”—“操作”—“邀请/录用”
-        微信端：登录管理员账号“我的”—“活动管理”—“邀请录用”—“搜索活动名称”—“邀请/录用”</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">管理员发布活动，但在PC端或者微信端搜索不出活动？</p> <p class="p02">是由于这场活动时间超过8小时，需要上级管理员进行审核。
-        （每天考勤时长不超过8小时，如果超出8小时请勾选申请，上级审核通过后，以实际时长为准，但也不超过11小时。）</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">如何查询这场活动是否超过8小时</p> <p class="p02">步骤：PC端 “活动管理”—“活动审核” —“搜索活动名称”—“操作”—“审核”
-        微信端：登录管理员帐号“我的”—“活动管理”—“活动审核”—“搜索活动名称”—“审核”</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">培训活动是否加入服务时长？</p> <p class="p02">不可以。发布活动时，请注意选择活动性质，现在新增培训活动，由此产生的时长将录入到培训时长中。（查看培训时长需要在PC端登录账号。）</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">用户在微信端报名活动时显示未登录或登录超时？</p> <p class="p02">请按以下步骤：微信端登录志愿者账号—“我的”—公众号解绑—退出账号—清除缓存—重新登录账号</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">管理员如何发布活动？</p> <p class="p02">（1）发布活动时，请注意选择活动性质，现在新增培训活动，由此产生的时长将录入到培训时长中。
-        （2）发布活动时，需要选择服务地点坐标和考勤地理范围。（服务地点坐标以活动地点为准，关系到扫码考勤是否成功，请知悉。在指定理范围才可以进行扫码签到。）
-        （3）管理员在发布活动时，可选择自定义报名，点击后可自行添加报名条件，志愿者在报名时必须输入相应字段才能报名。
-        （4）发布活动时，每天考勤时长不超过8小时，如果超出8小时请勾选申请，上级审核通过后，以实际时长为准，但也不超过11小时。
-        （5）活动发布时，活动宣传照片、活动地址为必填。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">发布活动，邀请、录用、考勤全部程序走完，志愿时什么时候会显示？是不是需要公示？等公示期过了时长才录入到个人信息中？</p> <p class="p02">不是，考勤结束后 服务时长隔天才会更新</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">用补录方式给服务时数时弄的，志愿者多给了服务时数、导致时长比正常多出，管理员是否撤回操作的吗？</p> <p class="p02">是不可以的，没有取消考勤的功能</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">活动进行中或者结束的情形下,管理员进行撤销活动,这个活动志愿者的志愿时会消失吗？还是会照常记录</p> <p class="p02">活动时长是存在的。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">志愿者活动考勤时，只签到忘了签退，怎么办？</p> <p class="p02">(1)签到和签退时间会产生一个时间差；时间差就是志愿者的服务时长，忘了签退算是考勤失败，没有服务时长。
-        (2)在已签到没有签退的情况下，由于已签到是存在考勤，人工补录时长当天补录不了时长，可隔天由管理员进行补录操作。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">什么是历史活动补录？</p> <p class="p02">对于以前已经开展、且未发发布过的活动，管理员可通过历史活动补录完成补录，4.0中“发布活动”将不能再发布往期的活动。
-        步骤：“活动管理”—“发布历史活动”—“录用”—“添加考勤”—“提交材料”
-        “提交资料”后等待上级管理员进行审核即可。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">如何区别3种记录服务时长？</p> <p class="p02">（1）由活动发布人提供签到签退二维码给志愿者进行签到签退 。（每天可以签到签退3次）
-        步骤：微信端登录管理员帐号“我的”—“活动管理”—“活动考勤”—“搜索活动名称”—“签到/签退按钮”—“生成二维码”
-
-        （2）扫志愿者证二维码记录服务时长
-        步骤：微信端登录管理员帐号“我的”—“活动管理”—“活动考勤”—“搜索活动名称”—“签到/签退按钮”—“志愿者证签到”—“管理员进行扫志愿者证二维码”
-        （3）自行签到签退
-        注意如下：（1）活动参与人数多余50人，才可以选择自行签到签退
-        （2）发布活动时考勤方式选择自行签到签退，选择考勤地理范围
-        步骤：微信端 登录志愿者帐号“我的”—“我的活动”—“参与中”—“自行签到”
-        活动结束后，需要管理员进行操作
-        微信端 微信端登录管理员帐号“我的”—“活动管理”—“行签到签退确认”—“搜索活动名称”—“考勤确认”
-        PC端  “活动管理”—“行签到签退确认”—“搜索活动名称”—“操作”—“考勤确认</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">用户对活动或者时长有异议该怎么办？（包括发布补录活动）</p> <p class="p02">举报可以是针对活动的举报，也可以是对志愿者时数录入的举报。
-        （1）活动举报：在活动详情页面，活动标题右下角处，点击举报，按要求提交材料，相关举报将直接反馈至省级管理员。
-        （2）志愿者时长举报：在时长公式页面，选择活动查看，可以看到每位参加活动的志愿者通过补录录入的时数和通过扫码录入的时数。若有异议可以点击“我有异议”进行举报，信息将直接反馈省管理员。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">用户参加志愿者活动颁布过5星志愿者证书，该如何补录时长？</p> <p class="p02">可以通过举证补录进行补录。                              举证补录仅针对高级管理员以上权限的管理员，针对以往颁发过星级志愿者服务时长认定的证书，进行审核后通过后，在系统中完成举证审核补录功能。
-        步骤：“登录管理员帐号”—“活动管理”—“举证材料补录”—“添加补录” </p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">是否活动结束后系统自动将活动结项？</p> <p class="p02">新系统上线之后，活动是不需要结项，到了活动日期截止日期会系统自动转为结束状态；
-        现在平台也取消了活动结项功能，现活动根据活动发布时候填写的日期自动执行、自动结束。在活动执行中和活动结束后方可执行考勤操作</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">目前志愿服务时数是如何补录？</p> <p class="p02">分为3种（1）实时活动补录 （2）历史活动补录（3）举证补录</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">用户参加某场活动显示“只允许本组织成员报名”？</p> <p class="p02">说明这场活动只有本组织名下的成员才可以报名。（不包括下级组织）</p></div></div></li></ul> <li class=""><span>组织团体问题</span></li> <ul class="submenu"><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">管理员登录账号时显示密码错误？</p> <p class="p02">在登录账号与密码正确情况下，请核实是否选择登录入口有误。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">如何变更组织团体管理员？</p> <p class="p02">步骤：登录管理账号—组织管理—
-        管理员变更 （如没有运营者帐号需添加运营者帐号再进行操作）</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">如何添加运营者？</p> <p class="p02">由组织/团体帐号进行添加运营者账号。
-        步骤;登录管理账号—组织管理—添加运营者—填写资料—提交 (运营者账号除了不能更改组织团体资料、添加管理员、变更管理员外，其他权限与本组织管理员权限一致。)
-    </p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">组织账号更改归属组织是否需要审核？</p> <p class="p02">需要审核，联系所选择的归属组织的管理员进行审核。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">用户注册组织账号时选择已备案是选择谁审核？</p> <p class="p02">选择已备案是由民政局进行审核的。（需要联系您选择民政局进行审核）</p></div></div></li></ul> <li class=""><span>志愿者证问题</span></li> <ul class="submenu"><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">申请办理志愿者证已经半个月了，怎么还没有收到呢？</p> <p class="p02">志愿者证上需印制志愿者的基本信息和二维码，要特殊制卡，不像在柜台即办即可领卡，制卡时间大概为2~3个月，请耐心等待办卡。如需了解办卡进度可登录i志愿个人中心的志愿者证申请进度查看，或者电话银行客服咨询。
-        中国银行：信用卡&nbsp;客服热线400 669 5566邮箱gdzhzyz@163.com
-        借记卡客服热线95566客服邮箱boczyz@sina.com
-        光大银行：信用卡&nbsp;客服热线400 788 8888 &nbsp;借记卡客服热线 95595。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">申请办理志愿者证怎么收到银行的其他信用卡呢？</p> <p class="p02">在申请办理信用卡类型的志愿者证时，您选择了办理其他信用卡，导致申请志愿者证失败（注意申请时不要选择办理其他信用卡）。需要您重新登录i志愿个人中心申请办理志愿者证即可。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">我已经办理志愿者证为什么收不到志愿者服装呢？</p> <p class="p02">服装由银行赠送的，需要您使用志愿者证完成首笔消费后，银行才会根据你申请志愿者证时选择的尺码开始制作服装，因要提取制作信息以及实名印制。故制作时间周期较长，一般是首刷后2个月,服装制作配送进度可在i志愿个人中心查看。详细可以咨询银行客服。如您一直未使用志愿者证进行首笔消费，是收不到志愿者服装的。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">在网站上已经查询到制卡完成，怎么还没有收到卡呢？</p> <p class="p02">制卡完成后，银行需要分发到各领取网点，领取志愿者证以银行通知短信为准。如有其他问题可咨询银行客服查询，
-        中国银行：信用卡&nbsp;客服热线400 669 5566邮箱gdzhzyz@163.com
-        借记卡客服热线95566邮箱boczyz@sina.com
-        光大银行：信用卡&nbsp;客服热线400 788 8888 &nbsp;借记卡客服热线 95595。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">志愿者证丢失或者更换新卡是否需要收取工本费？</p> <p class="p02">需要收取工本费， 需本人前往银行网点办理换卡。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">用户参加志愿活动中发生事故该如何进行保险理赔？</p> <p class="p02">志愿者申请是（中行或者光大)志愿者证，请通过i志愿平台（帮助）搜索注册志愿者证理赔文件公示（中行卡或者光大）进行下载文件进行填写资料。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">志愿者证审批中显示相片获取不到，是否需要重新上传？</p> <p class="p02">需要重新上传图片，请登录i志愿电脑端在志愿者证查询进度那里上传图片。（注意上传证件图片的规格尺寸:证件头像为注册志愿者证正面的卡面头像，请按照证件的标准规则尺寸进行上传。照片宽与高的比例为1:1.25，宽度不低于360px，高度不低于450px，底色为白色。）</p></div></div></li></ul> <li class=""><span>其他问题</span></li> <ul class="submenu"><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">如何用户名设置？</p> <p class="p02">志愿者在pc端登录个人账号后，在“完善资料”——“个人资料”中，按规定填写并提交保存即可。
-        注意：用户名只能设置一次，设置后用户名可作为登录账号登录。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">如何查看我的消息？</p> <p class="p02">志愿者登录个人账号后，在“我的消息”栏目中，即可查看目前系统、组织、活动类型的消息，如有站内私信，将出现在@与我相关中。
-        管理员账号是登录账号在个人中心进行查看消息。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">使用多种方式登录</p> <p class="p02">志愿者登录支持微信扫码、身份证号、用户名、手机号码、绑定邮箱等五种方式登录。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">活动报名新增自定义条件报名。</p> <p class="p02">管理员在发布活动时，可选择自定义报名，点击后可自行添加报名条件，志愿者在报名时必须输入相应字段才能报名。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">手机获取验证码提示已超5次怎么办？</p> <p class="p02">(1)24小时内手机号码接收手机验证码上限为5次，超过了5次请在24小时后再尝试获取，注意获取不要连续点击。
-        (2)如未获取过验证码请向i志愿客服反映，并提供接收验证码信息的手机号码+问题发到客服邮箱kf@izyz.org 。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">关于登录账号情况说明？</p> <p class="p02">（1）每个用户有自身的一个登录帐号，登录帐号可分为手机号码，身份证号、邮箱或者注册时自设的用户名等等情况。
-        （2）微信端与电脑端是相统一的，登录帐号+密码方可登录；系统暂时是不支持更改登录帐号的。
-        如志愿者是本组织下的志愿者，可在后台查看一下登录帐号，告知志愿者的登录帐号，如不是本组织的话，用Excel表格统计将身份证+姓名+手机号码+问题发到客服邮箱。kf@izyz.org </p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">邀请志愿者，怎么没有收到短信的呢？</p> <p class="p02">（1）邀请通知是以微信通知、短信通知、站内信三种方式。志愿者账号关注并绑定i志愿服务号邀请通知以微信通知和站内信方式推送，如果没有的话将以短信通知推送。注意：如果志愿者账号绑定了公众号却未关注i志愿服务号，将导致邀请通知推送失败，请检查是否关注了i志愿服务号。
-        微信公众号绑定方法：关注i志愿微信服务号，点击志愿者菜单的绑定账号，微信自动推送一条绑定推送，点击该链接根据提示绑定即可。</p></div></div></li><li><div class="item clearfix"><div class="left">问</div> <div class="right"><p class="p01">星级志愿者是如何区分的？</p> <p class="p02">服务时长大于100H，为一星；大于300h，为2星；大600H，为三星；大于1000H，为四星；大于1500H，为五星。</p></div></div></li></ul> <li><span style="">收起</span></li></ul>
-</section>
+<div data-role="page" class="page1">
+    <div data-role="header">
+        <h1>常见问题</h1>
+    </div>
+    <div data-role="content">
+        <div data-role="collapsible-set" data-iconpos="none">
+            <div data-role="collapsible">
+                <h3>1.注册问题</h3>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 用户如何注册志愿者账号？</p>
+                <p>A: 用户自行在平台申请注册志愿者账号即可。（建议使用手机号码，由组织管理员进行身份校验信息进行审核（在实名制校验中））</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 登录提示“您的账号正在实名审批中，请耐心等待”。</p>
+                <p>A: 由于帐号在等待公安系统的身份证校验，志愿者注册提交资料同时，系统将会志愿者身份信息进行实时校验。登录使用账号。正常情况下，志愿者身份信息校验可实现秒过。</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 关于身份信息校验情况说明？（新注册用户一般为24小时即可处理完成，老用户的需要进行排队审核。）</p>
+                <p>A: 身份信息校验是我系统和公安系统对接的身份验证过程，主要为校验姓名和身份证号是否一致。</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 注册时发现身份证信息已存在，但是不清楚帐号填写的手机？</p>
+                <p>A: （1）可通过本系统“忘记密码”，在输入登录账号时尝试用手机号作为账号，经手机号码获取验证码找回密码。 找回密码申诉。如还不解决问题将个人身份证+姓名+手机号+问题发送至3449342932@qq.com客服邮箱处理。 步骤：“本系统登录”—“忘记密码”—“输入手机号码”—“（如果清楚自己的注册组织的用户最好联系自己归属组织的管理员进行密码重置）。</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 同一个身份证注册了志愿者还能注册成为组织管理员吗?</p>
+                <p>A: 不能。注册志愿者，不可以注册管理员。 （注意：管理员默认为注册组织者手机号码和密码，如需要指定或更换，请以组织公函（盖章）向邮箱3449342932@qq.com发送申请，由系统分配管理账号和密码）。</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 归属组织选错了需要更改组织？</p>
+                <p>A: 进入i聊城志愿服务系统-找组织，选择正确的归属组织，支持加入多个组织。（需要联系您所选择归属组织的管理员进行审核）错加入组织，由本人向对应组织管理员提出删除申请。</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 注册组织账号如何区分已备案和未备案？</p>
+                <p>A: 已备案指的是在民政部门登记成立的法人组织。 未备案指的是未在民政部门登记备案的社会组织或其他。 （选择其他，可无需填组织机构代码或者统一社会信用代码） 注；在民政部门登记成立的法人组织需上传法人登记证书副本图片进行审核。未在民政部门登记备案的社会组织或其他组织将由归属组织的管理员进行审核。</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 注册成功可以登录账号了，可显示归属组织还在审核中？</p>
+                <p>A: 新注册的用户只要身份信息校验通过即可登录使用账号，无需等待注册时所选组织的审核通过。</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 关于注册时（或者是忘记密码），手机获取不了验证，如何解决？</p>
+                <p>A: （1）可查询手机是否开通短信智能拦截或者是否安装的安全软件自动拦截。 （2）在拦截处查询不到短信请向i志愿客服反应，并提供接收验证码信息的手机号码；或者身份证+姓名+手机+问题发到客服邮箱3449342932@qq.com （如果清楚自己的注册组织的用户最好联系自己归属组织的管理员进行密码重置）。</p>
 
 
-<script type="text/javascript">
 
-    new Vue({
-        el:'#mainmenu',
-        data:{
-            /* index:0, */
-            auto_index:'',
-            one:[
-                {
-                    querstion:'港澳台用户如何注册志愿者账号？',
-                    answer:'港澳台用户自行在平台申请注册志愿者账号即可。（需要邀请证明人作为证明，然后再由组织管理员进行身份校验信息进行审核（在实名制校验中））'
-                },
-                {
-                    querstion:'登录提示“您的账号正在实名审批中，请耐心等待”。',
-                    answer:'由于帐号在等待公安系统的身份证校验，志愿者注册提交资料同时，系统将会志愿者身份信息进行实时校验。登录使用账号。正常情况下，志愿者身份信息校验可实现秒过。'
-                },
-                {
-                    querstion:'关于身份信息校验情况说明？（新注册用户一般为24小时即可处理完成，老用户的需要进行排队审核。）',
-                    answer:'身份信息校验是我系统和公安系统对接的身份验证过程，主要为校验姓名和身份证号是否一致。'
-                },
-                {
-                    querstion:'注册时发现身份证信息已存在，但是不清楚帐号填写的手机和邮箱？',
-                    answer:'可能由于学校或单位采用excel表格批量导入信息所致。\n' +
-                        '（1）先尝试使用身份证号作为帐号，6个0作为密码进行登录；\n' +
-                        '（2）可通过本系统“忘记密码”，在输入登录账号时尝试用手机号/身份证号作为账号，经手机号码和邮箱获取验证码找回密码。\n' +
-                        '找回密码申诉。如还不解决问题将个人身份证+姓名+手机号+问题发送至kf@izyz.org 客服邮箱处理。\n' +
-                        '步骤：“本系统登录”—“忘记密码”—“输入身份证号或者手机号码为主”—“选择第三个申诉入口”\n' +
-                        '（如果清楚自己的注册组织的用户最好联系自己归属组织的管理员进行密码重置）。'
-                },
-                {
-                    querstion:'在一号通注册后,在本系统登录账号显示密码错误，找回密码时输入手机号码或者身份证号码显示账号不存在？',
-                    answer:'由于在一号通注册账号但没有进行完善资料。\n' +
-                        '步骤:“一号通登录”—“忘记密码”—“找回密码”—“进行完善资料”。'
-                },
-                {
-                    querstion:'同一个身份证注册了志愿者还能注册成为组织管理员吗?',
-                    answer:'能。注册志愿者，也可以注册管理员。\n' +
-                        '（注意：在注册管理员时的登录账号必须设置与个人登录账号不一样，管理员帐号是不可以参加志愿活动）。'
-                },
-                {
-                    querstion:'归属组织选错了需要更改组织？',
-                    answer:'进入用户中心-完善资料，选择正确的归属组织，最多支持加入5个组织。（需要联系您所选择归属组织的管理员进行审核）。'
-                },
-                {
-                    querstion:'注册组织账号如何区分已备案和未备案？',
-                    answer:'已备案指的是在民政部门登记成立的法人组织。\n' +
-                        '未备案指的是未在民政部门登记备案的社会组织或其他。\n' +
-                        '（选择其他，可无需填组织机构代码或者统一社会信用代码）\n' +
-                        '注；在民政部门登记成立的法人组织将由登记备案所在的民政管理员进行审核。未在民政部门登记备案的社会组织或其他组织将由归属组织的管理员进行审核。'
-                },
-                {
-                    querstion:'登录账号显示身份校验不通过？',
-                    answer:'核实姓名或者身份证号是否正确，信息有误请修正重新校验信息。（姓名或者身份证号无误由管理员进行“重新校验”，如“重新校验”无法通过，请提供身份证手持图片发到kf@izyz.org 。）'
-                },
-                {
-                    querstion:'注册成功可以登录账号了，可显示归属组织还在审核中？',
-                    answer:'新注册的用户只要身份信息校验通过即可登录使用账号，无需等待注册时所选组织的审核通过。'
-                },
-                {
-                    querstion:'关于注册时（或者是忘记密码），手机（或者邮箱）获取不了验证，如何解决？',
-                    answer:'（1）可查询手机是否开通短信智能拦截或者是否安装的安全软件自动拦截。\n' +
-                        '（2）可查询邮箱设置是否开通拒收邮件功能或者进入垃圾邮件中查询。\n' +
-                        '（3）在拦截处查询不到短信请向i志愿客服反应，并提供接收验证码信息的手机号码或邮箱；或者身份证+姓名+手机（邮箱）+问题发到客服邮箱kf@izyz.org 。'
-                }
-            ],
-            two:[
-                {
-                    querstion:'登录志愿者账号出现账号密码错误或者用户不存在情况，点击“忘记密码”，进行密码修改。',
-                    answer:'请在第一步输入帐号时尽量输入登录账号（手机号/身份证号）作为账号，通过短信、邮箱、提交申诉资料三种方式找回密码。如还不解决问题将个人身份证+姓名+手机号+问题发送至kf@izyz.org 客服邮箱处理。'
-                },
-                {
-                    querstion:'登录组织/团体账号出现账号密码错误或者用户不存在情况，点击“忘记密码”，进行密码修改。',
-                    answer:'请在第一步输入帐号时尽量输入登录账号（手机号/身份证号）作为账号，通过短信、邮箱、提交申诉资料三种方式找回密码。如还不解决问题将个人身份证+姓名+手机号+问题发送至kf@izyz.org 客服邮箱处理。'
-                }
-            ],
-            three:[
-                {
-                    querstion:'关于面验，是怎么操作的？',
-                    answer:'第一次参加志愿者活动时需要面验才可以进行扫码签到。\n' +
-                        '面验：面验指的是活动管理员查看需要面验的人员的身份证件，以确保信息真实性。\n' +
-                        '注意以下几点：\n' +
-                        '1.活动考勤前需要对未面验的志愿者进行面验，如未面验，会造成考勤失败。\n' +
-                        '2.注册信息与身份证信息一致，面验通过。注册信息与身份证信息不一致，面验不通过。\n' +
-                        '3.平台在活动开始前会以短信方式通知到需要面验志愿者携带身份证参加活动。\n' +
-                        '4.面验通过的志愿者，下次活动无需面验。\n' +
-                        '5.面验操作可在微信城市服务端、支付宝城市服务端、pc端进行操作。\n' +
-                        '步骤：PC端“活动管理”—“活动查询”—“搜索活动名称”—“操作”—“考勤”—“面验”\n' +
-                        '微信端  登录管理员帐号“我的”—“活动管理”—“活动考勤”—“搜索活动名称”—“面验”'
-                },
-                {
-                    querstion:'如何邀请录用？',
-                    answer:'邀请是指邀请组织名下的志愿者进行参加活动，以站内信的方式发给用户报名活动。\n' +
-                        '录用是指用户报名活动，管理员在后台进行录用志愿者或者拒绝志愿者。\n' +
-                        '步骤：PC端 “活动管理”—“邀请录用”—“搜索活动名称”—“操作”—“邀请/录用”\n' +
-                        '微信端：登录管理员账号“我的”—“活动管理”—“邀请录用”—“搜索活动名称”—“邀请/录用”'
-                },
-                {
-                    querstion:'管理员发布活动，但在PC端或者微信端搜索不出活动？',
-                    answer:'是由于这场活动时间超过8小时，需要上级管理员进行审核。\n' +
-                        '（每天考勤时长不超过8小时，如果超出8小时请勾选申请，上级审核通过后，以实际时长为准，但也不超过11小时。）'
-                },
-                {
-                    querstion:'如何查询这场活动是否超过8小时',
-                    answer:'步骤：PC端 “活动管理”—“活动审核” —“搜索活动名称”—“操作”—“审核”\n' +
-                        '微信端：登录管理员帐号“我的”—“活动管理”—“活动审核”—“搜索活动名称”—“审核”'
-                },
-                {
-                    querstion:'培训活动是否加入服务时长？',
-                    answer:'不可以。发布活动时，请注意选择活动性质，现在新增培训活动，由此产生的时长将录入到培训时长中。（查看培训时长需要在PC端登录账号。）'
-                },
-                {
-                    querstion:'用户在微信端报名活动时显示未登录或登录超时？',
-                    answer:'请按以下步骤：微信端登录志愿者账号—“我的”—公众号解绑—退出账号—清除缓存—重新登录账号'
-                },
-                {
-                    querstion:'管理员如何发布活动？',
-                    answer:'（1）发布活动时，请注意选择活动性质，现在新增培训活动，由此产生的时长将录入到培训时长中。\n' +
-                        '（2）发布活动时，需要选择服务地点坐标和考勤地理范围。（服务地点坐标以活动地点为准，关系到扫码考勤是否成功，请知悉。在指定理范围才可以进行扫码签到。）\n' +
-                        '（3）管理员在发布活动时，可选择自定义报名，点击后可自行添加报名条件，志愿者在报名时必须输入相应字段才能报名。\n' +
-                        '（4）发布活动时，每天考勤时长不超过8小时，如果超出8小时请勾选申请，上级审核通过后，以实际时长为准，但也不超过11小时。\n' +
-                        '（5）活动发布时，活动宣传照片、活动地址为必填。'
-                },
-                {
-                    querstion:'发布活动，邀请、录用、考勤全部程序走完，志愿时什么时候会显示？是不是需要公示？等公示期过了时长才录入到个人信息中？',
-                    answer:'不是，考勤结束后 服务时长隔天才会更新'
-                },
-                {
-                    querstion:'用补录方式给服务时数时弄的，志愿者多给了服务时数、导致时长比正常多出，管理员是否撤回操作的吗？',
-                    answer:'是不可以的，没有取消考勤的功能'
-                },
-                {
-                    querstion:'活动进行中或者结束的情形下,管理员进行撤销活动,这个活动志愿者的志愿时会消失吗？还是会照常记录',
-                    answer:'活动时长是存在的。'
-                },
-                {
-                    querstion:'志愿者活动考勤时，只签到忘了签退，怎么办？',
-                    answer:'(1)签到和签退时间会产生一个时间差；时间差就是志愿者的服务时长，忘了签退算是考勤失败，没有服务时长。\n' +
-                        '(2)在已签到没有签退的情况下，由于已签到是存在考勤，人工补录时长当天补录不了时长，可隔天由管理员进行补录操作。'
-                },
-                {
-                    querstion:'什么是历史活动补录？',
-                    answer:'对于以前已经开展、且未发发布过的活动，管理员可通过历史活动补录完成补录，4.0中“发布活动”将不能再发布往期的活动。\n' +
-                        '步骤：“活动管理”—“发布历史活动”—“录用”—“添加考勤”—“提交材料”\n' +
-                        '“提交资料”后等待上级管理员进行审核即可。'
-                },
-                {
-                    querstion:'如何区别3种记录服务时长？',
-                    answer:'（1）由活动发布人提供签到签退二维码给志愿者进行签到签退 。（每天可以签到签退3次）\n' +
-                        '步骤：微信端登录管理员帐号“我的”—“活动管理”—“活动考勤”—“搜索活动名称”—“签到/签退按钮”—“生成二维码”\n' +
-                        '\n' +
-                        '（2）扫志愿者证二维码记录服务时长\n' +
-                        '步骤：微信端登录管理员帐号“我的”—“活动管理”—“活动考勤”—“搜索活动名称”—“签到/签退按钮”—“志愿者证签到”—“管理员进行扫志愿者证二维码”\n' +
-                        '（3）自行签到签退\n' +
-                        '注意如下：（1）活动参与人数多余50人，才可以选择自行签到签退\n' +
-                        '（2）发布活动时考勤方式选择自行签到签退，选择考勤地理范围\n' +
-                        '步骤：微信端 登录志愿者帐号“我的”—“我的活动”—“参与中”—“自行签到”\n' +
-                        '活动结束后，需要管理员进行操作\n' +
-                        '微信端 微信端登录管理员帐号“我的”—“活动管理”—“行签到签退确认”—“搜索活动名称”—“考勤确认”\n' +
-                        ' PC端  “活动管理”—“行签到签退确认”—“搜索活动名称”—“操作”—“考勤确认'
-                },
-                {
-                    querstion:'用户对活动或者时长有异议该怎么办？（包括发布补录活动）',
-                    answer:'举报可以是针对活动的举报，也可以是对志愿者时数录入的举报。\n' +
-                        '（1）活动举报：在活动详情页面，活动标题右下角处，点击举报，按要求提交材料，相关举报将直接反馈至省级管理员。\n' +
-                        '（2）志愿者时长举报：在时长公式页面，选择活动查看，可以看到每位参加活动的志愿者通过补录录入的时数和通过扫码录入的时数。若有异议可以点击“我有异议”进行举报，信息将直接反馈省管理员。'
-                },
-                {
-                    querstion:'用户参加志愿者活动颁布过5星志愿者证书，该如何补录时长？',
-                    answer:'可以通过举证补录进行补录。                              举证补录仅针对高级管理员以上权限的管理员，针对以往颁发过星级志愿者服务时长认定的证书，进行审核后通过后，在系统中完成举证审核补录功能。\n' +
-                        '步骤：“登录管理员帐号”—“活动管理”—“举证材料补录”—“添加补录” '
-                },
-                {
-                    querstion:'是否活动结束后系统自动将活动结项？',
-                    answer:'新系统上线之后，活动是不需要结项，到了活动日期截止日期会系统自动转为结束状态；\n' +
-                        '现在平台也取消了活动结项功能，现活动根据活动发布时候填写的日期自动执行、自动结束。在活动执行中和活动结束后方可执行考勤操作'
-                },
-                {
-                    querstion:'目前志愿服务时数是如何补录？',
-                    answer:'分为3种（1）实时活动补录 （2）历史活动补录（3）举证补录'
-                },
-                {
-                    querstion:'用户参加某场活动显示“只允许本组织成员报名”？',
-                    answer:'说明这场活动只有本组织名下的成员才可以报名。（不包括下级组织）'
-                }
-            ],
-            four:[
-                {
-                    querstion:'管理员登录账号时显示密码错误？',
-                    answer:'在登录账号与密码正确情况下，请核实是否选择登录入口有误。'
-                },
-                {
-                    querstion:'如何变更组织团体管理员？',
-                    answer:'步骤：登录管理账号—组织管理—\n' +
-                        '管理员变更 （如没有运营者帐号需添加运营者帐号再进行操作）'
-                },
-                {
-                    querstion:'如何添加运营者？',
-                    answer:'由组织/团体帐号进行添加运营者账号。\n' +
-                        '步骤;登录管理账号—组织管理—添加运营者—填写资料—提交 (运营者账号除了不能更改组织团体资料、添加管理员、变更管理员外，其他权限与本组织管理员权限一致。)\n'
-                },
-                {
-                    querstion:'组织账号更改归属组织是否需要审核？',
-                    answer:'需要审核，联系所选择的归属组织的管理员进行审核。'
-                },
-                {
-                    querstion:'用户注册组织账号时选择已备案是选择谁审核？',
-                    answer:'选择已备案是由民政局进行审核的。（需要联系您选择民政局进行审核）'
-                }
-            ],
-            five:[
-                {
-                    querstion:'申请办理志愿者证已经半个月了，怎么还没有收到呢？',
-                    answer:'志愿者证上需印制志愿者的基本信息和二维码，要特殊制卡，不像在柜台即办即可领卡，制卡时间大概为2~3个月，请耐心等待办卡。如需了解办卡进度可登录i志愿个人中心的志愿者证申请进度查看，或者电话银行客服咨询。\n' +
-                        '中国银行：信用卡 客服热线400 669 5566邮箱gdzhzyz@163.com\n' +
-                        '借记卡客服热线95566客服邮箱boczyz@sina.com\n' +
-                        '光大银行：信用卡 客服热线400 788 8888  借记卡客服热线 95595。'
-                },
-                {
-                    querstion:'申请办理志愿者证怎么收到银行的其他信用卡呢？',
-                    answer:'在申请办理信用卡类型的志愿者证时，您选择了办理其他信用卡，导致申请志愿者证失败（注意申请时不要选择办理其他信用卡）。需要您重新登录i志愿个人中心申请办理志愿者证即可。'
-                },
-                {
-                    querstion:'我已经办理志愿者证为什么收不到志愿者服装呢？',
-                    answer:'服装由银行赠送的，需要您使用志愿者证完成首笔消费后，银行才会根据你申请志愿者证时选择的尺码开始制作服装，因要提取制作信息以及实名印制。故制作时间周期较长，一般是首刷后2个月,服装制作配送进度可在i志愿个人中心查看。详细可以咨询银行客服。如您一直未使用志愿者证进行首笔消费，是收不到志愿者服装的。'
-                },
-                {
-                    querstion:'在网站上已经查询到制卡完成，怎么还没有收到卡呢？',
-                    answer:'制卡完成后，银行需要分发到各领取网点，领取志愿者证以银行通知短信为准。如有其他问题可咨询银行客服查询，\n' +
-                        '中国银行：信用卡 客服热线400 669 5566邮箱gdzhzyz@163.com\n' +
-                        '借记卡客服热线95566邮箱boczyz@sina.com\n' +
-                        '光大银行：信用卡 客服热线400 788 8888  借记卡客服热线 95595。'
-                },
-                {
-                    querstion:'志愿者证丢失或者更换新卡是否需要收取工本费？',
-                    answer:'需要收取工本费， 需本人前往银行网点办理换卡。'
-                },
-                {
-                    querstion:'用户参加志愿活动中发生事故该如何进行保险理赔？',
-                    answer:'志愿者申请是（中行或者光大)志愿者证，请通过i志愿平台（帮助）搜索注册志愿者证理赔文件公示（中行卡或者光大）进行下载文件进行填写资料。'
-                },
-                {
-                    querstion:'志愿者证审批中显示相片获取不到，是否需要重新上传？',
-                    answer:'需要重新上传图片，请登录i志愿电脑端在志愿者证查询进度那里上传图片。（注意上传证件图片的规格尺寸:证件头像为注册志愿者证正面的卡面头像，请按照证件的标准规则尺寸进行上传。照片宽与高的比例为1:1.25，宽度不低于360px，高度不低于450px，底色为白色。）'
-                }
-            ],
-            six:[
-                {
-                    querstion:'如何用户名设置？',
-                    answer:'志愿者在pc端登录个人账号后，在“完善资料”——“个人资料”中，按规定填写并提交保存即可。\n' +
-                        '注意：用户名只能设置一次，设置后用户名可作为登录账号登录。'
-                },
-                {
-                    querstion:'如何查看我的消息？',
-                    answer:'志愿者登录个人账号后，在“我的消息”栏目中，即可查看目前系统、组织、活动类型的消息，如有站内私信，将出现在@与我相关中。\n' +
-                        '管理员账号是登录账号在个人中心进行查看消息。'
-                },
-                {
-                    querstion:'使用多种方式登录',
-                    answer:'志愿者登录支持微信扫码、身份证号、用户名、手机号码、绑定邮箱等五种方式登录。'
-                },
-                {
-                    querstion:'活动报名新增自定义条件报名。',
-                    answer:'管理员在发布活动时，可选择自定义报名，点击后可自行添加报名条件，志愿者在报名时必须输入相应字段才能报名。'
-                },
-                {
-                    querstion:'手机获取验证码提示已超5次怎么办？',
-                    answer:'(1)24小时内手机号码接收手机验证码上限为5次，超过了5次请在24小时后再尝试获取，注意获取不要连续点击。\n' +
-                        '(2)如未获取过验证码请向i志愿客服反映，并提供接收验证码信息的手机号码+问题发到客服邮箱kf@izyz.org 。'
-                },
-                {
-                    querstion:'关于登录账号情况说明？',
-                    answer:'（1）每个用户有自身的一个登录帐号，登录帐号可分为手机号码，身份证号、邮箱或者注册时自设的用户名等等情况。\n' +
-                        '（2）微信端与电脑端是相统一的，登录帐号+密码方可登录；系统暂时是不支持更改登录帐号的。\n' +
-                        '如志愿者是本组织下的志愿者，可在后台查看一下登录帐号，告知志愿者的登录帐号，如不是本组织的话，用Excel表格统计将身份证+姓名+手机号码+问题发到客服邮箱。kf@izyz.org '
-                },
-                {
-                    querstion:'邀请志愿者，怎么没有收到短信的呢？',
-                    answer:'（1）邀请通知是以微信通知、短信通知、站内信三种方式。志愿者账号关注并绑定i志愿服务号邀请通知以微信通知和站内信方式推送，如果没有的话将以短信通知推送。注意：如果志愿者账号绑定了公众号却未关注i志愿服务号，将导致邀请通知推送失败，请检查是否关注了i志愿服务号。\n' +
-                        '微信公众号绑定方法：关注i志愿微信服务号，点击志愿者菜单的绑定账号，微信自动推送一条绑定推送，点击该链接根据提示绑定即可。'
-                },
-                {
-                    querstion:'星级志愿者是如何区分的？',
-                    answer:'服务时长大于100H，为一星；大于300h，为2星；大600H，为三星；大于1000H，为四星；大于1500H，为五星。'
-                }
-            ]
-        }
-    });
+            </div>
+            <div data-role="collapsible">
+                <h3>2.账号问题</h3>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 登录志愿者账号出现账号密码错误或者用户不存在情况，点击“忘记密码”，进行密码修改。</p>
+                <p>A: 请在第一步输入帐号时尽量输入登录账号（手机号）作为账号，通过短信方式找回密码。如还不解决问题将个人身份证+姓名+手机号+问题发送至3449342932@qq.com客服邮箱处理（如果清楚自己的注册组织的用户最好联系自己归属组织的管理员进行密码重置）。</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 登录组织/团体账号出现账号密码错误或者用户不存在情况，点击“忘记密码”，进行密码修改。</p>
+                <p>A: 将个人身份证+姓名+手机号+组织名称+组织委托证明发送至3449342932@qq.com 客服邮箱处理。</p>
 
-</script>
+            </div>
+            <div data-role="collapsible">
+                <h3>3.活动问题</h3>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 培训活动是否加入服务时长？</p>
+                <p>A: 不可以。发布活动时，请注意选择活动性质，现在新增培训活动，由此产生的时长将录入到培训时长中。（查看培训时长需要在PC端登录账号。）</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 用户在微信端报名活动时显示未登录或登录超时？</p>
+                <p>A: 请按以下步骤：微信端收藏，打开i聊城志愿服务系统--重新登录账号</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 管理员如何发布活动？</p>
+                <p>A: （1）发布活动时，请注意选择活动性质，现在新增培训活动，由此产生的时长将录入到培训时长中。 （2）发布活动时，需要选择服务地点坐标和考勤地理范围。（服务地点坐标以活动地点为准，关系到扫码考勤是否成功，请知悉。在指定理范围才可以进行扫码签到。） （3）管理员在发布活动时，可选择活动扫码计时管理员，活动现场只能由选择的管理员进行扫码计时。 （4）发布活动时，每天考勤时长不超过8小时，如果超出8小时请勾选申请，上级审核通过后，以实际时长为准，但也不超过11小时。 （5）活动发布时，活动宣传照片、活动地址为必填。</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 志愿时什么时候会显示？是不是需要公示？等公示期过了时长才录入到个人信息中？</p>
+                <p>A: 不是，考勤结束后 服务时长会自动更新</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 活动开始或结束忘记扫码怎么办？ </p>
+                <p>A: 由活动发起方用公函的形式，向3449342932@qq.com客服邮箱发送活动名称、需补录人员信息及时长，用补录方式给增加服务时数（不接受个人申请）。</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 活动进行中或者结束的情形下,管理员进行撤销活动,这个活动志愿者的志愿时会消失吗？还是会照常记录</p>
+                <p>A: 活动时长是存在的。</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 志愿者活动考勤时，只签到忘了签退，怎么办？</p>
+                <p>A: (1)签到和签退时间会产生一个时间差；时间差就是志愿者的服务时长，忘了签退算是考勤失败，没有服务时长。 (2)在已签到没有签退的情况下，由于已签到是存在考勤，人工补录时长当天补录不了时长，可隔天由管理员进行补录操作。</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 什么是历史活动补录？</p>
+                <p>A: 对于以前已经开展、且未发发布过的活动，管理员可通过向3449342932@qq.com 客服邮箱发送“添加考勤”—“提交材料” “提交资料”后等待上级管理员进行审核即可（每个组织的志愿者每人限一次）。</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 如何记录服务时长？</p>
+                <p>A: （1）由活动发布人提供签到签退二维码给志愿者进行签到签退 。（2）扫志愿者证二维码记录服务时长 </p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 用户对活动或者时长有异议该怎么办？（包括发布补录活动）</p>
+                <p>A: 举报可以是针对活动的举报，也可以是对志愿者时数录入的举报。 （1）活动举报：在活动详情页面，活动标题右下角处，点击举报，按要求提交材料，相关举报将直接反馈至省级管理员。 （2）志愿者时长举报：在时长公式页面，选择活动查看，可以看到每位参加活动的志愿者通过补录录入的时数和通过扫码录入的时数。若有异议可以点击“我有异议”进行举报，信息将直接反馈省管理员。</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 是否活动结束后系统自动将活动结项？</p>
+                <p>A: 新系统上线之后，活动是不需要结项，到了活动日期截止日期会系统自动转为结束状态； 现在平台也取消了活动结项功能，现活动根据活动发布时候填写的日期自动执行、自动结束。在活动执行中和活动结束后方可执行考勤操作</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 目前志愿服务时数是如何补录？</p>
+                <p>A: 分为3种（1）实时活动补录 （2）历史活动补录（3）举证补录</p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">Q: 用户参加某场活动显示“只允许本组织成员报名”？</p>
+                <p>A: 说明这场活动只有本组织名下的成员才可以报名。（不包括下级组织）</p>
 
+            </div>
+            <div data-role="collapsible">
+                <h3>4.组织团体问题</h3>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">
+                    Q: 管理员登录账号时显示密码错误？
+                </p>
+                <p>
+                    A: 在登录账号与密码正确情况下，请核实是否选择登录入口有误。
+                </p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">
+                    Q: 如何设定组织活动管理员？
+                </p>
+                <p>
+                    A: 步骤：登录管理账号—活动管理— 发布新活动—根据需要选择1-N名管理员（如没有运营者帐号需添加运营者帐号再进行操作）
+                </p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">
+                    Q: 如何添加（更改）运营者？
+                </p>
+                <p>
+                    A: 管理员默认为注册组织者手机号码和密码，如需要指定或更换，请以组织公函（盖章）向邮箱3449342932@qq.com发送申请，由系统分配管理账号和密码）。
+                </p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">
+                    Q: 组织账号更改归属组织是否需要审核？
+                </p>
+                <p>
+                    A: 需要审核，联系所选择的归属组织的管理员进行审核。
+                </p>
 
-</body></html>
+            </div>
+            <div data-role="collapsible">
+                <h3>5.志愿者证问题</h3>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">
+                    Q: 申请办理志愿者证已经半个月了，怎么还没有收到呢？
+                </p>
+                <p>
+                    A: 志愿者证上需印制志愿者的基本信息和二维码，要特殊制卡，不像在柜台即办即可领卡，制卡时间大概为2~3个月，请耐心等待办卡（信用卡需面审）。卡将以组织（团体）为单位统一面审，统一领取。如需了解办卡进度可电话银行客服咨询。 威海银行：省内客服热线96636，境内客服热线：40000—96636.
+                </p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">
+                    Q: 申请办理志愿者证实体卡是什么呢？
+                </p>
+                <p>
+                    A: 在本系统申请办理的志愿者证，由威海银行免费提供借记卡和信用卡各一张，信用卡额度根据个人授信情况而不同；因个人原因无法通过审核的，将只能办理借记卡。
+                </p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">
+                    Q: 志愿者证丢失或者更换新卡是否需要收取工本费？
+                </p>
+                <p>
+                    A: 需要收取工本费， 需本人前往银行网点办理换卡。
+                </p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">
+                    Q: 志愿者证审批中显示相片获取不到，是否需要重新上传？
+                </p>
+                <p>
+                    A: 需要重新上传图片，请登录i聊城志愿服务系统电脑端在志愿者证查询进度那里上传图片。（注意上传证件图片的规格尺寸:证件头像为注册志愿者证正面的卡面头像，请按照证件的标准规则尺寸进行上传。照片宽与高的比例为1:1.25，宽度不低于360px，高度不低于450px，底色为白色。）
+                </p>
+
+            </div>
+            <div data-role="collapsible">
+                <h3>6.其他问题</h3>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">
+                    Q: 如何用户名设置？
+                </p>
+                <p>
+                    A: 志愿者登录个人账号后，点击“我的”—“设置”—“用户昵称（建议使用真实姓名”—“检测”，检测通过后，立即使用即可。
+                </p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">
+                    Q: 如何使用我的二维码进行时间记录？
+                </p>
+                <p>
+                    A: 志愿者登录个人账号后，在“我的服务”——“服务记录”中，找到报名参加的活动，点击“我的报名二维码”，在活动开始和结束时向活动现场管理员出示，即可自动完成时间记录
+                </p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">
+                    Q: 关于登录账号情况说明？
+                </p>
+                <p>
+                    A: （1）每个用户有自身的一个登录帐号，登录帐号为手机号码。 （2）微信端与电脑端是相统一的，登录帐号+密码方可登录；系统暂时是不支持更改登录帐号的。 如志愿者是本组织下的志愿者，可在后台查看一下登录帐号，告知志愿者的登录帐号，如不是本组织的话，用Excel表格统计将身份证+姓名+手机号码+问题发到客服邮箱3449342932@qq.com。
+                </p>
+                <p style="color:red;font-weight:900;font-size:0.22rem;">
+                    Q: 星级志愿者是如何区分的？
+                </p>
+                <p>
+                    A: 服务时长大于100H，为一星；大于200h，为2星；大300H，为三星；大于400H，为四星；大于500H，为五星。
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

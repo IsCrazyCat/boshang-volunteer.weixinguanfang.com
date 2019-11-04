@@ -240,14 +240,13 @@ class ActivityAction extends CommonAction
         if (!($activity = D('activity')->where(array('activity_id' => $activity_id))->find())) {
             $this->error('该活动不存在！');
         }
-        $cur_date = date("Y-m-d");
         $start_date = $activity['bg_date'];
         $end_date = $activity['end_date'];
 
         //判断活动是否开始/结束
-        if (strtotime($cur_date) < strtotime($start_date)) {
+        if (time() < strtotime($start_date)) {
             $this->error('该活动尚未开始！');
-        } else if (strtotime($cur_date) > strtotime($end_date)) {
+        } else if (time()> strtotime($end_date)) {
             $this->error('该活动已经结束！');
         }
 
@@ -265,11 +264,11 @@ class ActivityAction extends CommonAction
             $this->error('您不是该活动的管理员，无法计时！');
         }
 
-        $map['today_date'] = $cur_date;
+        $map['today_date'] = date("Y-m-d");
         $map['activity_id'] = $activity_id;
         $map['user_id'] = $sign_user_id;
         //是否已经参见了活动，没参加活动就开始计时
-        $ActivityLogs = D('ActivityLogs')->where(array('activity_id' => $activity_id, 'user_id' => $sign_user_id, 'today_date' => $cur_date))->find();
+        $ActivityLogs = D('ActivityLogs')->where(array('activity_id' => $activity_id, 'user_id' => $sign_user_id, 'type'=>0,'today_date' => date("Y-m-d")))->find();
         if (!$ActivityLogs) {
             $map['manager_id'] = $user['user_id'];
             $map['start_date'] = time();

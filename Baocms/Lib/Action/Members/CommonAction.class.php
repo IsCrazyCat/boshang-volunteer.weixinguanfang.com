@@ -100,7 +100,7 @@ class CommonAction extends Action{
         $this->assign('open_community', $open_community = $this->_CONFIG['operation']['community']);
         $this->assign('open_village', $open_village = $this->_CONFIG['operation']['village']);
         $this->assign('color', $color = $this->_CONFIG['other']['color']);
-        $this->assign('shop_gold', $shop_gold = D('Shop')->where(array('user_id' => $this->uid))->find());
+        $this->assign('shop_gold', $shop_gold = D('Shop')->where(array('user_id' => $this->uid,'closed'=>0))->find());
         //查询此志愿者是否是组织/团体
         $bg_time = strtotime(TODAY);
         $this->assign('msg_day', $counts['msg_day'] = (int) D('Msg')->where(array('cate_id' => 2, 'views' => 0, 'shop_id' => $this->shop_id))->count());

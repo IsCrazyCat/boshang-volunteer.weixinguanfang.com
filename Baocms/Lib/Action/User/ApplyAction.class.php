@@ -43,7 +43,7 @@ class ApplyAction extends CommonAction{
             $areas = D('Area')->fetchAll();
             $this->assign('cates', D('Shopcate')->fetchAll());
             $this->assign('areas', $areas);
-            $orgnaiztaions = D('Shop')->fetchAll();
+            $orgnaiztaions = D('Shop')->where(array('audit'=>1,'closed'=>0))->select();
             $this->assign('orgnaiztaions',$orgnaiztaions);
             $this->display();
         }
@@ -254,7 +254,7 @@ class ApplyAction extends CommonAction{
         }
         //查看是否已经成为某组织的志愿者 没有则先去成为某组织的志愿者
         if($organization_ids = D('OrganizationVolunteer')->where(array('user_id'=>$this->uid,'status'=>'1','is_del'=>'0'))->getField('organization_id',true)){
-            $this->assign('organizations',D('shop')->where(array('shop_id'=>array('IN',implode(',',$organization_ids))))->select());
+            $this->assign('organizations',D('shop')->where(array('shop_id'=>array('IN',implode(',',$organization_ids)),'closed'=>0))->select());
         }else{
             $this->error('请先成为某个组织志愿者！',U('wap/shop/index'));
         }

@@ -64,7 +64,8 @@
 
                     <td class="lfTdBt">分类：</td>
                     <td class="rgTdBt">
-                        <select id="cate_id" name="data[cate_id]" class="seleFl w210" disabled="disabled">
+                        <input type="hidden" id="cate_id" name="data[cate_id]" value="<{$detail.cate_id}>" />
+                        <select class="seleFl w210" disabled="disabled">
                             <foreach name="cates" item="var">
                                 <eq name="var.parent_id" value="0">
                                     <option value="<{$var.cate_id}>"
@@ -85,7 +86,9 @@
                 <tr>
                     <td class="lfTdBt">归属组织：</td>
                     <td class="rgTdBt">
-                        <select id="parent_id" name="data[parent_id]" class="seleFl w210" disabled="disabled">
+                        <input type="hidden" id="parent_id" name="data[parent_id]" value="<{$detail['parent_id']}>" />
+                        <select class="seleFl w210" disabled="disabled">
+                            <option value="" >无归属组织</option>
                             <foreach name="organizations" item="organization">
                                 <if condition="$organization['shop_id'] eq $detail['parent_id']">
                                     <option value="<{$organization['shop_id']}>" selected="selected">
@@ -115,10 +118,12 @@
                 <tr>
                     <td class="lfTdBt">所在区域：</td>
                     <td class="rgTdBt">
-
-                        <select name="data[city_id]" id="city_id" style="float: left;" class="seleFl w210" disabled="disabled"></select>
-                        <select name="data[area_id]" id="area_id" style="float: left;" class="seleFl w210" disabled="disabled"></select>
-                        <select name="data[business_id]" id="business_id" style="float: left;" disabled="disabled"
+                        <input type="hidden" value="<{$detail['city_id']}>" name="data[city_id]" />
+                        <input type="hidden" value="<{$detail['area_id']}>" name="data[area_id]" />
+                        <input type="hidden" value="<{$detail['business_id']}>" name="data[business_id]" />
+                        <select id="city_id" style="float: left;" class="seleFl w210" disabled="disabled"></select>
+                        <select id="area_id" style="float: left;" class="seleFl w210" disabled="disabled"></select>
+                        <select id="business_id" style="float: left;" disabled="disabled"
                                 class="seleFl w210"></select>
                     </td>
                 </tr>
@@ -266,7 +271,8 @@
                 <tr>
                     <td class="lfTdBt">组织类型：</td>
                     <td class="rgTdBt">
-                        <select name="data[apply_id]" id="apply_id" class="seleFl w210"  disabled="disabled">
+                        <input type="hidden" value="<{$detail['apply_id']}>" name="data[apply_id]"/>
+                        <select id="apply_id" class="seleFl w210"  disabled="disabled">
                             <option value="0">请选择</option>
                             <option value="1">民政注册</option>
                             <option value="2">党群机关团体</option>
