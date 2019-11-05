@@ -152,6 +152,12 @@ class ActivityAction extends CommonAction {
             if (!$detail = $obj->find($activity_id)) {
                 $this->baoError('请选择要编辑的活动');
             }
+            $managers = D('ActivityManager')->where(array('activity_id'=>$activity_id))->select();
+            foreach ($managers as $key => $val){
+                $manager_user = D('users')->where(array('user_id'=>$val['user_id']))->find();
+                $managers[$key]['user'] = $manager_user;
+            }
+            $this->assign("managers",$managers);
             if ($this->isPost()) {
                 $data = $this->editCheck();
                 $data['activity_id'] = $activity_id;
@@ -284,8 +290,14 @@ class ActivityAction extends CommonAction {
        $show = $Page->show();
        $list = $Activitysign->join($join)->where($map)->order(array('sign_id'=>'desc'))->limit($Page->firstRow.','.$Page->listRows)->select();
        $activity_ids = array();
-       foreach($list as  $val){
+       foreach($list as  $key=>$val){
            $activity_ids[$val['activity_id']] = $val['activity_id'];
+           $manager = D('ActivityManager')->where(array('user_id'=>$val['user_id'],'activity_id'=>$activity_id))->find();
+           if(empty($manager)){
+               $list[$key]['is_manager'] = 0; //0不是该活动的管理员
+           }else{
+               $list[$key]['is_manager'] = 1;//是该活动的管理员
+           }
        }
        $this->assign('activity',D('Activity')->itemsByIds($activity_ids));
 	   $this->assign('activity_id',$activity_id);
@@ -323,7 +335,10 @@ class ActivityAction extends CommonAction {
     public function addManager(){
         $ids = $this->_param("user_ids");
         $activity_id = $this->_param("activity_id");
-        D('ActivityManager')->where(array('activity_id'=>$activity_id))->delete();
+        if($flag=$this->_param('flag')){
+        }else{
+            D('ActivityManager')->where(array('activity_id'=>$activity_id))->delete();
+        }
         if(is_array($ids)){
             foreach ($ids as $key=>$val){
                 D('ActivityManager')->add(array('user_id'=>$val,'activity_id'=>$activity_id,'create_time'=>time()));
@@ -331,6 +346,50 @@ class ActivityAction extends CommonAction {
         }else{
             D('ActivityManager')->add(array('user_id'=>$ids,'activity_id'=>$activity_id,'create_time'=>time()));
         }
-        exit;
+        $this->success('操作成功', U('activity/sign',array('activity_id'=>$activity_id)));
+    }
+    public function delete_sign_user($sign_id = 0)
+    {
+        $activity_id = $this->_param('activity_id');
+        if (is_numeric($sign_id) && ($sign_id = (int) $sign_id)) {
+            $obj = D('Activitysign');
+            $obj->delete($sign_id);
+            $obj->cleanCache();
+            $this->success('删除成功！', U('activity/sign',array('activity_id'=>$activity_id)));
+        } else {
+            $sign_id = $this->_post('sign_id', false);
+            if (is_array($sign_id)) {
+                $obj = D('Activitysign');
+                foreach ($sign_id as $id) {
+                    $obj->delete($id);
+                }
+                $this->success('删除成功！', U('activity/sign',array('activity_id'=>$activity_id)));
+            }
+            $this->error('请选择要删除的报名列表');
+        }
+    }
+
+    /**
+     * 停用/恢复用户报名
+     * is_del字段
+     */
+    public function user_sign_unable($sign_id = 0){
+        $sign_id = $this->_param('sign_id');
+        $is_del = $this->_param('is_del'); // 0正常 1停用
+        $activity_id = $this->_param('activity_id');
+        $del_str = $is_del == 1 ? '停用' : '恢复';
+        $obj = D('Activitysign');
+        if($obj->save(array('is_del'=>$is_del,'sign_id'=>$sign_id))){
+            //成功之后检查是否已经开始计时了 ，如果开始了则停止计时
+            $sign_user = D('ActivitySign')->find($sign_id);
+            $activity_log = D('ActivityLogs')
+                ->where(array('user_id'=>$sign_user['user_id'],'activity_id'=>$activity_id,'type'=>0))
+                ->find();
+            if(!empty($activity_log) && empty($activity_log['end_date'])){
+                D('ActivityLogs')->save(array('end_date'=>time(),'update_time'=>time(),'activity_log_id'=>$activity_log['activity_log_id']));
+            }
+
+        }
+        $this->success($del_str . '成功！', U('activity/sign',array('activity_id'=>$activity_id)));
     }
 }

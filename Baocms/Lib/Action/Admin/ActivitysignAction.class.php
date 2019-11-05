@@ -7,6 +7,7 @@ class ActivitysignAction extends CommonAction
         import('ORG.Util.Page');
         // 导入分页类 
         $map = array();
+//        $map['is_del'] = 0;
         $keyword = $this->_param('keyword', 'htmlspecialchars');
         if ($keyword) {
             $map['name|mobile'] = array('LIKE', '%' . $keyword . '%');
@@ -44,7 +45,7 @@ class ActivitysignAction extends CommonAction
         }
 
         $this->assign('activity', D('Activity')->itemsByIds($activity_ids));
-                $this->assign('list', $list);
+        $this->assign('list', $list);
         // 赋值数据集
         $this->assign('page', $show);
         // 赋值分页输出
@@ -68,6 +69,41 @@ class ActivitysignAction extends CommonAction
                 $this->baoSuccess('删除成功！', U('activitysign/index'));
             }
             $this->baoError('请选择要删除的报名列表');
+        }
+    }
+
+    /**
+     * 停用/恢复用户报名
+     * is_del字段
+     */
+    public function user_sign_unable($sign_id = 0){
+        $sign_id = $this->_param('sign_id');
+        $is_del = $this->_param('is_del'); // 0正常 1停用
+        $activity_id = $this->_param('activity_id');
+        $del_str = $is_del == 1 ? '停用' : '恢复';
+        $obj = D('Activitysign');
+        if (is_numeric($sign_id) && ($sign_id = (int) $sign_id)) {
+
+            if($obj->save(array('is_del'=>$is_del,'sign_id'=>$sign_id))){
+                //成功之后检查是否已经开始计时了 ，如果开始了则停止计时
+                $sign_user = D('ActivitySign')->find($sign_id);
+                $activity_log = D('ActivityLogs')
+                    ->where(array('user_id'=>$sign_user['user_id'],'activity_id'=>$activity_id,'type'=>0))
+                    ->find();
+                if(!empty($activity_log) && empty($activity_log['end_date'])){
+                    D('ActivityLogs')->save(array('end_date'=>time(),'update_time'=>time(),'activity_log_id'=>$activity_log['activity_log_id']));
+                }
+            }
+            $this->baoSuccess($del_str . '成功！', U('activitysign/index'));
+        } else {
+            $sign_id = $this->_post('sign_id', false);
+            if (is_array($sign_id)) {
+                foreach ($sign_id as $id) {
+                    $obj->save(array('is_del'=>$is_del,'sign_id'=>$id));
+                }
+                $this->baoSuccess('批量' . $del_str . '成功！', U('activitysign/index'));
+            }
+            $this->baoError('请选择要' .$del_str .'的报名列表');
         }
     }
 }

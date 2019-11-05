@@ -652,7 +652,7 @@ function isPhone($string) {
  * @return boolean
  */
 function isMobile($string) {
-    if(preg_match('/^[1]+[3,4,5,7,8]+\d{9}$/', $string))
+    if(preg_match('/^[1]+[3,4,5,7,8,9]+\d{9}$/', $string))
             return true;
         return false;
     //return ctype_digit($string) && (11 == strlen($string)) && ($string[0] == 1);

@@ -263,6 +263,15 @@ class ActivityAction extends CommonAction
         if ($shop['user_id'] != $user['user_id'] && !$is_manager) {
             $this->error('您不是该活动的管理员，无法计时！');
         }
+        //该志愿者是否被停用二维码
+        $sign_user = D('ActivitySign')->where(array('user_id'=>$sign_user_id))->find();
+        if(empty($sign_user)){
+            $this->error('该用户报名信息有误，无法计时！');
+        }
+        $is_del = $sign_user['is_del'];
+        if($is_del){
+            $this->error('该二维码已被暂时停用，无法计时！');
+        }
 
         $map['today_date'] = date("Y-m-d");
         $map['activity_id'] = $activity_id;

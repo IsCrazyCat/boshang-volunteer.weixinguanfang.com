@@ -24,21 +24,16 @@ class OrganizationAction extends CommonAction{
             $join_count = 0;//该组织下属所有活动的所有参加人数
             $total_time = 0;//该组织下属所有活动的总活动时间
             $year_time = 0;//该组织下属所有活动的今年活动时间
-            $sign_users = array();
             foreach ($activitys as $akey => $aval){
-                $result = lengthOfTime($aval['activity_id']);
+                $result = service_info_organization($aval['activity_id']);
                 //获取该组织下的活动总时长和今年时长
-                $total_time += $result['total_time'];
-                $year_time += $result['year_time'];
+                $total_time += $result['service_time'];
                 //获取该活动下的报名人数和实际参加人数
-                if(!empty($result['ids'])){
-                    $sign_users = array_merge($sign_users,$result['ids']);
-                }
-                $join_count += $result['real_count'];
+                $sign_count += $result['sign_count'];
+                $join_count += $result['join_count'];
             }
-            $sign_count = count(array_unique($sign_users));
+
             $organizations[$key]['total_time'] = $total_time;
-            $organizations[$key]['year_time'] = $year_time;
             $organizations[$key]['sign_count'] = $sign_count;
             $organizations[$key]['join_count'] = $join_count;
             $organizations[$key]['volunteer_count'] = D('OrganizationVolunteer')->where(array('organization_id'=>$val['shop_id']))->count();
@@ -151,8 +146,11 @@ class OrganizationAction extends CommonAction{
         $organizationVolunteers = D('organizationVolunteer')->where(array('user_id'=>$this->uid,'is_del'=>'0','status'=>array('IN','0,1')))->select();
         $organizations = array();
         foreach ($organizationVolunteers as $key=>$volunteer) {
-            $organizations[$key] = D('Shop')->where(array('shop_id' => $volunteer['organization_id'],'audit'=>'1','closed'=>0))->find();
-            $organizations[$key]['user'] = $volunteer;
+            $shop = D('Shop')->where(array('shop_id' => $volunteer['organization_id'],'audit'=>'1','closed'=>0))->find();
+            if(!empty($shop)){
+                $organizations[$key] =$shop;
+                $organizations[$key]['user'] = $volunteer;
+            }
         }
 
         foreach ($organizations as $key => $val){
@@ -165,22 +163,19 @@ class OrganizationAction extends CommonAction{
             $sign_count = 0;//该组织下属所有活动的所有报名人数
             $join_count = 0;//该组织下属所有活动的所有参加人数
             $total_time = 0;//该组织下属所有活动的总活动时间
-            $year_time = 0;//该组织下属所有活动的今年活动时间
+//            $year_time = 0;//该组织下属所有活动的今年活动时间
             $sign_users = array();
             foreach ($activitys as $akey => $aval){
-                $result = lengthOfTime($aval['activity_id']);
+                $result = service_info_organization($aval['activity_id']);
                 //获取该组织下的活动总时长和今年时长
-                $total_time += $result['total_time'];
-                $year_time += $result['year_time'];
+                $total_time += $result['service_time'];
+//                $year_time += $result['year_time'];
                 //获取该活动下的报名人数和实际参加人数
-                if(!empty($result['ids'])){
-                    $sign_users = array_merge($sign_users,$result['ids']);
-                }
-                $join_count += $result['real_count'];
+                $sign_count += $result['sign_count'];
+                $join_count += $result['join_count'];
             }
-            $sign_count = count(array_unique($sign_users));
             $organizations[$key]['total_time'] = $total_time;
-            $organizations[$key]['year_time'] = $year_time;
+//            $organizations[$key]['year_time'] = $year_time;
             $organizations[$key]['sign_count'] = $sign_count;
             $organizations[$key]['join_count'] = $join_count;
             $organizations[$key]['volunteer_count'] = D('OrganizationVolunteer')->where(array('organization_id'=>$val['shop_id']))->count();

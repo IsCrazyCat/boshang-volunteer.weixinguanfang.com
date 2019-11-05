@@ -17,11 +17,9 @@
             <div class="right">
                 <form class="search_form" method="post" action="<{:U('activitysign/index')}>">
                     <div class="seleHidden" id="seleHidden">
-
                         <span>  联系人或电话：</span>
                          <input type="text" name="keyword" id="keyword"  value="<{$keyword}>"   class="inptText" />
                         <input type="submit" value="   搜索"  class="inptButton" />
-
                     </div>
                 </form>
 
@@ -42,12 +40,13 @@
 <!--                <td>报名ID</td>-->
                 <td>活动标题</td>
 <!--                <td>用户ID</td>-->
-                <td>角色</td>
+<!--                <td>角色</td>-->
                 <td>手机号码</td>
                 <td>姓名</td>
                 <td>报名时间</td>
                 <td>服务时长</td>
                 <td>报名IP</td>
+                <td>状态</td>
                 <td>操作</td>
 
                     </tr>
@@ -69,11 +68,23 @@
                     <td><{$var.service_time}></td>
                     <td><{$var.create_ip}></td>
                     <td>
+                        <if condition="$var['is_del'] eq 0">
+                            正常
+                            <else/>
+                            已停用
+                        </if>
+                    </td>
+                    <td>
                         <if condition="$var['is_manager'] eq 0">
                             <{:BA('activity/addManager',array("user_ids"=>$var['user_id'],"activity_id"=>$var['activity_id']),'设为管理员','act','remberBtn')}>
                         </if>
                         <a style="background: #0099cc;color: #fff;padding: 0px 10px;height: 30px;line-height: 30px;display: inline-block;"
                                 href="<{:U('activity/addServiceTime', array('user_id'=>$var['user_id'],'activity_id'=>$var['activity_id']))}>">增加时长</a>
+                        <if condition="$var['is_del'] eq 0">
+                            <{:BA('activitysign/user_sign_unable',array("sign_id"=>$var["sign_id"],'is_del'=>1,'activity_id'=>$var['activity_id']),'停用','act','remberBtn')}>
+                            <else/>
+                            <{:BA('activitysign/user_sign_unable',array("sign_id"=>$var["sign_id"],'is_del'=>0,'activity_id'=>$var['activity_id']),'恢复','act','remberBtn')}>
+                        </if>
                         <{:BA('activitysign/delete',array("sign_id"=>$var["sign_id"]),'删除','act','remberBtn')}>
                     </td>
                 </tr>

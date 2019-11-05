@@ -26,23 +26,41 @@
     <tr style="background-color:#eee;">
       <td>报名ID</td>
       <td>活动标题</td>
-      <td>用户ID</td>
-      <td>人数</td>
+<!--      <td>用户ID</td>-->
+<!--      <td>人数</td>-->
       <td>手机号码</td>
       <td>姓名</td>
       <td>报名时间</td>
-      <td>报名IP</td>
+<!--      <td>报名IP</td>-->
+      <td>角色</td>
+      <td>操作</td>
     </tr>
     <foreach name="list" item="var">
       <tr>
         <td><{$var.sign_id}></td>
         <td><{$activity[$var['activity_id']]['title']}></td>
-        <td><{$var.user_id}></td>
-        <td><{$var.num}></td>
+<!--        <td><{$var.user_id}></td>-->
+<!--        <td><{$var.num}></td>-->
         <td><{$var.mobile}></td>
         <td><{$var.name}></td>
         <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
-        <td><{$var.create_ip}></td>
+<!--        <td><{$var.create_ip}></td>-->
+        <if condition="$var['is_manager'] eq 1">
+          <td>管理员</td>
+          <else/>
+          <td>志愿者</td>
+        </if>
+        <td>
+          <if condition="$var['is_manager'] neq 1">
+              <a href="<{:U('activity/addManager',array('user_ids'=>$var['user_id'],'activity_id'=>$var['activity_id'],'flag'=>1))}>">设为管理员</a>
+          </if>
+          <if condition="$var['is_del'] eq 0">
+              <a href="<{:U('activity/user_sign_unable',array('sign_id'=>$var['sign_id'],'is_del'=>1,'activity_id'=>$var['activity_id']))}>">停用</a>
+            <else/>
+              <a href="<{:U('activity/user_sign_unable',array('sign_id'=>$var['sign_id'],'is_del'=>0,'activity_id'=>$var['activity_id']))}>">恢复</a>
+          </if>
+          <a href="<{:U('activity/delete_sign_user',array('activity_id'=>$var['activity_id'],'activity_id'=>$var['activity_id']))}>">删除</a>
+      </tr>
       </tr>
     </foreach>
   </table>
