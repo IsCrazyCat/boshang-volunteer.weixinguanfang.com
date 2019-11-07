@@ -1,6 +1,6 @@
 <?php
 class ActivityAction extends CommonAction{
-    private $create_fields = array('cate_id', 'shop_id', 'tuan_id', 'city_id', 'area_id', 'business_id', 'title', 'intro', 'photo', 'thumb', 'details', 'price', 'bg_date', 'end_date', 'time', 'sign_end', 'addr', 'orderby', 'sign_num');
+    private $create_fields = array('cate_id', 'user_ids','shop_id', 'tuan_id', 'city_id', 'area_id', 'business_id', 'title', 'intro', 'photo', 'thumb', 'details', 'price', 'bg_date', 'end_date', 'time', 'sign_end', 'addr', 'orderby', 'sign_num');
     private $edit_fields = array('cate_id', 'shop_id', 'tuan_id', 'city_id', 'area_id', 'business_id', 'title', 'intro', 'photo', 'thumb', 'details', 'price', 'bg_date', 'end_date', 'time', 'sign_end', 'addr', 'orderby', 'sign_num');
     public function index()
     {
@@ -47,7 +47,19 @@ class ActivityAction extends CommonAction{
         if ($this->isPost()) {
             $data = $this->createCheck();
             $obj = D('Activity');
-            if ($obj->add($data)) {
+            if ($activity_id = $obj->add($data)) {
+                if(empty($activity_id)){
+                    $this->baoError('管理员添加失败！');
+                }
+                D('ActivityManager')->where(array('activity_id'=>$activity_id))->delete();
+                $ids = $data['user_ids'];
+                if(is_array($ids)){
+                    foreach ($ids as $key=>$val){
+                        D('ActivityManager')->add(array('user_id'=>$val,'activity_id'=>$activity_id,'create_time'=>time()));
+                    }
+                }else{
+                    D('ActivityManager')->add(array('user_id'=>$ids,'activity_id'=>$activity_id,'create_time'=>time()));
+                }
                 $this->baoSuccess('添加成功', U('activity/index'));
             }
             $this->baoError('操作失败！');
@@ -127,6 +139,7 @@ class ActivityAction extends CommonAction{
         if ($words = D('Sensitive')->checkWords($data['intro'])) {
             $this->baoError('活动简介含有敏感词：' . $words);
         }
+        $data['user_ids']=htmlspecialchars($data['user_ids']);
         $data['orderby'] = (int) $data['orderby'];
         $data['create_time'] = NOW_TIME;
         $data['sign_num'] = 0;
@@ -282,6 +295,9 @@ class ActivityAction extends CommonAction{
     public function addManager(){
         $ids = $this->_param("user_ids");
         $activity_id = $this->_param("activity_id");
+        if(empty($activity_id)){
+            $this->baoError('管理员添加失败！');
+        }
         D('ActivityManager')->where(array('activity_id'=>$activity_id))->delete();
         if(is_array($ids)){
             foreach ($ids as $key=>$val){
@@ -290,7 +306,7 @@ class ActivityAction extends CommonAction{
         }else{
             D('ActivityManager')->add(array('user_id'=>$ids,'activity_id'=>$activity_id,'create_time'=>time()));
         }
-        $this->baoSuccess('设置成功！', U('activitysign/index'));
+        $this->baoSuccess('设置成功！');
     }
     public function addServiceTime(){
         $user_id = $this->_param('user_id');

@@ -23,6 +23,7 @@
                 <tr name="activityM">
                     <td class="lfTdBt">管理员：</td>
                     <td class="rgTdBt">
+                        <input type="hidden" value="" id="user_ids" name="data[user_ids]"/>
                         <a mini="select" w="800" h="600" href="<{:U('user/select')}>" onclick="changeNickname()" class="seleSj">选择用户</a>
                         <div style="padding-top: 5px" name="nicknameDiv">
                             <input type="hidden" id="user_id" name="manager_id"
@@ -338,23 +339,23 @@
                 user_ids.each(function (i) {
                     ids[i] = $(this).val();
                 });
-
-                $.ajax({
-                    url: "<{:U('activity/addManager')}>",
-                    type:'post',
-                    data:{
-                        user_ids:ids,
-                        activity_id:$("#activity_id").val()
-                    },
-                    success: function(data){
-                        if(data == "success"){
-
-                        }
-                    },
-                    error:function () {
-
-                    }
-                });
+                $("#user_ids").val(ids);
+                // $.ajax({
+                //     url: "<{:U('activity/addManager')}>",
+                //     type:'post',
+                //     data:{
+                //         user_ids:ids,
+                //         activity_id:$("#activity_id").val()
+                //     },
+                //     success: function(data){
+                //         if(data == "success"){
+                //
+                //         }
+                //     },
+                //     error:function () {
+                //
+                //     }
+                // });
             })
         });
     </script>
