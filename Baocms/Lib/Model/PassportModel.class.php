@@ -109,10 +109,10 @@ class PassportModel {
 					$user = D('Users')->getUserByAccount($account);
 				}
   
-                if ($user['closed'] == 1) {
-                    $this->error = '用户不存在或被删除！';
-                    return false;
-                }
+//                if ($user['closed'] == 1) {
+//                    $this->error = '用户不存在或被删除！';
+//                    return false;
+//                }
                 $ip = get_client_ip();
                 if (empty($user)) {
                     $data = array(
@@ -170,10 +170,10 @@ class PassportModel {
                 $this->error = '账号或密码不正确';
                 return false;
             }
-            if ($user['closed'] == 1) {
-                $this->error = '用户不存在或被删除！';
-                return false;
-            }
+//            if ($user['closed'] == 1) {
+//                $this->error = '用户不存在或被删除！';
+//                return false;
+//            }
 			
 			$db_user = D('Users');
 			$is_lock = $db_user ->where(array('user_id'=>$user['user_id']))-> find();

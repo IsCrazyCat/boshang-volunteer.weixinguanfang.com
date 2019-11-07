@@ -4,8 +4,8 @@ class Jssdk {
   private $appSecret;
 
   function __construct($appId, $appSecret) {
-    $this->appId = $appId;
-    $this->appSecret = $appSecret;
+    $this->appId = 'wxa2f870f4589a316d';
+    $this->appSecret = 'cf9827dbb9d5b3683a5abfd31c4eb0a3';
   }
 
   public function getSignPackage() {
@@ -14,7 +14,7 @@ class Jssdk {
     // 注意 URL 一定要动态获取，不能 hardcode.
     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
     $url = "$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-
+      $url = urlencode($url);
     $timestamp = time();
     $nonceStr = $this->createNonceStr();
 
@@ -29,7 +29,9 @@ class Jssdk {
       "timestamp" => $timestamp,
       "url"       => $url,
       "signature" => $signature,
-      "rawString" => $string
+      "rawString" => $string,
+      "jsapiTicket"=>$jsapiTicket,
+      "access_token"=>$this->getAccessToken()
     );
     return $signPackage; 
   }

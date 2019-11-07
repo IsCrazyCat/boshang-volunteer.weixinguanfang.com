@@ -127,23 +127,27 @@
 
 
                         <td>
-                    <if condition="$var.closed eq 0">
-                        <font style="color: green;">正常</font>
-                        <elseif condition="$var.closed eq 1" />
-                        <font style="color: red;">已删除</font>
-<!--                        <else />-->
-<!--                        <font style="color: gray;">等待激活</font>-->
-                    </if>
-                    </td>
+                            <if condition="$var.closed eq 0">
+                                <font style="color: green;">正常</font>
+                            </if>
+                            <if condition="$var.closed eq 1" >
+                                <font style="color: red;">已停用</font>
+                            </if>
+                        </td>
                     <td class="w150">
 <!--                        <{:BA('user/integral',array("user_id"=>$var["user_id"]),'积分','load','remberBtn_small',600,350)}>-->
 <!--                        <{:BA('user/money',array("user_id"=>$var["user_id"]),'余额','load','remberBtn_small',600,350)}>-->
+                        <if condition="$var.closed eq 0">
+                            <a href="<{:U('user/userClosed',array('user_id'=>$var['user_id'],'closed'=>1))}>" class="remberBtn_small">停用</a>
+                        <else/>
+                            <a href="<{:U('user/userClosed',array('user_id'=>$var['user_id'],'closed'=>0))}>" class="remberBtn_small">恢复</a>
+                        </if>
                         <{:BA('user/addServiceTime',array("user_id"=>$var["user_id"]),'增加时长','load','remberBtn_small',700,600)}>
                         <{:BA('user/edit',array("user_id"=>$var["user_id"]),'编辑','load','remberBtn_small',700,600)}>
                         <{:BA('user/delete',array("user_id"=>$var["user_id"]),'删除','act','remberBtn_small')}>
-                        <eq name="var.closed" value="-1">
-                        <{:BA('user/audit',array("user_id"=>$var["user_id"]),'审核通过','act','remberBtn_small')}>
-                        </eq>  
+<!--                        <eq name="var.closed" value="-1">-->
+<!--                        <{:BA('user/audit',array("user_id"=>$var["user_id"]),'审核通过','act','remberBtn_small')}>-->
+<!--                        </eq>  -->
 <!--                        <eq name="var.is_shop" value="1">-->
 <!--                        <{:BA('user/frozen_gold',array("user_id"=>$var["user_id"]),'设置商户冻结金','load','remberBtn_small_quxiao',600,350)}> -->
 <!--                        </eq>-->
@@ -157,7 +161,7 @@
         </div>
         <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
             <div class="left">
-<!--                <{:BA('user/audit','','批量审核','list',' remberBtn')}>-->
+                <{:BA('user/userClosed',array("user_id"=>1),'批量停用','list',' remberBtn')}>
                 <{:BA('user/delete','','批量删除','list',' a2')}>
             </div>
         </div>

@@ -693,9 +693,8 @@ class ShopAction extends CommonAction
         if (!$volunteer_id) {
             $this->baoError('请选择要操作的志愿者');
         }
-        $data['volunteer_id'] = $volunteer_id;
         if ($volunteer = D('OrganizationVolunteer')->find($volunteer_id)) {
-            if (D('OrganizationVolunteer')->delete($data)) {
+            if (D('OrganizationVolunteer')->delete($volunteer_id)) {
                 $this->baoSuccess('恭喜您，删除成功！');
             } else {
                 $this->baoError('删除失败，请稍后重试！');

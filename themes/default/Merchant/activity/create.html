@@ -287,7 +287,7 @@
                 </tr>
                 <tr>
                     <td class="lfTdBt">活动结束时间：</td>
-                    <td class="rgTdBt"><input autocomplete="off"  type="text" id="end_date" name="data[end_date]" value="" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'bg_date\')}',dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'bg_date\',{H:+8});}',onpicked:endChange})"  class="inputData"  />
+                    <td class="rgTdBt"><input autocomplete="off"  type="text" id="end_date" name="data[end_date]" value="" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'bg_date\')}',dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'bg_date\',{H:+8});}'})"  class="inputData"  />
                     </td>
                 </tr>
                 <tr>
@@ -317,6 +317,15 @@
         </div>
     </div>
     <script>
+        function endChange(){
+            var bg_date = new Date($("#bg_date").val());
+            var end_date = new Date($("#end_date").val());
+            var bg_day = bg_date.getDate();
+            var end_day = end_date.getDate();
+            if(bg_day != end_day){
+                $("#end_date").val($("#bg_date").val().substr(0,10)+" 23:59:59");
+            }
+        }
         $(document).ready(function () {
             function endChange(){
                 var bg_date = new Date($("#bg_date").val());

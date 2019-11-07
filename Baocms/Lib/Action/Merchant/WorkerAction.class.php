@@ -202,7 +202,7 @@ class WorkerAction extends CommonAction {
         }
         $data['volunteer_id'] = $volunteer_id;
         if ($volunteer = D('OrganizationVolunteer')->find($volunteer_id)) {
-            if (D('OrganizationVolunteer')->delete($data)) {
+            if (D('OrganizationVolunteer')->delete($volunteer_id)) {
                 $this->baoSuccess('恭喜您，删除成功！');
             } else {
                 $this->baoError('删除失败，请稍后重试！');

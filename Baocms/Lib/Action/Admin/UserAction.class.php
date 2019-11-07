@@ -6,7 +6,8 @@ class UserAction extends CommonAction{
     public function index(){
         $User = D('Users');
         import('ORG.Util.Page');
-        $map = array('closed' => array('IN', '0,-1'));
+//        $map = array('closed' => array('IN', '0,-1'));
+        $map=array();
         if ($account = $this->_param('account', 'htmlspecialchars')) {
             $map['account'] = array('LIKE', '%' . $account . '%');
             $this->assign('account', $account);
@@ -50,7 +51,8 @@ class UserAction extends CommonAction{
     public function select(){
         $User = D('Users');
         import('ORG.Util.Page');
-        $map = array('closed' => array('IN', '0,-1'));
+//        $map = array('closed' => array('IN', '0,-1'));
+        $map = array();
         if ($account = $this->_param('account', 'htmlspecialchars')) {
             $map['account'] = array('LIKE', '%' . $account . '%');
             $this->assign('account', $account);
@@ -74,7 +76,8 @@ class UserAction extends CommonAction{
     public function selectapp(){
         $User = D('Users');
         import('ORG.Util.Page');
-        $map = array('closed' => array('IN', '0,-1'));
+        //        $map = array('closed' => array('IN', '0,-1'));
+        $map = array();
         if ($account = $this->_param('account', 'htmlspecialchars')) {
             $map['account'] = array('LIKE', '%' . $account . '%');
             $this->assign('account', $account);
@@ -400,5 +403,30 @@ class UserAction extends CommonAction{
         $this->assign('serviceInfo',$result);
         $this->display();
 
+    }
+
+    /**
+     * 停用和恢复某用户的参加活动权限
+     * @param int $user_id 用户ID
+     * 暂时只做单个停用和恢复 以及批量停用 批量恢复暂不实现
+     */
+    public function userClosed($user_id = 0){
+        $closed = $this->_param('closed');
+        $closed_str = $closed==1 ? '停用' : '恢复';
+        if (is_numeric($user_id) && ($user_id = (int) $user_id)) {
+            $obj = D('Users');
+            $obj->save(array('user_id'=>$user_id,'closed'=>$closed));
+            $this->success($closed_str.'成功！', U('user/index'));
+        } else {
+            $user_id = $this->_post('user_id', false);
+            if (is_array($user_id)) {
+                $obj = D('Users');
+                foreach ($user_id as $id) {
+                    $obj->save(array('user_id'=>$id,'closed'=>1));
+                }
+                $this->success('批量停用成功！', U('user/index'));
+            }
+            $this->error('请选择要停用的志愿者');
+        }
     }
 }

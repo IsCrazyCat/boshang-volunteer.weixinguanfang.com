@@ -94,14 +94,14 @@ class ActivitysignAction extends CommonAction
                     D('ActivityLogs')->save(array('end_date'=>time(),'update_time'=>time(),'activity_log_id'=>$activity_log['activity_log_id']));
                 }
             }
-            $this->baoSuccess($del_str . '成功！', U('activitysign/index'));
+            $this->baoSuccess($del_str . '成功！', U('activitysign/index',array('activity_id'=>$activity_id)));
         } else {
             $sign_id = $this->_post('sign_id', false);
             if (is_array($sign_id)) {
                 foreach ($sign_id as $id) {
                     $obj->save(array('is_del'=>$is_del,'sign_id'=>$id));
                 }
-                $this->baoSuccess('批量' . $del_str . '成功！', U('activitysign/index'));
+                $this->baoSuccess('批量' . $del_str . '成功！', U('activitysign/index',array('activity_id'=>$activity_id)));
             }
             $this->baoError('请选择要' .$del_str .'的报名列表');
         }

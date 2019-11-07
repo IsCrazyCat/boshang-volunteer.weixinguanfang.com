@@ -490,7 +490,7 @@ class MemberAction extends CommonAction
 
 
     //图片处理函数
-    function bornshareqrode($head_url,$qrimg,$user_id,$name,$sex,$organization,$reg_date,$vid)
+    public function bornshareqrode($head_url,$qrimg,$user_id,$name,$sex,$organization,$reg_date,$vid)
     {
 //        $head_url='/attachs/2019/10/29/thumb_5db7b08751f4c.jpg';
 //        $name='果果';

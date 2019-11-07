@@ -152,6 +152,15 @@ class ActivityAction extends CommonAction
         if (empty($this->uid)) {
             $this->error('登录状态失效!', U('passport/login'));
         }
+        $user = D('users')->find($this->uid);
+        if(empty($user)){
+            $this->error('登录状态失效!', U('passport/login'));
+        }else{
+            $is_closed = $user['closed'];
+            if($is_closed){
+                $this->error('您已被禁止参加活动，无法报名！',U('user/member/index'));
+            }
+        }
         //$activity_id = (int) $this->_param('activity_id');
         $activity_id = (int)$activity_id;
         $detail = D('Activity')->find($activity_id);
@@ -233,6 +242,9 @@ class ActivityAction extends CommonAction
      * 扫描报名二维码 开始计时或者结束计时
      */
     public function scanScan(){
+        if(empty($this->uid)){
+            $this->error('您尚未登录，请先登录！',U('wap/passport/login'));
+        }
         $user = D('Users')->where(array('user_id' => $this->uid))->find();
         $activity_id = $this->_param('activity_id');
         $sign_user_id = $this->_param('user_id');
@@ -261,16 +273,21 @@ class ActivityAction extends CommonAction
             }
         }
         if ($shop['user_id'] != $user['user_id'] && !$is_manager) {
-            $this->error('您不是该活动的管理员，无法计时！');
+            $this->error('您不是该活动的管理员，无法计时！',U('user/member/index'));
         }
         //该志愿者是否被停用二维码
-        $sign_user = D('ActivitySign')->where(array('user_id'=>$sign_user_id))->find();
+        $sign_user = D('ActivitySign')->where(array('user_id'=>$sign_user_id,'activity_id'=>$activity_id))->find();
         if(empty($sign_user)){
-            $this->error('该用户报名信息有误，无法计时！');
+            $this->error('该用户报名信息有误，无法计时！',U('user/member/index'));
         }
         $is_del = $sign_user['is_del'];
         if($is_del){
-            $this->error('该二维码已被暂时停用，无法计时！');
+            $this->error('该二维码已被暂时停用，无法计时！',U('user/member/index'));
+        }
+        $suser = D('users')->find($sign_user_id);
+        $is_closed = $suser['closed'];
+        if($is_closed){
+            $this->error('该用户已被禁止参加活动，无法计时！',U('user/member/index'));
         }
 
         $map['today_date'] = date("Y-m-d");
