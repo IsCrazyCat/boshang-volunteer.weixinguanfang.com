@@ -53,7 +53,6 @@
                         <td>组织/团体名称</td>
                         <td class="w80">活动标题</td>
                         <td>活动图片</td>
-                        <td>价格</td>
                         <td>活动开始时间</td>
                         <td>活动结束时间</td>
                         <td>报名截止时间</td>
@@ -61,7 +60,8 @@
                         <td>是否审核</td>
                         <td>参加人数</td>
                         <td>活动创建时间</td>
-                        <td>活动创建IP</td>
+<!--                        <td>活动创建IP</td>-->
+                        <td>状态</td>
                         <td>操作</td>
                     <foreach name="list" item="var">
                         <tr>
@@ -71,7 +71,6 @@
                             <td><{$shops[$var['shop_id']]['shop_name']}></td>
                             <td><{$var.title}></td>
                             <td><img src="<{:config_img($var['photo'])}>" class="w120" /></td>
-                            <td><{$var.price}></td>
                             <td><{$var.bg_date}></td>
                             <td><{$var.end_date}></td>
                             <td><{$var.sign_end}></td>
@@ -79,8 +78,20 @@
                             <td><eq name="var.audit" value="0">待确认<else/>已确认</eq></td>
                         <td><{$var.sign_num}></td>
                         <td><{$var.create_time|date="Y-m-d H:i:s",###}></td>
-                        <td><{$var.create_ip}></td>
+<!--                        <td><{$var.create_ip}></td>-->
                         <td>
+                            <if condition="$var.closed eq 0">
+                                正常
+                            <else/>
+                                已关闭
+                            </if>
+                        </td>
+                        <td>
+                            <if condition="$var.closed eq 0">
+                                <{:BA('activity/closed',array("activity_id"=>$var["activity_id"],"closed"=>1),'关闭','','remberBtn')}>
+                            <else/>
+                                <{:BA('activity/closed',array("activity_id"=>$var["activity_id"],"closed"=>0),'开启','','remberBtn')}>
+                            </if>
                             <{:BA('activitysign/index',array("activity_id"=>$var["activity_id"]),'查看报名','','remberBtn')}>
                             <{:BA('activity/edit',array("activity_id"=>$var["activity_id"]),'编辑','','remberBtn')}>
                             <{:BA('activity/delete',array("activity_id"=>$var["activity_id"]),'删除','act','remberBtn')}>

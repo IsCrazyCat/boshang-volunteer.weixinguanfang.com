@@ -6,7 +6,7 @@ class ActivityAction extends CommonAction{
     {
         $Activity = D('Activity');
         import('ORG.Util.Page');
-        $map = array('closed' => 0);
+//        $map = array('closed' => 0);
         $keyword = $this->_param('keyword', 'htmlspecialchars');
         if ($keyword) {
             $map['title'] = array('LIKE', '%' . $keyword . '%');
@@ -52,13 +52,15 @@ class ActivityAction extends CommonAction{
                     $this->baoError('管理员添加失败！');
                 }
                 D('ActivityManager')->where(array('activity_id'=>$activity_id))->delete();
-                $ids = $data['user_ids'];
-                if(is_array($ids)){
-                    foreach ($ids as $key=>$val){
-                        D('ActivityManager')->add(array('user_id'=>$val,'activity_id'=>$activity_id,'create_time'=>time()));
+                if(!empty($data['user_ids'])){
+                    $ids = explode(",",$data['user_ids']);
+                    if(is_array($ids)){
+                        foreach ($ids as $key=>$val){
+                            D('ActivityManager')->add(array('user_id'=>$val,'activity_id'=>$activity_id,'create_time'=>time()));
+                        }
+                    }else{
+                        D('ActivityManager')->add(array('user_id'=>$ids,'activity_id'=>$activity_id,'create_time'=>time()));
                     }
-                }else{
-                    D('ActivityManager')->add(array('user_id'=>$ids,'activity_id'=>$activity_id,'create_time'=>time()));
                 }
                 $this->baoSuccess('添加成功', U('activity/index'));
             }
@@ -354,5 +356,18 @@ class ActivityAction extends CommonAction{
             }
         }
         $this->display();
+    }
+
+    /**
+     * 活动关闭和开启
+     */
+    public function closed(){
+        $activity_id = $this->_param('activity_id');
+        $closed=$this->_param('closed');
+        if(D('Activity')->save(array('activity_id'=>$activity_id,'closed'=>$closed))){
+            $this->success('更新成功！',U('activity/index'));
+        }else{
+            $this->error('更新失败！',U('activity/index'));
+        }
     }
 }

@@ -14,7 +14,8 @@ class ActivityAction extends CommonAction {
     public function index() {
         $Activity = D('Activity');
         import('ORG.Util.Page'); 
-        $map = array('closed' => 0,'shop_id'=>$this->shop_id);
+//        $map = array('closed' => 0,'shop_id'=>$this->shop_id);
+        $map = array('shop_id'=>$this->shop_id);
         $keyword = $this->_param('keyword', 'htmlspecialchars');
         if ($keyword) {
             $map['title'] = array('LIKE', '%' . $keyword . '%');
@@ -391,5 +392,17 @@ class ActivityAction extends CommonAction {
 
         }
         $this->success($del_str . '成功！', U('activity/sign',array('activity_id'=>$activity_id)));
+    }
+    /**
+     * 活动关闭和开启
+     */
+    public function closed(){
+        $activity_id = $this->_param('activity_id');
+        $closed=$this->_param('closed');
+        if(D('Activity')->save(array('activity_id'=>$activity_id,'closed'=>$closed))){
+            $this->success('更新成功！',U('activity/index'));
+        }else{
+            $this->error('更新失败！',U('activity/index'));
+        }
     }
 }

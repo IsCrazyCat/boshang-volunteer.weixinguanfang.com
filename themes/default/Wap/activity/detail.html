@@ -112,7 +112,10 @@
             <eq name="detail['sign']" value="0">
                 <if condition="empty($MEMBER)">
                     <a class="button  bg-dot float-right" href="<{:u('wap/passport/login')}>">登录报名</a>
-                    <else/>
+                <elseif condition="$detail['closed'] eq 1"/>
+                    <a class="button  bg-gray float-right"
+                       href="#" disabled="disabled">截止报名</a>
+                <else/>
                     <a class="button  bg-yellow float-right"
                        href="<{:U('activity/sign',array('activity_id'=>$detail['activity_id']))}>">立即报名</a>
                 </if>

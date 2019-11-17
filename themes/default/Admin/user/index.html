@@ -84,6 +84,7 @@
                     <td class="w50"><input type="checkbox" class="checkAll" rel="user_id" /></td>
                     <td class="w50">ID</td>
                     <td>账户（昵称）</td>
+                    <td>姓名</td>
                     <td>服务时长</td>
 <!--                    <td>志愿者等级</td>-->
 <!--                    <td>账户余额</td>-->
@@ -104,6 +105,9 @@
                         <br/>
                         </if>
                         昵称：<{$var.nickname}>
+                        </td>
+                        <td>
+                            <{$var.real_name}>
                         </td>
                         <td>
                             <{$var.service_info.service_time|default=0}>小时

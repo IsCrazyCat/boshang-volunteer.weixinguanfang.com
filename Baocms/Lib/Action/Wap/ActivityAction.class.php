@@ -65,7 +65,7 @@ class ActivityAction extends CommonAction
     {
         $Activity = D('Activity');
         import('ORG.Util.Page');
-        $map = array('closed' => 0,'audit'=>1);
+        $map = array('audit'=>1);
 
         //活动地点
         if ($area_id = $this->_param('area_id')) {
@@ -123,10 +123,10 @@ class ActivityAction extends CommonAction
             $this->error('该活动信息不存在！');
             die;
         }
-        if ($detail['closed']) {
-            $this->error('该活动信息不存在！');
-            die;
-        }
+//        if ($detail['closed']) {
+//            $this->error('该活动信息不存在！');
+//            die;
+//        }
         $sign = D('Activitysign')->where(array('user_id' => $this->uid, 'activity_id' => $activity_id))->select();
         if (!empty($sign)) {
             $detail['sign'] = 1;
