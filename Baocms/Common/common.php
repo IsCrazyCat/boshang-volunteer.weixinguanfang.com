@@ -1676,10 +1676,11 @@ function service_info_organization($activity_id){
             $service_time +=  $val['add_service_time'];//累计每个活动增加的时长数 单位是小时
         }
         if(!empty($val['start_date'])){
+            //2019-11-26 修改 没有结束扫码 则无效
             if(empty($val['end_date'])){
                 //如果没有结束时间，1活动还未结束，服务时长为当前时间-开始时间 2服务结束时忘记打卡服务时长为活动时长
                 $activity = D('Activity')->find($val);
-                if(time()>strtotime($activity['end_date'])){
+                if(time()<strtotime($activity['end_date'])){
                     //当前时间大于活动结束时间 归于情况1
                     $time += (time()-$val['start_date']);
                 }else{

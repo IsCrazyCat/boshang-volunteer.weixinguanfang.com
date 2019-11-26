@@ -59,6 +59,7 @@ class OrganizationAction extends CommonAction{
         $sign_users = array();//该组织下属所有活动的报名人ID
         foreach ($activitys as $akey => $aval){
             $result = lengthOfTime($aval['activity_id']);
+
             //获取该组织下的活动总时长和今年时长
             $total_time += $result['total_time'];
             $year_time += $result['year_time'];

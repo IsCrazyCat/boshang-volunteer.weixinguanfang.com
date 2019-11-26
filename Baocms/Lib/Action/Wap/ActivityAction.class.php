@@ -141,7 +141,11 @@ class ActivityAction extends CommonAction
         $cates = D('Activitycate')->fetchAll();
 
         $detail['thumb'] = unserialize($detail['thumb']);
-
+        $imgs = array();
+        foreach ($detail['thumb'] as $key=>$val){
+            $imgs[$key] = $val;
+        }
+        $this->assign('imgs', $imgs);
         $this->assign('cates', $cates);
         $this->assign('shop', $shop);
         $this->display();
@@ -176,7 +180,7 @@ class ActivityAction extends CommonAction
             $obj = D('Activitysign');
             $sign = D('Activitysign')->where(array('user_id' => $this->uid, 'activity_id' => $activity_id))->find();
             if($sign){
-                $this->error('您已经报过名，请勿重复操作！',
+                $this->error('您已经报过名，请勿重复操作！id='.$this->uid,
                     U('wap/activity/detail', array('activity_id' => $activity_id)));
             }
             if ($obj->add($data)) {
@@ -230,7 +234,7 @@ class ActivityAction extends CommonAction
         //这里是生成的二维码中的URL，即扫描二维码跳转的链接和参数
         $url = U('/wap/activity/scanScan', array('activity_id' => $activity_id, 'user_id' => $user_id, 't' => NOW_TIME, 'sign' => md5($user_id . $activity_id . C('AUTH_KEY') . NOW_TIME)));
         //这个token只是作为二维码生成后的存放路径的一个依据 并无实际意义
-        $token = 'signcode_' . $activity_id;
+        $token = $user['account'].'_'. $activity_id;
         $file = baoQrCode($token, $url);
         $this->assign('file', $file);
         $this->assign('user', $user);
@@ -248,6 +252,9 @@ class ActivityAction extends CommonAction
         $user = D('Users')->where(array('user_id' => $this->uid))->find();
         $activity_id = $this->_param('activity_id');
         $sign_user_id = $this->_param('user_id');
+        if(empty($sign_user_id)){
+            $this->error('未找到参加活动人员信息，请稍后重试！',U('user/member/index'));
+        }
 
         if (!($activity = D('activity')->where(array('activity_id' => $activity_id))->find())) {
             $this->error('该活动不存在！');
@@ -276,6 +283,7 @@ class ActivityAction extends CommonAction
             $this->error('您不是该活动的管理员，无法计时！',U('user/member/index'));
         }
         //该志愿者是否被停用二维码
+
         $sign_user = D('ActivitySign')->where(array('user_id'=>$sign_user_id,'activity_id'=>$activity_id))->find();
         if(empty($sign_user)){
             $this->error('该用户报名信息有误，无法计时！',U('user/member/index'));
@@ -295,6 +303,7 @@ class ActivityAction extends CommonAction
         $map['user_id'] = $sign_user_id;
         //是否已经参见了活动，没参加活动就开始计时
         $ActivityLogs = D('ActivityLogs')->where(array('activity_id' => $activity_id, 'user_id' => $sign_user_id, 'type'=>0,'today_date' => date("Y-m-d")))->find();
+
         if (!$ActivityLogs) {
             $map['manager_id'] = $user['user_id'];
             $map['start_date'] = time();
@@ -302,12 +311,12 @@ class ActivityAction extends CommonAction
             $map['update_time'] = time();
             $map['add_time'] = time();
             if (D('ActivityLogs')->add($map)) {
-                $this->success('活动' . $activity['name'] . '计时成功！', U('user/member/index'));
+                $this->success('活动' . $activity['title'] . '计时成功！', U('user/member/index'));
             } else {
                 $this->error('操作失败,请重新操作', U('user/member/index'));
             }
         }
-        if($ActivityLogs['end_date']){
+        if(!$ActivityLogs['end_date']){
             //已经开始计时 结束活动计时
             $map['activity_log_id'] = $ActivityLogs['activity_log_id'];
             $map['end_date'] = time();
@@ -315,11 +324,12 @@ class ActivityAction extends CommonAction
             $map['update_time'] = time();
             $map['status'] = '2';
             if (D('ActivityLogs')->save($map)) {
-                $this->success('活动' . $activity['name'] . '计时结束！', U('user/member/index'));
+                $this->success('活动' . $activity['title'] . '计时结束！', U('user/member/index'));
             } else {
                 $this->error('操作失败,请重新操作', U('user/member/index'));
             }
         }else{
+
             $this->error('该志愿者已结束活动，请勿重复计时。', U('user/member/index'));
         }
 
@@ -338,14 +348,27 @@ class ActivityAction extends CommonAction
      * 扫秒志愿者证的二维码 展示服务信息
      */
     public function serviceInfo(){
-        $result = lengthOfTime($this->uid,1);
         $user_id = $this->_param('user_id');
         $user = D('users')->where(array('user_id'=>$user_id))->find();
-
+        $result = service_info_user($user_id);
         $this->assign('user',$user);
-        $this->assign('total_time',$result['total_time']);
-        $this->assign('year_time',$result['year_time']);
-        $this->assign('count',$result['count']);//参加的活动个数
+        $this->assign('total_time',$result['service_time']);
+        $this->assign('year_time',$result['service_time_year']);
+        $this->assign('count',$result['join_count']);//参加的活动个数
         $this->display();
+    }
+    public function test(){
+        $users = D('ActivitySign')->where(array('activity_id'=>10))->select();
+        foreach ($users as $key => $val){
+            $map['today_date'] = date("Y-m-d");
+            $map['activity_id'] = 10;
+            $map['user_id'] = $val['user_id'];
+//            $map['manager_id'] = 13;
+            $map['start_date'] = 1574557200;
+            $map['status'] = '1';
+            $map['update_time'] = time();
+            $map['add_time'] = time();
+            D('ActivityLogs')->add($map);
+        }
     }
 }

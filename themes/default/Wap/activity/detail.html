@@ -65,7 +65,7 @@
                 <ul>
                     <li><a href="javascript:void(0);"><img src="<{:config_img($detail['photo'])}>"/></a></li>
                     <php>$i=0;</php>
-                    <foreach name="detail.thumb" item="item">
+                    <foreach name="imgs" item="item">
                         <php>$i++;if($i<=3){</php>
                         <li><a href="javascript:void(0);"><img src="<{:config_img($item)}>"/></a></li>
                         <php>}</php>
@@ -139,8 +139,8 @@
 
         </p>
 
-        <p>组织/团体地址：<{$detail.addr}></p>
-        <p>位置导航：<a href="<{:U('shop/gps',array('shop_id'=>$shop['shop_id']))}>">到这里去</a></p>
+        <p>活动地址：<{$detail.addr}></p>
+<!--        <p>位置导航：<a href="<{:U('shop/gps',array('shop_id'=>$shop['shop_id']))}>">到这里去</a></p>-->
     </div>
 
 

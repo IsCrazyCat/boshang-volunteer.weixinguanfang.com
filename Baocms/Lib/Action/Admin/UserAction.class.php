@@ -8,9 +8,9 @@ class UserAction extends CommonAction{
         import('ORG.Util.Page');
 //        $map = array('closed' => array('IN', '0,-1'));
         $map=array();
-        if ($account = $this->_param('account', 'htmlspecialchars')) {
-            $map['account'] = array('LIKE', '%' . $account . '%');
-            $this->assign('account', $account);
+        if ($real_name = $this->_param('real_name', 'htmlspecialchars')) {
+            $map['real_name'] = array('LIKE', '%' . $real_name . '%');
+            $this->assign('real_name', $real_name);
         }
         if ($nickname = $this->_param('nickname', 'htmlspecialchars')) {
             $map['nickname'] = array('LIKE', '%' . $nickname . '%');
@@ -53,9 +53,9 @@ class UserAction extends CommonAction{
         import('ORG.Util.Page');
 //        $map = array('closed' => array('IN', '0,-1'));
         $map = array();
-        if ($account = $this->_param('account', 'htmlspecialchars')) {
-            $map['account'] = array('LIKE', '%' . $account . '%');
-            $this->assign('account', $account);
+        if ($real_name = $this->_param('real_name', 'htmlspecialchars')) {
+            $map['real_name'] = array('LIKE', '%' . $real_name . '%');
+            $this->assign('real_name', $real_name);
         }
         if ($nickname = $this->_param('nickname', 'htmlspecialchars')) {
             $map['nickname'] = array('LIKE', '%' . $nickname . '%');
@@ -207,14 +207,24 @@ class UserAction extends CommonAction{
     public function delete($user_id = 0){
         if (is_numeric($user_id) && ($user_id = (int) $user_id)) {
             $obj = D('Users');
-            $obj->delete($user_id);
+            if(!$obj->delete($user_id)){
+                //删除活动列表 和 志愿者信息
+                D('ActivityLogs')->where(array('user_id'=>$user_id))->delete();
+                D('ActivitySign')->where(array('user_id'=>$user_id))->delete();
+                D('organizationVolunteer')->where(array('user_id'=>$user_id))->delete();
+            }
             $this->baoSuccess('删除成功！', U('user/index'));
         } else {
             $user_id = $this->_post('user_id', false);
             if (is_array($user_id)) {
                 $obj = D('Users');
                 foreach ($user_id as $id) {
-                    $obj->delete($id);
+                    if(!$obj->delete($id)){
+                        //删除活动列表 和 志愿者信息
+                        D('ActivityLogs')->where(array('user_id'=>$id))->delete();
+                        D('ActivitySign')->where(array('user_id'=>$id))->delete();
+                        D('organizationVolunteer')->where(array('user_id'=>$id))->delete();
+                    }
                 }
                 $this->baoSuccess('删除成功！', U('user/index'));
             }
