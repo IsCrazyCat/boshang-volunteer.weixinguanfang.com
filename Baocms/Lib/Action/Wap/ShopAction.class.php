@@ -180,6 +180,9 @@ ShopAction extends CommonAction{
             $sign_count += $result['sign_count'];
             $join_count += $result['join_count'];
         }
+        $hour_num = intval($total_time/3600);
+        $second_num = $total_time%60;
+        $total_time = $hour_num.'小时'.$second_num.'分钟';
         $sign_count = count(array_unique($sign_users));
         $organization['total_time'] = $total_time;
         $organization['sign_count'] = $sign_count;

@@ -1496,7 +1496,8 @@ function lengthOfTime($id,$type = 0){
             $add_service_time +=  $val['add_service_time'];
         }
         if(empty($val['end_date'])){
-            $time = (time()-$val['start_date']);
+            //2019-11-26修改 未二次扫码结束计时 数据无效
+//            $time = (time()-$val['start_date']);
         }else{
             $time = ($val['end_date']-$val['start_date']);
         }
@@ -1571,20 +1572,21 @@ function service_info_user($user_id,$activity_id = 0){
         }
         $time = 0;
         if(empty($activityLog['end_date'])){
+            //2019-11-26修改 活动必须二次扫码结束计时 否则无效
             //如果没有结束时间，1活动还未结束，服务时长为当前时间-开始时间 2服务结束时忘记打卡服务时长为活动时长
-            $activity = D('Activity')->find($val);
-            if(time()>strtotime($activity['end_date'])){
-                //当前时间大于活动结束时间 归于情况1
-                $time = (time()-$activityLog['start_date']);
-            }else{
-                //情况2 统计时长 并更新数据
-                $time = (strtotime($activity['end_date'])-$activityLog['start_date']);
-                //更新数据 结束时间更新为活动结束时间
-                $map['activity_log_id'] = $activityLog['activity_log_id'];
-                $map['end_date'] = strtotime($activity['end_date']);
-                $map['update_time'] = time();
-                D('ActivityLogs')->save($map);
-            }
+//            $activity = D('Activity')->find($val);
+//            if(time()>strtotime($activity['end_date'])){
+//                //当前时间大于活动结束时间 归于情况1
+//                $time = (time()-$activityLog['start_date']);
+//            }else{
+//                //情况2 统计时长 并更新数据
+//                $time = (strtotime($activity['end_date'])-$activityLog['start_date']);
+//                //更新数据 结束时间更新为活动结束时间
+//                $map['activity_log_id'] = $activityLog['activity_log_id'];
+//                $map['end_date'] = strtotime($activity['end_date']);
+//                $map['update_time'] = time();
+//                D('ActivityLogs')->save($map);
+//            }
 
         }else{
             $time = ($activityLog['end_date']-$activityLog['start_date']);
@@ -1632,11 +1634,24 @@ function service_info_user($user_id,$activity_id = 0){
 
     //汇总
     //将参加服务的时间转换成小时，超过一小时的部分按照一小时算。即1小时零1分钟按照2个小时算
-    $activity_service_time = ceil($activity_service_time/3600);
-    $activity_service_time_year = ceil($activity_service_time_year/3600);
+    // 2019-11-26修改为时间精准到分钟
+    $service_time = $activity_service_time + $activity_add_time*3600 + $add_time*3600;
+    $service_time = intval($service_time/3600). '小时' . $service_time%60 .'分钟';
 
-    $service_time = $activity_service_time + $activity_add_time + $add_time;
-    $service_time_year = $activity_service_time_year + $activity_add_time_year + $add_time_year;
+    $service_time_year = $activity_service_time_year + $activity_add_time_year*3600 + $add_time_year*3600;
+    $service_time_year = intval($service_time_year/3600). '小时' . $service_time_year%60 .'分钟';
+
+    $activity_total_service_time = $activity_service_time + $activity_add_time*3600;
+    if(!empty($activity_id)&&$activity_total_service_time>0){
+        //是否参加了活动 前提是查询的活动相关 1代表已参加 0代表未参加
+        $result['is_join'] = '1';
+    }
+    $activity_total_service_time = intval($activity_total_service_time/3600). '小时' . $activity_total_service_time%60 .'分钟';
+    $activity_total_service_time_year=$activity_service_time_year + $activity_add_time_year*3600;
+    $activity_total_service_time_year = intval($activity_total_service_time_year/3600). '小时' . $activity_total_service_time_year%60 .'分钟';
+
+    $activity_service_time = intval($activity_service_time/3600). '小时' . $activity_service_time%60 .'分钟';
+    $activity_service_time_year = intval($activity_service_time_year/3600). '小时' . $activity_service_time_year%60 .'分钟';
 
     $result['activity_service_time'] = $activity_service_time;
     $result['activity_service_time_year'] = $activity_service_time_year;
@@ -1646,6 +1661,8 @@ function service_info_user($user_id,$activity_id = 0){
     $result['add_time_year'] = $add_time_year;
     $result['service_time'] = $service_time;
     $result['service_time_year'] = $service_time_year;
+    $result['activity_total_service_time'] = $activity_total_service_time;
+    $result['activity_total_service_time_year'] = $activity_total_service_time_year;
     $result['join_count']=$join_count;
     $result['sign_count']=$sign_count;
 
@@ -1679,26 +1696,27 @@ function service_info_organization($activity_id){
             //2019-11-26 修改 没有结束扫码 则无效
             if(empty($val['end_date'])){
                 //如果没有结束时间，1活动还未结束，服务时长为当前时间-开始时间 2服务结束时忘记打卡服务时长为活动时长
-                $activity = D('Activity')->find($val);
-                if(time()<strtotime($activity['end_date'])){
-                    //当前时间大于活动结束时间 归于情况1
-                    $time += (time()-$val['start_date']);
-                }else{
-                    //情况2 统计时长 并更新数据
-                    $time += (strtotime($activity['end_date'])-$val['start_date']);
-                    //更新数据 结束时间更新为活动结束时间
-                    $map['activity_log_id'] = $val['activity_log_id'];
-                    $map['end_date'] = strtotime($activity['end_date']);
-                    $map['update_time'] = time();
-                    D('ActivityLogs')->save($map);
-                }
+//                $activity = D('Activity')->find($val);
+//                if(time()<strtotime($activity['end_date'])){
+//                    //当前时间大于活动结束时间 归于情况1
+//                    $time += (time()-$val['start_date']);
+//                }else{
+//                    //情况2 统计时长 并更新数据
+//                    $time += (strtotime($activity['end_date'])-$val['start_date']);
+//                    //更新数据 结束时间更新为活动结束时间
+//                    $map['activity_log_id'] = $val['activity_log_id'];
+//                    $map['end_date'] = strtotime($activity['end_date']);
+//                    $map['update_time'] = time();
+//                    D('ActivityLogs')->save($map);
+//                }
             }else{
                 $time += ($val['end_date']-$val['start_date']);
             }
         }
     }
     $join_count = count(array_unique($join_ids));
-    $service_time += ceil($time/3600);
+
+    $service_time = $time + ((int)$service_time)*3600;
 
     $result['sign_count'] = $sign_count;
     $result['join_count'] = $join_count;

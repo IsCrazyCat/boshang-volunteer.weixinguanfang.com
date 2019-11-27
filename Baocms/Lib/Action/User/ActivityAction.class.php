@@ -60,14 +60,14 @@ class ActivityAction extends CommonAction{
             //某活动的服务时长
             $service_info = service_info_user($this->uid,$val['activity_id']);
             //该活动该用户已服务时长 = 用户参加活动的时长 + 用户被添加的时长
-            $service_time = $service_info['activity_service_time'] + $service_info['activity_add_time'];
-            if($service_time){
-                $list[$k]['total_time']=$service_time .'小时';
+            $service_time = $service_info['activity_total_service_time'];
+            if($service_info['is_join']){
+                $list[$k]['total_time']=$service_time ;
             }else{
                 $list[$k]['total_time']='尚未参加活动';
             }
             //该项活动的服务状态 先判断活动是否还在进行中 0未开始 1未参加 2服务中 3服务结束
-            $cur_date = date("Y-m-d");
+            $cur_date = date("Y-m-d H:i:s");
             $start_date = $activity['bg_date'];
             $end_date = $activity['end_date'];
 
@@ -77,7 +77,7 @@ class ActivityAction extends CommonAction{
                 $list[$k]['status'] = 0;
             } else if (strtotime($cur_date) > strtotime($end_date)) {
                 //活动已经结束 查看是否参加过活动
-                if($activityLog){
+                if(!$activityLog){
                     $list[$k]['status'] = 1;
                 }else{
                     $list[$k]['status'] = 3;

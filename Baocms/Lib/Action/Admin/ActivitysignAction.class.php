@@ -27,11 +27,11 @@ class ActivitysignAction extends CommonAction
         $activity_ids = array();
         foreach ($list as $key=>$val) {
             $service_info = service_info_user($val['user_id'],$val['activity_id']);
-            $service_time = $service_info['activity_service_time']+$service_info['activity_add_time'];
-            if(empty($service_time)){
+            $service_time = $service_info['activity_total_service_time'];
+            if(empty($result['is_join'])){
                 $list[$key]['service_time'] = "尚未参加活动";
             }else{
-                $list[$key]['service_time'] = $service_time . "小时";
+                $list[$key]['service_time'] = $service_time;
             }
 
             $activity_ids[$val['activity_id']] = $val['activity_id'];

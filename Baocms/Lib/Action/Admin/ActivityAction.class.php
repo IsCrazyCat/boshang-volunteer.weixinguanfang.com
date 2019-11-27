@@ -326,16 +326,16 @@ class ActivityAction extends CommonAction{
         $activity_time = ceil($activity_time/3600);
 
         //获取活动计时时间
-        $service_info = service_info_user($user_id);
+        $service_info = service_info_user($user_id,$activity_id);
         //该活动该用户已服务时长 = 用户参加活动的时长 + 用户被添加的时长
-        $service_time = $service_info['activity_service_time'] + $service_info['activity_add_time'];
+        $service_time = $service_info['activity_total_service_time'];
         //可添加时长 = 活动总时长 - 该活动该用户已服务时长
-        $add_time = $activity_time - $service_time;//可添加时长
+//        $add_time = $activity_time - $service_time;//可添加时长
         $this->assign('user',$user);
         $this->assign('activity',$activity);
         $this->assign('activity_time',$activity_time);
         $this->assign('service_time',$service_time);
-        $this->assign('add_time',$add_time );
+        $this->assign('add_time',$activity_time );
         if ($this->isPost()) {
             $data['user_id'] = $user_id;
             $data['activity_id'] = $activity_id;

@@ -1,12 +1,6 @@
 <foreach name="list" item="var"> 
                        
-<eq name='key' value='2'>
-	<div class="www_hatudou_com_ad bg">
-        <calldata mdl="Ad" where=" closed=0 AND site_id=57 AND city_id IN ({$city_ids}) and bg_date ELT '{$today}' AND end_date EGT '{$today}' " limit="0,1" cache="7200" order="orderby asc">
-            <a class="external" href="<{:U('app/ad/click',array('ad_id'=>$item['ad_id'],'aready'=>2))}>"><img src="<{:config_img($item['photo'])}>"></a>	
-         </calldata>
-	</div>
-</eq>
+
 <if condition="empty($var['count'])">
     <li class="line" onclick="location='<{:U('news/detail',array('article_id'=>$var['article_id']))}>'">
        <dd class="zhong">

@@ -21,7 +21,6 @@ return  array(
     'ACTION_SUFFIX'         =>  '', // 操作方法后缀
 
 
-
     /* Cookie设置 */
     'COOKIE_EXPIRE'         => 0,    // Coodie有效期
     'COOKIE_DOMAIN'         => 'volunteer.weixinguanfang.com',      // Cookie有效域名按照这个格式修改，修改为你的域名

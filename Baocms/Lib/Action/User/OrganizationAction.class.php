@@ -32,7 +32,9 @@ class OrganizationAction extends CommonAction{
                 $sign_count += $result['sign_count'];
                 $join_count += $result['join_count'];
             }
-
+            $hour_num = intval($total_time/3600);
+            $second_num = $total_time%60;
+            $total_time = $hour_num.'小时'.$second_num.'分钟';
             $organizations[$key]['total_time'] = $total_time;
             $organizations[$key]['sign_count'] = $sign_count;
             $organizations[$key]['join_count'] = $join_count;
@@ -58,21 +60,19 @@ class OrganizationAction extends CommonAction{
         $year_time = 0;//该组织下属所有活动的今年活动时间
         $sign_users = array();//该组织下属所有活动的报名人ID
         foreach ($activitys as $akey => $aval){
-            $result = lengthOfTime($aval['activity_id']);
+            $result = service_info_organization($aval['activity_id']);
 
             //获取该组织下的活动总时长和今年时长
-            $total_time += $result['total_time'];
-            $year_time += $result['year_time'];
+            $total_time += $result['service_time'];
             //获取该活动下的报名人数和实际参加人数
-            if(!empty($result['ids'])){
-                $sign_users = array_merge($sign_users,$result['ids']);
-            }
-
-            $join_count += $result['real_count'];
+            $sign_count += $result['sign_count'];
+            $join_count += $result['join_count'];
         }
-        $sign_count = count(array_unique($sign_users));
+        $hour_num = intval($total_time/3600);
+        $second_num = $total_time%60;
+        $total_time = $hour_num.'小时'.$second_num.'分钟';
         $organization['total_time'] = $total_time;
-        $organization['year_time'] = $year_time;
+//        $organization['year_time'] = $year_time;
         $organization['sign_count'] = $sign_count;
         $organization['join_count'] = $join_count;
         $organizations['volunteer_count'] = D('OrganizationVolunteer')->where(array('organization_id'=>$organization_id))->count();
@@ -106,8 +106,8 @@ class OrganizationAction extends CommonAction{
         }
         $sign_users = D('users')->where(array('user_id'=>array('IN',$sign_user_ids)))->select();
         foreach ($sign_user_ids as $key => $val){
-            $result = lengthOfTime($val,1);
-            $sign_users[$key]['total_time'] = $result['total_time'];
+            $result = service_info_user($val);
+            $sign_users[$key]['total_time'] =$result['service_time'];
         }
 
         $this->assign('volunteers',$sign_users);
@@ -175,6 +175,9 @@ class OrganizationAction extends CommonAction{
                 $sign_count += $result['sign_count'];
                 $join_count += $result['join_count'];
             }
+            $hour_num = intval($total_time/3600);
+            $second_num = $total_time%60;
+            $total_time = $hour_num.'小时'.$second_num.'分钟';
             $organizations[$key]['total_time'] = $total_time;
 //            $organizations[$key]['year_time'] = $year_time;
             $organizations[$key]['sign_count'] = $sign_count;

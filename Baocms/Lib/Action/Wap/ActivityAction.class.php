@@ -303,7 +303,12 @@ class ActivityAction extends CommonAction
         $map['user_id'] = $sign_user_id;
         //是否已经参见了活动，没参加活动就开始计时
         $ActivityLogs = D('ActivityLogs')->where(array('activity_id' => $activity_id, 'user_id' => $sign_user_id, 'type'=>0,'today_date' => date("Y-m-d")))->find();
-
+        if($ActivityLogs['start_date'] > time()){
+            $this->error('活动尚未开始，无法开始/结束计时！', U('user/member/index'));
+        }
+        if($ActivityLogs['end_date'] < time()){
+            $this->error('活动已经结束，无法开始/结束计时！', U('user/member/index'));
+        }
         if (!$ActivityLogs) {
             $map['manager_id'] = $user['user_id'];
             $map['start_date'] = time();
@@ -356,19 +361,5 @@ class ActivityAction extends CommonAction
         $this->assign('year_time',$result['service_time_year']);
         $this->assign('count',$result['join_count']);//参加的活动个数
         $this->display();
-    }
-    public function test(){
-        $users = D('ActivitySign')->where(array('activity_id'=>10))->select();
-        foreach ($users as $key => $val){
-            $map['today_date'] = date("Y-m-d");
-            $map['activity_id'] = 10;
-            $map['user_id'] = $val['user_id'];
-//            $map['manager_id'] = 13;
-            $map['start_date'] = 1574557200;
-            $map['status'] = '1';
-            $map['update_time'] = time();
-            $map['add_time'] = time();
-            D('ActivityLogs')->add($map);
-        }
     }
 }
