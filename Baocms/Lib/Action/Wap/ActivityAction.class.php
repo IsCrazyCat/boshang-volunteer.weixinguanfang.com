@@ -303,10 +303,10 @@ class ActivityAction extends CommonAction
         $map['user_id'] = $sign_user_id;
         //是否已经参见了活动，没参加活动就开始计时
         $ActivityLogs = D('ActivityLogs')->where(array('activity_id' => $activity_id, 'user_id' => $sign_user_id, 'type'=>0,'today_date' => date("Y-m-d")))->find();
-        if($ActivityLogs['start_date'] > time()){
+        if(strtotime($activity['start_date']) > time()){
             $this->error('活动尚未开始，无法开始/结束计时！', U('user/member/index'));
         }
-        if($ActivityLogs['end_date'] < time()){
+        if(strtotime($activity['end_date']) < time()){
             $this->error('活动已经结束，无法开始/结束计时！', U('user/member/index'));
         }
         if (!$ActivityLogs) {
@@ -325,7 +325,7 @@ class ActivityAction extends CommonAction
             //已经开始计时 结束活动计时
             $map['activity_log_id'] = $ActivityLogs['activity_log_id'];
             $map['end_date'] = time();
-            $map['service_time'] = ceil(($map['end_date'] - $map['start_date'])/3600);
+            $map['service_time'] = $map['end_date'] - $map['start_date'];
             $map['update_time'] = time();
             $map['status'] = '2';
             if (D('ActivityLogs')->save($map)) {
