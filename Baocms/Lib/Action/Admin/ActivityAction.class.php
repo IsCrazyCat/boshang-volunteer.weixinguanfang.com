@@ -141,6 +141,7 @@ class ActivityAction extends CommonAction{
         if ($words = D('Sensitive')->checkWords($data['intro'])) {
             $this->baoError('活动简介含有敏感词：' . $words);
         }
+        $data['audit']=1;
         $data['user_ids']=htmlspecialchars($data['user_ids']);
         $data['orderby'] = (int) $data['orderby'];
         $data['create_time'] = NOW_TIME;

@@ -28,7 +28,8 @@ class ActivitysignAction extends CommonAction
         foreach ($list as $key=>$val) {
             $service_info = service_info_user($val['user_id'],$val['activity_id']);
             $service_time = $service_info['activity_total_service_time'];
-            if(empty($result['is_join'])){
+            $activityLog = D('activityLogs')->where(array('user_id'=>$val['user_id'],'activity_id'=>$val['activity_id']))->find();
+            if(empty($activityLog)){
                 $list[$key]['service_time'] = "尚未参加活动";
             }else{
                 $list[$key]['service_time'] = $service_time;
@@ -41,6 +42,10 @@ class ActivitysignAction extends CommonAction
                 $list[$key]['is_manager'] = 0; //0不是该活动的管理员
             }else{
                 $list[$key]['is_manager'] = 1;//是该活动的管理员
+            }
+            $user = D('Users')->find($val['user_id']);
+            if(!empty($user['real_name'])){
+                $list[$key]['real_name'] = $user['real_name'];
             }
         }
 

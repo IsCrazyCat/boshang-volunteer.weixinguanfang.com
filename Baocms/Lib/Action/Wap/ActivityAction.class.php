@@ -65,8 +65,7 @@ class ActivityAction extends CommonAction
     {
         $Activity = D('Activity');
         import('ORG.Util.Page');
-        $map = array('audit'=>1);
-
+        $map = array('audit'=>1,'closed'=>0);
         //活动地点
         if ($area_id = $this->_param('area_id')) {
             $areaInfo = explode("=", $area_id);
@@ -309,7 +308,7 @@ class ActivityAction extends CommonAction
         if(strtotime($activity['end_date']) < time()){
             $this->error('活动已经结束，无法开始/结束计时！', U('user/member/index'));
         }
-        if (!$ActivityLogs) {
+        if (empty($ActivityLogs)) {
             $map['manager_id'] = $user['user_id'];
             $map['start_date'] = time();
             $map['status'] = '1';

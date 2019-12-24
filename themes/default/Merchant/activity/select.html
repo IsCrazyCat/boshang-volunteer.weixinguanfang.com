@@ -49,16 +49,12 @@
                     <div class="left">
                         <div class="seleK">
                             <label>
-                                <span>账户</span>
-                                <input type="text" name="account" value="<{$account}>" class="inptText w100"/>
+                                <span>姓名</span>
+                                <input type="text" name="real_name" value="<{$real_name}>" class="inptText w100" />
                             </label>
                             <label>
                                 <span>昵称</span>
                                 <input type="text" name="nickname" value="<{$nickname}>" class="inptText w100"/>
-                            </label>
-                            <label>
-                                <span>扩展字段</span>
-                                <input type="text" name="ext0" value="<{$ext0}>" class="inptText w100"/>
                             </label>
 
                         </div>
@@ -78,7 +74,7 @@
                         <td class="w50">ID</td>
                         <td>账户</td>
                         <td>昵称</td>
-                        <td>扩展字段</td>
+                        <td>姓名</td>
                     </tr>
                     <foreach name="list" item="var">
                         <tr>
@@ -86,7 +82,7 @@
                             </td>
                             <td><{$var.account}></td>
                             <td><{$var.nickname}></td>
-                            <td><{$var.ext0}></td>
+                            <td><{$var.real_name}></td>
                         </tr>
                     </foreach>
                 </table>

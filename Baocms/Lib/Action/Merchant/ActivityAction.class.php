@@ -138,6 +138,7 @@ class ActivityAction extends CommonAction {
         if ($words = D('Sensitive')->checkWords($data['intro'])) {
             $this->baoError('活动简介含有敏感词：' . $words);
         }
+        $data['audit']=1;
         $data['orderby'] = (int) $data['orderby'];
         $data['create_time'] = NOW_TIME;
         $data['sign_num'] = 0;
@@ -299,6 +300,10 @@ class ActivityAction extends CommonAction {
            }else{
                $list[$key]['is_manager'] = 1;//是该活动的管理员
            }
+           $user = D('Users')->find($val['user_id']);
+           if(!empty($user['real_name'])){
+               $list[$key]['name'] = $user['real_name'];
+           }
        }
        $this->assign('activity',D('Activity')->itemsByIds($activity_ids));
 	   $this->assign('activity_id',$activity_id);
@@ -310,6 +315,10 @@ class ActivityAction extends CommonAction {
         $User = D('Users');
         import('ORG.Util.Page');
         $map = array('closed' => array('IN', '0,-1'));
+        if ($real_name = $this->_param('real_name', 'htmlspecialchars')) {
+            $map['real_name'] = array('LIKE', '%' . $real_name . '%');
+            $this->assign('real_name', $real_name);
+        }
         if ($account = $this->_param('account', 'htmlspecialchars')) {
             $map['account'] = array('LIKE', '%' . $account . '%');
             $this->assign('account', $account);

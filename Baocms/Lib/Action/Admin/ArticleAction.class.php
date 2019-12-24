@@ -258,14 +258,24 @@ class ArticleAction extends CommonAction{
     public function delete($article_id = 0){
         if (is_numeric($article_id) && ($article_id = (int) $article_id)) {
             $obj = D('Article');
-            $obj->save(array('article_id' => $article_id, 'closed' => 1));
+            $article = $obj->find($article_id);
+//            $obj->save(array('article_id' => $article_id, 'closed' => 1));
+            $obj->delete($article_id);
+            if(!empty($article['news_id'])){
+                D('ShopNews')->delete($article['news_id']);
+            }
             $this->baoSuccess('删除成功！', U('article/index'));
         } else {
             $article_id = $this->_post('article_id', false);
             if (is_array($article_id)) {
                 $obj = D('Article');
                 foreach ($article_id as $id) {
-                    $obj->save(array('article_id' => $id, 'closed' => 1));
+//                    $obj->save(array('article_id' => $id, 'closed' => 1));
+                    $article = $obj->find($id);
+                    $obj->delete($id);
+                    if(!empty($article['news_id'])){
+                        D('ShopNews')->delete($article['news_id']);
+                    }
                 }
                 $this->baoSuccess('批量删除成功！', U('article/index'));
             }

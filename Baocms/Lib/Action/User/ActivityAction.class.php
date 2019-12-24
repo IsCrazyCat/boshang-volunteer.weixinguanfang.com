@@ -88,18 +88,15 @@ class ActivityAction extends CommonAction{
                 if(empty($activityLog)){
                     $list[$k]['status'] = 0;
                 }else{
-                    //报名了并且参加了 查看今日是否参加了
-                    $list[$k]['status'] = 3;
-                    foreach ($activityLog as $logKey=>$logval){
-                        if(substr($logval['today_date'],0,4)==date('Y')){
-                            if(!empty($logval['start_date'])){
-                                if(!empty($logval['end_date'])){
-                                    $list[$k]['status'] = 3;
-                                }else{
-                                    $list[$k]['status'] = 2;
-                                }
-                            }
+                    //报名了并且参加了
+                    if(!empty($activityLog['start_date'])){
+                        if(!empty($activityLog['end_date'])){
+                            $list[$k]['status'] = 3;
+                        }else{
+                            $list[$k]['status'] = 2;
                         }
+                    }else{
+                        $list[$k]['status'] = 3;
                     }
                 }
             }

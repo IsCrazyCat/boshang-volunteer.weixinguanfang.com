@@ -4,7 +4,7 @@ class NewsAction extends CommonAction{
     public function index(){
         $Shopnews = D('Shopnews');
         import('ORG.Util.Page');
-        $map = array('shop_id' => $this->shop_id);
+        $map = array('closed'=>1,'shop_id' => $this->shop_id);
         if ($keyword = $this->_param('keyword', 'htmlspecialchars')) {
             $map['title'] = array('LIKE', '%' . $keyword . '%');
             $this->assign('keyword', $keyword);
@@ -40,9 +40,11 @@ class NewsAction extends CommonAction{
 				'create_time' => NOW_TIME, 
 				'create_ip' => get_client_ip()
 			);
-            $articles['article_id'] = D('Article')->add($articles);
+
             $obj = D('Shopnews');
             if ($news_id = $obj->add($data)) {
+                $articles['news_id'] = $news_id;
+                $articles['article_id'] = D('Article')->add($articles);
                 D('Shopfavorites')->save(array('last_news_id' => $news_id), array('where' => array('shop_id' => $this->shop_id)));
                 $this->baoSuccess('添加成功', U('news/index'));
             }
