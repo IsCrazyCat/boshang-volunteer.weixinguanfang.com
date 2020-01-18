@@ -125,7 +125,7 @@ ShopAction extends CommonAction{
                 break;
         }
         $count = $Shop->where($map)->count();
-        $Page = new Page($count, 8);
+        $Page = new Page($count, 15);
         $show = $Page->show();
         $var = C('VAR_PAGE') ? C('VAR_PAGE') : 'p';
         $p = $_GET[$var];

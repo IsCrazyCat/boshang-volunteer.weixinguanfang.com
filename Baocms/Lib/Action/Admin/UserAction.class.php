@@ -44,6 +44,7 @@ class UserAction extends CommonAction{
         }
         $this->assign('list', $list);
         $this->assign('page', $show);
+        $this->assign('nowpage',  $this->_param('p'));
         $this->assign('ranks', D('Userrank')->fetchAll());
 		$this->assign('rank', D('Userrank')->itemsByIds($rank_ids));
         $this->display();
@@ -386,13 +387,13 @@ class UserAction extends CommonAction{
      */
     public function addServiceTime(){
         $user_id = $this->_param('user_id');
+        $nowpage = $this->_param('nowpage');
         if(!$user = D('users')->find($user_id)){
             $this->error("用户ID不能为空");
         }
         $result = service_info_user($user_id);
         if ($this->isPost()) {
             $data['user_id'] = $user_id;
-
             $add_service_time = $this->_param("add_service_time");
             $add_service_msg = $this->_param("add_service_msg");
             $data['add_service_time'] = $add_service_time;
@@ -403,12 +404,20 @@ class UserAction extends CommonAction{
             $data['update_time']=time();
             $data['add_time']=time();
 
-            if(D('ActivityLogs')->add($data)){
-                exit('success');
-            }else{
-                exit('error');
+            if(empty($nowpage)){
+                $nowpage = 0;
             }
+            $result['nowpage'] = $nowpage;
+            if(D('ActivityLogs')->add($data)){
+                $result['status'] = 'success';
+                $result['msg'] = '';
+            }else{
+                $result['status'] = 'error';
+                $result['msg'] = '失败';
+            }
+            exit(json_encode($result));
         }
+        $this->assign('nowpage',$nowpage);
         $this->assign('user',$user);
         $this->assign('serviceInfo',$result);
         $this->display();

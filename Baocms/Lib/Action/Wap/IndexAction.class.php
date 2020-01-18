@@ -179,4 +179,50 @@ class IndexAction extends CommonAction {
         }
         $this->display();
     }
+    public function excelVolunteerInfo($shop_id = 0){
+        $strTable ='<table width="500" border="1">';
+        $strTable .= '<tr>';
+        $strTable .= '<td style="text-align:center;font-size:12px;width:120px;">姓名</td>';
+        $strTable .= '<td style="text-align:center;font-size:12px;" width="100">性别(汉字)</td>';
+        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">性别(代码)</td>';
+        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">注册组织</td>';
+        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">志愿者号</td>';
+        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">银行卡号</td>';
+        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">证件号码</td>';
+        $strTable .= '</tr>';
+        $strTable1 = $strTable;
+        $shops = D('Shop')->select();
+        foreach ($shops as $key=>$shop){
+            $volunteers =  D('OrganizationVolunteer')->where(array('organization_id'=>$shop['shop_id']))->select();
+            foreach ($volunteers as $vkey=>$val){
+                $user = D('Users')->find($val['user_id']);
+                if($user['is_certification']!=1){
+                    continue;
+                }
+                $sexcode = 'M';
+                $sex= '女';
+                if($user['sex']==1){
+                    $sexcode = 'F';
+                    $sex= '男';
+                }
+                $strTable .= '<tr>';
+                $strTable .= '<td style="text-align:center;font-size:12px;">'.$user['real_name'].'</td>';
+                $strTable .= '<td style="text-align:left;font-size:12px;">'.$sex.'</td>';
+                $strTable .= '<td style="text-align:left;font-size:12px;">'.$sexcode.'</td>';
+                $strTable .= '<td style="text-align:left;font-size:12px;">'.$shop['shop_name'].'</td>';
+                $strTable .= '<td style="text-align:left;font-size:12px;">'.$user['vid'].'</td>';
+                $strTable .= '<td style="text-align:left;font-size:12px;"></td>';
+                $strTable .= '<td style="text-align:left;font-size:12px;vnd.ms-excel.numberformat:@;">'.$user['id_num'].'</td>';
+                $strTable .= '</tr>';
+                //二维码照片
+                getImage('volunteer.weixinguanfang.com/attachs/'.$user['qrcode_img_url'],"E:/images/",'c'.$user['id_num'].'.png',1);
+                //个人证件照
+                getImage('volunteer.weixinguanfang.com'.$user['head_url'],"E:/images/",'p'.$user['id_num'].'.png',1);
+            }
+        }
+        $strTable .='</table>';
+        downloadExcel($strTable,' 威海志愿者卡-个人信息文件-');
+        exit();
+    }
+
 }

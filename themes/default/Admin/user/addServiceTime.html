@@ -33,6 +33,7 @@
                     </table>
                 </div>
                 <div class="smtQr"><input type="button" id="subBtn" onclick="subClick()" value="确认添加" class="smtQrIpt" /></div>
+                <input type="hidden" value="<{$nowpage}>" id="nowpage"/>
             </div>
         </form>
     </div>
@@ -54,6 +55,7 @@
     function subClick(){
         var add_service_time = $("#add_service_time").val();
         var add_service_msg = $("#add_service_msg").val();
+        var nowpage = $("#nowpage").val();
         if(add_service_time>0){
             if(add_service_msg.trim()==''){
                 alert("描述不能为空！");
@@ -62,15 +64,17 @@
             $.ajax({
                 url:"<{:U('user/addServiceTime')}>",
                 method:"POST",
+                dataType:"json",
                 data:{
                     "user_id":'<{$user.user_id}>',
                     "add_service_time":add_service_time,
-                    "add_service_msg":add_service_msg
+                    "add_service_msg":add_service_msg,
+                    "nowpage":nowpage
                 },
                 success:function (data) {
-                    if(data=='success'){
+                    if(data.status=='success'){
                         alert("增加时长成功！");
-                        window.location.href = "/admin/user/index";
+                        window.location.href = "/admin/user/index/p/"+data.nowpage;
                     }else{
                         alert("增加时长失败！");
                     }

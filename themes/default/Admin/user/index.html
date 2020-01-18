@@ -99,7 +99,7 @@
                         <td><{$var.user_id}></td>
                         <td>
                         <if condition="!empty($var['account'])">
-                        账户：<{$var.account}>
+                        <{$nowpage}>账户：<{$var.account}>
 <!--                        <eq name="var.is_shop" value="1"><span class="shang">商</span></eq>-->
 <!--                        <eq name="var.is_delivery" value="1"><span class="delivery">配</span></eq>-->
                         <br/>
@@ -146,7 +146,7 @@
                         <else/>
                             <a href="<{:U('user/userClosed',array('user_id'=>$var['user_id'],'closed'=>0))}>" class="remberBtn_small">恢复</a>
                         </if>
-                        <{:BA('user/addServiceTime',array("user_id"=>$var["user_id"]),'增加时长','load','remberBtn_small',700,600)}>
+                        <{:BA('user/addServiceTime',array("user_id"=>$var["user_id"],"nowpage"=>$nowpage),'增加时长','load','remberBtn_small',700,600)}>
                         <{:BA('user/edit',array("user_id"=>$var["user_id"]),'编辑','load','remberBtn_small',700,600)}>
                         <{:BA('user/delete',array("user_id"=>$var["user_id"]),'删除','act','remberBtn_small')}>
 <!--                        <eq name="var.closed" value="-1">-->
