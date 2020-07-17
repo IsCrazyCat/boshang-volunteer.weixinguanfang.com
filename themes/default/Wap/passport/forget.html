@@ -22,10 +22,10 @@
 </div>
 <form action="<{:U('passport/newpwd')}>" method="post" target="x-frame">
 	<if condition="$way eq 2">
-	<div class="line padding border-bottom">
-		<span class="x3 text-gray">用户名</span>
-		<span class="x8"><input type="text" name="account" id="account" class="text-input" placeholder="请输入用户名"></span>
-	</div>
+<!--	<div class="line padding border-bottom">-->
+<!--		<span class="x3 text-gray">用户名</span>-->
+<!--		<span class="x8"><input type="text" name="account" id="account" class="text-input" placeholder="请输入用户名"></span>-->
+<!--	</div>-->
     
 	<div class="line padding border-bottom">
 		<span class="x3 text-gray">输入手机</span>
@@ -54,10 +54,10 @@
 		<span class="x3 text-gray">邮箱</span>
 		<span class="x8"><input type="text" name="email" id="email" class="text-input" placeholder="请输入邮箱"></span>
 	</div>
-    <div class="line padding border-bottom">
-		<span class="x3 text-gray">用户名</span>
-		<span class="x8"><input type="text" name="account" id="account" class="text-input" placeholder="请输入用户名"></span>
-	</div>
+<!--    <div class="line padding border-bottom">-->
+<!--		<span class="x3 text-gray">用户名</span>-->
+<!--		<span class="x8"><input type="text" name="account" id="account" class="text-input" placeholder="请输入用户名"></span>-->
+<!--	</div>-->
     
     <div class="line padding border-bottom">
 		<span class="x3 text-gray">验证码</span>
@@ -83,7 +83,7 @@
                     mobile_lock = 1;
                     $.ajax({
                         url: '<{:U("passport/findsms")}>',
-                        data: 'mobile=' + $("#mobile").val() + '&account=' + $("#account").val(),
+                        data: 'mobile=' + $("#mobile").val() ,
                         type: 'post',
                         success: function (data) {
                             if (data == 1) {

@@ -164,8 +164,9 @@
                                         }
                                     });
                                     uploader.on('uploadSuccess', function (file, resporse) {
-                                        $("#data_face").val(resporse.url);
-                                        $("#face_img").attr('src', resporse.url).show();
+                                        var imgurl = resporse.url.replace('thumb_','');
+                                        $("#data_face").val(imgurl);
+                                        $("#face_img").attr('src', imgurl).show();
                                     });
                                     uploader.on('uploadError', function (file) {
                                         alert('上传出错');
@@ -201,8 +202,9 @@
                                         }
                                     });
                                     uploader.on('uploadSuccess', function (file, resporse) {
-                                        $("#head_url").val(resporse.url);
-                                        $("#head_url_img").attr('src', resporse.url).show();
+                                        var imgurl = resporse.url.replace('thumb_','');
+                                        $("#head_url").val(imgurl);
+                                        $("#head_url_img").attr('src',imgurl).show();
                                     });
                                     uploader.on('uploadError', function (file) {
                                         alert('上传出错');

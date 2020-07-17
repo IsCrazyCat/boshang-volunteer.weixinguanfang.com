@@ -442,25 +442,21 @@ class PassportAction extends CommonAction{
     }
     public function newpwd()
     {
-        $account = $this->_post('account');
-        if (empty($account)) {
-            session('verify', null);
-            $this->fengmiMsg('请输入用户名!');
-        }
-        $user = D('Users')->getUserByAccount($account);
-        if (empty($user)) {
-            session('verify', null);
-            $this->fengmiMsg('用户不存在!');
-        }
         $way = (int) $this->_param('way');
         $password = rand_string(8, 1);
         if ($way == 1) {
+            $email = $this->_post('email');
+            $user = D('Users')->getUserByEmail($email);
+            if (empty($user)) {
+                session('verify', null);
+                $this->fengmiMsg('用户不存在!');
+            }
             $yzm = $this->_post('yzm');
             if (strtolower($yzm) != strtolower(session('verify'))) {
                 session('verify', null);
                 $this->fengmiMsg('验证码不正确!');
             }
-            $email = $this->_post('email');
+
             if (empty($email) || $email != $user['email']) {
                 $this->fengmiMsg('邮件不正确');
             }
@@ -468,6 +464,11 @@ class PassportAction extends CommonAction{
             D('Email')->sendMail('email_newpwd', $email, '重置密码', array('newpwd' => $password));
         } elseif ($way == 2) {
             $mobile = htmlspecialchars($_POST['mobile']);
+            $user = D('Users')->getUserByMobile($mobile);
+            if (empty($user)) {
+                session('verify', null);
+                $this->fengmiMsg('用户不存在!');
+            }
             if (!($scode = trim($_POST['scode']))) {
                 $this->fengmiMsg('请输入短信验证码！');
             }
@@ -498,10 +499,10 @@ class PassportAction extends CommonAction{
         if (!isMobile($mobile)) {
             die('请输入正确的手机号码');
         }
-        if (!($account = htmlspecialchars($_POST['account']))) {
-            die('请填写账号');
-        }
-        if ($user = D('Users')->getUserByAccount($account)) {
+//        if (!($account = htmlspecialchars($_POST['account']))) {
+//            die('请填写账号');
+//        }
+        if ($user = D('Users')->getUserByMobile($mobile)) {
             if (empty($user['mobile'])) {
                 die('你还未绑定手机号，请选择其他方式！');
             } else {
