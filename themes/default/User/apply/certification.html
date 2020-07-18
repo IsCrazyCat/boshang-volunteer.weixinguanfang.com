@@ -164,7 +164,7 @@
                 swf: '/static/default/webuploader/Uploader.swf',
                 server: '<{:U("app/upload/upload",array("model"=>"user"))}>',
                 pick: '#fileUpload',
-                resize: false,//尺寸不改变
+                resize: true,//尺寸不改变
                 //  allowMagnify 是否允许放大，如果想要生成小图的时候不失真，此选项应该设置为false.  crop 是否裁剪
                 compress:{width:850,quality:100,allowMagnify: false,crop: false},
 
